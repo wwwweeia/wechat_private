@@ -1,13 +1,44 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/jubao/jubao",
+    "pages/user/user",
+    "pages/swiper/swiper",
+    "pages/ceshi/ceshi",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 50
+  },
+  "tabBar": {
+    "selectedColor": "#2e5e86",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home1.png",
+        "selectedIconPath": "images/home2.png"
+      },
+      {
+        "pagePath": "pages/jubao/jubao",
+        "text": "上报",
+        "iconPath": "images/jubao1.png",
+        "selectedIconPath": "images/jubao2.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "个人中心",
+        "iconPath": "images/user1.png",
+        "selectedIconPath": "images/user2.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
   },
   "sitemapLocation": "sitemap.json"
 }
