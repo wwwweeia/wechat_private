@@ -1,4 +1,5 @@
 Page({
+
   data: {
     // 问题栏默认值
     TabCur: null,

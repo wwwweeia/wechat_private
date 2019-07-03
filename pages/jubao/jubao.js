@@ -2,7 +2,6 @@
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
     longitude: 113.324520,
@@ -41,15 +40,18 @@ Page({
     //举报内容
     textareaAValue: '',
     //上传资源所属类别(举报or地址)
-    type:'',
+    type: '',
     //地址资源总长度   限制上传数量
-    addslength:0,
+    addslength: 0,
     //举报资源总长度  限制上传数量
-    reportlength:0,
+    reportlength: 0,
     //举报描述
-    desc:'',
-    test:[],
-      },
+    desc: '',
+    ids: [],
+    test: [],
+    //
+    answerId: ''
+  },
   regionchange(e) {
     console.log(e.type)
   },
@@ -67,7 +69,7 @@ Page({
     let that = this;
     wx.request({
       url: "http://221.216.95.200:8285/home/manage/searchQuestionSorts",
-      //url: "http://192.168.15.193:8199/home/manage/searchQuestionSorts",
+      //url: "http://221.216.95.200:8285/home/manage/searchQuestionSorts",
       success(res) {
         if (res.data.httpStatusCode === 200) {
           for (let i = 0; i < res.data.retObj.length; i++) {
@@ -222,13 +224,13 @@ Page({
     console.log(e.detail)
   },
   showModal(e) {
-  	console.log(e);
+    console.log(e);
     this.setData({
       modalName: e.currentTarget.dataset.target
     })
   },
   showModal2(e) {
-    var type =e.currentTarget.dataset.type;
+    var type = e.currentTarget.dataset.type;
     // var length =0;
     // if(type=="adds"){
     //   length = this.data.addressImgList.length + this.data.addressVideoList.length;
@@ -287,7 +289,6 @@ Page({
   ChooseCheckbox(e) {
     let items = this.data.problemType;
     let values = e.currentTarget.dataset.value;
-    console.log(values)
     for (let i = 0, lenI = items.length; i < lenI; ++i) {
       if (items[i].id == values) {
         items[i].checked = !items[i].checked;
@@ -299,8 +300,8 @@ Page({
     })
   },
   ChooseImage(e) {
-    var type =this.data.type;
-    if(type=='adds'){
+    var type = this.data.type;
+    if (type == 'adds') {
       wx.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -310,18 +311,18 @@ Page({
             this.setData({
               addressImgList: this.data.addressImgList.concat(res.tempFilePaths),
               modalName: '',
-              addslength:this.data.addslength+1
+              addslength: this.data.addslength + 1
             })
           } else {
             this.setData({
               addressImgList: res.tempFilePaths,
               modalName: '',
-              addslength: this.data.addslength+1
+              addslength: this.data.addslength + 1
             })
           }
         }
       });
-    }else{
+    } else {
       wx.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -331,7 +332,7 @@ Page({
             this.setData({
               imgList: this.data.imgList.concat(res.tempFilePaths),
               modalName: '',
-              reportlength:this.data.reportlength+1
+              reportlength: this.data.reportlength + 1
             })
           } else {
             this.setData({
@@ -347,8 +348,11 @@ Page({
   chooseVideo() {
     let vm = this;
     //因为上传视频返回的数据类型与图片不一样  需要建缩略图的url放到数组中
-    var urlArray=[];
-    var obj = { 'src': '','poster':''}; 
+    var urlArray = [];
+    var obj = {
+      'src': '',
+      'poster': ''
+    };
     var type = this.data.type;
     if (type == 'adds') {
       wx.chooseVideo({
@@ -363,20 +367,20 @@ Page({
             vm.setData({
               addressVideoList: vm.data.addressVideoList.concat(urlArray),
               modalName: '',
-              addslength:vm.data.addslength+1
+              addslength: vm.data.addslength + 1
             })
-         //   vm.data.addrvideoSrcs.push(res.tempFilePath)
+            //   vm.data.addrvideoSrcs.push(res.tempFilePath)
           } else {
             vm.setData({
               addressVideoList: urlArray,
               modalName: '',
-              addslength: vm.data.addslength+1
+              addslength: vm.data.addslength + 1
             })
-        //    vm.data.addrvideoSrcs.push(res.tempFilePath)
+            //    vm.data.addrvideoSrcs.push(res.tempFilePath)
           }
         }
       })
-    }else{
+    } else {
       wx.chooseVideo({
         sourceType: ['album', 'camera'],
         maxDuration: 30,
@@ -389,22 +393,22 @@ Page({
             vm.setData({
               videoList: vm.data.videoList.concat(urlArray),
               modalName: '',
-              reportlength:vm.data.reportlength+1
+              reportlength: vm.data.reportlength + 1
             })
-          //  vm.data.videoSrcs.push(res.tempFilePath)
+            //  vm.data.videoSrcs.push(res.tempFilePath)
           } else {
             vm.setData({
               videoList: urlArray,
               modalName: '',
-              reportlength: vm.data.reportlength+1
+              reportlength: vm.data.reportlength + 1
             })
-          //  vm.data.videoSrcs.push(res.tempFilePath)
+            //  vm.data.videoSrcs.push(res.tempFilePath)
           }
         }
       })
     }
-   
-    
+
+
   },
   ViewImageForreport(e) {
     wx.previewImage({
@@ -423,21 +427,21 @@ Page({
     });
   },
   ViewVideoForadds(e) {
-    this.VideoContext = wx.createVideoContext('addsVideo'+e.currentTarget.dataset.index);
+    this.VideoContext = wx.createVideoContext('addsVideo' + e.currentTarget.dataset.index);
     this.VideoContext.requestFullScreen(0);
   },
-  start(e){
+  start(e) {
     let fullScreen = e.detail.fullScreen;
-    if (!fullScreen){
+    if (!fullScreen) {
       this.VideoContext.pause();
-    }else{
+    } else {
       this.VideoContext.play();
     }
-    
+
   },
   DelImg(e) {
     // 'reportImg' 举报图片  'reportVideo' 举报视频 'addsImg'地址图片 'addsVideo' 地址视频
-    var type=e.currentTarget.dataset.type;
+    var type = e.currentTarget.dataset.type;
     wx.showModal({
       // title: '召唤师',
       content: '确定要删除这条图片/视频吗？',
@@ -445,11 +449,11 @@ Page({
       confirmText: '确定',
       success: res => {
         if (res.confirm) {
-          if(type=="reportImg"){
+          if (type == "reportImg") {
             this.data.imgList.splice(e.currentTarget.dataset.index, 1);
             this.setData({
               imgList: this.data.imgList,
-              reportlength:this.data.reportlength-1
+              reportlength: this.data.reportlength - 1
             })
           }
           if (type == "reportVideo") {
@@ -457,7 +461,7 @@ Page({
             //this.data.videoSrcs.splice(e.currentTarget.dataset.index, 1);
             this.setData({
               videoList: this.data.videoList,
-            //  videoSrcs:this.data.videoSrcs,
+              //  videoSrcs:this.data.videoSrcs,
               reportlength: this.data.reportlength - 1
             })
           }
@@ -465,7 +469,7 @@ Page({
             this.data.addressImgList.splice(e.currentTarget.dataset.index, 1);
             this.setData({
               addressImgList: this.data.addressImgList,
-              addslength:this.data.addslength-1
+              addslength: this.data.addslength - 1
             })
           }
           if (type == "addsVideo") {
@@ -499,35 +503,10 @@ Page({
   // textareaAInput(e){
   //       this.data.desc=e.detail.value;
   // },
+
   //提交按钮
-  submit(){
-    //问题分类
-    var qustionSort = this.data.showProblemType;
-    //举报描述
-    var desc = this.data.desc;
-
-
-     //举报图片集合
-    var reportImg = this.data.imgList;
-     //举报视频集合
-    var reportVideo = this.data.videoList;
-     //地址图片集合
-    var addsImg = this.data.addressImgList;
-     //地址视频集合
-    var addsVideo = this.data.addressVideoList;
-     //举报描述
-    var desc = this.data.desc;
-    console.log('qustionSort', qustionSort.length);
-    console.log(reportImg.length);
-    console.log('reportVideo', reportVideo.length);
-    console.log('addsResouce', addsImg.length);
-    console.log('addsVideo', addsVideo.length);
-    console.log('desc', desc);
-   
-
-
-
-
+  submit() {
+    var that = this;
     //  if (qustionSort.length<1){
     //    wx.showToast({
     //      title: '请选择问题类型',
@@ -555,41 +534,242 @@ Page({
     //   })
     //   return
     // } 
-    if(desc==''){
-      wx.showToast({
-        title: '请填写举报描述',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
+    // if(desc==''){
+    //   wx.showToast({
+    //     title: '请填写举报描述',
+    //     icon: 'none',
+    //     duration: 1000,
+    //     mask: true
+    //   })
+    //   return
+    // }
+
+
+    //问题分类
+    var qustionSort = this.data.showProblemType;
+    //举报描述
+    var desc = this.data.desc;
+    //举报经纬度
+    var longitude = this.data.longitude;
+    var latitude = this.data.latitude;
+    //举报地址
+    var address = this.data.address;
+
+    // console.log("地址：", address);
+    // console.log("经度：", longitude);
+    // console.log("纬度：", latitude);
+    // console.log("选中的问题分类", qustionSort);
+    // console.log('举报描述', desc);
+
+
+
+    var sortIds = '';
+    for (let i = 0; i < qustionSort.length; i++) {
+      sortIds += qustionSort[i].id + ','
     }
+    sortIds = sortIds.substring(0, sortIds.length - 1)
+    //发送请求到后台，存储：经纬度、地址、描述、问题ID
+    wx.request({
+      url: "http://221.216.95.200:8285/home/manage/createAnswer",
+      data: {
+        "longitude": longitude,
+        "latitude": latitude,
+        "address": address,
+        "desc": desc,
+        "qustionSort": sortIds,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      success(res) {
+        console.log("answerId:", res);
+        //得到答案id
+        // 执行图片上传递归函数
+        that.uploadImage(0, res.data.retObj);
+       
 
 
 
-    if (reportImg.length > 0) {
-      for (let i = 0; i < reportImg.length; i++) {
-        wx.uploadFile({
-          url: 'http://192.168.15.193:8199/home/manage/upload', //仅为示例，非真实的接口地址
-          filePath: reportImg[i],
-          name: 'reportImg' + i,
-          formData: {
-            'desc': desc,
-            'fileKey': 'reportImg' + i
-          },
-          success(res) {
-            const data = res.data
-            console.log(data)
-            //do something
+
+      },
+      //请求失败
+      fail: function(err) {
+        console.log("请求失败：", err)
+      },
+      complete: function() {} //请求完成后执行的函数
+    })
+
+      wx.showLoading({
+      title: '资源上传中...',
+      mask: true,
+    })
+    setTimeout(function() {
+      wx.hideLoading()
+    }, 2000)
+
+    setTimeout(function() {
+     wx.showToast({
+          title: '已提交!',
+          mask: true,
+          // success() {
+          //   wx.switchTab({
+          //    url: '../user/user',
+          //   })
+          // }
+        })
+    }, 3000)
+       
+
+  },
+
+  /**
+   * 图片/视频资源上传
+   * @param e(index) 当前图片下标
+   */
+  uploadImage: function(e, answerId) {
+    console.log("answerId1111", answerId)
+    var index = e;
+    var that = this;
+    //举报图片集合
+    var reportImg = that.data.imgList;
+    //举报视频集合
+    var reportVideo = that.data.videoList;
+    //地址图片集合
+    var addsImg = that.data.addressImgList;
+    //地址视频集合
+    var addsVideo = that.data.addressVideoList;
+  
+
+
+
+    if (index < reportImg.length) {
+      console.log("这里上传举报图片");
+      wx.uploadFile({
+        url: 'http://221.216.95.200:8285/home/manage/upload', //仅为示例，非真实的接口地址
+        filePath: reportImg[index],
+        name: 'reportImg' + index,
+        formData: {
+          'answerId': answerId,
+          'key': 'reportImg' + index,
+        },
+        success(res) {
+          // 操作成功
+          if (res.data.status === "success") {
+            // 递归调用自身
+            that.uploadImage(index + 1)
+          } else if (res.data.status === "failure") { // 操作失败
             wx.showToast({
-              title: '上传了',
-              icon: 'none',
-              duration: 1000,
-              mask: true
+              title: "上传失败",
+              icon: 'none'
             })
           }
-        })
-      }
+        },
+        //请求失败
+        fail: function(err) {
+          console.log("上传举报图片请求失败：", err)
+        }
+
+
+      })
     }
+  
+
+    if (index < addsImg.length) {
+      console.log("这里上传地址图片");
+      wx.uploadFile({
+        url: 'http://221.216.95.200:8285/home/manage/upload', //仅为示例，非真实的接口地址
+        filePath: addsImg[index],
+        name: 'addsImg' + index,
+        formData: {
+          'answerId': answerId,
+          'key': 'addsImg' + index,
+        },
+        success(res) {
+          // 操作成功
+          if (res.data.status === "success") {
+            // 递归调用自身
+            that.uploadImage(index + 1)
+          } else if (res.data.status === "failure") { // 操作失败
+            wx.showToast({
+              title: "上传失败",
+              icon: 'none'
+            })
+          }
+        },
+        //请求失败
+        fail: function(err) {
+          console.log("上传地址图片请求失败：", err)
+        }
+
+      })
+    }
+
+    if (index < reportVideo.length) {
+      console.log("这里上传举报视频");
+      wx.uploadFile({
+        url: 'http://221.216.95.200:8285/home/manage/upload', //仅为示例，非真实的接口地址
+        filePath: reportVideo[index].src,
+        name: 'reportVideo' + index,
+        formData: {
+          'answerId': answerId,
+          'key': 'reportVideo' + index,
+        },
+        success(res) {
+          // 操作成功
+          if (res.data.status === "success") {
+            // 递归调用自身
+            that.uploadImage(index + 1)
+          } else if (res.data.status === "failure") { // 操作失败
+            wx.showToast({
+              title: "上传失败",
+              icon: 'none'
+            })
+          }
+        },
+        //请求失败
+        fail: function(err) {
+          console.log("上传举报视频请求失败：", err)
+        }
+
+      })
+    }
+
+    if (index < addsVideo.length) {
+      console.log("这里上传地址视频");
+      wx.uploadFile({
+        url: 'http://221.216.95.200:8285/home/manage/upload', //仅为示例，非真实的接口地址
+        filePath: addsVideo[index].src,
+        name: 'addsVideo' + index,
+        formData: {
+          'answerId': answerId,
+          'key': 'addsVideo' + index,
+        },
+        success(res) {
+          // 操作成功
+          if (res.data.status === "success") {
+            // 递归调用自身
+            that.uploadImage(index + 1)
+          } else if (res.data.status === "failure") { // 操作失败
+            wx.showToast({
+              title: "上传失败",
+              icon: 'none'
+            })
+          }
+        },
+        //请求失败
+        fail: function(err) {
+          console.log("上传地址视频请求失败：", err)
+        }
+
+      })
+    }
+
+       
+
+
   },
+
+
 })

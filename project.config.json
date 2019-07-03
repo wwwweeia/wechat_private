@@ -49,11 +49,11 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "ceshi",
+					"id": 0,
+					"name": "测试",
 					"pathName": "pages/ceshi/ceshi",
 					"query": "",
 					"scene": null
@@ -69,6 +69,14 @@
 					"id": -1,
 					"name": "举报",
 					"pathName": "pages/jubao/jubao",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/user/user",
+					"query": "",
 					"scene": null
 				}
 			]
