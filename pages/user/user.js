@@ -49,9 +49,9 @@ Page({
             var userNick = res.userInfo.nickName; //用户昵称 
             var avataUrl = res.userInfo.avatarUrl; //用户头像地址 
             var gender = res.userInfo.gender; //用户性别 1男
-             // console.log("userNick:",userNick);
-             //  console.log("avataUrl:",avataUrl);
-             //   console.log("gender:",gender);
+             console.log("userNick:",userNick);
+              console.log("avataUrl:",avataUrl);
+               console.log("gender:",gender);
               that.setData({
                 nick: userNick,
                 avataUrl: avataUrl

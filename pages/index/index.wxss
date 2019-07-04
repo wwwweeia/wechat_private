@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20rpx;
+
 }
 
 .other-img-wrap {
@@ -18,11 +19,14 @@
   justify-content: center;
   align-items: center;
   width: 30%;
+
 }
 
 .other-img-wrap image {
   width: 90%;
   border-radius: 15rpx;
+
+
 }
 
 .other-info {

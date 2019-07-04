@@ -568,7 +568,7 @@ Page({
       sortIds += qustionSort[i].id + ','
     }
     sortIds = sortIds.substring(0, sortIds.length - 1)
-    //发送请求到后台，存储：经纬度、地址、描述、问题ID
+    //发送请求到后台，存储：经纬度、地址、描述、问题ID 
     wx.request({
       url: "http://221.216.95.200:8285/home/manage/createAnswer",
       data: {
@@ -619,7 +619,14 @@ Page({
           //   })
           // }
         })
-    }, 3000)
+    }, 2500)
+
+    setTimeout(function() {
+    wx.reLaunch({
+      url: "../success/success"
+    })
+    }, 4000)
+    
        
 
   },

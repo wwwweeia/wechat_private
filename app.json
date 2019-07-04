@@ -5,7 +5,7 @@
     "pages/user/user",
     "pages/swiper/swiper",
     "pages/ceshi/ceshi",
-    "pages/test/test"
+      "pages/success/success"
   ],
   "window": {
     "backgroundTextStyle": "light",
