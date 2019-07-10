@@ -20,9 +20,8 @@ Page({
     //任务进度图片
     imgSrc: [],
     //任务进度视频
-    videoSrc: []
-
-
+    videoSrc: [],
+    //判断任务进度颜色
   },
 
 
@@ -96,8 +95,6 @@ Page({
 
             })
           
-          
-
         }
 
 
@@ -106,7 +103,6 @@ Page({
       fail: function(err) {},
       //请求完成后执行的函数
       complete: function() {
-       
           }
          
 

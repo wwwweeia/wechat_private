@@ -2084,7 +2084,7 @@ button.icon.lg {
 }
 
 .cu-timeline>.cu-item>.content:not([class*="bg-"]) {
-	background-color: var(--ghostWhite);
+	/*background-color: var(--ghostWhite);*/
 	color: var(--black);
 }
 

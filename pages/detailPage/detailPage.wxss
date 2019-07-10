@@ -53,3 +53,40 @@
   padding: 10rpx;
   font-size: 28rpx;
 }
+.cu-timeline>.cu-item>.content {
+  padding: 15rpx;
+  border-radius: 6rpx;
+  display: block;
+}
+.cu-timeline>.cu-item>.content:not([class*="bg-"]) {
+ 
+  color: var(--black);
+}
+
+
+.cu-bar-neirong {
+  display: flex;
+  position: relative;
+  align-items: center;
+  min-height: 100rpx;
+  /*justify-content: space-between;*/
+}
+.padding-neirong {
+  padding: 10rpx;
+
+}
+.text-center {
+text-align: left;
+
+}
+
+.padding2 {
+  padding: 10rpx;
+  min-height: 70rpx;
+
+}
+
+.imgeaaa{
+margin: 10rpx;
+margin-top: 20rpx;
+}

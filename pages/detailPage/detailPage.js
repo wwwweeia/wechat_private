@@ -1,23 +1,5 @@
 Page({
   data: {
-      steps: [
-      {
-        text: '步骤一',
-        desc: '描述信息'
-      },
-      {
-        text: '步骤二',
-        desc: '描述信息'
-      },
-      {
-        text: '步骤三',
-        desc: '描述信息'
-      },
-      {
-        text: '步骤四',
-        desc: '描述信息'
-      }
-    ],
     icon: ['locationfill'],
     //任务ID
     taskId: '',
@@ -38,7 +20,9 @@ Page({
     //任务进度图片
     imgSrc: [],
     //任务进度视频
-    videoSrc: []
+    videoSrc: [],
+    //判断任务进度颜色
+    length: ''
 
 
   },
@@ -47,7 +31,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(taskId) {
+  onLoad: function (taskId) {
     var that = this;
     var id = taskId.id;
     that.setData({
@@ -78,13 +62,13 @@ Page({
     });
   },
   ViewVideoForreport1(e) {
-    console.log("视频数据：",e);
+    console.log("视频数据：", e);
     this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
     this.VideoContext.requestFullScreen(0);
   },
 
   //发送请求获取数据
-  detail: function() {
+  detail: function () {
     var that = this;
     var imgSrc = '';
     var taskRecord = that.data.taskRecord;
@@ -95,55 +79,46 @@ Page({
 
           that.setData({
 
-              retObj: res.data.retObj,
-              //问题分类
-              sort: res.data.retObj.questionSorts,
-              //举报图片
-              reportImgSrc: res.data.retObj.reportImgSrc,
-              //举报视频
-              reportVideoSrc: res.data.retObj.reportVideoSrc,
-              //地址图片
-              addstImgSrc: res.data.retObj.addstImgSrc,
-              //地址视频
-              addsVideoSrc: res.data.retObj.addsVideoSrc,
-              taskRecord: res.data.retObj.taskRecord
+            retObj: res.data.retObj,
+            //问题分类
+            sort: res.data.retObj.questionSorts,
+            //举报图片
+            reportImgSrc: res.data.retObj.reportImgSrc,
+            //举报视频
+            reportVideoSrc: res.data.retObj.reportVideoSrc,
+            //地址图片
+            addstImgSrc: res.data.retObj.addstImgSrc,
+            //地址视频
+            addsVideoSrc: res.data.retObj.addsVideoSrc,
+            taskRecord: res.data.retObj.taskRecord,
+            length: res.data.retObj.taskRecord.length
 
+            //imgSrc: res.data.retObj.taskRecord.imgSrc
+          })
 
-              //imgSrc: res.data.retObj.taskRecord.imgSrc
-            })
-          
-          
+          console.log("zhehsichangdu:", taskRecord.length)
+
 
         }
 
 
       },
       //请求失败
-      fail: function(err) {},
+      fail: function (err) { },
       //请求完成后执行的函数
-      complete: function() {
+      complete: function () {
         console.log("这是进度资源：", that.data.taskRecord)
         console.log("这是进度资源长度：", that.data.taskRecord.length)
-       
-           for (let i = 0; i < taskRecord.length; i++) {
-           	 if(taskRecord[i].hava_resource){
-           	 	 imgSrc += taskRecord[i].imgSrc + ',';
-           	 	 console.log("哈哈哈")
-           	 	  
-           	 }
-          	 
-           	}
-           	imgSrc = imgSrc.substring(0, imgSrc.length - 1);
-           	console.log("这是进度图片：", imgSrc);
 
-          }
-         
-          
-       
 
-      })
- 
-         
+
+
+
+
+      }
+
+
+    })
   }
 
 })

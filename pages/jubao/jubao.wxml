@@ -34,7 +34,7 @@
     </view>
     <view class="grid col-3 padding-sm">
       <view wx:for="{{problemType}}" class="padding-xs" wx:key="{{index}}">
-        <button class="cu-btn orange lg block {{item.checked?'bg-orange':'line-orange'}}" bindtap="ChooseCheckbox" data-value="{{item.id}}"> {{item.name}}
+        <button class="cu-btn orange lg block {{item.checked?'bg-orange':'line-orange'}}" bindtap="ChooseCheckbox" data-value="{{item.id}}"> <view class="box">{{item.name}}</view>
           <view class="cu-tag sm round {{item.checked?'bg-white text-orange':'bg-orange'}}" wx:if="{{item.hot}}">HOT</view>
         </button>
       </view>

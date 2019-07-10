@@ -561,15 +561,15 @@ Page({
       })
       return
     }
-    if ((addsImg.length + addsVideo.length) < 1) {
-      wx.showToast({
-        title: '请拍摄地点图片/视频',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
-    }
+    // if ((addsImg.length + addsVideo.length) < 1) {
+    //   wx.showToast({
+    //     title: '请拍摄地点图片/视频',
+    //     icon: 'none',
+    //     duration: 1000,
+    //     mask: true
+    //   })
+    //   return
+    // }
     if (desc == '') {
       wx.showToast({
         title: '请填写举报描述',

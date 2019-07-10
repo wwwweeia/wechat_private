@@ -113,9 +113,17 @@ Page({
         //console.log(res);
         if (res.data.status === "success") {
           that.setData({
-            taskList: that.data.taskList.concat(res.data.retObj)
+            taskList: that.data.taskList.concat(res.data.retObj),
+            //从当前请求得到总页数给maxPageNum赋值
+            maxPageNum: res.data.retObj[0].maxPageNum
+          })
+        }else{
+          that.setData({
+            maxPageNum: 1
           })
         }
+
+        console.log("这是最大页数。",that.data.maxPageNum)
       },
       fail: function(err) {}, //请求失败
       complete: function() {} //请求完成后执行的函数

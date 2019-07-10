@@ -20,8 +20,9 @@ Page({
     //任务进度图片
     imgSrc: [],
     //任务进度视频
-    videoSrc: []
-
+    videoSrc: [],
+  //判断任务进度颜色
+    length: ''
 
   },
 
@@ -91,7 +92,8 @@ Page({
               addstImgSrc: res.data.retObj.addstImgSrc,
               //地址视频
               addsVideoSrc: res.data.retObj.addsVideoSrc,
-              taskRecord: res.data.retObj.taskRecord
+              taskRecord: res.data.retObj.taskRecord,
+              length: res.data.retObj.taskRecord.length
 
 
               //imgSrc: res.data.retObj.taskRecord.imgSrc
