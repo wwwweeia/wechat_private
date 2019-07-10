@@ -1,5 +1,23 @@
 Page({
   data: {
+      steps: [
+      {
+        text: '步骤一',
+        desc: '描述信息'
+      },
+      {
+        text: '步骤二',
+        desc: '描述信息'
+      },
+      {
+        text: '步骤三',
+        desc: '描述信息'
+      },
+      {
+        text: '步骤四',
+        desc: '描述信息'
+      }
+    ],
     icon: ['locationfill'],
     //任务ID
     taskId: '',
@@ -20,8 +38,7 @@ Page({
     //任务进度图片
     imgSrc: [],
     //任务进度视频
-    videoSrc: [],
-    length: ''
+    videoSrc: []
 
 
   },
@@ -89,13 +106,12 @@ Page({
               addstImgSrc: res.data.retObj.addstImgSrc,
               //地址视频
               addsVideoSrc: res.data.retObj.addsVideoSrc,
-              taskRecord: res.data.retObj.taskRecord,
-              length: res.data.retObj.taskRecord.length
+              taskRecord: res.data.retObj.taskRecord
+
 
               //imgSrc: res.data.retObj.taskRecord.imgSrc
             })
-
-         console.log("zhehsichangdu:",taskRecord.length) 
+          
           
 
         }
@@ -108,16 +124,26 @@ Page({
       complete: function() {
         console.log("这是进度资源：", that.data.taskRecord)
         console.log("这是进度资源长度：", that.data.taskRecord.length)
-      
-         
+       
+           for (let i = 0; i < taskRecord.length; i++) {
+           	 if(taskRecord[i].hava_resource){
+           	 	 imgSrc += taskRecord[i].imgSrc + ',';
+           	 	 console.log("哈哈哈")
+           	 	  
+           	 }
+          	 
+           	}
+           	imgSrc = imgSrc.substring(0, imgSrc.length - 1);
+           	console.log("这是进度图片：", imgSrc);
+
+          }
          
           
        
 
-      }
+      })
  
          
-  })
-}
+  }
 
 })

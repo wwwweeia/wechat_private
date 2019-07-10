@@ -4,8 +4,12 @@
     "pages/jubao/jubao",
     "pages/user/user",
     "pages/swiper/swiper",
-    "pages/ceshi/ceshi",
-      "pages/success/success"
+    "pages/detailPage/detailPage",
+    "pages/success/success",
+    "pages/jubaodetail/jubaodetail",
+    "pages/back/back",
+    "pages/finish/finish",
+    "pages/ceshi/ceshi"
   ],
   "window": {
     "backgroundTextStyle": "light",

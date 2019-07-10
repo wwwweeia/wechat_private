@@ -1,5 +1,9 @@
 <!-- square-dot（杠） round-dot(点)   -->
 <!-- 轮播图-->
+<view class="solid">
+  
+
+
 <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
   <navigator class="" url="../swiper/swiper?id={{item.id}}" wx:for="{{swiperList}}" wx:key open-type="navigate">
     <swiper-item >
@@ -20,8 +24,8 @@
 </scroll-view>
 
 <!-- 任务列表 -->
-<view class="other-list">
-  <navigator class="item-other" wx:for="{{taskList}}" wx:key="{{index}}">
+<view class="other-list solid">
+  <navigator class="item-other"  url="../detailPage/detailPage?id={{item.taskId}}" wx:for="{{taskList}}" wx:key="{{index}}">
     <view class="other-img-wrap">
       <image src="{{item.imageUrl}}" mode="widthFix"></image>
     </view>
@@ -37,4 +41,7 @@
       </view>
     </view>
   </navigator>
+</view>
+
+
 </view>

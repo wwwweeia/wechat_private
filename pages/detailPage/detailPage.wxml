@@ -99,9 +99,9 @@
 
 
 <view class="cu-timeline">
-  <view class="cu-item {{index+1==length?'text-green':''}}  cuIcon-noticefill" wx:for="{{taskRecord}}" wx:key="{{index}}">
-    <view class="content  shadow-blur">
-      {{taskRecord[index].remarks}} {{index}}
+  <view class="cu-item text-grey  cuIcon-noticefill" wx:for="{{taskRecord}}" wx:key="{{index}}">
+    <view class="content bg-grey shadow-blur">
+      {{taskRecord[index].remarks}}
     </view>
     <text>{{taskRecord[index].createTimeFormat}}</text>
 

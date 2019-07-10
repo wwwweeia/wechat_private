@@ -5,7 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type:[]
+    type:[],
+    // icon:[{
+    //   name: 'locationfill', 
+    //   isShow: true 
+    // }]
+     icon:['locationfill']
   },
   openmap: function () {
     var that = this;
@@ -36,7 +41,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
+    console.log("这是轮播图Id:",options.id);
   },
 
   /**

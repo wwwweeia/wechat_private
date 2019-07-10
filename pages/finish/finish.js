@@ -20,8 +20,7 @@ Page({
     //任务进度图片
     imgSrc: [],
     //任务进度视频
-    videoSrc: [],
-    length: ''
+    videoSrc: []
 
 
   },
@@ -36,7 +35,7 @@ Page({
     that.setData({
       taskId: id
     })
-    //console.log("这是任务详情Id:",taskId.id);
+    console.log("这是成功详情Id:",taskId.id);
     //获取数据
     that.detail();
 
@@ -72,7 +71,10 @@ Page({
     var imgSrc = '';
     var taskRecord = that.data.taskRecord;
     wx.request({
-      url: "http://221.216.95.200:8285/home/manage/searchTaskInfo?taskId=20",
+      url: "http://221.216.95.200:8285/home/manage/searchTaskInfo",
+      data: {
+        taskId: that.data.taskId
+      },
       success(res) {
         if (res.data.status === "success") {
 
@@ -89,13 +91,12 @@ Page({
               addstImgSrc: res.data.retObj.addstImgSrc,
               //地址视频
               addsVideoSrc: res.data.retObj.addsVideoSrc,
-              taskRecord: res.data.retObj.taskRecord,
-              length: res.data.retObj.taskRecord.length
+              taskRecord: res.data.retObj.taskRecord
+
 
               //imgSrc: res.data.retObj.taskRecord.imgSrc
             })
-
-         console.log("zhehsichangdu:",taskRecord.length) 
+          
           
 
         }
@@ -108,16 +109,15 @@ Page({
       complete: function() {
         console.log("这是进度资源：", that.data.taskRecord)
         console.log("这是进度资源长度：", that.data.taskRecord.length)
-      
-         
+
+          }
          
           
        
 
-      }
+      })
  
          
-  })
-}
+  }
 
 })

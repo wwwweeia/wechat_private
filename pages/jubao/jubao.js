@@ -51,10 +51,14 @@ Page({
     test: [],
     //上传资源绑定的问题ID
     answerId: '',
-    //
+    //上传的第几个资源
     i: 0,
+    //成功个数
     success: 0,
-    fail: 0
+    //失败个数
+    fail: 0,
+    //openid
+    openid:''
   },
   regionchange(e) {
     console.log(e.type)
@@ -324,7 +328,8 @@ Page({
               addslength: this.data.addslength + 1
             })
           }
-        }
+        },
+        
       });
     } else {
       wx.chooseImage({
@@ -421,6 +426,7 @@ Page({
     });
   },
   ViewVideoForreport(e) {
+    console.log("视频的啥？：", e);
     this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
     this.VideoContext.requestFullScreen(0);
   },
@@ -510,6 +516,7 @@ Page({
 
   //提交按钮
   submit() {
+    
 
     var that = this;
     //问题分类
@@ -529,6 +536,13 @@ Page({
     var addsImg = that.data.addressImgList;
     //地址视频集合
     var addsVideo = that.data.addressVideoList;
+
+    var app = getApp();
+    var openid = app.openid;
+    that.setData({
+      openid: openid
+    })
+
     if (qustionSort.length < 1) {
       wx.showToast({
         title: '请选择问题类型',
@@ -617,6 +631,7 @@ Page({
    */
   uploadImage: function(answerId) {
     var that = this;
+
     //举报图片集合
     var reportImg = that.data.imgList;
     //举报视频集合
@@ -669,15 +684,20 @@ Page({
     var i = that.data.i;
     var success = that.data.success;
     var fail = that.data.fail;
+    var openid = that.data.openid;
+    console.log("是不是传递过来了呢？",openid);
 
     //上传举报图片
     wx.uploadFile({
-      url: 'http://221.216.95.200:8285/home/manage/upload',
+      // 192.168.15.193:8199
+       url: 'http://221.216.95.200:8285/home/manage/upload',
+     // url: 'http://192.168.15.193:8199/home/manage/upload',
       filePath: reportImg[i],
-      name: 'reportImg' + i,
+      name: 'reportImg' + i + openid,
       formData: {
         'answerId': answerId,
-        'key': 'reportImg' + i,
+        'key': 'reportImg' + i + openid,
+        'openid': openid,
       },
       success(res) {
         // 操作成功
@@ -717,15 +737,17 @@ Page({
     var i = that.data.i;
     var success = that.data.success;
     var fail = that.data.fail;
+    var openid = that.data.openid;
 
 
     wx.uploadFile({
       url: 'http://221.216.95.200:8285/home/manage/upload',
       filePath: addsImg[i],
-      name: 'addsImg' + i,
+      name: 'addsImg' + i + openid,
       formData: {
         'answerId': answerId,
-        'key': 'addsImg' + i,
+        'key': 'addsImg' + i + openid,
+        'openid': openid,
       },
       success(res) {
         // 操作成功
@@ -762,14 +784,16 @@ Page({
     var i = that.data.i;
     var success = that.data.success;
     var fail = that.data.fail;
+    var openid = that.data.openid;
 
     wx.uploadFile({
       url: 'http://221.216.95.200:8285/home/manage/upload',
       filePath: reportVideo[i].src,
-      name: 'reportVideo' + i,
+      name: 'reportVideo' + i + openid,
       formData: {
         'answerId': answerId,
-        'key': 'reportVideo' + i,
+        'key': 'reportVideo' + i + openid,
+        'openid': openid,
       },
       success(res) {
         // 操作成功
@@ -808,14 +832,16 @@ Page({
     var i = that.data.i;
     var success = that.data.success0;
     var fail = that.data.fail;
+    var openid = that.data.openid;
 
     wx.uploadFile({
       url: 'http://221.216.95.200:8285/home/manage/upload',
       filePath: addsVideo[i].src,
-      name: 'addsVideo' + i,
+      name: 'addsVideo' + i + openid,
       formData: {
         'answerId': answerId,
-        'key': 'addsVideo' + i,
+        'key': 'addsVideo' + i + openid,
+        'openid': openid,
       },
       success(res) {
         // 操作成功

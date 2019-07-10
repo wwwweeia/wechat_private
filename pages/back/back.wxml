@@ -1,27 +1,4 @@
-<wxs src="../../dist/wxs/utils.wxs" module="utils" />
-<!-- 街道部分 -->
 
-<view class="cu-bar  solid-bottom">
-  <view class="action">
-    <text class="cuIcon-title text-blue"></text>{{retObj.deptName}}
-  </view>
-
-</view>
-<view class="cu-bar bg-white">
-  <view class="action text-black text-center padding">
-    街道名称　{{retObj.deptName}}
-  </view>
-</view>
-<view class="cu-bar bg-white text-center padding">
-  <view class="action text-black">
-    服务热线　{{retObj.deptTel}}
-  </view>
-</view>
-<view class="cu-bar bg-white text-center padding">
-  <view class="action text-black">
-    服务区域　{{retObj.deptServiceArea}}
-  </view>
-</view>
 <!-- 举报分类 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
@@ -89,40 +66,3 @@
     <text class="cuIcon-{{icon}} lg text-gray"></text> {{retObj.taskAdds}}
   </view>
 </view>
-<!-- 任务进度 -->
-<view class="cu-bar  solid-bottom">
-  <view class="action">
-
-    <text class="cuIcon-title text-blue"></text>任务进度
-  </view>
-</view>
-
-
-<view class="cu-timeline">
-  <view class="cu-item {{index+1==length?'text-green':''}}  cuIcon-noticefill" wx:for="{{taskRecord}}" wx:key="{{index}}">
-    <view class="content  shadow-blur">
-      {{taskRecord[index].remarks}} {{index}}
-    </view>
-    <text>{{taskRecord[index].createTimeFormat}}</text>
-
-    <view class="cu-form-group" wx:if="{{taskRecord[index].hava_resource===1}}">
-
-
-
- <view class="grid col-4 grid-square flex-sub">
-<view wx:for="{{taskRecord[index].imgSrc}}" wx:for-item='itemImg' wx:key="{{index}}" class="bg-img" bindtap="ViewImageForreport1" data-url='{{itemImg}}'>
-<image src='{{itemImg}}' mode='aspectFill'></image>
-</view>
-<view wx:for="{{taskRecord[index].videoSrc}}" wx:for-item='itemVideo' wx:key="{{index}}" class="bg-img" bindtap="ViewVideoForreport1" data-url="{{itemVideo}}" data-index="{{index}}">
-<video id='reportVideo{{index}}' src="{{itemVideo}}" poster="{{videoSrc[index].poster}}" bindfullscreenchange="start">
-</video>
-</view>
-
-      </view>
-
-
-
-    </view>
-  </view>
-</view>
-

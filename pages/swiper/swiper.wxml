@@ -1,3 +1,11 @@
 
 <web-view src="https://mp.weixin.qq.com/s/rBq8M_10GDQAr2QmzrBq5g"></web-view>
 
+
+<view class="cu-list grid col-3">
+  <view class="cu-item" wx:for="{{icon}}" wx:key wx:if="{{item.isShow}}">
+    <text class="cuIcon-{{item.name}} lg text-gray"></text>
+    <text>{{item.name}}</text>
+  </view>
+</view>
+ <text class="cuIcon-{{icon}} lg text-gray"></text>

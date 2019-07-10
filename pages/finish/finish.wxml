@@ -1,6 +1,4 @@
-<wxs src="../../dist/wxs/utils.wxs" module="utils" />
 <!-- 街道部分 -->
-
 <view class="cu-bar  solid-bottom">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>{{retObj.deptName}}
@@ -99,9 +97,9 @@
 
 
 <view class="cu-timeline">
-  <view class="cu-item {{index+1==length?'text-green':''}}  cuIcon-noticefill" wx:for="{{taskRecord}}" wx:key="{{index}}">
-    <view class="content  shadow-blur">
-      {{taskRecord[index].remarks}} {{index}}
+  <view class="cu-item text-grey  cuIcon-noticefill" wx:for="{{taskRecord}}" wx:key="{{index}}">
+    <view class="content bg-grey shadow-blur">
+      {{taskRecord[index].remarks}}
     </view>
     <text>{{taskRecord[index].createTimeFormat}}</text>
 
@@ -125,4 +123,3 @@
     </view>
   </view>
 </view>
-

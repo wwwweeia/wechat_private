@@ -1,0 +1,45 @@
+<scroll-view scroll-x class="bg-white  bg-mauve nav">
+  <view class="flex text-center ">
+    <view class="cu-item  flex-sub {{index==TabCur?'text-green cur':''}}" wx:for="{{tab}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+      {{tab[index]}}
+    </view>
+  </view>
+</scroll-view>
+<!-- 待审核、已退回任务列表 -->
+<view class="other-list">
+  <navigator class="item-other"  url="../back/back?id={{item.answerId}}" wx:for="{{backList}}" wx:key="{{index}}">
+    <view class="other-img-wrap">
+      <image src="{{item.imageUrl}}" mode="widthFix"></image>
+    </view>
+    <view class="other-info">
+      <view class="other-title">{{item.describe}}</view>
+      <view class="other-detail">
+        <view>
+          <text class="play-count">{{item.findTime}}--这是时间</text>
+        </view>
+        <view>
+          <text class="comment-count">{{item.addr}}--这是地址</text>
+        </view>
+      </view>
+    </view>
+  </navigator>
+</view>
+<!-- 处理中、已完成任务列表 -->
+<view class="other-list">
+  <navigator class="item-other"  url="../finish/finish?id={{item.taskId}}" wx:for="{{finishList}}" wx:key="{{index}}">
+    <view class="other-img-wrap">
+      <image src="{{item.imageUrl}}" mode="widthFix"></image>
+    </view>
+    <view class="other-info">
+      <view class="other-title">{{item.describe}}</view>
+      <view class="other-detail">
+        <view>
+          <text class="play-count">{{item.findTime}}--这是时间</text>
+        </view>
+        <view>
+          <text class="comment-count">{{item.addr}}--这是地址</text>
+        </view>
+      </view>
+    </view>
+  </navigator>
+</view>

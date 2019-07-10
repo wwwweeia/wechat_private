@@ -24,11 +24,13 @@ Page({
     this.getProblemType();
     //默认第一次加载任务列表（全部）
     this.getTaskListAll();
+
   },
   /**
    * 获取轮播图数据
    */
   getSwiperList() {
+
     let that = this;
     wx.request({
       url: "http://221.216.95.200:8285/home/manage/searchViewPages",

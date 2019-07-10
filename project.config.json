@@ -6,6 +6,7 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
@@ -19,8 +20,7 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"enhance": true
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.2",
@@ -50,19 +50,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
 					"name": "测试",
-					"pathName": "pages/ceshi/ceshi",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "test",
-					"pathName": "pages/test/test",
+					"pathName": "pages/detailPage/detailPage",
 					"query": "",
 					"scene": null
 				},
@@ -85,6 +78,33 @@
 					"name": "成功",
 					"pathName": "pages/success/success",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "任务详情",
+					"pathName": "pages/detailPage/detailPage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "轮播详情",
+					"pathName": "pages/swiper/swiper",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "举报详情",
+					"pathName": "pages/jubaodetail/jubaodetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试页面",
+					"pathName": "pages/ceshi/ceshi",
 					"scene": null
 				}
 			]
