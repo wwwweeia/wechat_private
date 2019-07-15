@@ -13,14 +13,37 @@ Page({
     //退回集合
     backList:[],
     //已完成集合
-    finishList:[]
+    finishList:[],
+    //空内容提示标识
+    isNull: '',
+    //openid
+    openid:''
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    //初始加载待审核
-    this.back(0);
+    var that = this;
+    this.setData({
+        openid: options.openid
+    })
+    var openid = this.data.openid;
+    if(openid != null && openid != ''){
+      console.log("openid有值,查询数据")
+      //初始加载待审核
+       this.back(0,openid);
+    }else{
+      // 显示加载图标
+      wx.showLoading({
+        title: '网络异常!!!',
+        mask: true,
+      })
+       // 隐藏加载框
+    setTimeout(function() {
+      wx.hideLoading()
+    }, 2000)
+    }
+    
   },
    tabSelect(e) {
     this.setData({
@@ -31,18 +54,33 @@ Page({
         backList: [],
         finishList:[]
     })
-    //1待审核、0已退回
-    if(e.currentTarget.dataset.id === 0 || e.currentTarget.dataset.id === 1){
-      this.back(e.currentTarget.dataset.id);
+    var openid = this.data.openid;
+    if(openid != null && openid != ''){
+         //1待审核、0已退回
+          if(e.currentTarget.dataset.id === 0 || e.currentTarget.dataset.id === 1){
+            this.back(e.currentTarget.dataset.id,openid);
+          }
+          //2处理中、3已完成
+          if(e.currentTarget.dataset.id === 2 || e.currentTarget.dataset.id === 3){
+            this.finish(e.currentTarget.dataset.id,openid);
+          }
+    }else{
+      // 显示加载图标
+      wx.showLoading({
+        title: '网络异常!!!',
+        mask: true,
+      })
+       // 隐藏加载框
+    setTimeout(function() {
+      wx.hideLoading()
+    }, 2000)
     }
-    //2处理中、3已完成
-    if(e.currentTarget.dataset.id === 2 || e.currentTarget.dataset.id === 3){
-      this.finish(e.currentTarget.dataset.id);
-    }
+   
 
   },
-  back:function(e){
+  back:function(e,openid){
     console.log("这是退回：",e)
+     console.log("这是退回openid：",openid)
     var that = this;
     wx.request({
      // url: "http://192.168.15.193:8199/home/manage/searchTaskList",
@@ -50,6 +88,7 @@ Page({
       data: {
         "status": e,
          "page": that.data.pagenum,
+         "openid":openid,
       },
       success(res) {
         console.log("退回：",res);
@@ -57,7 +96,12 @@ Page({
           that.setData({
             backList: that.data.backList.concat(res.data.retObj),
             //从当前请求得到总页数给maxPageNum赋值
-            maxPageNum: res.data.retObj[0].maxPageNum
+            maxPageNum: res.data.retObj[0].maxPageNum,
+            isNull: ''
+          })
+        }else{
+          that.setData({
+            isNull: 'true'
           })
         }
       },
@@ -66,8 +110,9 @@ Page({
     })
   },
 
-  finish:function(e){
+  finish:function(e,openid){
     console.log("这是完成：",e)
+    console.log("这是完成openid：",openid)
     var that = this;
     wx.request({
       // url: "http://192.168.15.193:8199/home/manage/searchTaskList",
@@ -75,6 +120,7 @@ Page({
       data: {
         "status": e,
         "page": that.data.pagenum,
+         "openid":openid,
       },
       success(res) {
         console.log("成功：",res);
@@ -83,7 +129,12 @@ Page({
              finishList: that.data.finishList.concat(res.data.retObj),
             //finishList: res.data.retObj,
              //从当前请求得到总页数给maxPageNum赋值
-            maxPageNum: res.data.retObj[0].maxPageNum
+            maxPageNum: res.data.retObj[0].maxPageNum,
+            isNull:''
+          })
+        }else{
+          that.setData({
+            isNull: 'true'
           })
         }
       },

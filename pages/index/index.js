@@ -12,7 +12,9 @@ Page({
     //任务列表初始页（默认1）
     pagenum: 1,
     //赋值任务列表总页数（默认1）
-    maxPageNum: 1
+    maxPageNum: 1,
+    //空内容提示标识
+    isNull:'',
   },
   /**
    * 生命周期函数--监听页面加载
@@ -114,16 +116,15 @@ Page({
         if (res.data.status === "success") {
           that.setData({
             taskList: that.data.taskList.concat(res.data.retObj),
-            //从当前请求得到总页数给maxPageNum赋值
-            maxPageNum: res.data.retObj[0].maxPageNum
+            maxPageNum: res.data.retObj[0].maxPageNum,
+            isNull: ''
           })
-        }else{
+        } else {
           that.setData({
+            isNull: 'true',
             maxPageNum: 1
           })
         }
-
-        console.log("这是最大页数。",that.data.maxPageNum)
       },
       fail: function(err) {}, //请求失败
       complete: function() {} //请求完成后执行的函数
@@ -146,12 +147,15 @@ Page({
             taskList: that.data.taskList.concat(res.data.retObj),
             //从当前请求得到总页数给maxPageNum赋值
             maxPageNum: res.data.retObj[0].maxPageNum,
+            isNull: '',
           })
-          // 隐藏加载框
-          wx.hideLoading();
+        }else{
+          isNull: 'true'
         }
+        // 隐藏加载框
+        wx.hideLoading();
       },
-      fail: function(err) {}, //请求失败
+      fail: function(err) {console.log('gg')}, //请求失败
       complete: function() {} //请求完成后执行的函数
     })
 

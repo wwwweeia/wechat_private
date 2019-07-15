@@ -22,7 +22,7 @@
 
 </view>
 
-<navigator class="" url="../jubaodetail/jubaodetail" open-type="navigate">
+<navigator class="" url="../jubaodetail/jubaodetail?openid={{openid}}" open-type="navigate">
 <view class="cu-bar bg-white">
     <view class="action">
       <text class="cuIcon-titles text-green"></text>

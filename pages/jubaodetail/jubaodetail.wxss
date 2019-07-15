@@ -57,3 +57,23 @@
   padding: 10rpx;
   font-size: 28rpx;
 }
+.padding{
+  padding:5rpx;
+  margin: 0;
+  margin-bottom: 20rpx;
+}
+.imagesize{
+ display:flex;
+ height: 1400rpx;              
+ justify-content: center;
+ align-items:center;
+}
+.imagesize image { 
+  width:100%;
+  }
+.hide{
+  display: none
+}
+.show{
+  display: block
+}

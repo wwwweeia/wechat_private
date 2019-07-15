@@ -9,30 +9,20 @@ Page({
     icon: ['right'],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
       hidden: false,
-     hidden1: true
-
+     hidden1: true,
+     //openid
+      openid:''
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    // this.wxLogin();
-
- //查看是否授权
-    // wx.getSetting({
-    //   success: function(res){
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-    //       wx.getUserInfo({
-    //         success: function(res) {
-    //           console.log(res.userInfo)
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
-
     var that = this;
+    var app = getApp();
+    var openid = app.openid;
+    that.setData({
+      openid: openid
+    })
     //查看是否授权
     wx.getSetting({
       success: function (res) {
@@ -44,7 +34,6 @@ Page({
         }
       }
     })
-
 
   },
 bindGetUserInfo: function (res) {

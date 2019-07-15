@@ -6,27 +6,31 @@
   </view>
 </scroll-view>
 <!-- 待审核、已退回任务列表 -->
-<view class="other-list">
-  <navigator class="item-other"  url="../back/back?id={{item.answerId}}" wx:for="{{backList}}" wx:key="{{index}}">
-    <view class="other-img-wrap">
-      <image src="{{item.imageUrl}}" mode="widthFix"></image>
+<view class="solid">
+  <navigator class="item-other bg-white padding radius text-left shadow-blur" url="../back/back?id={{item.answerId}}" wx:for="{{backList}}" wx:key="{{index}}">
+    <view class="other-img-wrap ">
+      <image src="{{item.imageUrl}}" mode="scaleToFill" class="taskListHeight"></image>
     </view>
     <view class="other-info">
-      <view class="other-title">{{item.describe}}</view>
-      <view class="other-detail">
-        <view>
-          <text class="play-count">{{item.findTime}}--这是时间</text>
-        </view>
-        <view>
-          <text class="comment-count">{{item.addr}}--这是地址</text>
+      <view class="padding-xs flex align-center">
+        <view class="flex-sub text-center">
+          <view class="solid-bottom text-lg padding">
+            <text class="text-black box">{{item.describe}}</text>
+          </view>
+          <view class="solid-bottom">
+            <view class="padding box text-df">{{item.findTime}}</view>
+          </view>
+          <view class="padding box text-df">{{item.addr}}</view>
         </view>
       </view>
     </view>
   </navigator>
 </view>
+
+
 <!-- 处理中、已完成任务列表 -->
-<view class="other-list">
-  <navigator class="item-other"  url="../finish/finish?id={{item.taskId}}" wx:for="{{finishList}}" wx:key="{{index}}">
+<!-- <view class="other-list">
+  <navigator class="item-other" url="../finish/finish?id={{item.taskId}}" wx:for="{{finishList}}" wx:key="{{index}}">
     <view class="other-img-wrap">
       <image src="{{item.imageUrl}}" mode="widthFix"></image>
     </view>
@@ -34,12 +38,37 @@
       <view class="other-title">{{item.describe}}</view>
       <view class="other-detail">
         <view>
-          <text class="play-count">{{item.findTime}}--这是时间</text>
+          <text class="play-count">{{item.findTime}}</text>
         </view>
         <view>
-          <text class="comment-count">{{item.addr}}--这是地址</text>
+          <text class="comment-count">{{item.addr}}</text>
         </view>
       </view>
     </view>
   </navigator>
+</view> -->
+<!-- 处理中、已完成任务列表 -->
+<view class="solid">
+  <navigator class="item-other bg-white padding radius text-left shadow-blur" url="../finish/finish?id={{item.taskId}}" wx:for="{{finishList}}" wx:key="{{index}}">
+    <view class="other-img-wrap ">
+      <image src="{{item.imageUrl}}" mode="scaleToFill" class="taskListHeight"></image>
+    </view>
+    <view class="other-info">
+      <view class="padding-xs flex align-center">
+        <view class="flex-sub text-center">
+          <view class="solid-bottom text-lg padding">
+            <text class="text-black box">{{item.describe}}</text>
+          </view>
+          <view class="solid-bottom">
+            <view class="padding box text-df">{{item.findTime}}</view>
+          </view>
+          <view class="padding box text-df">{{item.addr}}</view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+</view>
+
+<view class="imagesize {{isNull=='true'?'show':'hide'}}">
+  <image src='/images/null.png' mode='scaleToFill' style='height:100%;width:100%' ></image>
 </view>

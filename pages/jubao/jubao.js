@@ -542,6 +542,8 @@ Page({
     that.setData({
       openid: openid
     })
+    var openid = that.data.openid;
+    console.log("普通资源携带的openid:？",openid);
 
     if (qustionSort.length < 1) {
       wx.showToast({
@@ -594,6 +596,7 @@ Page({
         "address": address,
         "desc": desc,
         "qustionSort": sortIds,
+        "openid":openid,
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -685,7 +688,7 @@ Page({
     var success = that.data.success;
     var fail = that.data.fail;
     var openid = that.data.openid;
-    console.log("是不是传递过来了呢？",openid);
+    console.log("图片资源携带的openid:？",openid);
 
     //上传举报图片
     wx.uploadFile({
