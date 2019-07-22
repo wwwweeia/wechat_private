@@ -694,7 +694,7 @@ Page({
     wx.uploadFile({
       // 192.168.15.193:8199
        url: 'http://221.216.95.200:8285/home/manage/upload',
-     // url: 'http://192.168.15.193:8199/home/manage/upload',
+     // url: 'http://192.168.15.67:8080/home/manage/upload',
       filePath: reportImg[i],
       name: 'reportImg' + i + openid,
       formData: {
