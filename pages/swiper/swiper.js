@@ -6,6 +6,14 @@ Page({
    */
   data: {
     type:[],
+     //任务列表数据
+    taskList: [],
+    //任务列表初始页（默认1）
+    pagenum: 1,
+    //赋值任务列表总页数（默认1）
+    maxPageNum: 1,
+    //空内容提示标识
+    isNull:'',
     // icon:[{
     //   name: 'locationfill', 
     //   isShow: true 
@@ -37,11 +45,42 @@ Page({
       }
     })
   },
+   //获取全部任务列表（页面加载）
+  getTaskListAll: function() {
+    var that = this;
+    wx.request({
+      url: "http://221.216.95.200:8285/home/manage/searchTaskList",
+      data: {
+        "page": that.data.pagenum,
+      },
+      success(res) {
+        if (res.data.status === "success") {
+          that.setData({
+            //1、that.data.taskList  获取当前页面存的taskList数组
+            //2、res.data.retObj   获取当前请求得到的taskList数组
+            //3、xxx.concat  把新加载的数组追加到当前页面之后
+            taskList: that.data.taskList.concat(res.data.retObj),
+            //从当前请求得到总页数给maxPageNum赋值
+            maxPageNum: res.data.retObj[0].maxPageNum,
+            isNull: '',
+          })
+        }else{
+          isNull: 'true'
+        }
+        // 隐藏加载框
+        wx.hideLoading();
+      },
+      fail: function(err) {console.log('gg')}, //请求失败
+      complete: function() {} //请求完成后执行的函数
+    })
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     console.log("这是轮播图Id:",options.id);
+    this.getTaskListAll();
   },
 
   /**

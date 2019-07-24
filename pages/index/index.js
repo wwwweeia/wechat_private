@@ -1,6 +1,8 @@
 Page({
 
   data: {
+     swiperIndex: 0, //初始化swiper索引
+     swiperHeight: 350,
     // 问题栏默认值
     TabCur: null,
     // 轮播图数据
@@ -14,7 +16,7 @@ Page({
     //赋值任务列表总页数（默认1）
     maxPageNum: 1,
     //空内容提示标识
-    isNull:'',
+    isNull: '',
   },
   /**
    * 生命周期函数--监听页面加载
@@ -28,6 +30,18 @@ Page({
     this.getTaskListAll();
 
   },
+
+  bindchange(e) {
+      this.setData({
+        swiperIndex: e.detail.current
+      })
+    },
+    toswiper:function(){
+      var swiperIndex = this.data.swiperIndex;
+       wx.navigateTo({
+      url:"../swiper/swiper?id="+swiperIndex
+    })
+    },
   /**
    * 获取轮播图数据
    */

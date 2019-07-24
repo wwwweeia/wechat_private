@@ -1,11 +1,35 @@
 
-<web-view src="https://mp.weixin.qq.com/s/rBq8M_10GDQAr2QmzrBq5g"></web-view>
+<!-- <web-view src="https://mp.weixin.qq.com/s/rBq8M_10GDQAr2QmzrBq5g"></web-view> -->
 
 
-<view class="cu-list grid col-3">
-  <view class="cu-item" wx:for="{{icon}}" wx:key wx:if="{{item.isShow}}">
-    <text class="cuIcon-{{item.name}} lg text-gray"></text>
-    <text>{{item.name}}</text>
+<!--   <view class="cu-card article">
+    <navigator wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../detailPage/detailPage?id={{item.taskId}}"'>
+      <view class="content">
+        <image src="{{item.imageUrl}}" mode="aspectFill"></image>
+        <view class="desc">
+        <view class="text-bold">{{item.describe}}</view>
+          <view class='text-content text-cut'>{{item.addr}}</view>
+          <view>
+            <view class='cu-tag bg-blue light sm round'>{{item.findTime}}</view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view> -->
+    <view class="cu-card article">
+    <navigator wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../detailPage/detailPage?id={{item.taskId}}"'>
+    
+      <view class="content">
+        <image src="{{item.imageUrl}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class="text-bold text-content1">{{item.describe}}</view>
+          <view class='text-content text-cut'>{{item.addr}}</view>
+          <view>
+            <view class='cu-tag bg-blue light sm round'>{{item.findTime}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
   </view>
-</view>
- <text class="cuIcon-{{icon}} lg text-gray"></text>
+

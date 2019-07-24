@@ -6,6 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+     icon: ['locationfill'],
+    nick:'',
+    avataUrl:'',
     icon: ['right'],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
       hidden: false,
@@ -17,23 +20,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
+
     var that = this;
     var app = getApp();
     var openid = app.openid;
     that.setData({
       openid: openid
     })
+
+    this.wxLogin();
     //查看是否授权
-    wx.getSetting({
-      success: function (res) {
-        if (res.authSetting['scope.userInfo']) {
-          console.log("用户授权了");
-        } else {
-          //用户没有授权
-          console.log("用户没有授权");
-        }
-      }
-    })
+    // wx.getSetting({
+    //   success: function (res) {
+    //     if (res.authSetting['scope.userInfo']) {
+    //       console.log("用户授权了");
+    //     } else {
+    //       //用户没有授权
+    //       console.log("用户没有授权");
+    //     }
+    //   }
+    // })
 
   },
 bindGetUserInfo: function (res) {
@@ -69,57 +75,86 @@ bindGetUserInfo: function (res) {
     console.log(e.detail.errMsg)
     console.log(e.detail.iv)
     console.log(e.detail.encryptedData)
-  }
+  },
  
   // wxLogin: function(e) {
+  //   console.log("进来了吗？？？？")
   //   var that = this;
   //   wx.login({
   //     success: function(res) {
-  //       var code = res.code; //发送给服务器的code 
+  //       console.log("进来了吗？？？？",res)
   //       wx.getUserInfo({
   //         success: function(res) {
-  //           console.log("这是用户信息：",res)
   //           var userNick = res.userInfo.nickName; //用户昵称 
   //           var avataUrl = res.userInfo.avatarUrl; //用户头像地址 
-  //           var gender = res.userInfo.gender; //用户性别 0，未知，1男，2女
   //            console.log("userNick:",userNick);
   //             console.log("avataUrl:",avataUrl);
-  //              console.log("gender:",gender);
   //             that.setData({
   //               nick: userNick,
   //               avataUrl: avataUrl
   //             })
-  //           if (code !== null) {
-  //             wx.request({
-  //               //url: 'http://你的域名/wxLogin.php',
-  //               //服务器的地址，现在微信小程序只支持https请求，所以调试的时候请勾选不校监安全域名
-  //               data: {
-  //                 code: code,
-  //                 nick: userNick,
-  //                 avaurl: avataUrl,
-  //                 sex: gender,
-  //               },
-  //               header: {
-  //                 'content-type': 'application/json'
-  //               },
-  //               success: function(res) {
-  //                 console.log("这啥？？？",res);
-  //                 console.log("这是啥？？？",res.data);
-  //                 wx.setStorageSync('nick', res.data.nick); //将获取信息写入本地缓存 
-  //                 wx.setStorageSync('openid', res.data.openid);
-  //                 wx.setStorageSync('imgUrl', res.data.imgUrl);
-  //                 wx.setStorageSync('sex', res.data.sex);
-  //               }
-  //             })
-  //           } else {
-  //             console.log("获取用户登录态失败！");
-  //           }
   //         }
   //       })
   //     },
-  //     fail: function(error) {
-  //       console.log('login failed ' + error);
-  //     }
+   
   //   })
-  // }
+  // },
+  goTojubaodetail:function(){
+    var that = this;
+    var openid = that.data.openid;
+    wx.navigateTo({
+      url:"../jubaodetail/jubaodetail?openid="+openid
+    })
+  },
+   wxLogin: function(e) {
+    var that = this;
+    wx.login({
+      success: function(res) {
+        var code = res.code; //发送给服务器的code 
+        wx.getUserInfo({
+          success: function(res) {
+            console.log("这是用户信息：",res)
+            var userNick = res.userInfo.nickName; //用户昵称 
+            var avataUrl = res.userInfo.avatarUrl; //用户头像地址 
+            var gender = res.userInfo.gender; //用户性别 0，未知，1男，2女
+             console.log("userNick:",userNick);
+              console.log("avataUrl:",avataUrl);
+               console.log("gender:",gender);
+              that.setData({
+                nick: userNick,
+                avataUrl: avataUrl
+              })
+            if (code !== null) {
+              wx.request({
+                //url: 'http://你的域名/wxLogin.php',
+                //服务器的地址，现在微信小程序只支持https请求，所以调试的时候请勾选不校监安全域名
+                data: {
+                  code: code,
+                  nick: userNick,
+                  avaurl: avataUrl,
+                  sex: gender,
+                },
+                header: {
+                  'content-type': 'application/json'
+                },
+                success: function(res) {
+                  console.log("这啥？？？",res);
+                  console.log("这是啥？？？",res.data);
+                  wx.setStorageSync('nick', res.data.nick); //将获取信息写入本地缓存 
+                  wx.setStorageSync('openid', res.data.openid);
+                  wx.setStorageSync('imgUrl', res.data.imgUrl);
+                  wx.setStorageSync('sex', res.data.sex);
+                }
+              })
+            } else {
+              console.log("获取用户登录态失败！");
+            }
+          }
+        })
+      },
+      fail: function(error) {
+        console.log('login failed ' + error);
+      }
+    })
+  }
 })

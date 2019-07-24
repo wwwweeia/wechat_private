@@ -29,6 +29,7 @@ App({
               if (res.data.status == 'success'){
                 var  app = getApp();
                 app.openid = res.data.retObj.openid;
+                console.log("这是初始化：",app.openid)
                 app.sessionKey = res.data.retObj.sessionKey;
               } else {
                 console.log('error')

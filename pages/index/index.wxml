@@ -1,10 +1,17 @@
 <!-- square-dot（杠） round-dot(点)   -->
 <!-- 轮播图-->
+<swiper class='swiperClass' autoplay indicator-color="#a39f99" indicator-active-color="#f49641" interval="4000" duration="1000" previous-margin="80rpx" next-margin="80rpx" circular bindchange="bindchange" style='height: {{swiperHeight}}rpx'>
+  <block wx:for="{{swiperList}}" wx:key="{{index}}">
+    <swiper-item>
+      <image bindtap='toswiper'   src="{{item.imageUrl}}" class="slide-image {{swiperIndex == index ? 'active' : 'quiet'}}" mode='aspectFill'></image>
+    </swiper-item>
+  </block>
+</swiper>
 <view class="solid">
 
 
 
-  <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+<!--   <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
     <navigator class="" url="../swiper/swiper?id={{item.id}}" wx:for="{{swiperList}}" wx:key open-type="navigate">
       <swiper-item>
 
@@ -12,7 +19,7 @@
 
       </swiper-item>
     </navigator>
-  </swiper>
+  </swiper> -->
   <!-- 导航栏-->
   <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
     <view class="cu-item {{null==TabCur?'text-green cur':''}}" bindtap="tabSelect">
