@@ -144,39 +144,6 @@ Page({
             }
           })
         }
-
-
-
-
-
-        /*else{
-          // 2. 用户未授权的情况下， 打开授权界面， 引导用户授权.
-          wx.openSetting({
-            success(res) {
-               // 2.1 如果二次授权允许了 userLocation 权限， 就再次执行获取位置的接口
-              if (res.authSetting["scope.userLocation"]) {
-                wx.getLocation({
-                  type: "wgs84",
-                  success: function (res) {
-                    var latitude = res.latitude;
-                    var longitude = res.longitude;
-                    //console.log(res.latitude);
-                    vm.setData({
-                      latitude: res.latitude,
-                      longitude: res.longitude,
-                      markers: [{
-                        latitude: res.latitude,
-                        longitude: res.longitude
-                      }]
-                    })
-                    // 2.3 将获取到的 经纬度传值给 getAddress 解析出 具体的地址
-                    vm.getAddress(res.latitude, res.longitude)
-                  }
-                })
-              }
-            }
-          }
-        }*/
       }
     })
     vm.getProblemType()
@@ -239,18 +206,6 @@ Page({
   },
   showModal2(e) {
     var type = e.currentTarget.dataset.type;
-    // var length =0;
-    // if(type=="adds"){
-    //   length = this.data.addressImgList.length + this.data.addressVideoList.length;
-    //   this.setData({
-    //     addslength: length
-    //   })
-    // }else{
-    //  length=this.data.imgList.length+this.data.videoList.length;
-    //   this.setData({
-    //     reportlength:length
-    //   })
-    // }
     this.data.type = type;
     this.setData({
       modalName: e.currentTarget.dataset.target,
@@ -468,10 +423,8 @@ Page({
           }
           if (type == "reportVideo") {
             this.data.videoList.splice(e.currentTarget.dataset.index, 1);
-            //this.data.videoSrcs.splice(e.currentTarget.dataset.index, 1);
             this.setData({
               videoList: this.data.videoList,
-              //  videoSrcs:this.data.videoSrcs,
               reportlength: this.data.reportlength - 1
             })
           }
@@ -484,25 +437,18 @@ Page({
           }
           if (type == "addsVideo") {
             this.data.addressVideoList.splice(e.currentTarget.dataset.index, 1);
-            //this.data.addrvideoSrcs.splice(e.currentTarget.dataset.index, 1);
             this.setData({
               addressVideoList: this.data.addressVideoList,
-              //addrvideoSrcs: this.data.addrvideoSrcs,
               addslength: this.data.addslength - 1
             })
           }
-          // this.data.imgList.splice(e.currentTarget.dataset.index, 1);
-          // this.setData({
-          //   imgList: this.data.imgList
-          // })
+        
         }
       }
     })
   },
   textareaAInput(e) {
-    // this.setData({
-    //   textareaAValue: e.detail.value
-    // })
+  
     this.data.desc = e.detail.value;
   },
   hideModal(e) {
@@ -510,14 +456,10 @@ Page({
       modalName: null
     })
   },
-  // textareaAInput(e){
-  //       this.data.desc=e.detail.value;
-  // },
+
 
   //提交按钮
   submit() {
-    
-
     var that = this;
     //问题分类
     var qustionSort = this.data.showProblemType;

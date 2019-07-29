@@ -99,3 +99,29 @@ image.quiet {
     transform: scale(0.8333333);
     transition: all 0.2s ease-in 0s;
 }
+
+.cu-card.article {
+  display: block;
+}
+.cu-card.article>.cu-item {
+  padding-top: 30rpx;
+}
+.cu-card.article>.cu-item .content {
+  display: flex;
+  padding: 0 30rpx;
+}
+.cu-card.article>.cu-item .content>image {
+  width: 240rpx;
+  margin-right: 20rpx;
+  border-radius: 6rpx;
+}
+.cu-card.article>.cu-item .content .text-content {
+  font-size: 28rpx;
+  color: #888;
+  height: 2em;
+  overflow: hidden;
+}
+.cu-card.article>.cu-item .content .text-content1 {
+  font-size: 30rpx;
+  height: 1.5em;
+}

@@ -1,6 +1,3 @@
-
-
-
 <!-- 举报分类 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
@@ -29,8 +26,6 @@
       <video class="imgeaaa" id='reportVideo{{index}}' src="{{reportVideoSrc}}" poster="{{reportVideoSrc[index].poster}}" bindfullscreenchange="start">
       </video>
     </view>
-
-
   </view>
 </view>
 

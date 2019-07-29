@@ -1,5 +1,4 @@
 /**index.wxss**/
-@import "./iconfont.wxss";
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -68,4 +67,10 @@
     justify-content: center;
     display: flex;
     margin-bottom: 200rpx;
+}
+.icon {
+    height: 150rpx;
+    width: 150rpx;
+    border-radius: 50%;
+    overflow: hidden;
 }

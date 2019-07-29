@@ -79,8 +79,8 @@ Page({
 
   },
   back:function(e,openid){
-    console.log("这是退回：",e)
-     console.log("这是退回openid：",openid)
+    // console.log("这是退回：",e)
+    //  console.log("这是退回openid：",openid)
     var that = this;
     wx.request({
      // url: "http://192.168.15.193:8199/home/manage/searchTaskList",
@@ -91,7 +91,7 @@ Page({
          "openid":openid,
       },
       success(res) {
-        console.log("退回：",res);
+        // console.log("退回：",res);
         if (res.data.status === "success") {
           that.setData({
             backList: that.data.backList.concat(res.data.retObj),
@@ -111,8 +111,8 @@ Page({
   },
 
   finish:function(e,openid){
-    console.log("这是完成：",e)
-    console.log("这是完成openid：",openid)
+    // console.log("这是完成：",e)
+    // console.log("这是完成openid：",openid)
     var that = this;
     wx.request({
       // url: "http://192.168.15.193:8199/home/manage/searchTaskList",
@@ -123,7 +123,7 @@ Page({
          "openid":openid,
       },
       success(res) {
-        console.log("成功：",res);
+        // console.log("成功：",res);
         if (res.data.status === "success") {
           that.setData({
              finishList: that.data.finishList.concat(res.data.retObj),

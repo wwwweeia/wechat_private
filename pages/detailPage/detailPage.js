@@ -43,7 +43,7 @@ Page({
 
   },
   ViewImageForreport(e) {
-    console.log("图片数据：", e);
+    // console.log("图片数据：", e);
     wx.previewImage({
       urls: this.data.reportImgSrc,
       current: e.currentTarget.dataset.url
@@ -55,14 +55,14 @@ Page({
     this.VideoContext.requestFullScreen(0);
   },
   ViewImageForreport1(e) {
-    console.log("图片数据11：", e.currentTarget.dataset.url);
+    // console.log("图片数据11：", e.currentTarget.dataset.url);
     wx.previewImage({
       urls: this.data.reportImgSrc,
       current: e.currentTarget.dataset.url
     });
   },
   ViewVideoForreport1(e) {
-    console.log("视频数据：", e);
+    // console.log("视频数据：", e);
     this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
     this.VideoContext.requestFullScreen(0);
   },
@@ -96,7 +96,7 @@ Page({
             //imgSrc: res.data.retObj.taskRecord.imgSrc
           })
 
-          console.log("zhehsichangdu:", taskRecord.length)
+          // console.log("zhehsichangdu:", taskRecord.length)
 
 
         }
@@ -107,8 +107,8 @@ Page({
       fail: function (err) { },
       //请求完成后执行的函数
       complete: function () {
-        console.log("这是进度资源：", that.data.taskRecord)
-        console.log("这是进度资源长度：", that.data.taskRecord.length)
+        // console.log("这是进度资源：", that.data.taskRecord)
+        // console.log("这是进度资源长度：", that.data.taskRecord.length)
 
 
 

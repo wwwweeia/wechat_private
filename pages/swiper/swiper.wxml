@@ -1,35 +1,5 @@
 
-<!-- <web-view src="https://mp.weixin.qq.com/s/rBq8M_10GDQAr2QmzrBq5g"></web-view> -->
+<web-view src="https://mp.weixin.qq.com/s/rBq8M_10GDQAr2QmzrBq5g"></web-view>
 
 
-<!--   <view class="cu-card article">
-    <navigator wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../detailPage/detailPage?id={{item.taskId}}"'>
-      <view class="content">
-        <image src="{{item.imageUrl}}" mode="aspectFill"></image>
-        <view class="desc">
-        <view class="text-bold">{{item.describe}}</view>
-          <view class='text-content text-cut'>{{item.addr}}</view>
-          <view>
-            <view class='cu-tag bg-blue light sm round'>{{item.findTime}}</view>
-          </view>
-        </view>
-      </view>
-    </navigator>
-  </view> -->
-    <view class="cu-card article">
-    <navigator wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../detailPage/detailPage?id={{item.taskId}}"'>
-    
-      <view class="content">
-        <image src="{{item.imageUrl}}" mode="aspectFill"></image>
-        <view class="desc">
-          <view class="text-bold text-content1">{{item.describe}}</view>
-          <view class='text-content text-cut'>{{item.addr}}</view>
-          <view>
-            <view class='cu-tag bg-blue light sm round'>{{item.findTime}}
-            </view>
-          </view>
-        </view>
-      </view>
-    </navigator>
-  </view>
 

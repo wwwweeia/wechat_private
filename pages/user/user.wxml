@@ -15,27 +15,16 @@
 <!-- 
 <view hidden="{{hidden}}"> -->
 
-<view class="container bg-white">
+<!-- <view class="container bg-white">
     <image class="userinfo-avatar" src="{{avataUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{nick}}</text>
-  </view>
+  </view> -->
  
-<!-- <view class="userinfo bg-white">
-<open-data type="userAvatarUrl"  class="userinfo-avatar cu-avatar" style="border-radius: 5000rpx"></open-data>
+<view class="userinfo bg-white">
+<open-data type="userAvatarUrl"  class="userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
 <open-data type="userNickName" class="userinfo-nickname"></open-data>
 
-</view> -->
-	
-<!-- <navigator class="" url="../jubaodetail/jubaodetail?openid={{openid}}" open-type="navigate">
-<view class="cu-bar bg-white">
-    <view class="action">
-      <text class="cuIcon-titles text-green"></text>
-      <text class="text-xl text-bold" >　我的举报</text>
-      <text class="cuIcon-{{icon}} lg text-gray text-right padding"></text>
-    </view>
-      </view>
- </navigator>
- -->
+</view>
 
  
 <view class="cu-list menu sm-border card-menu margin-top">
@@ -47,7 +36,7 @@
     </view>
      <view class="cu-item arrow">
       <view class="content">
-        <text class="cuIcon-tagfill text-blue"></text>
+        <text class="cuIcon-tagfill text-green"></text>
         <text class="text-grey">xxxxxxx</text>
       </view>
     </view>
@@ -56,7 +45,7 @@
 <view class="cu-list menu sm-border card-menu margin-top">
      <view class="cu-item arrow">
       <view class="content">
-      <text class="cuIcon-discoverfill text-blue"></text>
+      <text class="cuIcon-github  text-grey"></text>
         <text class="text-grey">关于我们</text>
       </view>
     </view>
@@ -65,4 +54,3 @@
 <view class="copyright">
   <text class="text-grey text-xs">© 美兰德信息咨询有限公司 技术支持</text>
 </view>
-<!-- <text class="iconfont icon-icon_chexiao text-blue"></text> -->

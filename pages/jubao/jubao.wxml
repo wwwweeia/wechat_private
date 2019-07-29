@@ -123,17 +123,7 @@
   <textarea maxlength="-1"  bindinput="textareaAInput" placeholder="请输入举报内容" ></textarea>
 </view>
 <button class="cu-btn block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
-<!-- <text class="cuIcon-loading2 iconfont-spin"></text>-->
 
-
-<!-- <view class="cu-bar bg-white margin-top">
-  <view class="action">
-    <text class="cuIcon-title text-orange "></text> 普通窗口
-  </view>
-  <view class="action">
-    <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="Modal">Modal</button>
-  </view>
-</view> -->
 <view class="cu-modal {{modalName=='Modal'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">

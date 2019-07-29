@@ -1,4 +1,3 @@
-<wxs src="../../dist/wxs/utils.wxs" module="utils" />
 <!-- 街道部分 -->
 
 <view class="cu-bar  solid-bottom " >

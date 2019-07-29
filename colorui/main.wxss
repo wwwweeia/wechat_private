@@ -1994,7 +1994,7 @@ button.icon.lg {
 	display: none;
 }
 
-.nav .cu-item {
+/*.nav .cu-item {
 	height: 90rpx;
 	display: inline-block;
 	line-height: 90rpx;
@@ -2004,6 +2004,14 @@ button.icon.lg {
 
 .nav .cu-item.cur {
 	border-bottom: 4rpx solid;
+}*/
+.nav .cu-item {
+	height: 60rpx;
+	margin: 10rpx;
+}
+
+.nav .cu-item.cur {
+	/*border-bottom: 4rpx solid;*/
 }
 
 /* ==================

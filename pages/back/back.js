@@ -34,13 +34,13 @@ Page({
     that.setData({
       answerId: id
     })
-    console.log("这是失败详情答案Id:",answerId.id);
+    // console.log("这是失败详情答案Id:",answerId.id);
     //获取数据
     that.detail();
 
   },
   ViewImageForreport(e) {
-    console.log("图片数据：", e);
+    // console.log("图片数据：", e);
     wx.previewImage({
       urls: this.data.reportImgSrc,
       current: e.currentTarget.dataset.url
@@ -52,14 +52,14 @@ Page({
     this.VideoContext.requestFullScreen(0);
   },
   ViewImageForreport1(e) {
-    console.log("图片数据11：", e.currentTarget.dataset.url);
+    // console.log("图片数据11：", e.currentTarget.dataset.url);
     wx.previewImage({
       urls: this.data.reportImgSrc,
       current: e.currentTarget.dataset.url
     });
   },
   ViewVideoForreport1(e) {
-    console.log("视频数据：",e);
+    // console.log("视频数据：",e);
     this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
     this.VideoContext.requestFullScreen(0);
   },
@@ -75,7 +75,7 @@ Page({
           answerId:that.data.answerId
       },
       success(res) {
-        console.log("这是失败返回的数据：",res);
+        // console.log("这是失败返回的数据：",res);
         if (res.data.status === "success") {
 
           that.setData({

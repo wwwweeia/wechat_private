@@ -1,9 +1,6 @@
 Page({
   data: {
-      // list: [{
-      //   name: 'shake',
-      //   color: 'red'
-      // }],
+    
     name: 'shake',
     toggleDelay: false
   },
