@@ -20,7 +20,7 @@
 
   <!-- 任务列表 -->
   <view class="cu-card article">
-    <navigator wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../detailPage/detailPage?id={{item.taskId}}"'>
+    <navigator wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../Public/detailPage/detailPage?id={{item.taskId}}"'>
 
       <view class="content">
         <image src="{{item.imageUrl}}" mode="aspectFill"></image>

@@ -1,0 +1,21 @@
+
+<!--pages/menus/menu.wxml-->
+ 
+<view class="userinfo bg-white">
+<open-data type="userAvatarUrl"  class="userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
+<open-data type="userNickName" class="userinfo-nickname"></open-data>
+
+</view>
+
+<view id="box" >
+  <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp"
+  data-type="{{surveyList[index].type}}">
+  <image  id="login"  src="{{item.url}}"></image>
+  <view id="text">
+  <text>{{item.text}}</text>
+  </view>
+  </view>
+</view>
+<view class="copyright">
+  <text class="text-grey text-xs">© 美兰德信息咨询有限公司 技术支持</text>
+</view>

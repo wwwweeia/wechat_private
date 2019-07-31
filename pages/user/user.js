@@ -82,7 +82,7 @@ bindGetUserInfo: function (res) {
     var that = this;
     var openid = that.data.openid;
     wx.navigateTo({
-      url:"../jubaodetail/jubaodetail?openid="+openid
+      url:"../Public/jubaodetail/jubaodetail?openid="+openid
     })
   }
   //  wxLogin: function(e) {

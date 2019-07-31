@@ -39,7 +39,7 @@ Page({
     toswiper:function(){
       var swiperIndex = this.data.swiperIndex;
        wx.navigateTo({
-      url:"../swiper/swiper?id="+swiperIndex
+      url:"../Public/swiper/swiper?id="+swiperIndex
     })
     },
   /**

@@ -1,4 +1,4 @@
-// pages/login/login.js
+// pages/swiper/swiper.js
 Page({
 
   /**
@@ -7,12 +7,16 @@ Page({
   data: {
 
   },
+  openmap: function (e) {
+    var that = this;
+    console.log(e);
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log("这是轮播图Id:",options.id);
   },
 
   /**
