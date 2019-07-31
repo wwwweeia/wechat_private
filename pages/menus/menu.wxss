@@ -1,0 +1,18 @@
+
+#login{
+  height: 121rpx;
+  width: 120rpx;
+  margin-left: 50rpx;
+  /* border: 2rpx;
+  margin: 20px auto;
+  background-repeat: no-repeat;
+  background-position: -60rpx -630rpx */
+}
+#box{
+  display: inline-flex;
+  margin-top: 40%;
+}
+#text{
+  margin-left: 50rpx;
+  text-align: center;
+}

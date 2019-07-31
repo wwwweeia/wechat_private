@@ -1,11 +1,55 @@
 //app.js
 App({
+  data:{
+    surveyNull:[
+      {
+        text:'绑定账号',
+        url:'../../images/denglu.png',
+        type:'0'
+      }
+    ],
+    surveyOrdinary: [
+      {
+        text: '绑定账号',
+        url: '../../images/denglu.png',
+        type: '0'
+      },
+      {
+        text: '开始调查',
+        url: '../../images/diaocha.png',
+        type: '2'
+      }
+    ],
+    surveyFucha: [
+      {
+        text: '绑定账号',
+        url: '../../images/denglu.png',
+        type: '0'
+      },
+      {
+        text: '开始复查',
+        url: '../../images/fucha.png',
+        type: '3'
+      }
+    ],
+    surveyDept: [
+      {
+        text: '绑定账号',
+        url: '../../images/denglu.png',
+        type: '0'
+      },
+      {
+        text: '开始整改',
+        url: '../../images/zhenggai.png',
+        type: '4'
+      }
+    ]
+  },
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-//测试一下哈哈哈哈    .............
     // 登录
     wx.login({
       success: res => {
