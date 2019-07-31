@@ -17,7 +17,6 @@ Page({
    */
   onLoad: function (options) {
     console.log("这是轮播图Id:",options.id);
-    this.getTaskListAll();
   },
 
   /**
