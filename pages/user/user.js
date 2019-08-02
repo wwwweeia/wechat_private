@@ -84,6 +84,16 @@ bindGetUserInfo: function (res) {
     wx.navigateTo({
       url:"../Public/jubaodetail/jubaodetail?openid="+openid
     })
+  },
+  goToMenu:function(){
+     wx.navigateTo({
+      url:"../Professional/menus/menu"
+    })
+  },
+  goToCeshi:function(){
+    wx.navigateTo({
+      url:"../Professional/ceshi/ceshi"
+    })
   }
   //  wxLogin: function(e) {
   //   var that = this;

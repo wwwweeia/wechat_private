@@ -5,7 +5,7 @@
 	},
 	"setting": {
 		"urlCheck": false,
-		"es6": true,
+		"es6": false,
 		"enhance": true,
 		"postcss": true,
 		"minified": true,
@@ -50,7 +50,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -109,16 +109,38 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 8,
 					"name": "菜单",
-					"pathName": "pages/menus/menu",
+					"pathName": "pages/Professional/menus/menu",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "绑定微信",
-					"pathName": "pages/login/login",
+					"name": "项目列表",
+					"pathName": "pages/Professional/project_list/project_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "点位类型",
+					"pathName": "pages/Professional/point_type/point_type",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "专业版测试",
+					"pathName": "pages/Professional/ceshi/ceshi",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 12,
+					"name": "点位详情",
+					"pathName": "pages/Professional/point_detail/point_detail",
+					"query": "pointName=这是测试哦",
 					"scene": null
 				}
 			]

@@ -6,11 +6,12 @@ Page({
    * 页面的初始数据
    */
    data: {
+    menuId:'',
 
-    //surveyNull
-    //surveyOrdinary普通
-    //surveyFucha
-    //surveyDept部门
+    //surveyNull（0绑定账号）
+    //surveyOrdinary（1普通-绑定+调查）
+    //surveyFucha（2复查-绑定+复查）
+    //surveyDept部门（3部门-绑定+整改）
     surveyList: app.data.surveyOrdinary
   },
 
@@ -20,71 +21,28 @@ Page({
    onLoad: function (options) {
 
    },
+   //点击菜单触发函数。0-绑定账号，1-普通,2-复查，3-部门
    junmp: function (even) {
-    console.log(even);
-    console.log(even.currentTarget.dataset.type)
-    if(even.currentTarget.dataset.type==="0"){  
+    var that = this;
+    that.setData({
+      menuId: even.currentTarget.dataset.type
+    })
+    var menuId = that.data.menuId;
+    //0-绑定账号
+    if(menuId==="0"){  
       wx.navigateTo({
        url:"../login/login"
      })
-     console.log("进来了")
+    }
+    //1-普通
+     if(menuId==="1"){  
+      wx.navigateTo({
+       url:"../project_list/project_list"
+     })
     }
 
 
 
-
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-   onReady: function () {
-
-   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-   onShow: function () {
-
-   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-   onHide: function () {
-
-   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-   onUnload: function () {
-
-   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-   onPullDownRefresh: function () {
-
-   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-   onReachBottom: function () {
-
-   },
-
-  /**
-   * 用户点击右上角分享
-   */
-   onShareAppMessage: function () {
-
-   },
-
-
+  }
 
  })

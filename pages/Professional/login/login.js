@@ -26,10 +26,14 @@ Page({
     let formData = e.detail.value;
     let checkRes = form.validation(formData, rules);
     if (!checkRes) {
-       console.log(e.detail.value.name)
-    console.log(e.detail.value.pwd)
-   
-    } else {
+     console.log(e.detail.value.name)
+     console.log(e.detail.value.pwd)
+       //通过校验。得到用户账号密码，后台判断返回信息跳转菜单页。
+       wx.navigateTo({
+         url:"../menus/menu"
+       })
+       
+     } else {
       wx.showToast({
         title: checkRes,
         icon: "none"

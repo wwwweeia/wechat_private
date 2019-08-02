@@ -4,44 +4,44 @@ App({
     surveyNull:[
       {
         text:'绑定账号',
-        url:'../../images/denglu.png',
+        url:'../../../images/denglu.png',
         type:'0'
       }
     ],
     surveyOrdinary: [
       {
         text: '绑定账号',
-        url: '../../images/denglu.png',
+        url: '../../../images/denglu.png',
         type: '0'
       },
       {
         text: '开始调查',
-        url: '../../images/diaocha.png',
-        type: '2'
+        url: '../../../images/diaocha.png',
+        type: '1'
       }
     ],
     surveyFucha: [
       {
         text: '绑定账号',
-        url: '../../images/denglu.png',
+        url: '../../../images/denglu.png',
         type: '0'
       },
       {
         text: '开始复查',
-        url: '../../images/fucha.png',
-        type: '3'
+        url: '../../../images/fucha.png',
+        type: '2'
       }
     ],
     surveyDept: [
       {
         text: '绑定账号',
-        url: '../../images/denglu.png',
+        url: '../../../images/denglu.png',
         type: '0'
       },
       {
         text: '开始整改',
-        url: '../../images/zhenggai.png',
-        type: '4'
+        url: '../../../images/zhenggai.png',
+        type: '3'
       }
     ]
   },
