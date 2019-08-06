@@ -15,7 +15,9 @@
     "pages/Professional/project_list/project_list",
     "pages/Professional/point_type/point_type",
     "pages/Professional/ceshi/ceshi",
-    "pages/Professional/point_detail/point_detail"
+    "pages/Professional/point_detail/point_detail",
+    "pages/Professional/ceshi2/ceshi2",
+    "pages/Professional/quota_list/quota_list"
   ],
   "window": {
     "backgroundTextStyle": "light",

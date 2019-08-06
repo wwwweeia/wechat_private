@@ -1,35 +1,19 @@
-    <scroll-view scroll-y class="DrawerPage {{modalName=='viewModal'?'show':''}}">
-     
-      <view class='padding margin text-center'>
-        <view class='cu-btn bg-green lg block shadow radius margin-xl' bindtap="showModal" data-target="viewModal">
-          打开抽屉
-        </view>
+
+<view class="cu-bar bg-white margin-top">
+ 
+  <view class="action">
+    <button class="cu-btn bg-green shadow" bindtap="showModalTips" data-target="Modal">Modal</button>
+  </view>
+</view>
+<view class="cu-modal {{modalNameTips=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
       </view>
-      <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
-        <view class="cu-item arrow" wx:for="{{20}}" wx:key="index">
-          <view class="content">
-            <text class="cuIcon-github text-grey"></text>
-            <text class="text-grey">{{index +1}}</text>
-          </view>
-        </view>
-      </view>
-      
-      <view class='padding margin text-center'>
-        <view class='cu-btn bg-green lg block shadow radius margin-xl' bindtap="showModal" data-target="viewModal">
-          打开抽屉
-        </view>
-      </view>
-    </scroll-view>
-    <view class="DrawerClose {{modalName=='viewModal'?'show':''}}" bindtap="hideModal">
-      <text class="cuIcon-pullright"></text>
     </view>
-    <scroll-view scroll-y class="DrawerWindow {{modalName=='viewModal'?'show':''}}">
-      <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
-        <view class="cu-item arrow" wx:for="{{20}}" wx:key="index">
-          <view class="content">
-            <text class="cuIcon-github text-grey"></text>
-            <text class="text-grey">{{index +1}}</text>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
+    <view class="bg-white padding-xl　tips">
+      　这是提示内容，这是提示内容，这是提示内容，这是提示内容，这是提示内容，这是提示内容，这是提示内容，这是提示内容，这是提示内容，这是提示内容。
+    </view>
+  </view>
+</view>

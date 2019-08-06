@@ -1,0 +1,16 @@
+<view class="table">
+  <view class="tr bg-w">
+    <view class="th">检查内容</view>
+    <view class="th1">操作</view>
+  </view>
+  <block wx:for="{{listData}}" wx:key="{{time}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td">　{{item.time}}</view>
+      <view class="td1 text-blue">测评</view>
+    </view>
+    <view class="tr" wx:else>
+      <view class="td">　{{item.time}}</view>
+      <view class="td1 text-blue">测评</view>
+    </view>
+  </block>
+</view>

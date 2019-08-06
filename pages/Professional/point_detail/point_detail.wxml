@@ -8,30 +8,30 @@
 
 </view>
   <view class="cu-form-group ">
-    <view class="title">联系人</view>
+    <view class="title text-bold">联系人</view>
     <text class="item-left">{{list.linkman}}</text>
      <text class="cuIcon-peoplelist text-blue"></text>
   </view>
     <view class="cu-form-group ">
-    <view class="title">电话</view>
+    <view class="title text-bold">电话</view>
     <text class="item-left">{{list.tel}}</text>
      <text class="cuIcon-phone text-green"></text>
   </view>
     <view class="cu-form-group ">
-    <view class="title">地址</view>
+    <view class="title text-bold">地址</view>
     <text class="item-left">{{list.address}}</text>
      <text class="cuIcon-location text-red"></text>
   </view>
     <view class="cu-form-group ">
-    <view class="title">所属片区</view>
+    <view class="title text-bold">所属片区</view>
     <text class="item-left">{{list.area}}</text>
   </view>
     <view class="cu-form-group ">
-    <view class="title">所属街道</view>
+    <view class="title text-bold">所属街道</view>
     <text class="item-left">{{list.street}}</text>
   </view>
   <view class="cu-form-group">
-  <view class="title">操作提示</view>
+  <view class="title text-bold">操作提示</view>
     <text class="item-left">{{list.prompt}}</text>
      <text class="cuIcon-question text-orange"></text>
   </view>
@@ -39,7 +39,7 @@
 
 <view class="grid1 col-5 padding-sm  ">
   <view class="margin-tb-sm text-center" >
-    <button class="cu-btn round lg1 bg-blue ">测评</button>
+    <button class="cu-btn round lg1 bg-blue " bind:tap="goToquota_list">测评</button>
   </view>
    <view class="margin-tb-sm text-center" >
     <button class="cu-btn round lg1 bg-red ">无法调查</button>

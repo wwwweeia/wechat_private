@@ -13,7 +13,7 @@ Page({
       address: '天津市滨海新区政通桥-河北路',
       area:'塘沽',
       street: '塘沽片区',
-      prompt: '道路随机起点，步行1000米左右，检查相关情况,'
+      prompt: '道路随机起点，步行1000米左右，检查相关情况,道路随机起点，步行1000米左右，检查相关情况,'
     }
   },
 
@@ -29,6 +29,13 @@ Page({
   goToReturn:function(){
      wx.navigateTo({
        url:"../point_type/point_type"
+     })
+  },
+   //测评页面goToquota_list
+  goToquota_list:function(){
+    var pointName= this.data.pointName;
+     wx.navigateTo({
+       url: "../quota_list/quota_list?pointName=" + pointName
      })
   }
 })
