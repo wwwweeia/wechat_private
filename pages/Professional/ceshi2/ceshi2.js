@@ -1,14 +1,43 @@
-//table.js
+const app = getApp();
 Page({
   data: {
-    listData: [
-      { "time": "23.每100米设置不少于1块公益广告","tips":"这是提示2"},
-      { "time": "24.沿街有宣传橱窗的公交站点，公益广告布置比率不低于30%","tips":"这是提示2"}
-    ]
+    tipsId: null,
+
+     tipsList:[
+      { 
+        id:"1",
+        name: '1111'
+      },
+      {
+        id:"2",
+        name: '2222'
+      },
+      {
+        id:"3",
+        name: '3333'
+      },
+      {
+        id:"4",
+        name: '4444'
+      },
+      {
+        id:"5",
+        name: '5555'
+      }]
+    
   },
-  onLoad: function () {
-    console.log('onLoad')
+  showModal(e) {
+    this.setData({
+      modalName: e.currentTarget.dataset.target
+    })
   },
-  onShow() {
+  hideModal(e) {
+    console.log("这是：",e.currentTarget.dataset.value)
+    
+    this.setData({
+      tipsId: e.currentTarget.dataset.value,
+      modalName: null
+    })
   }
+
 })

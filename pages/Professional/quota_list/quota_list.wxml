@@ -3,12 +3,12 @@
 <block wx:for="{{list}}" wx:key>
 <view class="cu-bar bg-white1  solid-bottom "  >
   <view class="h1" >
-{{siji_quotaName}}
+{{pointName}}
   </view>  
   </view>
   <view class="cu-bar bg-white1  solid-bottom "  >
   <view class="h2">
-    <!-- <text class="cuIcon-titles text-blue "></text> -->　{{wuji_quotaName}}
+    <!-- <text class="cuIcon-titles text-blue "></text> -->　{{quotaName}}
   </view>  
   </view>
   <text>　{{item.pages[0].tips}}</text>
@@ -24,12 +24,12 @@
     <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
       <view class="td ">　{{item.time}}
         <text bindtap="showModalTips" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
-      <view class="td1 text-blue">测评</view>
+      <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
     </view>
     <view class="tr" wx:else>
       <view class="td">　{{item.time}}
         <text bindtap="showModalTips" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
-      <view class="td1 text-blue">测评</view>
+      <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
     </view>
   </block>
    <!-- 提示框 -->
@@ -67,13 +67,24 @@
 </view>
 <!-- 隐藏部分 -->
 <scroll-view scroll-y class=" DrawerWindow {{modalName=='viewModal'?'show':''}}">
+<!-- 描述 -->
+<view class="cu-bar solid-bottom">
+
+    <view class="action">
+    <button class="cu-btn bg-blue shadow" bindtap="goToNo_refuse">拒访</button>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-blue shadow" bindtap="goToSwitch" >切换</button>
+  </view>
+</view>
+
 
  <block wx:for-items="{{list}}" wx:key="{{item.id}}">
       <view class="kind-list_item">
         <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
           <view class="cuIcon-unfold text-blue"></view>
           <!-- 这里是点位 -->
-          <view class="tui-flex_item　 text-sm">　{{siji_quotaName}}</view>
+          <view class="tui-flex_item　 text-sm">　{{pointName}}</view>
           <!-- <view class="cuIcon-unfold"></view> -->
         </view>
         <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">

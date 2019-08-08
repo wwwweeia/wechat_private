@@ -1,56 +1,53 @@
-//index.js
-var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
+const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
+let qqmapsdk;
 //获取应用实例
 const app = getApp()
 Page({
   data: {
-    longitude: 113.324520,
-    latitude: 23.099994,
-    markers: [{
-      id: 0,
-      iconPath: "../../images/icon_cur_position.png",
-      latitude: 23.099994,
-      longitude: 113.324520,
-      width: 50,
-      height: 50
-    }],
-    address: '',
-    //框架属性
-    CustomBar: app.globalData.CustomBar,
-    //分类显示判断标志
-    isShow: false,
-    //框架测试多选框属性
-    //ColorList: app.globalData.ColorList,
-    //问题分类多选框数组
-    problemType: [],
-    //问题分类已选择显示数组
-    showProblemType: [],
+    address:"正在获取地址...",
+    longitude: 116.397452,
+    latitude: 39.909042,
+    key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
+     tipsId: null,
+     hidden: false,
+     idModelShow: '1',
+    tipsList:[
+      { 
+        id:"1",
+        name: '这是无法调查原因1111'
+      },
+      {
+        id:"2",
+        name: '这是无法调查原因2222'
+      },
+      {
+        id:"3",
+        name: '这是无法调查原因3333'
+      },
+      {
+        id:"4",
+        name: '这是无法调查原因4444'
+      },
+      {
+        id:"5",
+        name: '这是无法调查原因5555'
+      },
+      {
+        id:"6",
+        name: '这是无法调查原因6666'
+      },
+      {
+        id:"7",
+        name: '这是无法调查原因7777'
+      }],
     //图片上传数据
     imgList: [],
     //视频上传数据
     videoList: [],
-    //举报视频资源路径
-    //videoSrcs:[],
-    //地址图片或视频缩略图
-    addressImgList: [],
-    //地址图片或视频上传数据
-    addressVideoList: [],
-    //地址视频资源路径
-    //addrvideoSrcs:[],
-    //举报内容
-    textareaAValue: '',
-    //上传资源所属类别(举报or地址)
-    type: '',
-    //地址资源总长度   限制上传数量
-    addslength: 0,
     //举报资源总长度  限制上传数量
     reportlength: 0,
     //举报描述
     desc: '',
-    ids: [],
-    test: [],
-    //上传资源绑定的问题ID
-    answerId: '',
     //上传的第几个资源
     i: 0,
     //成功个数
@@ -58,116 +55,83 @@ Page({
     //失败个数
     fail: 0,
     //openid
-    openid:''
+    openid:'',
+     items: [
+      {name: '1达标', value: '达标', checked: 'true'},
+      {name: '2不达标', value: '不达标'},
+      {name: '3一般不达标', value: '一般不达标'},
+      {name: '4严重不达标', value: '严重不达标'},
+    ]
+  },
+ radioChange: function(e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+  },
+  
+onLoad: function(options) {
+    qqmapsdk = new QQMapWX({
+      key: this.data.key
+    });
+    this.currentLocation()
   },
   regionchange(e) {
-    console.log(e.type)
-  },
-  markertap(e) {
-    console.log(e.markerId)
-  },
-  controltap(e) {
-    console.log(e.controlId)
-  },
-
-  /**
-   * 获取问题类型数据
-   */
-  getProblemType() {
-    let that = this;
-    wx.request({
-      url: "http://221.216.95.200:8285/home/manage/searchQuestionSorts",
-      //url: "http://221.216.95.200:8285/home/manage/searchQuestionSorts",
-      success(res) {
-        if (res.data.httpStatusCode === 200) {
-          for (let i = 0; i < res.data.retObj.length; i++) {
-            i.checked == false;
-          }
-          that.setData({
-            problemType: res.data.retObj
+    // 地图发生变化的时候，获取中间点，也就是cover-image指定的位置
+    if (e.type == 'end' && (e.causedBy == 'scale' || e.causedBy == 'drag')) {
+      this.setData({
+        address: "正在获取地址..."
+      })
+      this.mapCtx = wx.createMapContext("maps");
+      this.mapCtx.getCenterLocation({
+        type: 'gcj02',
+        success: (res) => {
+          //console.log(res)
+          this.setData({
+            latitude: res.latitude,
+            longitude: res.longitude
           })
+          this.getAddress(res.longitude, res.latitude);
         }
-      }
-    })
+      })
+    }
   },
-
-  onLoad() {
-    var vm = this;
-    wx.getSetting({
-      success(res) {
-        // 1. scope.userLocation 为真， 代表用户已经授权
-        if (res.authSetting['scope.userLocation']) {
-          //获取用户定位信息
-          // 1.1 使用 getlocation 获取用户 经纬度位置
-          wx.getLocation({
-            type: "wgs84",
-            success: function(res) {
-              var latitude = res.latitude;
-              var longitude = res.longitude;
-              //console.log(res.latitude);
-              vm.setData({
-                latitude: res.latitude,
-                longitude: res.longitude,
-                markers: [{
-                  latitude: res.latitude,
-                  longitude: res.longitude
-                }]
-              })
-              // 1.3 将获取到的 经纬度传值给 getAddress 解析出 具体的地址
-              vm.getAddress(res.latitude, res.longitude)
-            }
-          })
-        } else {
-          //重新询问用户获取授权
-          wx.authorize({
-            scope: 'scope.userLocation',
-            success(res) {
-              // 1.1 使用 getlocation 获取用户 经纬度位置
-              wx.getLocation({
-                type: "wgs84",
-                success: function(res) {
-                  var latitude = res.latitude;
-                  var longitude = res.longitude;
-                  //console.log(res.latitude);
-                  vm.setData({
-                    latitude: res.latitude,
-                    longitude: res.longitude,
-                    markers: [{
-                      latitude: res.latitude,
-                      longitude: res.longitude
-                    }]
-                  })
-                  // 1.3 将获取到的 经纬度传值给 getAddress 解析出 具体的地址
-                  vm.getAddress(res.latitude, res.longitude)
-                }
-              })
-            }
-          })
-        }
-      }
-    })
-    vm.getProblemType()
-  },
-  getAddress(latitude, longitude) {
-    let that = this;
-    let qqmapsdk = new QQMapWX({
-      key: '6RTBZ-QZG6I-24YGG-5WOEG-DRABK-G3BK5'
-    })
-    // reverseGeocoder 为 QQMapWX 解析 经纬度的方法
+  getAddress:function(lng,lat){
+    //根据经纬度获取地址信息
     qqmapsdk.reverseGeocoder({
       location: {
-        latitude,
-        longitude
+        latitude: lat,
+        longitude: lng
       },
-      sig: '7xiMOUDA3gBd2zwT3zVrW22TfLYufBo',
-      success(res) {
-        //console.log('success', res)
-        that.setData({
-          address: res.result.address
+      success: (res) => {
+        console.log(res)
+        console.log(res.result.formatted_addresses.recommend)
+        this.setData({
+          address: res.result.formatted_addresses.recommend //res.result.address
+        })
+      },
+      fail: (res) => {
+        this.setData({
+          address: "获取位置信息失败"
         })
       }
     })
   },
+  currentLocation(){
+    //当前位置
+    const that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success(res) {
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
+        that.getAddress(res.longitude, res.latitude);
+      }
+    })
+  },
+
+ 
+
+
   takePhoto() {
     this.ctx.takePhoto({
       quality: 'high',
@@ -199,9 +163,18 @@ Page({
     console.log(e.detail)
   },
   showModal(e) {
-    console.log(e);
     this.setData({
+      idModelShow:'0',
+      hidden:true,
       modalName: e.currentTarget.dataset.target
+    })
+  },
+    hideModal(e) {
+    this.setData({
+      idModelShow:'1',
+      hidden: false,
+       tipsId: e.currentTarget.dataset.value,
+      modalName: null
     })
   },
   showModal2(e) {
@@ -211,57 +184,7 @@ Page({
       modalName: e.currentTarget.dataset.target,
     })
   },
-  //选择问题分类取消按钮
-  problemTypeCancel(e) {
-    let that = this.data;
-    let items = this.data.problemType;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].checked == true) {
-        items[i].checked = false
-      }
-    }
-    this.setData({
-      problemType: items,
-      showProblemType: items,
-      isShow: false,
-      modalName: null
-    })
-  },
-  //选择问题分类  确认按钮
-  problemTypeConfirm(e) {
-    let that = this.data;
-    var show = false;
-    var showData = [];
-    var num = 0;
-    for (let i = 0; i < that.problemType.length; i++) {
-      if (that.problemType[i].checked == true) {
-        showData.push(that.problemType[i])
-        num++
-      }
-    }
-    if (num > 0) {
-      show = true
-    }
-    this.setData({
-      showProblemType: showData,
-      isShow: show,
-      modalName: null
-    })
-  },
-  //问题分类多选框
-  ChooseCheckbox(e) {
-    let items = this.data.problemType;
-    let values = e.currentTarget.dataset.value;
-    for (let i = 0, lenI = items.length; i < lenI; ++i) {
-      if (items[i].id == values) {
-        items[i].checked = !items[i].checked;
-        break
-      }
-    }
-    this.setData({
-      problemType: items
-    })
-  },
+  
   ChooseImage(e) {
     var type = this.data.type;
     if (type == 'adds') {
@@ -385,16 +308,7 @@ Page({
     this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
     this.VideoContext.requestFullScreen(0);
   },
-  ViewImageForadds(e) {
-    wx.previewImage({
-      urls: this.data.addressImgList,
-      current: e.currentTarget.dataset.url
-    });
-  },
-  ViewVideoForadds(e) {
-    this.VideoContext = wx.createVideoContext('addsVideo' + e.currentTarget.dataset.index);
-    this.VideoContext.requestFullScreen(0);
-  },
+
   start(e) {
     let fullScreen = e.detail.fullScreen;
     if (!fullScreen) {
@@ -428,41 +342,18 @@ Page({
               reportlength: this.data.reportlength - 1
             })
           }
-          if (type == "addsImg") {
-            this.data.addressImgList.splice(e.currentTarget.dataset.index, 1);
-            this.setData({
-              addressImgList: this.data.addressImgList,
-              addslength: this.data.addslength - 1
-            })
-          }
-          if (type == "addsVideo") {
-            this.data.addressVideoList.splice(e.currentTarget.dataset.index, 1);
-            this.setData({
-              addressVideoList: this.data.addressVideoList,
-              addslength: this.data.addslength - 1
-            })
-          }
-        
         }
       }
     })
   },
   textareaAInput(e) {
-  
     this.data.desc = e.detail.value;
-  },
-  hideModal(e) {
-    this.setData({
-      modalName: null
-    })
   },
 
 
   //提交按钮
   submit() {
     var that = this;
-    //问题分类
-    var qustionSort = this.data.showProblemType;
     //举报描述
     var desc = this.data.desc;
     //举报经纬度
@@ -474,10 +365,7 @@ Page({
     var reportImg = that.data.imgList;
     //举报视频集合
     var reportVideo = that.data.videoList;
-    //地址图片集合
-    var addsImg = that.data.addressImgList;
-    //地址视频集合
-    var addsVideo = that.data.addressVideoList;
+  
 
     var app = getApp();
     var openid = app.openid;
@@ -487,15 +375,7 @@ Page({
     var openid = that.data.openid;
     console.log("普通资源携带的openid:？",openid);
 
-    if (qustionSort.length < 1) {
-      wx.showToast({
-        title: '请选择问题类型',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
-    }
+ 
     if ((reportImg.length + reportVideo.length) < 1) {
       wx.showToast({
         title: '请拍摄举报图片/视频',
@@ -505,15 +385,7 @@ Page({
       })
       return
     }
-    // if ((addsImg.length + addsVideo.length) < 1) {
-    //   wx.showToast({
-    //     title: '请拍摄地点图片/视频',
-    //     icon: 'none',
-    //     duration: 1000,
-    //     mask: true
-    //   })
-    //   return
-    // }
+   
     if (desc == '') {
       wx.showToast({
         title: '请填写举报描述',
@@ -524,11 +396,7 @@ Page({
       return
     }
 
-    var sortIds = '';
-    for (let i = 0; i < qustionSort.length; i++) {
-      sortIds += qustionSort[i].id + ','
-    }
-    sortIds = sortIds.substring(0, sortIds.length - 1)
+   
     //发送请求到后台，存储：经纬度、地址、描述、问题ID 
     wx.request({
       url: "http://221.216.95.200:8285/home/manage/createAnswer",
@@ -537,7 +405,6 @@ Page({
         "latitude": latitude,
         "address": address,
         "desc": desc,
-        "qustionSort": sortIds,
         "openid":openid,
       },
       header: {
@@ -581,10 +448,7 @@ Page({
     var reportImg = that.data.imgList;
     //举报视频集合
     var reportVideo = that.data.videoList;
-    //地址图片集合
-    var addsImg = that.data.addressImgList;
-    //地址视频集合
-    var addsVideo = that.data.addressVideoList;
+ 
 
     wx.showLoading({
       title: '资源上传中...',
@@ -597,18 +461,8 @@ Page({
     if (reportVideo.length > 0) {
       //举报视频
       that.reportVideo11();
+  
     }
-    if (addsImg.length > 0) {
-      //地址图片
-      that.addsImg11();
-    }
-    if (addsVideo.length > 0) {
-      //地址视频
-      that.addsVideo11();
-    }
-
-
-
 
     setTimeout(function() {
       wx.reLaunch({
@@ -672,53 +526,6 @@ Page({
     })
 
   },
-  //地址图片集合
-  addsImg11: function() {
-    var that = this;
-    //地址图片集合
-    var addsImg = that.data.addressImgList;
-    var answerId = that.data.answerId;
-
-    var i = that.data.i;
-    var success = that.data.success;
-    var fail = that.data.fail;
-    var openid = that.data.openid;
-
-
-    wx.uploadFile({
-      url: 'http://221.216.95.200:8285/home/manage/upload',
-      filePath: addsImg[i],
-      name: 'addsImg' + i + openid,
-      formData: {
-        'answerId': answerId,
-        'key': 'addsImg' + i + openid,
-        'openid': openid,
-      },
-      success(res) {
-        // 操作成功
-        wx.hideLoading();
-        success++;
-      },
-      //请求失败
-      fail: function(err) {
-        fail++;
-      },
-      complete: () => {
-        i++;
-        if (i >= addsImg.length) { //当图片传完时，停止调用     
-          console.log('---上传地址图片执行完毕---');
-          console.log('成功：' + success + " 失败：" + fail);
-        } else { //若图片还没有传完，则继续调用函数
-          that.data.i = i;
-          that.data.success = success;
-          that.data.fail = fail;
-          that.addsImg11();
-        }
-      }
-
-    })
-
-  },
   //举报视频集合
   reportVideo11: function() {
     var that = this;
@@ -766,52 +573,11 @@ Page({
 
 
   },
-  //地址视频集合
-  addsVideo11: function() {
 
-    var that = this;
-    //地址视频集合
-    var addsVideo = that.data.addressVideoList;
-    var answerId = that.data.answerId;
-
-    var i = that.data.i;
-    var success = that.data.success0;
-    var fail = that.data.fail;
-    var openid = that.data.openid;
-
-    wx.uploadFile({
-      url: 'http://221.216.95.200:8285/home/manage/upload',
-      filePath: addsVideo[i].src,
-      name: 'addsVideo' + i + openid,
-      formData: {
-        'answerId': answerId,
-        'key': 'addsVideo' + i + openid,
-        'openid': openid,
-      },
-      success(res) {
-        // 操作成功
-        wx.hideLoading();
-        success++;
-      },
-      //请求失败
-      fail: function(err) {
-        fail++;
-      },
-      complete: () => {
-        i++;
-        if (i >= addsVideo.length) { //当图片传完时，停止调用     
-          console.log('上传地址视频执行完毕');
-          console.log('成功：' + success + " 失败：" + fail);
-        } else { //若图片还没有传完，则继续调用函数
-          that.data.i = i;
-          that.data.success = success;
-          that.data.fail = fail;
-          that.addsVideo11();
-        }
-      }
-
-
-    })
-  },
-
+    //返回指标页面
+  goPoint_type:function(){
+     wx.navigateTo({
+       url:"../point_type/point_type"
+     })
+  }
 })

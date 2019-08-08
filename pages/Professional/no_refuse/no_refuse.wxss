@@ -1,17 +1,35 @@
-/* pages/location/location.wxss */
-
-page {
-  height: 100%;
+page{
+  height: 30%;
 }
+.padding{
+  padding:15rpx;
+}
+.hide{
+  display: none
+}
+.show{
+  /*display: block*/
+}
+
+.box{
+    width:120rpx;
+    font-size:30rpx;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+   }
 
 .container {
   width: 100%;
-  height: 500rpx;
+  height: 600rpx;
 }
 
 #maps {
   width: 100%;
-  height: 500rpx;
+  height: 600rpx;
 }
 
 .cover-image {
@@ -81,7 +99,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 1050rpx;
+  bottom: 950rpx;
   right: 60rpx;
   background: rgba(255, 255, 255, 0.94);
   border-radius: 38rpx;
@@ -95,4 +113,17 @@ page {
 }
 .padding{
   padding:15rpx;
+}
+.image_user{
+  width: 100%;
+height: 600rpx;
+flex-direction: column;
+
+}
+.padding-xl_user{
+  padding: 50rpx 150rpx;
+}
+.radioChange_user{
+  text-align:center;
+  padding-top: 25rpx;
 }

@@ -14,7 +14,7 @@
 		"nodeModules": true,
 		"autoAudits": false,
 		"checkInvalidKey": true,
-		"checkSiteMap":  false,
+		"checkSiteMap": false,
 		"uploadWithSourceMap": true,
 		"babelSetting": {
 			"ignore": [],
@@ -50,7 +50,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 17,
 			"list": [
 				{
 					"id": 0,
@@ -151,9 +151,30 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 14,
 					"name": "指标列表",
 					"pathName": "pages/Professional/quota_list/quota_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "任务上传",
+					"pathName": "pages/Professional/task_upload/task_upload",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "无法调查",
+					"pathName": "pages/Professional/no_ investigate/no_ investigate",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "拒访",
+					"pathName": "pages/Professional/no_refuse/no_refuse",
 					"query": "",
 					"scene": null
 				}

@@ -42,7 +42,7 @@
     <button class="cu-btn round lg1 bg-blue " bind:tap="goToquota_list">测评</button>
   </view>
    <view class="margin-tb-sm text-center" >
-    <button class="cu-btn round lg1 bg-red ">无法调查</button>
+    <button class="cu-btn round lg1 bg-red " bind:tap="goNo_investigate">无法调查</button>
   </view>
    <view class="margin-tb-sm text-center" bind:tap="goToReturn">
     <button class="cu-btn round lg1 bg-grey ">返回</button>

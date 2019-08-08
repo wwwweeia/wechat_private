@@ -56,21 +56,47 @@ Page({
       // { "time": "25.每100米设置不少于1块公益广告","tips":"这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示3333333"}
       { "time": "25.每100米设置不少于1块公益广告","tips":""}
     ],
+    // 点位
+    pointName: "公共广场-滨海广场",
     // 四级指标
-    siji_quotaName: "",
-    // 五级指标
-    wuji_quotaName: "1)证照齐全，规范经营",
+    quotaName: "1)证照齐全，规范经营",
     // 提示id
-    tipsId: 'null'
+    tipsId: null
   },
 
  onLoad: function (e) {
     this.setData({
-      siji_quotaName: e.pointName
+      pointName: e.pointName
     })
   },
+// 跳转上传页面
+goToUpload:function(){
+  wx.navigateTo({
+    url:"../task_upload/task_upload"
+  })
+},
 
 
+// 跳转拒访页面
+goToNo_refuse:function(){
+  wx.navigateTo({
+    url:"../no_refuse/no_refuse"
+  })
+},
+// 切换
+goToSwitch:function(){
+ // 显示加载图标
+      wx.showLoading({
+        title: '待开发',
+      }),
+          // 隐藏加载框
+    setTimeout(function() {
+      wx.hideLoading()
+    }, 1000)
+
+},
+
+// 提示模态框
   showModalTips(e) {
     this.setData({
       tipsId: e.currentTarget.dataset.id,
@@ -82,6 +108,7 @@ Page({
       modalNameTips: null,
     })
   },
+// 页面切换
   showModal(e) {
     // console.log("showModal:", e)
     this.setData({
@@ -92,7 +119,7 @@ Page({
     // console.log("hideModal:", e)
     this.setData({
       modalName: null,
-      wuji_quotaName: e.currentTarget.dataset.quotaname
+      quotaName: e.currentTarget.dataset.quotaname
     })
   },
   //手风琴

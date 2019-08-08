@@ -21,6 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+  
     this.setData({
       pointName: options.pointName
     })
@@ -36,6 +37,13 @@ Page({
     var pointName= this.data.pointName;
      wx.navigateTo({
        url: "../quota_list/quota_list?pointName=" + pointName
+     })
+  },
+
+     //无法调查页面goNo_investigate
+  goNo_investigate:function(){
+     wx.navigateTo({
+       url: "../no_investigate/no_investigate"
      })
   }
 })

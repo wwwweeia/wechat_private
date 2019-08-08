@@ -17,7 +17,10 @@
     "pages/Professional/ceshi/ceshi",
     "pages/Professional/point_detail/point_detail",
     "pages/Professional/ceshi2/ceshi2",
-    "pages/Professional/quota_list/quota_list"
+    "pages/Professional/quota_list/quota_list",
+    "pages/Professional/task_upload/task_upload",
+    "pages/Professional/no_investigate/no_investigate",
+    "pages/Professional/no_refuse/no_refuse"
   ],
   "window": {
     "backgroundTextStyle": "light",

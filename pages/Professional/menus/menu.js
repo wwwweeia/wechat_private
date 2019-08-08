@@ -12,7 +12,7 @@ Page({
     //surveyOrdinary（1普通-绑定+调查）
     //surveyFucha（2复查-绑定+复查）
     //surveyDept部门（3部门-绑定+整改）
-    surveyList: app.data.surveyOrdinary
+     surveyList: app.data.surveyAll
   },
 
   /**
@@ -40,6 +40,16 @@ Page({
        url:"../project_list/project_list"
      })
     }
+     //2-复查
+     if(menuId==="2"){  
+     console.log("这是复查")
+    }
+
+  //3-部门
+     if(menuId==="3"){  
+    console.log("这是部门-=-开始整改")
+    }
+
 
 
 
