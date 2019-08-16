@@ -20,7 +20,10 @@
     "pages/Professional/quota_list/quota_list",
     "pages/Professional/task_upload/task_upload",
     "pages/Professional/no_investigate/no_investigate",
-    "pages/Professional/no_refuse/no_refuse"
+    "pages/Professional/no_refuse/no_refuse",
+    "pages/Professional/surveyDept/dept_index/dept_index",
+    "pages/Professional/surveyDept/dept_swiper/dept_swiper",
+    "pages/Professional/surveyDept/dept_task_detail/dept_task_detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

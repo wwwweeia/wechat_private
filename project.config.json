@@ -50,7 +50,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -95,9 +95,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 6,
 					"name": "举报详情",
-					"pathName": "pages/jubaodetail/jubaodetail",
+					"pathName": "pages/Public/detailPage/detailPage",
 					"query": "",
 					"scene": null
 				},
@@ -175,6 +175,20 @@
 					"id": -1,
 					"name": "拒访",
 					"pathName": "pages/Professional/no_refuse/no_refuse",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始整改首页",
+					"pathName": "pages/Professional/surveyDept/dept_index/dept_index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始整改任务详情",
+					"pathName": "pages/Professional/surveyDept/dept_task_detail/dept_task_detail",
 					"query": "",
 					"scene": null
 				}

@@ -450,6 +450,7 @@ button::after {
 .tips{
   text-align:left;
 }
-.padding-xl-user{
-  padding: 20rpx;
+
+.tips2{
+  text-align:center;
 }

@@ -21,6 +21,36 @@ App({
         text: '开始整改',
         url: '../../../images/zhenggai.png',
         type: '3'
+      },
+      {
+        text: '实地审核',
+        url: '../../../images/sd-shenhe.png',
+        type: '4'
+      },
+      {
+        text: '材料上报',
+        url: '../../../images/cl-shangbao.png',
+        type: '5'
+      },
+      {
+        text: '材料审核',
+        url: '../../../images/cl-shenhe.png',
+        type: '6'
+      },
+      {
+        text: '统计排名',
+        url: '../../../images/paiming.png',
+        type: '7'
+      },
+      {
+        text: '实时监控',
+        url: '../../../images/jiankong.png',
+        type: '8'
+      },
+      {
+        text: '数据分析',
+        url: '../../../images/fenxi.png',
+        type: '9'
       }
     ],
     surveyNull:[

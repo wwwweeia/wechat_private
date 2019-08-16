@@ -80,6 +80,7 @@ Page({
       //url: "http://221.216.95.200:8285/home/manage/searchQuestionSorts",
       success(res) {
         if (res.data.httpStatusCode === 200) {
+          console.log("进来了")
           for (let i = 0; i < res.data.retObj.length; i++) {
             i.checked == false;
           }

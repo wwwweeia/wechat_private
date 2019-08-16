@@ -23,35 +23,25 @@
   <block wx:for="{{listData}}" wx:key="{{time}}">
     <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
       <view class="td ">　{{item.time}}
-        <text bindtap="showModalTips" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
+        <text bindtap="showAlert" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
       <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
     </view>
     <view class="tr" wx:else>
       <view class="td">　{{item.time}}
-        <text bindtap="showModalTips" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
+        <text bindtap="showAlert" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
       <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
     </view>
   </block>
-   <!-- 提示框 -->
- <view  class="cu-modal {{modalNameTips=='Modal'?'show':''}}" >
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="action" bindtap="hideModalTips">
-        <text class="cuIcon-close text-blue"></text>
-      </view>
-    </view>
-    <view wx:if="{{listData[tipsId].tips!=null && listData[tipsId].tips!=''}}" class="bg-white padding-xl-user　tips">
+  <!--提示框alert-->
+    <tui-alert show="{{visible}}" bind:click="hideAlert" bind:cancel="hideAlert" maskClosable="true" btnColor="#e54d42" color="#333" btnText="点击关闭">
+        <view wx:if="{{listData[tipsId].tips!=null && listData[tipsId].tips!=''}}" class="tips">
      　{{listData[tipsId].tips}}
     </view>
-    <view wx:else class="bg-white padding-xl-user ">
-     　无提示
+    <view wx:else class="tips2">
+     无提示
     </view>
-
+    </tui-alert>
   </view>
-</view>
-  </view>
-
- 
 
 
   <view class='padding margin text-center'>

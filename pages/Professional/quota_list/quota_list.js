@@ -51,8 +51,8 @@ Page({
     }
     ],
     listData: [
-      { "time": "23.每100米设置不少于1块公益广告,每100米设置不少于1块公益广告.","tips":"这是提示这是提示这是提示这是提示这是提示这是提示11111111111"},
-      { "time": "24.沿街有宣传橱窗的公交站点，公益广告布置比率不低于30%","tips":"这是提示这是提示这是提示这是提示这是提示这是提示这是提示22222"},
+      { "time": "23.每100米设置不少于1块公益广告,每100米设置不少于1块公益广告.","tips":"这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示11111111111"},
+      { "time": "24.沿街有宣传橱窗的公交站点，公益广告布置比率不低于30%","tips":"这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示22222"},
       // { "time": "25.每100米设置不少于1块公益广告","tips":"这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示3333333"}
       { "time": "25.每100米设置不少于1块公益广告","tips":""}
     ],
@@ -95,19 +95,20 @@ goToSwitch:function(){
     }, 1000)
 
 },
+// 提示弹框
+  showAlert(e) {
+    this.setData({
+       tipsId: e.currentTarget.dataset.id,
+      visible: true
+    })
+  },
+  hideAlert(type) {
+    this.setData({
+      visible: false
+    })
+  },
 
-// 提示模态框
-  showModalTips(e) {
-    this.setData({
-      tipsId: e.currentTarget.dataset.id,
-      modalNameTips: e.currentTarget.dataset.target
-    })
-  },
-  hideModalTips(e) {
-    this.setData({
-      modalNameTips: null,
-    })
-  },
+
 // 页面切换
   showModal(e) {
     // console.log("showModal:", e)

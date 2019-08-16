@@ -7,9 +7,9 @@
 
 </view>
 
-<view id="box" >
+<view id="box" class="nav-list">
   <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp"
-  data-type="{{surveyList[index].type}}">
+  data-type="{{surveyList[index].type}}" class="nav-li">
   <image  id="login"  src="{{item.url}}"></image>
   <view id="text">
   <text>{{item.text}}</text>

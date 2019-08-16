@@ -139,7 +139,7 @@
 </view>
 <view class="radioChange_user">
 <radio-group    bindchange="radioChange">
-  <label class="radio" wx:for="{{items}}">
+  <label class="radio" wx:for="{{items}}" wx:key>
     <radio class="blue margin-left-sm" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
   </label>
 </radio-group>

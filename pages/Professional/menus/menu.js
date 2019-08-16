@@ -48,6 +48,9 @@ Page({
   //3-部门
      if(menuId==="3"){  
     console.log("这是部门-=-开始整改")
+     wx.navigateTo({
+       url:"../surveyDept/dept_index/dept_index"
+     })
     }
 
 

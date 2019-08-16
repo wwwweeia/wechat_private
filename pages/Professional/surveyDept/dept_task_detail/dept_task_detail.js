@@ -1,9 +1,15 @@
-
 Page({
   data: {
-
-
-    //图片上传数据
+    //任务ID
+    taskId: '',
+    //资源
+    retObj: [],
+    
+    //举报图片
+    reportImgSrc: [],
+    //举报视频
+    reportVideoSrc: [],
+      //图片上传数据
     imgList: [],
     //视频上传数据
     videoList: [],
@@ -13,21 +19,78 @@ Page({
 
     //上传资源绑定的问题ID
     answerId: '',
-    //上传的第几个资源
-    i: 0,
-    //成功个数
-    success: 0,
-    //失败个数
-    fail: 0,
-    //openid
-    openid:''
+
+
   },
 
 
-  onLoad() {
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (taskId) {
+    var that = this;
+    var id = taskId.id;
+    that.setData({
+      taskId: id
+    })
+    //console.log("这是任务详情Id:",taskId.id);
+    //获取数据
+    that.detail();
+
+  },
+  ViewImageForreport(e) {
+    // console.log("图片数据：", e);
+    wx.previewImage({
+      urls: this.data.reportImgSrc,
+      current: e.currentTarget.dataset.url
+    });
+  },
+  ViewVideoForreport(e) {
+    //console.log("视频数据：",e);
+    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
+    this.VideoContext.requestFullScreen(0);
+  },
+
+
+  //发送请求获取数据
+  detail: function () {
+    var that = this;
+    var imgSrc = '';
    
-  },
+    wx.request({
+      url: "http://221.216.95.200:8285/home/manage/searchTaskInfo?taskId=20",
+      success(res) {
+        if (res.data.status === "success") {
 
+          that.setData({
+
+            retObj: res.data.retObj,
+  
+            //举报图片
+            reportImgSrc: res.data.retObj.reportImgSrc,
+            //举报视频
+            reportVideoSrc: res.data.retObj.reportVideoSrc,
+
+
+
+          })
+
+
+        }
+
+
+      },
+      //请求失败
+      fail: function (err) { },
+      //请求完成后执行的函数
+      complete: function () {
+        // console.log("这是进度资源：", that.data.taskRecord)
+        // console.log("这是进度资源长度：", that.data.taskRecord.length)
+      }
+
+    })
+  },
+  // 拍摄
   
 
   showModal2(e) {
@@ -144,7 +207,16 @@ Page({
     this.setData({
       modalName: null
     })
+  },
+
+// 复选开关
+  switch(e){
+    console.log(e.detail.value)
+  },
+  goToDept_index(){
+    wx.navigateTo({
+       url:"../dept_index/dept_index"
+     })
   }
 
-
-  })
+})
