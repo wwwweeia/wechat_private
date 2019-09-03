@@ -1,29 +1,18 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/jubao/jubao",
-    "pages/user/user",
-    "pages/Public/swiper/swiper",
-    "pages/Public/detailPage/detailPage",
-    "pages/Public/success/success",
-    "pages/Public/jubaodetail/jubaodetail",
-    "pages/Public/back/back",
-    "pages/Public/finish/finish",
-    "pages/Public/ceshi/ceshi",
-    "pages/Professional/menus/menu",
-    "pages/Professional/login/login",
-    "pages/Professional/project_list/project_list",
-    "pages/Professional/point_type/point_type",
-    "pages/Professional/ceshi/ceshi",
-    "pages/Professional/point_detail/point_detail",
-    "pages/Professional/ceshi2/ceshi2",
-    "pages/Professional/quota_list/quota_list",
-    "pages/Professional/task_upload/task_upload",
-    "pages/Professional/no_investigate/no_investigate",
-    "pages/Professional/no_refuse/no_refuse",
-    "pages/Professional/surveyDept/dept_index/dept_index",
-    "pages/Professional/surveyDept/dept_swiper/dept_swiper",
-    "pages/Professional/surveyDept/dept_task_detail/dept_task_detail"
+    "pages/menus/menu",
+    "pages/login/login",
+    "pages/startDiaocha/project_list/project_list",
+    "pages/startDiaocha/point_type/point_type",
+    "pages/startDiaocha/ceshi/ceshi",
+    "pages/startDiaocha/point_detail/point_detail",
+    "pages/startDiaocha/ceshi2/ceshi2",
+    "pages/startDiaocha/quota_list/quota_list",
+    "pages/startDiaocha/no_refuse/no_refuse",
+    "pages/startDiaocha/map/map",
+    "pages/surveyDept/dept_index/dept_index",
+    "pages/surveyDept/dept_swiper/dept_swiper",
+    "pages/surveyDept/dept_task_detail/dept_task_detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,29 +20,6 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "onReachBottomDistance": 50
-  },
-  "tabBar": {
-    "selectedColor": "#0081ff",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "images/shouye-off.png",
-        "selectedIconPath": "images/shouye-on.png"
-      },
-      {
-        "pagePath": "pages/jubao/jubao",
-        "text": "上报",
-        "iconPath": "images/jubao-off.png",
-        "selectedIconPath": "images/jubao-on.png"
-      },
-      {
-        "pagePath": "pages/user/user",
-        "text": "个人中心",
-        "iconPath": "images/user-off.png",
-        "selectedIconPath": "images/user-on.png"
-      }
-    ]
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"

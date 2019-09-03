@@ -50,64 +50,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": -1,
 			"list": [
-				{
-					"id": 0,
-					"name": "测试",
-					"pathName": "pages/detailPage/detailPage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "举报",
-					"pathName": "pages/jubao/jubao",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "个人中心",
-					"pathName": "pages/user/user",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "成功",
-					"pathName": "pages/success/success",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "任务详情",
-					"pathName": "pages/detailPage/detailPage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "轮播详情",
-					"pathName": "pages/swiper/swiper",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 6,
-					"name": "举报详情",
-					"pathName": "pages/Public/detailPage/detailPage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "测试页面",
-					"pathName": "pages/ceshi/ceshi",
-					"query": "",
-					"scene": null
-				},
 				{
 					"id": 8,
 					"name": "菜单",
@@ -189,6 +133,13 @@
 					"id": -1,
 					"name": "开始整改任务详情",
 					"pathName": "pages/Professional/surveyDept/dept_task_detail/dept_task_detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "地图",
+					"pathName": "pages/Professional/map/map",
 					"query": "",
 					"scene": null
 				}

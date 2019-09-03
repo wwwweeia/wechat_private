@@ -1,0 +1,94 @@
+<!-- 初始加载显示部分 -->
+<scroll-view scroll-y class="  DrawerPage {{modalName=='viewModal'?'show':''}}">
+<block wx:for="{{list}}" wx:key>
+<view class="cu-bar bg-white1  solid-bottom "  >
+  <view class="h1" >
+{{pointName}}
+  </view>  
+  </view>
+  <view class="cu-bar bg-white1  solid-bottom "  >
+  <view class="h2">
+    <!-- <text class="cuIcon-titles text-blue "></text> -->　{{quotaName}}
+  </view>  
+  </view>
+  <text>　{{item.pages[0].tips}}</text>
+</block>
+      
+  <!-- 操作表格 -->
+  <view class="table">
+  <view class="tr bg-w">
+    <view class="th">检查内容</view>
+    <view class="th1">操作</view>
+  </view>
+  <block wx:for="{{listData}}" wx:key="{{time}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td ">　{{item.time}}
+        <text bindtap="showAlert" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
+      <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
+    </view>
+    <view class="tr" wx:else>
+      <view class="td">　{{item.time}}
+        <text bindtap="showAlert" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
+      <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
+    </view>
+  </block>
+  <!--提示框alert-->
+    <tui-alert show="{{visible}}" bind:click="hideAlert" bind:cancel="hideAlert" maskClosable="true" btnColor="#e54d42" color="#333" btnText="点击关闭">
+        <view wx:if="{{listData[tipsId].tips!=null && listData[tipsId].tips!=''}}" class="tips">
+     　{{listData[tipsId].tips}}
+    </view>
+    <view wx:else class="tips2">
+     无提示
+    </view>
+    </tui-alert>
+  </view>
+
+
+  <view class='padding margin text-center'>
+        <view class='cu-btn bg-cyan lg block shadow radius margin-xl cuIcon-back_android' bindtap="showModal" data-target="viewModal">
+          切换指标
+        </view>
+      </view>
+</scroll-view>
+
+<!-- 触摸屏幕回退列 -->
+<view class="DrawerClose {{modalName=='viewModal'?'show':''}} " bindtap="hideModal">
+  <text class="cuIcon-roundrightfill "></text>
+</view>
+<!-- 隐藏部分 -->
+<scroll-view scroll-y class=" DrawerWindow {{modalName=='viewModal'?'show':''}}">
+<!-- 描述 -->
+<view class="cu-bar solid-bottom">
+
+    <view class="action">
+    <button class="cu-btn bg-blue shadow" bindtap="goToNo_refuse">拒访</button>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-blue shadow" bindtap="goToSwitch" >切换</button>
+  </view>
+</view>
+
+
+ <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+      <view class="kind-list_item">
+        <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
+          <view class="cuIcon-unfold text-blue"></view>
+          <!-- 这里是点位 -->
+          <view class="tui-flex_item　 text-sm">　{{pointName}}</view>
+          <!-- <view class="cuIcon-unfold"></view> -->
+        </view>
+        <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
+          <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
+            <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:key="*item">
+              <view class="tui-cell tui-cell_access" bindtap="hideModal" data-target="viewModal" data-quotaName="{{page.name}}">
+                <view class="tui-cell_bd text-smm">　{{page.name}}</view>
+                <view class="{{page.status==0?'cuIcon-roundclosefill text-red' : 'cuIcon-roundcheckfill  text-blue'}} ">　</view>
+                <view class="tui-cell_ft tui-cell_ft_in-access"></view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+</scroll-view>

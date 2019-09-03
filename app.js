@@ -4,95 +4,95 @@ App({
     surveyAll:[
       {
         text: '绑定账号',
-        url: '../../../images/denglu.png',
+        url: '../../images/denglu.png',
         type: '0'
       },
       {
         text: '开始调查',
-        url: '../../../images/diaocha.png',
+        url: '../../images/diaocha.png',
         type: '1'
       },
       {
         text: '开始复查',
-        url: '../../../images/fucha.png',
+        url: '../../images/fucha.png',
         type: '2'
       },
       {
         text: '开始整改',
-        url: '../../../images/zhenggai.png',
+        url: '../../images/zhenggai.png',
         type: '3'
       },
       {
         text: '实地审核',
-        url: '../../../images/sd-shenhe.png',
+        url: '../../images/sd-shenhe.png',
         type: '4'
       },
       {
         text: '材料上报',
-        url: '../../../images/cl-shangbao.png',
+        url: '../../images/cl-shangbao.png',
         type: '5'
       },
       {
         text: '材料审核',
-        url: '../../../images/cl-shenhe.png',
+        url: '../../images/cl-shenhe.png',
         type: '6'
       },
       {
         text: '统计排名',
-        url: '../../../images/paiming.png',
+        url: '../../images/paiming.png',
         type: '7'
       },
       {
         text: '实时监控',
-        url: '../../../images/jiankong.png',
+        url: '../../images/jiankong.png',
         type: '8'
       },
       {
         text: '数据分析',
-        url: '../../../images/fenxi.png',
+        url: '../../images/fenxi.png',
         type: '9'
       }
     ],
     surveyNull:[
       {
         text:'绑定账号',
-        url:'../../../images/denglu.png',
+        url:'../../images/denglu.png',
         type:'0'
       }
     ],
     surveyOrdinary: [
       {
         text: '绑定账号',
-        url: '../../../images/denglu.png',
+        url: '../../images/denglu.png',
         type: '0'
       },
       {
         text: '开始调查',
-        url: '../../../images/diaocha.png',
+        url: '../../images/diaocha.png',
         type: '1'
       }
     ],
     surveyFucha: [
       {
         text: '绑定账号',
-        url: '../../../images/denglu.png',
+        url: '../../images/denglu.png',
         type: '0'
       },
       {
         text: '开始复查',
-        url: '../../../images/fucha.png',
+        url: '../../images/fucha.png',
         type: '2'
       }
     ],
     surveyDept: [
       {
         text: '绑定账号',
-        url: '../../../images/denglu.png',
+        url: '../../images/denglu.png',
         type: '0'
       },
       {
         text: '开始整改',
-        url: '../../../images/zhenggai.png',
+        url: '../../images/zhenggai.png',
         type: '3'
       }
     ]
@@ -116,8 +116,9 @@ App({
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'http://221.216.95.200:8285/member/manage/userLogin',
+        //    url: 'http://192.168.15.146:8080/member/manage/userLogin',
             data: {
+              govCode:'TJBS',
               code: res.code
             },
             success(res) {
