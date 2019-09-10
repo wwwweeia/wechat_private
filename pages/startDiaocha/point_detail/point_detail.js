@@ -6,6 +6,8 @@ Page({
    */
   data: {
     pointName: '',
+    pointId:'',
+    pointTypeId:'',
     list: {}
   },
 
@@ -13,11 +15,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+     var projectId =  wx.getStorageSync('projectId');
+   // console.log("项目id：",projectId)
     var that = this;
     var pointId = options.id;
+    var pointTypeId = options.pointTypeId;
+    // console.log("点位类型id",pointTypeId);
     var name = options.name;
     that.setData({
-      pointName:name
+      pointName:name,
+      pointId:pointId,
+      pointTypeId:pointTypeId
     })
     that.getPointDetail(pointId);
 
@@ -28,7 +36,7 @@ Page({
     var that = this;
     wx.request({
       // 必需
-      url: 'http://192.168.15.146:8080/wechat/api/fieldLocation/getFieldLocationDetailById',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/getFieldLocationDetailById',
       data: {
         id:pointId
       },
@@ -36,7 +44,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-            console.log("点位详情",res)
+            // console.log("点位详情",res)
         if (res.data.status == 'success') {
             that.setData({
               list:res.data.retObj
@@ -76,9 +84,10 @@ Page({
   },
    //测评页面goToquota_list
   goToquota_list:function(){
+    var pointTypeId = this.data.pointTypeId;
     var pointName= this.data.pointName;
      wx.navigateTo({
-       url: "../quota_list/quota_list?pointName=" + pointName
+       url: "../quota_list/quota_list?pointName=" + pointName+"&pointTypeId="+pointTypeId
      })
   },
 

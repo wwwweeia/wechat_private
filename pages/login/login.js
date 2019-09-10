@@ -51,7 +51,7 @@ Page({
       // })
       wx.request({
         // 必需
-        url: 'http://192.168.15.146:8080/wehcat/api/memberMange/bindSurveyor',
+        url: 'http://192.168.15.147:8080/wehcat/api/memberMange/bindSurveyor',
         method: "POST",
         data: {
           openid: openid,

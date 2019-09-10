@@ -23,7 +23,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.7",
+	"libVersion": "2.8.2",
 	"appid": "wx30a56175a6a091db",
 	"projectname": "wechart_public",
 	"debugOptions": {

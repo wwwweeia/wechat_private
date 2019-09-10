@@ -10,9 +10,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option) {
+
     var that = this;
     var terminalUserId = app.terminalUserId;
-    console.log(terminalUserId)
+    // console.log(terminalUserId)
     that.getProjectList(terminalUserId);
   },
 
@@ -21,7 +22,7 @@ Page({
     var that = this;
     wx.request({
       // 必需
-      url: 'http://192.168.15.146:8080/wechat/api/fieldProject/getFieldProjectListByTerminalUserId',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldProject/getFieldProjectListByTerminalUserId',
       data: {
         terminalUserId:terminalUserId
       },
@@ -29,7 +30,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log(res)
+        console.log("项目数据",res)
         if (res.data.status == 'success') {
             that.setData({
               elements:res.data.retObj

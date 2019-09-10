@@ -400,7 +400,7 @@ button::after {
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 3rem;
+  /*height: 3rem;*/
   align-items: center;
 }
 .td {

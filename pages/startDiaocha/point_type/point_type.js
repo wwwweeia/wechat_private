@@ -16,6 +16,7 @@ Page({
      var that = this;
     var terminalUserId = app.terminalUserId;
     var projectId = options.projectId;
+    wx.setStorageSync('projectId', projectId)
     that.setData({
       projectId:projectId
     })
@@ -25,7 +26,7 @@ Page({
     var that = this;
       wx.request({
         // 必需
-        url: 'http://192.168.15.146:8080/wechat/api/fieldLocation/getFieldPointLocationList',
+        url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/getFieldPointLocationList',
         data: {
           terminalUserId:terminalUserId,
           projectId:projectId
@@ -34,7 +35,7 @@ Page({
           'Content-Type': 'application/json'
         },
         success: (res) => {
-          console.log("点位类型",res)
+          // console.log("点位类型",res)
         if (res.data.status == 'success') {
           var mapList = res.data.retObj;
          let map = [];
@@ -56,8 +57,7 @@ Page({
             })
           }
          }
-          console.log("这是id",map)
-           console.log("这是id啊啊啊啊  ",mapLists)
+      
             that.setData({
               list:res.data.retObj,
               markersList:mapLists  
@@ -85,6 +85,7 @@ Page({
   kindToggle: function(e) {
     //页面传递过来的点击id
     let id = e.currentTarget.dataset.index;
+    
     //当前展开的id
     let active = this.data.active;
     //展开项给selected数组动态赋值

@@ -1,6 +1,6 @@
 <!-- 初始加载显示部分 -->
 <scroll-view scroll-y class="  DrawerPage {{modalName=='viewModal'?'show':''}}">
-<block wx:for="{{list}}" wx:key>
+<block >
 <view class="cu-bar bg-white1  solid-bottom "  >
   <view class="h1" >
 {{pointName}}
@@ -11,7 +11,7 @@
     <!-- <text class="cuIcon-titles text-blue "></text> -->　{{quotaName}}
   </view>  
   </view>
-  <text>　{{item.pages[0].tips}}</text>
+  <text>　{{tips}}</text>
 </block>
       
   <!-- 操作表格 -->
@@ -22,23 +22,20 @@
   </view>
   <block wx:for="{{listData}}" wx:key="{{time}}">
     <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-      <view class="td ">　{{item.time}}
-        <text bindtap="showAlert" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
+      <view class="td ">　{{item.content}}
+        <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
       <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
     </view>
     <view class="tr" wx:else>
-      <view class="td">　{{item.time}}
-        <text bindtap="showAlert" data-id="{{index}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
+      <view class="td">　{{item.content}}
+        <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
       <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
     </view>
   </block>
   <!--提示框alert-->
     <tui-alert show="{{visible}}" bind:click="hideAlert" bind:cancel="hideAlert" maskClosable="true" btnColor="#e54d42" color="#333" btnText="点击关闭">
-        <view wx:if="{{listData[tipsId].tips!=null && listData[tipsId].tips!=''}}" class="tips">
-     　{{listData[tipsId].tips}}
-    </view>
-    <view wx:else class="tips2">
-     无提示
+    <view  class="tips2">
+     该问题无提示
     </view>
     </tui-alert>
   </view>
@@ -52,7 +49,7 @@
 </scroll-view>
 
 <!-- 触摸屏幕回退列 -->
-<view class="DrawerClose {{modalName=='viewModal'?'show':''}} " bindtap="hideModal">
+<view class="DrawerClose {{modalName=='viewModal'?'show':''}} " data-type="1"  bindtap="hideModal">
   <text class="cuIcon-roundrightfill "></text>
 </view>
 <!-- 隐藏部分 -->
@@ -66,9 +63,9 @@
 </view>
 
 
- <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+ <block >
       <view class="kind-list_item">
-        <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
+        <view  class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" >
           <view class="cuIcon-unfold text-blue"></view>
           <!-- 这里是点位 -->
           <view class="tui-flex_item　 text-sm">　{{pointName}}</view>
@@ -78,10 +75,10 @@
         <view class="kind-list_item-bd kind-list_item-bd_show">
           <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
            <view class="tui-cells tui-cells_show">
-            <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:key="*item">
-              <view class="tui-cell tui-cell_access" bindtap="hideModal" data-target="viewModal" data-quotaName="{{page.name}}">
-                <view class="tui-cell_bd text-smm">　{{page.name}}</view>
-                <view class="{{page.status==0?'cuIcon-roundclosefill text-red' : 'cuIcon-roundcheckfill  text-blue'}} ">　</view>
+            <block wx:for-items="{{list}}" wx:key="{{item.id}}" >
+              <view data-index="{{index}}" class="tui-cell tui-cell_access" bindtap="hideModal" data-type="0" data-target="viewModal" data-quotaId="{{item.id}}" data-content="{{item.content}}">
+                <view class="tui-cell_bd text-smm" >{{item.content}}</view>
+                <view class="{{item.isLast==0?'cuIcon-roundclosefill text-red' : 'cuIcon-roundcheckfill  text-blue'}} ">　</view>
                 <view class="tui-cell_ft tui-cell_ft_in-access"></view>
               </view>
             </block>

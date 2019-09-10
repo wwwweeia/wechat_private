@@ -23,13 +23,12 @@ App({
           //发起网络请求
           wx.request({
         //    url: 'http://192.168.15.146:8080/member/manage/userLogin',
-            url: 'http://192.168.15.146:8080/wehcat/api/memberMange/userLogin',
+            url: 'http://192.168.15.147:8080/wehcat/api/memberMange/userLogin',
             data: {
               govCode:'TJBS',
               code: res.code
             },
             success(res) {
-             console.log("请求用户：",res.data.retObj)
               if (res.data.status == 'success'){
                 var  app = getApp();
                 app.openid = res.data.retObj.openId;
