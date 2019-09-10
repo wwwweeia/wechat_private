@@ -2,7 +2,7 @@
 .userinfo {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /*align-items: center;*/
 }
 
 .userinfo-avatar {
@@ -14,6 +14,7 @@
 
 .userinfo-nickname {
   color: #aaa;
+  margin-left: 4em;
 }
 
 .icon {
@@ -21,6 +22,7 @@
     width: 150rpx;
     border-radius: 50%;
     overflow: hidden;
+    margin-left: 2.1em;
 }
 /** 中间 **/
 #login{

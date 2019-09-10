@@ -77,12 +77,7 @@ goToUpload:function(){
 },
 
 
-// 跳转拒访页面
-goToNo_refuse:function(){
-  wx.navigateTo({
-    url:"../no_refuse/no_refuse"
-  })
-},
+
 // 切换
 goToSwitch:function(){
  // 显示加载图标
@@ -97,11 +92,33 @@ goToSwitch:function(){
 },
 // 提示弹框
   showAlert(e) {
-    this.setData({
-       tipsId: e.currentTarget.dataset.id,
-      visible: true
-    })
+  //   var id = e.currentTarget.dataset.id;
+  //  wx.navigateTo({
+  //   url:'../question_tips/question_tips?url=http://img1.diaochaonline.com/resource/image/ims_wmcc2/ques_tip_html/09bac89504d64e1b8c7f50a0f36f6ed9.html',
+    
+  //   success: function(res) {
+  //   // 通过eventChannel向被打开页面传送数据
+  //   res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
+  // }
+
+  //  })
+//测试
+  wx.navigateTo({
+  url: '../question_tips/question_tips?id=1',
+  success: function(res) {
+    // 通过eventChannel向被打开页面传送数据
+    res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test3333',ceshi: 'ceshi ' })
+  }
+})
+
   },
+// 提示弹框
+  // showAlert(e) {
+  //   this.setData({
+  //      tipsId: e.currentTarget.dataset.id,
+  //     visible: true
+  //   })
+  // },
   hideAlert(type) {
     this.setData({
       visible: false

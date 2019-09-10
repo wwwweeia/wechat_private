@@ -107,9 +107,9 @@ text-align: left;
   margin-top: 500rpx;
 }
 .lg1 {
-padding: 0 60rpx;
+/*padding: 0 60rpx;*/
 font-size: 32rpx;
-height: 80rpx;
+/*height: 80rpx;*/
 
 }
 .cu-form-group .title {

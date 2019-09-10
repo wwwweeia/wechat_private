@@ -1,81 +1,155 @@
-const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
-let qqmapsdk;
+// pages/oldMusic/index.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    address:"正在获取地址...",
-    longitude: 114.010857,
-    latitude: 22.63137,
-    amapPlugin: null,
-    key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP'
+    audioSrc: '',
+    isShow:1,
+    modalHidden: true
   },
-  onLoad: function(options) {
-    qqmapsdk = new QQMapWX({
-      key: this.data.key
-    });
-    this.currentLocation()
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
   },
-  regionchange(e) {
-    // 地图发生变化的时候，获取中间点，也就是cover-image指定的位置
-    if (e.type == 'end' && (e.causedBy == 'scale' || e.causedBy == 'drag')) {
-      this.setData({
-        address: "正在获取地址..."
-      })
-      this.mapCtx = wx.createMapContext("maps");
-      this.mapCtx.getCenterLocation({
-        type: 'gcj02',
-        success: (res) => {
-          //console.log(res)
-          this.setData({
-            latitude: res.latitude,
-            longitude: res.longitude
-          })
-          this.getAddress(res.longitude, res.latitude);
-        }
-      })
-    }
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
   },
-  getAddress:function(lng,lat){
-    //根据经纬度获取地址信息
-    qqmapsdk.reverseGeocoder({
-      location: {
-        latitude: lat,
-        longitude: lng
-      },
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          address: res.result.formatted_addresses.recommend //res.result.address
-        })
-      },
-      fail: (res) => {
-        this.setData({
-          address: "获取位置信息失败"
-        })
-      }
-    })
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
   },
-  currentLocation(){
-    //当前位置
-    const that = this;
-    wx.getLocation({
-      type: 'gcj02',
-      success(res) {
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
-        })
-        that.getAddress(res.longitude, res.latitude);
-      }
-    })
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
   },
-    showModal(e) {
-    this.setData({
-      modalName: e.currentTarget.dataset.target
-    })
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
   },
-  hideModal(e) {
-    this.setData({
-      modalName: null
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+
+
+  /**
+   * 提示
+   */
+  , tip: function (msg) {
+    wx.showModal({
+      title: '提示',
+      content: msg,
+      showCancel: false
     })
   }
+
+  /**
+   * 开始录音
+   */
+  , startRecord: function () {
+    var that = this;
+    that.setData({
+      modalHidden:false
+    })
+    
+    wx.startRecord({
+      success: function (res) {
+        var tempFilePath = res.tempFilePath
+        that.setData({
+          audioSrc: tempFilePath,
+          isShow:0,
+          // modalHidden:false
+        })
+       
+         that.tip("录音完成")
+      },
+      fail: function (res) {
+        //录音失败
+        that.tip("录音失败！")
+      }
+    })
+     // console.log("开始录音",that.data.audioSrc)
+  }
+
+  /**
+   * 停止录音
+   */
+  , stopRecord: function () {
+    var that = this;
+    wx.stopRecord({
+      success: function (res) {
+        that.setData({
+          modalHidden:true
+        })
+       
+        // that.tip("录音完成")
+      },
+    })
+  }
+
+  /**
+   * 播放录音
+   */
+  , playRecord: function () {
+    var that = this;
+    var audioSrc = this.data.audioSrc;
+    if (audioSrc == '') {
+      this.tip("请先录音！")
+      return;
+    }
+
+    wx.playVoice({
+      filePath: audioSrc,
+      fail: function (res) {
+        that.tip("播放录音失败！")
+      }
+    })
+
+  },
+    /**
+   * 点击取消
+   */
+  modalCandel: function() {
+    var that = this;
+    // do something
+    this.setData({
+      modalHidden: true,
+      audioSrc:''
+    })
+  },
 })

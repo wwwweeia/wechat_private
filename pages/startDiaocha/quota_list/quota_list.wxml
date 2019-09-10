@@ -60,9 +60,6 @@
 <!-- 描述 -->
 <view class="cu-bar solid-bottom">
 
-    <view class="action">
-    <button class="cu-btn bg-blue shadow" bindtap="goToNo_refuse">拒访</button>
-  </view>
   <view class="action">
     <button class="cu-btn bg-blue shadow" bindtap="goToSwitch" >切换</button>
   </view>
@@ -77,8 +74,10 @@
           <view class="tui-flex_item　 text-sm">　{{pointName}}</view>
           <!-- <view class="cuIcon-unfold"></view> -->
         </view>
-        <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
-          <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
+        <!-- <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}"> -->
+        <view class="kind-list_item-bd kind-list_item-bd_show">
+          <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
+           <view class="tui-cells tui-cells_show">
             <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:key="*item">
               <view class="tui-cell tui-cell_access" bindtap="hideModal" data-target="viewModal" data-quotaName="{{page.name}}">
                 <view class="tui-cell_bd text-smm">　{{page.name}}</view>

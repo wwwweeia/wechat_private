@@ -1,28 +1,13 @@
 <!-- 地图 -->
-<view class="container padding bg-white " hover-stop-propagation="false" hover-class="none">
+<!-- <view class="container padding bg-white " hover-stop-propagation="false" hover-class="none"> -->
   <!-- 地图控件 -->
-  <map wx:if="{{hidden == false}}" id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location bindregionchange="regionchange">
+  <!-- <map wx:if="{{hidden == false}}" id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location bindregionchange="regionchange">
     <cover-image class="cover-image" src="../../../images/location.png" />
-  </map>
+  </map> -->
   <!-- 弹出层替换地图 -->
-  <image wx:if="{{hidden == true}}" class="image_user" src="../../../images/replace.jpg" mode="scaleToFill"></image>
-  <!-- 地址显示 -->
-  <!-- <cover-view wx:if="{{hidden == false}}" class="footer-box">
-    <cover-view class="result-box">
-      <cover-view class="info list-item">
-        <cover-view class="badge"></cover-view>
-        <cover-view class="ellipsis">{{address}}</cover-view>
-      </cover-view>
-      <cover-view class="info">
-        <cover-view class="badge orange"></cover-view>
-        <cover-view class="ellipsis"> {{longitude}},{{latitude}}</cover-view>
-      </cover-view>
-    </cover-view>
-  </cover-view>
-  <cover-view wx:if="{{hidden == false}}" class="current-location fixed" catchtap="currentLocation">
-    <cover-image src="../../../images/current.png" class="current-img"></cover-image>
-  </cover-view> -->
-</view>
+<!--   <image wx:if="{{hidden == true}}" class="image_user" src="../../../images/replace.jpg" mode="scaleToFill"></image>
+
+</view> -->
 
 <!-- 地址定位 -->
 <view class="cu-bar  solid-bottom">
@@ -30,7 +15,7 @@
     <text class="cuIcon-title text-blue"></text>地址定位
   </view>
    <view class="action">
-    <button class="cu-btn bg-green shadow" catchtap="currentLocation">定位异常</button>
+    <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
   </view>
 </view>
 
@@ -99,36 +84,21 @@
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 原因说明
   </view>
-  <view class="action">
-    <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="RadioModal">快捷输入</button>
-  </view>
 </view>
 
-<!-- 提示语弹出层 -->
-<view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
-  <view class="cu-dialog" catchtap>
-    <radio-group class="block">
-      <view class="cu-list menu text-left">
-        <view class="cu-item" wx:for="{{tipsList}}" wx:key>
-          <label class="flex justify-between align-center flex-sub" bindtap="hideModal" data-value="{{item.id}}">
-            <view class="flex-sub">{{item.name}}</view>
-            <radio class="round"></radio>
-          </label>
-        </view>
-      </view>
-    </radio-group>
-  </view>
-</view>
 
 <!-- 编辑框 -->
-<view>
+<view class="cu-form-group">
+  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="请描述拒访原因"></textarea>
+</view>
+<!-- <view>
   <view wx:if="{{tipsId == null || tipsId == ''}}" class="cu-form-group">
     <textarea maxlength="-1" bindinput="textareaAInput" placeholder="{{idModelShow=='1' ? '请描述无法调查原因' : ' '}}"></textarea>
   </view>
   <view wx:else class="cu-form-group">
     <text>{{tipsList[tipsId-1].name}}</text>
   </view>
-</view>
+</view> -->
 
 
 <!-- <view class="padding-xl_user">

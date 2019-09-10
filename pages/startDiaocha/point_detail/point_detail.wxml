@@ -32,7 +32,7 @@
   </view>
   <view class="cu-form-group">
   <view class="title text-bold">操作提示</view>
-    <text class="item-left">{{list.prompt}}</text>
+    <text class="item-left">{{list.tips}}</text>
      <text class="cuIcon-question text-orange"></text>
   </view>
 
@@ -43,6 +43,9 @@
   </view>
    <view class="margin-tb-sm text-center" >
     <button class="cu-btn round lg1 bg-red " bind:tap="goNo_investigate">无法调查</button>
+  </view>
+  <view class="margin-tb-sm text-center" >
+    <button class="cu-btn round lg1 bg-orange " bind:tap="goToNo_refuse">拒访</button>
   </view>
    <view class="margin-tb-sm text-center" bind:tap="goToReturn">
     <button class="cu-btn round lg1 bg-grey ">返回</button>

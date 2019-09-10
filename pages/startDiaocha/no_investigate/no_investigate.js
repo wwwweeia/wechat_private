@@ -8,38 +8,8 @@ Page({
     longitude: 116.397452,
     latitude: 39.909042,
     key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
-     tipsId: null,
+     
      hidden: false,
-     idModelShow: '1',
-    tipsList:[
-      { 
-        id:"1",
-        name: '这是无法调查原因1111'
-      },
-      {
-        id:"2",
-        name: '这是无法调查原因2222'
-      },
-      {
-        id:"3",
-        name: '这是无法调查原因3333'
-      },
-      {
-        id:"4",
-        name: '这是无法调查原因4444'
-      },
-      {
-        id:"5",
-        name: '这是无法调查原因5555'
-      },
-      {
-        id:"6",
-        name: '这是无法调查原因6666'
-      },
-      {
-        id:"7",
-        name: '这是无法调查原因7777'
-      }],
     //图片上传数据
     imgList: [],
     //视频上传数据
@@ -162,18 +132,11 @@ onLoad: function(options) {
   error(e) {
     console.log(e.detail)
   },
-  showModal(e) {
-    this.setData({
-      idModelShow:'0',
-      hidden:true,
-      modalName: e.currentTarget.dataset.target
-    })
-  },
+
     hideModal(e) {
     this.setData({
       idModelShow:'1',
       hidden: false,
-       tipsId: e.currentTarget.dataset.value,
       modalName: null
     })
   },
@@ -187,29 +150,6 @@ onLoad: function(options) {
   
   ChooseImage(e) {
     var type = this.data.type;
-    if (type == 'adds') {
-      wx.chooseImage({
-        count: 1, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], //从相册选择
-        success: (res) => {
-          if (this.data.addressImgList.length != 0) {
-            this.setData({
-              addressImgList: this.data.addressImgList.concat(res.tempFilePaths),
-              modalName: '',
-              addslength: this.data.addslength + 1
-            })
-          } else {
-            this.setData({
-              addressImgList: res.tempFilePaths,
-              modalName: '',
-              addslength: this.data.addslength + 1
-            })
-          }
-        },
-        
-      });
-    } else {
       wx.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -230,7 +170,7 @@ onLoad: function(options) {
           }
         }
       });
-    }
+
   },
   chooseVideo() {
     let vm = this;
@@ -241,33 +181,7 @@ onLoad: function(options) {
       'poster': ''
     };
     var type = this.data.type;
-    if (type == 'adds') {
-      wx.chooseVideo({
-        sourceType: ['album', 'camera'],
-        maxDuration: 30,
-        camera: 'back',
-        success: (res) => {
-          obj.src = res.tempFilePath
-          obj.poster = res.thumbTempFilePath
-          urlArray.push(obj)
-          if (vm.data.addressVideoList.length != 0) {
-            vm.setData({
-              addressVideoList: vm.data.addressVideoList.concat(urlArray),
-              modalName: '',
-              addslength: vm.data.addslength + 1
-            })
-            //   vm.data.addrvideoSrcs.push(res.tempFilePath)
-          } else {
-            vm.setData({
-              addressVideoList: urlArray,
-              modalName: '',
-              addslength: vm.data.addslength + 1
-            })
-            //    vm.data.addrvideoSrcs.push(res.tempFilePath)
-          }
-        }
-      })
-    } else {
+
       wx.chooseVideo({
         sourceType: ['album', 'camera'],
         maxDuration: 30,
@@ -293,9 +207,6 @@ onLoad: function(options) {
           }
         }
       })
-    }
-
-
   },
   ViewImageForreport(e) {
     wx.previewImage({
@@ -349,7 +260,6 @@ onLoad: function(options) {
   textareaAInput(e) {
     this.data.desc = e.detail.value;
   },
-
 
   //提交按钮
   submit() {
@@ -576,8 +486,11 @@ onLoad: function(options) {
 
     //返回指标页面
   goPoint_type:function(){
-     wx.navigateTo({
-       url:"../point_type/point_type"
-     })
+    var that = this;
+    console.log(that.data.desc)
+    console.log(that.data.imgList)
+     // wx.navigateTo({
+     //   url:"../point_type/point_type"
+     // })
   }
 })

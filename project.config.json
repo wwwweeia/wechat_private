@@ -5,7 +5,7 @@
 	},
 	"setting": {
 		"urlCheck": false,
-		"es6": false,
+		"es6": true,
 		"enhance": true,
 		"postcss": true,
 		"minified": true,
@@ -50,97 +50,61 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 7,
 			"list": [
 				{
-					"id": 8,
-					"name": "菜单",
-					"pathName": "pages/Professional/menus/menu",
+					"id": -1,
+					"name": "开始调查-点位详情",
+					"pathName": "pages/startDiaocha/point_detail/point_detail",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "项目列表",
-					"pathName": "pages/Professional/project_list/project_list",
+					"name": "开始调查-点位类型",
+					"pathName": "pages/startDiaocha/point_type/point_type",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "点位类型",
-					"pathName": "pages/Professional/point_type/point_type",
+					"name": "开始调查-指标",
+					"pathName": "pages/startDiaocha/quota_list/quota_list",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "专业版测试",
-					"pathName": "pages/Professional/ceshi/ceshi",
+					"name": "开始调查-拒访",
+					"pathName": "pages/startDiaocha/no_refuse/no_refuse",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": 12,
-					"name": "点位详情",
-					"pathName": "pages/Professional/point_detail/point_detail",
-					"query": "pointName=这是测试哦",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "专业版测试2",
-					"pathName": "pages/Professional/ceshi2/ceshi2",
-					"query": "pointName=这是测试哦",
-					"scene": null
-				},
-				{
-					"id": 14,
-					"name": "指标列表",
-					"pathName": "pages/Professional/quota_list/quota_list",
+					"id": 4,
+					"name": "开始调查-上报",
+					"pathName": "pages/startDiaocha/task_upload/task_upload",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "任务上传",
-					"pathName": "pages/Professional/task_upload/task_upload",
+					"name": "开始调查-无法调查",
+					"pathName": "pages/startDiaocha/no_investigate/no_investigate",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "无法调查",
-					"pathName": "pages/Professional/no_ investigate/no_ investigate",
+					"name": "测试页面",
+					"pathName": "pages/startDiaocha/ceshi/ceshi",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "拒访",
-					"pathName": "pages/Professional/no_refuse/no_refuse",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "开始整改首页",
-					"pathName": "pages/Professional/surveyDept/dept_index/dept_index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "开始整改任务详情",
-					"pathName": "pages/Professional/surveyDept/dept_task_detail/dept_task_detail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "地图",
-					"pathName": "pages/Professional/map/map",
-					"query": "",
+					"name": "登录",
+					"pathName": "pages/login/login",
 					"scene": null
 				}
 			]

@@ -1,6 +1,7 @@
 // const amap = require('../../../libs/amap-wx.js');
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 let qqmapsdk;
+
 Page({
   data: {
     inputShowed: false,
@@ -18,48 +19,21 @@ Page({
     showAddress: '',
     showDistance: '',
     showId: '',
+    pointId:'',
     hidden: true,
 
-    markersList: [{
-      name: "一号街",
-      address: "朝阳门外一号街",
-      latitude: 39.921038,
-      longitude: 116.441252
-    }, {
-      name: "二号街",
-      address: "朝阳门外二号街",
-      latitude: 39.919552,
-      longitude: 116.543556
-    }, {
-      name: "三号街",
-      address: "朝阳门外三号街",
-      latitude: 39.921336,
-      longitude: 116.643506
-    }, {
-      name: "四号街",
-      address: "朝阳门外四号街",
-      latitude: 39.919992,
-      longitude: 116.443446
-    }, {
-      name: "无无无号街",
-      address: "朝阳门外呜呜呜呜呜号街",
-      latitude: 39.919882,
-      longitude: 116.463776
-    }, {
-      name: "六六六号街",
-      address: "朝阳门外浏览库号街",
-      latitude: 39.919662,
-      longitude: 116.443556
-    }, {
-      name: "七七七七号街",
-      address: "朝阳门外七七七七号街",
-      latitude: 39.92,
-      longitude: 118.43
-    }]
+    markersList: []
   },
 
   onLoad: function(options) {
     const that = this;
+     const eventChannel = this.getOpenerEventChannel();
+      eventChannel.on('pointTypePage', function(data) {
+      that.setData({
+        markersList: data.data
+      })
+    })
+
     wx.getSystemInfo({
       success: function(res) {
         // 计算主体部分高度,单位为px
@@ -82,6 +56,7 @@ Page({
     // this.getLocation();
     this.getList();
   },
+
   currentLocation(){
     //当前位置
     const that = this;
@@ -142,6 +117,7 @@ Page({
     // console.log(item)
     const showTitle = item.title;
     const showAddress = item.address;
+    // const pointId  = item.pointId;
     const showId = item.id;
     const log = item.longitude;
     const lat = item.latitude;
@@ -222,23 +198,9 @@ Page({
     })
   },
   getList() {
-    //  wx.request({
-    //   url: "http://192.168.15.146:8080/location/getLocationTree?projectId="+"40288f256c6af85b016c6af8ed860000",
-    //   success(res) {
-
-    //     if (res.data.status === "success") {
-    //         console.log(res.data.retObj);
-    //       that.setData({
-
-    //       })
-    //     }
-    //   }
-    // })
-
-
-
     const that = this;
-    const list = this.data.markersList;
+    var list = that.data.markersList;
+
     let arr = [];
     let addr = [];
     for (let i = 0; i < list.length; i++) {
@@ -254,6 +216,7 @@ Page({
         longitude: list[i].longitude,
         title: list[i].name,
         address: list[i].address,
+        pointId:list[i].pointId
       })
     }
     that.setData({
@@ -264,11 +227,14 @@ Page({
     wx.hideLoading()
   },
   goToPoint_detail:function(event){
+    var that = this;
     const index = Number(event.currentTarget.dataset.id);
     const item = this.data.address[index];
-    const showTitle = item.title;
+    const id = item.pointId;
+    const name = item.title;
+    // var id = that.data.pointId;
      wx.navigateTo({
-       url:"../point_detail/point_detail?pointName="+showTitle
+       url:"../point_detail/point_detail?id="+id+"&name="+name
      })
   }
 })

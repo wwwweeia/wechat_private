@@ -1,101 +1,7 @@
 //app.js
 App({
   data:{
-    surveyAll:[
-      {
-        text: '绑定账号',
-        url: '../../images/denglu.png',
-        type: '0'
-      },
-      {
-        text: '开始调查',
-        url: '../../images/diaocha.png',
-        type: '1'
-      },
-      {
-        text: '开始复查',
-        url: '../../images/fucha.png',
-        type: '2'
-      },
-      {
-        text: '开始整改',
-        url: '../../images/zhenggai.png',
-        type: '3'
-      },
-      {
-        text: '实地审核',
-        url: '../../images/sd-shenhe.png',
-        type: '4'
-      },
-      {
-        text: '材料上报',
-        url: '../../images/cl-shangbao.png',
-        type: '5'
-      },
-      {
-        text: '材料审核',
-        url: '../../images/cl-shenhe.png',
-        type: '6'
-      },
-      {
-        text: '统计排名',
-        url: '../../images/paiming.png',
-        type: '7'
-      },
-      {
-        text: '实时监控',
-        url: '../../images/jiankong.png',
-        type: '8'
-      },
-      {
-        text: '数据分析',
-        url: '../../images/fenxi.png',
-        type: '9'
-      }
-    ],
-    surveyNull:[
-      {
-        text:'绑定账号',
-        url:'../../images/denglu.png',
-        type:'0'
-      }
-    ],
-    surveyOrdinary: [
-      {
-        text: '绑定账号',
-        url: '../../images/denglu.png',
-        type: '0'
-      },
-      {
-        text: '开始调查',
-        url: '../../images/diaocha.png',
-        type: '1'
-      }
-    ],
-    surveyFucha: [
-      {
-        text: '绑定账号',
-        url: '../../images/denglu.png',
-        type: '0'
-      },
-      {
-        text: '开始复查',
-        url: '../../images/fucha.png',
-        type: '2'
-      }
-    ],
-    surveyDept: [
-      {
-        text: '绑定账号',
-        url: '../../images/denglu.png',
-        type: '0'
-      },
-      {
-        text: '开始整改',
-        url: '../../images/zhenggai.png',
-        type: '3'
-      }
-    ]
+ 
   },
   onLaunch: function () {
     // 展示本地存储能力
@@ -117,23 +23,45 @@ App({
           //发起网络请求
           wx.request({
         //    url: 'http://192.168.15.146:8080/member/manage/userLogin',
+            url: 'http://192.168.15.146:8080/wehcat/api/memberMange/userLogin',
             data: {
               govCode:'TJBS',
               code: res.code
             },
             success(res) {
-            //  console.log("请求用户：",res)
+             console.log("请求用户：",res.data.retObj)
               if (res.data.status == 'success'){
                 var  app = getApp();
-                app.openid = res.data.retObj.openid;
-                console.log("这是初始化：",app.openid)
-                app.sessionKey = res.data.retObj.sessionKey;
+                app.openid = res.data.retObj.openId;
+                console.log("这是初始化appid：",app.openid)
+
+                app.existence = res.data.retObj.existence;
+                app.terminalUserId = res.data.retObj.terminalUserId;
+              // 当前微信用户已经绑定调查员 跳转菜单页
+                if(app.existence = true){
+                  var list = res.data.retObj.qxMenus;
+                     wx.navigateTo({
+                      url: '../menus/menu',
+                     success: function(res) {
+                      // 通过eventChannel向被打开页面传送数据
+                      res.eventChannel.emit('appPage', { data: list})
+                   }
+                  })
+                }
+
               } else {
+                 wx.showToast({
+                   title: '服务器错误',
+                  icon: 'loading',
+                 duration: 1000,
+                   mask: true
+              })
                 console.log('error')
               }
             }
           })
         } else {
+          
           console.log('登录失败！' + res.errMsg)
         }
       }

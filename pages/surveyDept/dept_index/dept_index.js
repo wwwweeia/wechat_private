@@ -5,7 +5,7 @@ Page({
      swiperHeight: 350,
     // 问题栏默认值
     // TabCur: null,
-    TabCur: 3,
+    TabCur: 1,
     // 轮播图数据
     swiperList: [],
     // 问题类型数据
@@ -21,20 +21,17 @@ Page({
 
     problemType_user:[
       {
-        id: '3',
+        id: '1',
         name: '待整改'
       }, {
-        id: '2',
-        name: '待复查'
+        id: '3',
+        name: '已整改'
       }, {
-        id: '1',
-        name: '二次整改'
-      }, {
-        id: '4',
+        id: '0',
         name: '整改合格'
       }, {
-        id: '5',
-        name: '权属异议'
+        id: '2',
+        name: '整改不合格'
       }
     ]
 

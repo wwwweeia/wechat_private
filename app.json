@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/menus/menu",
     "pages/login/login",
+    "pages/menus/menu",
     "pages/startDiaocha/project_list/project_list",
     "pages/startDiaocha/point_type/point_type",
     "pages/startDiaocha/ceshi/ceshi",
@@ -9,10 +9,13 @@
     "pages/startDiaocha/ceshi2/ceshi2",
     "pages/startDiaocha/quota_list/quota_list",
     "pages/startDiaocha/no_refuse/no_refuse",
+    "pages/startDiaocha/no_investigate/no_investigate",
+    "pages/startDiaocha/task_upload/task_upload",
     "pages/startDiaocha/map/map",
     "pages/surveyDept/dept_index/dept_index",
     "pages/surveyDept/dept_swiper/dept_swiper",
-    "pages/surveyDept/dept_task_detail/dept_task_detail"
+    "pages/surveyDept/dept_task_detail/dept_task_detail",
+    "pages/startDiaocha/question_tips/question_tips"
   ],
   "window": {
     "backgroundTextStyle": "light",

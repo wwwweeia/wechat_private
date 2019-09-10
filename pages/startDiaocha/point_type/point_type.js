@@ -1,203 +1,87 @@
 // const util = require('../../utils/util.js')
+const app = getApp();
 Page({
-  onLoad: function(options) {
 
-  },
   data: {
-   
+   projectId:'',
     open: false,
     selected: [false, false, false], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
     active: null, // 当前展开的项的index值
-    list: [{
-        name: '主次干道',
-        pages: [{
-            status:0,
-            name: "主次干道-第一大街",
-          },
-          {
-            status:0,
-            name: "主次干道-第二大街",
-          },
-          {
-            status:1,
-            name: "主次干道-第三大街",
-          }
-        ]
-      }, {
-        name: '公共广场',
-        pages: [{
-          status:1,
-          name: "公共广场-滨河广场",
-        }, {
-          status:1,
-          name: "公共广场-大港世纪广场",
-        }, {
-          status:1,
-          name: "公共广场-大港体育广场",
-        }, {
-          status:1,
-          name: "公共广场-滨海广场",
-        }]
-      },
-      {
-        name: '建筑工地',
-        pages: [{
-          status:0,
-          name: "建筑工地-天津茱莉亚学院项目",
-        }, {
-          status:0,
-          name: "建筑工地-滨海文化商务中心住宅地块6项目",
-        }]
-      },
-      {
-        name: '城市社区',
-        pages: [{
-          status:0,
-          name: "城市社区-五羊里社区",
-        }, {
-          status:0,
-          name: "城市社区-泰安里社区",
-        }]
-      },
-
-      {
-        name: '小学',
-        pages: [{
-          status:0,
-          name: "小学-开发区第一小学 ",
-        }]
-      },
-      {
-        name: '街道综合文化站',
-        pages: [{
-          status:0,
-          name: "街道综合文化站-新北街道综合文化站",
-        }]
-      },
-      {
-        name: '社区综合文化服务中心',
-        pages: [{
-          status:0,
-            name: "社区综合文化服务中心-新开里社区综合文化服务中心",
-          },
-          {
-            status:0,
-            name: "社区综合文化服务中心-泰和新都社区综合文化服务中心",
-          }
-        ]
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      },
-      {
-        name: '银行网点',
-        pages: [{
-          status:0,
-          name: "银行网点-兴业银行开发区支行",
-        }, {
-          status:0,
-          name: "银行网点-中信银行滨海新区分行营业部",
-        }],
-        
-      }
-    ]
+    list: [],
+    // 指标经纬度集合
+    markersList: []
   },
+
+  onLoad: function(options) {
+     var that = this;
+    var terminalUserId = app.terminalUserId;
+    var projectId = options.projectId;
+    that.setData({
+      projectId:projectId
+    })
+    that.getLocationList(terminalUserId,projectId);
+  },
+  getLocationList:function(terminalUserId,projectId){
+    var that = this;
+      wx.request({
+        // 必需
+        url: 'http://192.168.15.146:8080/wechat/api/fieldLocation/getFieldPointLocationList',
+        data: {
+          terminalUserId:terminalUserId,
+          projectId:projectId
+        },
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: (res) => {
+          console.log("点位类型",res)
+        if (res.data.status == 'success') {
+          var mapList = res.data.retObj;
+         let map = [];
+         for (let i = 0; i < mapList.length; i++) {
+            map.push({
+              list: mapList[i].locationList
+            })
+
+         }
+          let mapLists = [];
+         for (let i = 0; i < map.length; i++) {
+          for(let j = 0; j < map[i].list.length; j++){
+            mapLists.push({
+              longitude: map[i].list[j].longitude,
+              latitude: map[i].list[j].latitude,
+              name:map[i].list[j].name,
+              address:map[i].list[j].address,
+              pointId:map[i].list[j].id
+            })
+          }
+         }
+          console.log("这是id",map)
+           console.log("这是id啊啊啊啊  ",mapLists)
+            that.setData({
+              list:res.data.retObj,
+              markersList:mapLists  
+            })
+         
+          } else {
+            wx.showToast({
+              title: '获取点位树失败',
+              icon: 'loading',
+              duration: 1000,
+              mask: true
+            })
+          }          
+        },
+        fail: (res) => {
+          
+        },
+        complete: (res) => {
+          
+        }
+      })
+  },
+
+
   kindToggle: function(e) {
     //页面传递过来的点击id
     let id = e.currentTarget.dataset.index;
@@ -246,8 +130,14 @@ Page({
 // }
 
 goToMap:function(){
+  var that = this;
+  var projectId = that.data.projectId;
   wx.navigateTo({
-       url:"../map/map"
+       url:"../map/map",
+         success: function(res) {
+    // 通过eventChannel向被打开页面传送数据
+    res.eventChannel.emit('pointTypePage', { data: that.data.markersList })
+  }
      })
 }
 });

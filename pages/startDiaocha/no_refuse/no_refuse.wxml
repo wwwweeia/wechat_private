@@ -1,4 +1,20 @@
 
+<!-- 地址定位 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>地址定位
+  </view>
+   <view class="action">
+    <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
+  </view>
+</view>
+
+<view class="cu-form-group  bg-white">
+  <input class="weui-input" value="{{address}}" />
+</view>
+
+
+
 
 <!-- 拍摄照片/视频 -->
 <view class="cu-bar  solid-bottom">
@@ -57,36 +73,22 @@
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 拒访说明
   </view>
-  <view class="action">
-    <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="RadioModal">快捷输入</button>
-  </view>
+
 </view>
 
-<!-- 提示语弹出层 -->
-<view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
-  <view class="cu-dialog" catchtap>
-    <radio-group class="block">
-      <view class="cu-list menu text-left">
-        <view class="cu-item" wx:for="{{tipsList}}" wx:key>
-          <label class="flex justify-between align-center flex-sub" bindtap="hideModal" data-value="{{item.id}}">
-            <view class="flex-sub">{{item.name}}</view>
-            <radio class="round"></radio>
-          </label>
-        </view>
-      </view>
-    </radio-group>
-  </view>
-</view>
 
 <!-- 编辑框 -->
-<view>
+<view class="cu-form-group">
+  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="请描述拒访原因"></textarea>
+</view>
+<!-- <view>
   <view wx:if="{{tipsId == null || tipsId == ''}}" class="cu-form-group">
     <textarea maxlength="-1" bindinput="textareaAInput" placeholder="{{idModelShow=='1' ? '请描述拒访原因' : ' '}}"></textarea>
   </view>
   <view wx:else class="cu-form-group">
     <text>{{tipsList[tipsId-1].name}}</text>
   </view>
-</view>
+</view> -->
 
 
 <!-- <view class="padding-xl_user">

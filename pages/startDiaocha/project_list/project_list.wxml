@@ -1,8 +1,8 @@
 <scroll-view scroll-y class="scrollPage">
   <image src='' mode='widthFix' class='png' style='width:100%;height:486rpx'></image>
   <view class='nav-list'>
-    <navigator open-type="navigate"  hover-class='none' url="../point_type/point_type?projectId={{index}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key>
-      <view class="nav-title">{{item.title}}</view>
+    <navigator open-type="navigate"  hover-class='none' url="../point_type/point_type?projectId={{item.id}}" class="nav-li bg-blue" wx:for="{{elements}}" wx:key>
+      <view class="nav-title">{{item.name}}</view>
       <view class="nav-name">Project</view>
     </navigator>
   </view>

@@ -6,26 +6,68 @@ Page({
    */
   data: {
     pointName: '',
-    list:{
-      //联系人
-      linkman: '暂无',
-      tel: '暂无',
-      address: '天津市滨海新区政通桥-河北路',
-      area:'塘沽',
-      street: '塘沽片区',
-      prompt: '道路随机起点，步行1000米左右，检查相关情况,道路随机起点，步行1000米左右，检查相关情况,'
-    }
+    list: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
-    this.setData({
-      pointName: options.pointName
+    var that = this;
+    var pointId = options.id;
+    var name = options.name;
+    that.setData({
+      pointName:name
+    })
+    that.getPointDetail(pointId);
+
+  },
+
+
+  getPointDetail:function(pointId){
+    var that = this;
+    wx.request({
+      // 必需
+      url: 'http://192.168.15.146:8080/wechat/api/fieldLocation/getFieldLocationDetailById',
+      data: {
+        id:pointId
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+            console.log("点位详情",res)
+        if (res.data.status == 'success') {
+            that.setData({
+              list:res.data.retObj
+            })
+         
+          } else {
+            wx.showToast({
+              title: '获取点位树失败',
+              icon: 'loading',
+              duration: 1000,
+              mask: true
+            })
+          } 
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
     })
   },
+
+
+
+
+
+
+
+
+
   //返回指标树页面
   goToReturn:function(){
      wx.navigateTo({
@@ -45,5 +87,11 @@ Page({
      wx.navigateTo({
        url: "../no_investigate/no_investigate"
      })
-  }
+  },
+  //跳转拒访页面
+goToNo_refuse:function(){
+  wx.navigateTo({
+    url:"../no_refuse/no_refuse"
+  })
+},
 })

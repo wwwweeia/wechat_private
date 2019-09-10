@@ -21,8 +21,8 @@
           </view>
           <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
             <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
-              <block wx:for-items="{{item.pages}}" wx:for-item="page" wx:key="*item">
-                <navigator url="../point_detail/point_detail?pointName={{page.name}}" class="tui-cell tui-cell_access">
+              <block wx:for-items="{{item.locationList}}" wx:for-item="page" wx:key="*item">
+                <navigator url="../point_detail/point_detail?id={{page.id}}&name={{page.name}}" class="tui-cell tui-cell_access">
                   <view class="tui-cell_bd text-smm">　{{page.name}}</view>
                   <!--  <view class="cuIcon-roundcheckfill  text-blue">　</view> -->
                   <!-- <view class="cuIcon-roundclosefill  text-blue">　</view> -->

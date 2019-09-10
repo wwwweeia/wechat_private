@@ -1,36 +1,11 @@
-
+const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
+let qqmapsdk;
 Page({
   data: {
-    
-    tipsList:[
-      { 
-        id:"1",
-        name: '这是拒访原因1111'
-      },
-      {
-        id:"2",
-        name: '这是拒访原因2222'
-      },
-      {
-        id:"3",
-        name: '这是拒访原因3333'
-      },
-      {
-        id:"4",
-        name: '这是拒访原因4444'
-      },
-      {
-        id:"5",
-        name: '这是拒访原因5555'
-      },
-      {
-        id:"6",
-        name: '这是拒访原因6666'
-      },
-      {
-        id:"7",
-        name: '这是拒访原因7777'
-      }],
+     address:"正在获取地址...",
+    longitude: 116.397452,
+    latitude: 39.909042,
+    key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
     //图片上传数据
     imgList: [],
     //视频上传数据
@@ -51,9 +26,68 @@ Page({
 
   
 onLoad: function(options) {
-  
+      qqmapsdk = new QQMapWX({
+      key: this.data.key
+    });
+    this.currentLocation()
+  },
+ regionchange(e) {
+    // 地图发生变化的时候，获取中间点，也就是cover-image指定的位置
+    if (e.type == 'end' && (e.causedBy == 'scale' || e.causedBy == 'drag')) {
+      this.setData({
+        address: "正在获取地址..."
+      })
+      this.mapCtx = wx.createMapContext("maps");
+      this.mapCtx.getCenterLocation({
+        type: 'gcj02',
+        success: (res) => {
+          //console.log(res)
+          this.setData({
+            latitude: res.latitude,
+            longitude: res.longitude
+          })
+          this.getAddress(res.longitude, res.latitude);
+        }
+      })
+    }
+  },
+  getAddress:function(lng,lat){
+    //根据经纬度获取地址信息
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: lat,
+        longitude: lng
+      },
+      success: (res) => {
+        console.log(res)
+        console.log(res.result.formatted_addresses.recommend)
+        this.setData({
+          address: res.result.formatted_addresses.recommend //res.result.address
+        })
+      },
+      fail: (res) => {
+        this.setData({
+          address: "获取位置信息失败"
+        })
+      }
+    })
+  },
+  currentLocation(){
+    //当前位置
+    const that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success(res) {
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
+        that.getAddress(res.longitude, res.latitude);
+      }
+    })
   },
 
+ 
 
   takePhoto() {
     this.ctx.takePhoto({
@@ -85,19 +119,11 @@ onLoad: function(options) {
   error(e) {
     console.log(e.detail)
   },
-  showModal(e) {
-    this.setData({
-      idModelShow:'0',
-      hidden:true,
-      modalName: e.currentTarget.dataset.target
-    })
-  },
+ 
     hideModal(e) {
     this.setData({
-      idModelShow:'1',
-      hidden: false,
        tipsId: e.currentTarget.dataset.value,
-      modalName: null
+      modalName: null,
     })
   },
   showModal2(e) {
@@ -110,29 +136,6 @@ onLoad: function(options) {
   
   ChooseImage(e) {
     var type = this.data.type;
-    if (type == 'adds') {
-      wx.chooseImage({
-        count: 1, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], //从相册选择
-        success: (res) => {
-          if (this.data.addressImgList.length != 0) {
-            this.setData({
-              addressImgList: this.data.addressImgList.concat(res.tempFilePaths),
-              modalName: '',
-              addslength: this.data.addslength + 1
-            })
-          } else {
-            this.setData({
-              addressImgList: res.tempFilePaths,
-              modalName: '',
-              addslength: this.data.addslength + 1
-            })
-          }
-        },
-        
-      });
-    } else {
       wx.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -153,7 +156,6 @@ onLoad: function(options) {
           }
         }
       });
-    }
   },
   chooseVideo() {
     let vm = this;
@@ -164,33 +166,6 @@ onLoad: function(options) {
       'poster': ''
     };
     var type = this.data.type;
-    if (type == 'adds') {
-      wx.chooseVideo({
-        sourceType: ['album', 'camera'],
-        maxDuration: 30,
-        camera: 'back',
-        success: (res) => {
-          obj.src = res.tempFilePath
-          obj.poster = res.thumbTempFilePath
-          urlArray.push(obj)
-          if (vm.data.addressVideoList.length != 0) {
-            vm.setData({
-              addressVideoList: vm.data.addressVideoList.concat(urlArray),
-              modalName: '',
-              addslength: vm.data.addslength + 1
-            })
-            //   vm.data.addrvideoSrcs.push(res.tempFilePath)
-          } else {
-            vm.setData({
-              addressVideoList: urlArray,
-              modalName: '',
-              addslength: vm.data.addslength + 1
-            })
-            //    vm.data.addrvideoSrcs.push(res.tempFilePath)
-          }
-        }
-      })
-    } else {
       wx.chooseVideo({
         sourceType: ['album', 'camera'],
         maxDuration: 30,
@@ -216,9 +191,6 @@ onLoad: function(options) {
           }
         }
       })
-    }
-
-
   },
   ViewImageForreport(e) {
     wx.previewImage({
@@ -499,8 +471,11 @@ onLoad: function(options) {
 
     //返回指标页面
   goPoint_type:function(){
-     wx.navigateTo({
-       url:"../point_type/point_type"
-     })
+    var that = this;
+    console.log(that.data.desc)
+    console.log(that.data.imgList)
+     // wx.navigateTo({
+     //   url:"../point_type/point_type"
+     // })
   }
 })
