@@ -35,7 +35,9 @@ App({
                 console.log("这是初始化appid：",app.openid)
 
                 app.existence = res.data.retObj.existence;
+                // 调查员id
                 app.terminalUserId = res.data.retObj.terminalUserId;
+                console.log("调查员Id",app.terminalUserId)
               // 当前微信用户已经绑定调查员 跳转菜单页
                 if(app.existence = true){
                   var list = res.data.retObj.qxMenus;

@@ -93,14 +93,18 @@ Page({
 
      //无法调查页面goNo_investigate
   goNo_investigate:function(){
+    var that = this;
+    var locationId = that.data.pointId;
      wx.navigateTo({
-       url: "../no_investigate/no_investigate"
+       url: "../no_investigate/no_investigate?locationId="+locationId
      })
   },
   //跳转拒访页面
 goToNo_refuse:function(){
+  var that = this;
+    var locationId = that.data.pointId;
   wx.navigateTo({
-    url:"../no_refuse/no_refuse"
+    url:"../no_refuse/no_refuse?locationId="+locationId
   })
 },
 })

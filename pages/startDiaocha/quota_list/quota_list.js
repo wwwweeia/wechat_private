@@ -6,6 +6,7 @@ Page({
     selected: [true], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
     active: null, // 当前展开的项的index值
     pointTypeId:'',
+    projectId:'',
     list: [],
     //拼装提示
     tips:'',
@@ -17,16 +18,20 @@ Page({
     // 四级指标
     quotaName: "",
     // 提示id
-    tipsId: null
+    tipsId: null,
+    // 设置一个变量判断手风琴点击的是正常点位还是问题分类 0--正常，1-问题分类
+    variable:0
   },
 
  onLoad: function (e) {
   var that = this;
+  var projectId =  wx.getStorageSync('projectId');
   var pointTypeId = e.pointTypeId;
   var pointName = e.pointName;
     this.setData({
       pointName: pointName,
-      pointTypeId:pointTypeId
+      pointTypeId:pointTypeId,
+      projectId:projectId
     })
     that.getQuotaList(pointTypeId);
   },
@@ -96,27 +101,18 @@ goToUpload:function(){
 
 
 
-// 切换
-goToSwitch:function(){
- // 显示加载图标
-      wx.showLoading({
-        title: '待开发',
-      }),
-          // 隐藏加载框
-    setTimeout(function() {
-      wx.hideLoading()
-    }, 1000)
 
-},
 
 // 提示弹框
   showAlert(e) {
     var that = this;
     var url = e.currentTarget.dataset.url;
     if(url){
-      console.log("url有值")
+       wx.navigateTo({
+        url:"../question_tips/question_tips?url="+url
+      })
+
     }else{//url为空
-      console.log("url没有值")
        this.setData({
           visible: true
       })
@@ -144,6 +140,8 @@ goToSwitch:function(){
     var quotaId = e.currentTarget.dataset.quotaid;
     var quotaName = e.currentTarget.dataset.content;
     var pointTypeId = that.data.pointTypeId;
+    var variable =  e.currentTarget.dataset.variable;
+    var projectId = that.data.projectId;
      this.setData({
         modalName: null,
         quotaName:quotaName
@@ -153,7 +151,12 @@ goToSwitch:function(){
         modalName: null,
         quotaName:quotaName
       })
-      that.getQuotaDetail(quotaId,pointTypeId);
+       if(variable==0){
+        that.getQuotaDetail(quotaId,pointTypeId);
+      }else{
+        that.getProblemByfenlei(pointTypeId,quotaId,projectId);
+      }
+      
     }else{
        this.setData({
         modalName: null
@@ -164,12 +167,14 @@ goToSwitch:function(){
 // 获取点位下的问题
   getQuotaDetail(quotaId,pointTypeId){
     var that = this;
+    var projectId = that.data.projectId;
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getDetailQuestionList',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
       data: {
         quotaId:quotaId,
-        pointId:pointTypeId
+        pointId:pointTypeId,
+        projectId:projectId
       },
       header: {
         'Content-Type': 'application/json'
@@ -178,7 +183,7 @@ goToSwitch:function(){
             
         if (res.data.status == 'success') {
           var quotaList = res.data.retObj;
-           // console.log("指标下的详情：",quotaList)
+           console.log("指标下的详情111111：",quotaList)
 
             let arr = [];
             let ayy = [];
@@ -198,7 +203,8 @@ goToSwitch:function(){
               isRecord:quotaList[i].isRecord,
               projectId:quotaList[i].projectId,
               quotaId:quotaList[i].quotaId,
-              status:quotaList[i].status
+              status:quotaList[i].status,
+              finished:quotaList[i].finished
              })
           }
          }
@@ -228,6 +234,137 @@ goToSwitch:function(){
       }
     })
   },
+
+// 切换  按问题分类查
+goToSwitch:function(){
+ var that = this;
+ that.setData({
+  variable:1
+ })
+ var projectId = that.data.projectId;
+ var pointId = that.data.pointTypeId;
+ wx.request({
+   // 必需
+   url: 'http://192.168.15.147:8080/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByPointId',
+   data: {
+     pointId: pointId,
+     projectId: projectId
+   },
+   header: {
+     'Content-Type': 'application/json'
+   },
+   success: (res) => {
+       console.log('指标列表',res.data.retObj)
+       if (res.data.status == 'success') {
+        var quotaList = res.data.retObj;
+          let arr = [];
+          let ayy = [];
+         for (let i = 0; i < quotaList.length; i++) {
+          if(i===0){
+             arr.push(quotaList[i].id),
+             ayy.push(quotaList[i].content)
+          }
+        }
+      
+        // 数组转字符得到第一个指标的id
+        var arrtest = arr.join();
+        var ayytest = ayy.join();
+        var pointTypeId = that.data.pointTypeId
+            that.setData({
+              list:res.data.retObj,
+              quotaName:ayytest
+            })
+            // 加载第一个指标下的问题
+         that.getProblemByfenlei(pointTypeId,arrtest,projectId);
+          } else {
+            wx.showToast({
+              title: '获取指标列表失败',
+              icon: 'loading',
+              duration: 1000,
+              mask: true
+            })
+          } 
+     
+   },
+   fail: (res) => {
+     
+   },
+   complete: (res) => {
+     
+   }
+ })
+
+},
+
+//  问题分类下的问题列表
+getProblemByfenlei:function(pointId,questionClassifyId,projectId){
+  var that = this;
+  wx.request({
+    // 必需
+    url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
+    data: {
+      pointId:pointId,
+      questionClassifyId:questionClassifyId,
+      projectId:projectId
+    },
+    header: {
+      'Content-Type': 'application/json'
+    },
+    success: (res) => {
+          if (res.data.status == 'success') {
+          var quotaList = res.data.retObj;
+           console.log("指标下的详情：",quotaList)
+
+            let arr = [];
+            let ayy = [];
+         for (let i = 0; i < quotaList.length; i++) {
+          if(quotaList[i].type===2){
+             arr.push(quotaList[i].content)
+          }else{
+            // 拼装数据
+             ayy.push({
+              code:quotaList[i].code,
+              content:quotaList[i].content,
+               url:quotaList[i].url,
+              fqtCode:quotaList[i].fqtCode,
+              fqtId:quotaList[i].fqtId,
+              grade:quotaList[i].grade,
+              id:quotaList[i].id,
+              isRecord:quotaList[i].isRecord,
+              projectId:quotaList[i].projectId,
+              quotaId:quotaList[i].quotaId,
+              status:quotaList[i].status,
+              finished:quotaList[i].finished
+             })
+          }
+         }
+         // console.log("这是提示：",arr)
+         // console.log("删选后的指标详情",ayy)
+
+            that.setData({
+              listData:ayy,
+              tips:arr
+            })
+         
+          } else {
+            wx.showToast({
+              title: '获取点位树失败',
+              icon: 'loading',
+              duration: 1000,
+              mask: true
+            })
+          } 
+    },
+    fail: (res) => {
+      
+    },
+    complete: (res) => {
+      
+    }
+  })
+}
+
+
 
 
 

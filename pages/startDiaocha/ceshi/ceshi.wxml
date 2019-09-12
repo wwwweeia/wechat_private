@@ -1,15 +1,297 @@
+<!-- 地图 -->
+<!-- <view class="container padding bg-white " hover-stop-propagation="false" hover-class="none"> -->
+<!-- 地图控件 -->
+<!-- <map wx:if="{{hidden == false}}" id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location bindregionchange="regionchange">
+    <cover-image class="cover-image" src="../../../images/location.png" />
+  </map> -->
+<!-- 弹出层替换地图 -->
+<!-- <image wx:if="{{hidden == true}}" class="image_user" src="../../../images/replace.jpg" mode="scaleToFill"></image> -->
+<!-- 地址显示 -->
+<!-- <cover-view wx:if="{{hidden == false}}" class="footer-box">
+    <cover-view class="result-box">
+      <cover-view class="info list-item">
+        <cover-view class="badge"></cover-view>
+        <cover-view class="ellipsis">{{address}}</cover-view>
+      </cover-view>
+      <cover-view class="info">
+        <cover-view class="badge orange"></cover-view>
+        <cover-view class="ellipsis"> {{longitude}},{{latitude}}</cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+  <cover-view wx:if="{{hidden == false}}" class="current-location fixed" catchtap="currentLocation">
+    <cover-image src="../../../images/current.png" class="current-img"></cover-image>
+  </cover-view> -->
+<!-- </view> -->
 
-
-
-<view class='container'>
-  <button class='button' bindtap='startRecord' type='primary'>点击录音</button>
-  <modal  title="最长录制60秒" hidden="{{modalHidden}}" bindconfirm="stopRecord" bindcancel="modalCandel">
-    <view>
-      <image class="image1" src="../../../images/audio.gif" mode='aspectFill'></image>
-    </view>
-  </modal>
+<!-- 地址定位 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>地址定位
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
+  </view>
 </view>
 
-<view wx:if="{{isShow==0}}">
-  <button bindtap='playRecord' type='primary'>播放录音</button>
+<view class="cu-form-group  bg-white">
+  <input class="weui-input" value="{{address}}" />
+</view>
+
+
+
+
+
+<!-- 拍摄照片/视频 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>拍摄
+  </view>
+</view>
+<view class="cu-bar bg-white">
+  <view class="action">
+    上传图片或视频
+  </view>
+  <view class="action">
+    {{reportlength}}/20
+  </view>
+</view>
+
+<!-- <view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+      <image src='{{imgList[index]}}' mode='aspectFill'></image>
+      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
+        <text class="cuIcon-close"></text>
+      </view>
+
+<input value="这到底该怎么办啊啊啊啊啊啊啊啊啊"></input>
+    </view>
+
+    <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index]}}" data-index="{{index}}">
+      <video id='reportVideo{{index}}' src="{{videoList[index].src}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
+      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
+        <text class="cuIcon-close"></text>
+      </view>
+    </view>
+
+    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-cameraadd"></text>
+    </view>
+  </view>
+</view>
+ -->
+
+
+<!-- <view class="cu-card article no-card">
+  <view class="cu-item shadow">
+   
+    <view class="content" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+      <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content"> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</view>
+        <view>
+          <view class="cu-tag bg-red light sm round">正义天使</view>
+          <view class="cu-tag bg-green light sm round">史诗</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  </view> -->
+  <!-- 图片加描述 -->
+<view class="cu-card article no-card">
+  <view class="cu-item shadow">
+   
+    <view class="content" wx:for="{{imgList}}" wx:key="{{index}}" >
+      <image src='{{imgList[index]}}' mode='aspectFill' bindtap="ViewImageForreport" data-url="{{imgList[index]}}"></image>
+      <view class="cu-tag-user bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
+        <text class="cuIcon-close"></text>
+      </view>
+      <view class="desc">
+        <!-- <view class="text-content"> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</view> -->
+        <input  class="text-content" value="{{desc}}"></input>
+        <view>
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal">快捷输入</view>
+         
+        </view>
+      </view>
+    </view>
+  </view>
+  </view>
+  <!-- 视频加描述 -->
+<view class="cu-card article no-card">
+  <view class="cu-item shadow">
+   
+    <view class="content"  wx:for="{{videoList}}" wx:key="{{index}}" >
+      <video class="video-user" bindtap="ViewVideoForreport" data-url="{{videoList[index]}}" data-index="{{index}}"  id='reportVideo{{index}}' src="{{videoList[index].src}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
+      <view class="cu-tag-user bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
+        <text class="cuIcon-close"></text>
+      </view>
+      <view class="desc">
+        <!-- <view class="text-content"> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</view> -->
+        <input  class="text-content" value="{{desc}}"></input>
+        <view>
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal">快捷输入</view>
+         
+        </view>
+      </view>
+    </view>
+  </view>
+  </view>
+
+
+
+
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+   <!--  <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+      <image src='{{imgList[index]}}' mode='aspectFill'></image>
+      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
+        <text class="cuIcon-close"></text>
+      </view>
+        <input value="这到底该怎么办啊啊啊啊啊啊啊啊啊"></input>
+    </view> -->
+
+  <!--   <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index]}}" data-index="{{index}}">
+      <video id='reportVideo{{index}}' src="{{videoList[index].src}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
+      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
+        <text class="cuIcon-close"></text>
+      </view>
+    </view> -->
+
+    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-cameraadd"></text>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <!-- <view class="content">Modal标题</view> -->
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <!-- <view class="padding-xl justify-end"> -->
+    <view class="padding flex flex-direction">
+      <button class="cu-btn bg-green lg" bindtap='ChooseImage'>上传照片 </button>
+      <button class="cu-btn bg-blue margin-tb-sm lg" bindtap='chooseVideo'>上传视频</button>
+    </view>
+    <!-- </view> -->
+  </view>
+</view>
+<!-- 录音 -->
+
+<view class="cu-bar solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue "></text> 录音
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-green shadow" bindtap="startRecord">点击录音</button>
+  </view>
+</view>
+
+  <modal title="{{remainTimeText}}" hidden="{{modalHidden}}" bindconfirm="stopRecord" bindcancel="modalCandel">
+    <view>
+      <image class="image-audio" src="../../../images/audio.gif" mode='aspectFill'></image>
+    </view>
+  </modal>
+
+<view class="cu-chat" wx:if="{{isShow==0}}">
+ <view class="cu-item">
+    <view class="main">
+      <!-- <view class="action text-bold text-grey">
+        3"
+      </view> -->
+      <view class="content shadow">
+        <text bindtap='playRecord' class="cuIcon-sound text-xxl padding-right-xl"> </text>
+      </view>
+  </view>
+    </view>
+
+</view>
+
+
+
+
+
+<!-- 描述 -->
+<!-- <view class="cu-bar solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue "></text> 描述
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="RadioModal">快捷输入</button>
+  </view>
+</view> -->
+
+<!-- 提示语弹出层 -->
+<view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap>
+    <radio-group class="block">
+      <view class="cu-list menu text-left">
+        <view class="cu-item" wx:for="{{tipsList}}" wx:key>
+          <label class="flex justify-between align-center flex-sub" bindtap="hideModal2" data-value="{{item.id}}">
+            <view class="flex-sub">{{item.name}}</view>
+            <radio class="round"></radio>
+          </label>
+        </view>
+      </view>
+    </radio-group>
+  </view>
+</view>
+
+<!-- 编辑框 -->
+<!-- <view class="cu-form-group">
+  <textarea value="{{idModelShow=='1' ? desc : ' '}}" maxlength="-1" bindinput="textareaAInput" placeholder="{{idModelShow=='1' ? '请输入举报内容' : ' '}}"></textarea>
+</view> -->
+
+<!-- 测评结果 -->
+<view class="cu-bar solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue "></text> 测评结果
+  </view>
+
+</view>
+<view class="radioChange_user">
+  <radio-group bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key>
+      <radio class="blue margin-left-sm" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+    </label>
+  </radio-group>
+</view>
+
+<!-- 打分 -->
+
+  <view class="cu-form-group margin-top">
+  <text class="cuIcon-title text-blue text-user"></text>
+    <view class="title">评分</view>
+    <input placeholder="最低0分,最高{{maxScore}}分,达标默认不扣分" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
+  </view>
+
+<!-- <view class="padding-xl_user">
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
+</view> -->
+<view class="padding-xl_user">
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='goToQuota_list'>提交</button>
 </view>

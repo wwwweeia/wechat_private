@@ -38,6 +38,7 @@ Page({
           // console.log("点位类型",res)
         if (res.data.status == 'success') {
           var mapList = res.data.retObj;
+          console.log(mapList.length)
          let map = [];
          for (let i = 0; i < mapList.length; i++) {
             map.push({
@@ -45,9 +46,12 @@ Page({
             })
 
          }
+         console.log('map',map.length)
+         console.log('map集合',map)
           let mapLists = [];
          for (let i = 0; i < map.length; i++) {
           for(let j = 0; j < map[i].list.length; j++){
+            console.log('长度',map[i].list.length)
             mapLists.push({
               longitude: map[i].list[j].longitude,
               latitude: map[i].list[j].latitude,
@@ -57,7 +61,7 @@ Page({
             })
           }
          }
-      
+         console.log("mapLists集合",mapLists)
             that.setData({
               list:res.data.retObj,
               markersList:mapLists  

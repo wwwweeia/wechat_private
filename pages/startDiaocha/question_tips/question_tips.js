@@ -12,20 +12,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (option) {
-    // console.log(options)
-    // var that = this;
-    // that.setData({
-    //   tipsUrl:options.url
-    // })
-    // console.log(that.data.tipsUrl)
-    // 
-    //测试
-    const eventChannel = this.getOpenerEventChannel()
-    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
-    eventChannel.on('acceptDataFromOpenerPage', function(data) {
-      console.log("44:::",data)
-      console.log(data.data)
-      console.log(data.ceshi)
+    var that = this;
+    var url = option.url
+    that.setData({
+      tipsUrl:url
     })
   },
 

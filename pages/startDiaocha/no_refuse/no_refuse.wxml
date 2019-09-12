@@ -27,7 +27,7 @@
     上传图片或视频
   </view>
   <view class="action">
-    {{reportlength}}/4
+    {{reportlength}}/1
   </view>
 </view>
 
@@ -46,7 +46,7 @@
       </view>
     </view>
 
-    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<4}}" data-target="Modal" data-type="report">
+    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
       <text class="cuIcon-cameraadd"></text>
     </view>
   </view>
@@ -91,9 +91,7 @@
 </view> -->
 
 
-<!-- <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
-</view> -->
+
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg"  bindtap='goPoint_type'>提交</button>
+  <button class="cu-btn  block bg-blue margin-tb-sm lg"  bindtap='submit'>提交</button>
 </view>

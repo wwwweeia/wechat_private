@@ -175,9 +175,9 @@ Page({
         longitude:log
       },
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         let city = res.result.address_component.city;
-        console.log(city)
+        // console.log(city)
       }
     })
   },

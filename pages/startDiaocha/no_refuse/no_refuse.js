@@ -1,11 +1,18 @@
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 let qqmapsdk;
+//获取应用实例
+const app = getApp()
 Page({
   data: {
-     address:"正在获取地址...",
+    key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
+    //******************* 需要上传的信息*******************//
+    address:"正在获取地址...",
     longitude: 116.397452,
     latitude: 39.909042,
-    key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
+    terminalUserId:'',//调查员id
+    projectId:'',//项目id
+    locationId:'',//当前点位id
+    hidden: false,
     //图片上传数据
     imgList: [],
     //视频上传数据
@@ -13,25 +20,32 @@ Page({
     //举报资源总长度  限制上传数量
     reportlength: 0,
     //举报描述
-    desc: '',
-    //上传的第几个资源
-    i: 0,
-    //成功个数
-    success: 0,
-    //失败个数
-    fail: 0,
-    //openid
-    openid:''
+    desc: ''
   },
 
-  
 onLoad: function(options) {
-      qqmapsdk = new QQMapWX({
+
+    qqmapsdk = new QQMapWX({
       key: this.data.key
     });
-    this.currentLocation()
+    var that = this;
+     // 获取调查员id
+    var app = getApp();
+    var terminalUserId = app.terminalUserId;
+    //获取项目id
+     var projectId =  wx.getStorageSync('projectId');
+     //获取具体点位id
+     var locationId = options.locationId;
+
+     that.setData({
+      terminalUserId:terminalUserId,
+      projectId:projectId,
+      locationId:locationId
+     })
+    
+    that.currentLocation()
   },
- regionchange(e) {
+  regionchange(e) {
     // 地图发生变化的时候，获取中间点，也就是cover-image指定的位置
     if (e.type == 'end' && (e.causedBy == 'scale' || e.causedBy == 'drag')) {
       this.setData({
@@ -59,8 +73,6 @@ onLoad: function(options) {
         longitude: lng
       },
       success: (res) => {
-        console.log(res)
-        console.log(res.result.formatted_addresses.recommend)
         this.setData({
           address: res.result.formatted_addresses.recommend //res.result.address
         })
@@ -89,6 +101,7 @@ onLoad: function(options) {
 
  
 
+
   takePhoto() {
     this.ctx.takePhoto({
       quality: 'high',
@@ -99,31 +112,11 @@ onLoad: function(options) {
       }
     })
   },
-  startRecord() {
-    this.ctx.startRecord({
-      success: (res) => {
-        console.log('startRecord')
-      }
-    })
-  },
-  stopRecord() {
-    this.ctx.stopRecord({
-      success: (res) => {
-        this.setData({
-          //src: res.tempThumbPath,
-          videoSrc: res.tempVideoPath
-        })
-      }
-    })
-  },
-  error(e) {
-    console.log(e.detail)
-  },
- 
     hideModal(e) {
     this.setData({
-       tipsId: e.currentTarget.dataset.value,
-      modalName: null,
+      idModelShow:'1',
+      hidden: false,
+      modalName: null
     })
   },
   showModal2(e) {
@@ -135,7 +128,6 @@ onLoad: function(options) {
   },
   
   ChooseImage(e) {
-    var type = this.data.type;
       wx.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -156,6 +148,7 @@ onLoad: function(options) {
           }
         }
       });
+
   },
   chooseVideo() {
     let vm = this;
@@ -165,7 +158,6 @@ onLoad: function(options) {
       'src': '',
       'poster': ''
     };
-    var type = this.data.type;
       wx.chooseVideo({
         sourceType: ['album', 'camera'],
         maxDuration: 30,
@@ -199,7 +191,6 @@ onLoad: function(options) {
     });
   },
   ViewVideoForreport(e) {
-    console.log("视频的啥？：", e);
     this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
     this.VideoContext.requestFullScreen(0);
   },
@@ -214,7 +205,7 @@ onLoad: function(options) {
 
   },
   DelImg(e) {
-    // 'reportImg' 举报图片  'reportVideo' 举报视频 'addsImg'地址图片 'addsVideo' 地址视频
+    // 'reportImg' 举报图片  'reportVideo' 举报视频 
     var type = e.currentTarget.dataset.type;
     wx.showModal({
       // title: '召唤师',
@@ -245,32 +236,16 @@ onLoad: function(options) {
     this.data.desc = e.detail.value;
   },
 
-
   //提交按钮
   submit() {
     var that = this;
-    //举报描述
-    var desc = this.data.desc;
-    //举报经纬度
-    var longitude = this.data.longitude;
-    var latitude = this.data.latitude;
-    //举报地址
-    var address = this.data.address;
+   var desc = that.data.desc;
+   console.log("看看看这个有没有",desc)
     //举报图片集合
     var reportImg = that.data.imgList;
     //举报视频集合
     var reportVideo = that.data.videoList;
   
-
-    var app = getApp();
-    var openid = app.openid;
-    that.setData({
-      openid: openid
-    })
-    var openid = that.data.openid;
-    console.log("普通资源携带的openid:？",openid);
-
- 
     if ((reportImg.length + reportVideo.length) < 1) {
       wx.showToast({
         title: '请拍摄举报图片/视频',
@@ -291,64 +266,6 @@ onLoad: function(options) {
       return
     }
 
-   
-    //发送请求到后台，存储：经纬度、地址、描述、问题ID 
-    wx.request({
-      url: "http://221.216.95.200:8285/home/manage/createAnswer",
-      data: {
-        "longitude": longitude,
-        "latitude": latitude,
-        "address": address,
-        "desc": desc,
-        "openid":openid,
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'POST',
-      dataType: 'json',
-      success(res) {
-        //console.log("answerId:", res);
-        //得到答案id
-        // 执行图片上传递归函数
-        // that.uploadImage(0, res.data.retObj);
-        that.setData({
-          answerId: res.data.retObj
-        })
-        that.uploadImage(res.data.retObj);
-
-      },
-      //请求失败
-      fail: function(err) {
-        console.log("请求失败：", err)
-      },
-      complete: function() {} //请求完成后执行的函数
-    })
-
-    setTimeout(function() {
-      wx.hideLoading()
-    }, 2000)
-
-  },
-
-
-  /**
-   * 图片/视频资源上传
-   * @param e(index) 当前图片下标
-   */
-  uploadImage: function(answerId) {
-    var that = this;
-
-    //举报图片集合
-    var reportImg = that.data.imgList;
-    //举报视频集合
-    var reportVideo = that.data.videoList;
- 
-
-    wx.showLoading({
-      title: '资源上传中...',
-      mask: true,
-    })
     if (reportImg.length > 0) {
       //举报图片
       that.reportImg11();
@@ -359,63 +276,52 @@ onLoad: function(options) {
   
     }
 
-    setTimeout(function() {
-      wx.reLaunch({
-        url: "../success/success"
-      })
-    }, 1000)
-
 
   },
-
 
   //举报图片集合
   reportImg11: function() {
     var that = this;
+     //调查员id
+    var terminalUserId = that.data.terminalUserId;
+    //项目id
+    var projectId = that.data.projectId;
+    //当前点位id
+    var locationId = that.data.locationId;
+    //举报描述
+    var desc = that.data.desc;
+    //举报经纬度
+    var longitude = that.data.longitude;
+    var latitude = that.data.latitude;
+    //举报地址
+    var address = that.data.address;
     //举报图片集合
     var reportImg = that.data.imgList;
-    var answerId = that.data.answerId;
-    var i = that.data.i;
-    var success = that.data.success;
-    var fail = that.data.fail;
-    var openid = that.data.openid;
-    console.log("图片资源携带的openid:？",openid);
-
+   var i = 0;
     //上传举报图片
     wx.uploadFile({
-      // 192.168.15.193:8199
-       url: 'http://221.216.95.200:8285/home/manage/upload',
-     // url: 'http://192.168.15.67:8080/home/manage/upload',
+       url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/refuseAccess',
       filePath: reportImg[i],
-      name: 'reportImg' + i + openid,
+      name: 'reportImg' + i + terminalUserId,
       formData: {
-        'answerId': answerId,
-        'key': 'reportImg' + i + openid,
-        'openid': openid,
+        'projectId': projectId,
+        'surveyorId': terminalUserId,
+        'locationId': locationId,
+        'longitude': longitude,
+        'latitude': latitude,
+        'address': address,
+        'description': desc,
+        'key': 'reportImg' + i + terminalUserId,
       },
       success(res) {
-        // 操作成功
-         setTimeout(function() {
-         wx.hideLoading()
-        }, 1000)
-
-        success++;
+         wx.redirectTo({
+              url: '../point_type/point_type?projectId='+projectId
+            })
       },
       //请求失败
       fail: function(err) {
-        fail++;
       },
       complete: () => {
-        i++;
-        if (i >= reportImg.length) { //当图片传完时，停止调用     
-          console.log('---上传举报图片执行完毕---');
-          console.log('成功：' + success + " 失败：" + fail);
-        } else { //若图片还没有传完，则继续调用函数
-          that.data.i = i;
-          that.data.success = success;
-          that.data.fail = fail;
-          that.reportImg11();
-        }
       }
 
     })
@@ -424,44 +330,45 @@ onLoad: function(options) {
   //举报视频集合
   reportVideo11: function() {
     var that = this;
+      //调查员id
+    var terminalUserId = that.data.terminalUserId;
+    //项目id
+    var projectId = that.data.projectId;
+    //当前点位id
+    var locationId = that.data.locationId;
+    //举报描述
+    var desc = that.data.desc;
+    //举报经纬度
+    var longitude = that.data.longitude;
+    var latitude = that.data.latitude;
+    //举报地址
+    var address = that.data.address;
     //举报视频集合
     var reportVideo = that.data.videoList;
-    var answerId = that.data.answerId;
-
-    var i = that.data.i;
-    var success = that.data.success;
-    var fail = that.data.fail;
-    var openid = that.data.openid;
-
+    var i = 0;
     wx.uploadFile({
-      url: 'http://221.216.95.200:8285/home/manage/upload',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/refuseAccess',
       filePath: reportVideo[i].src,
-      name: 'reportVideo' + i + openid,
+      name: 'reportVideo' + i + terminalUserId,
       formData: {
-        'answerId': answerId,
-        'key': 'reportVideo' + i + openid,
-        'openid': openid,
+        'projectId': projectId,
+        'surveyorId': terminalUserId,
+        'locationId': locationId,
+        'longitude': longitude,
+        'latitude': latitude,
+        'address': address,
+        'description': desc,
+        'key': 'reportVideo' + i + terminalUserId
       },
       success(res) {
-        // 操作成功
-        wx.hideLoading();
-        success++;
+        wx.redirectTo({
+              url: '../point_type/point_type?projectId='+projectId
+            }) 
       },
       //请求失败
       fail: function(err) {
-        fail++;
       },
       complete: () => {
-        i++;
-        if (i >= reportVideo.length) { //当图片传完时，停止调用     
-          console.log('上传举报视频执行完毕');
-          console.log('成功：' + success + " 失败：" + fail);
-        } else { //若图片还没有传完，则继续调用函数
-          that.data.i = i;
-          that.data.success = success;
-          that.data.fail = fail;
-          that.reportVideo11();
-        }
       }
 
     })
@@ -469,13 +376,5 @@ onLoad: function(options) {
 
   },
 
-    //返回指标页面
-  goPoint_type:function(){
-    var that = this;
-    console.log(that.data.desc)
-    console.log(that.data.imgList)
-     // wx.navigateTo({
-     //   url:"../point_type/point_type"
-     // })
-  }
+  
 })
