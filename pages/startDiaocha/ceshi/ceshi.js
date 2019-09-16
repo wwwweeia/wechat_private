@@ -22,11 +22,11 @@ Page({
     log: {},
     isRuning: false,
     // 评分变量
-    ScoreValue:'',//屏幕输入的分数
-    ScoreValue1:'',//计算后的分数
-    ScoreValue2:0,//无评分默认分数
-    judge:false,//评分框是否禁用，true-是 false-否
-    maxScore:70,
+    ScoreValue: '', //屏幕输入的分数
+    ScoreValue1: '', //计算后的分数
+    ScoreValue2: 0, //无评分默认分数
+    judge: false, //评分框是否禁用，true-是 false-否
+    maxScore: 70,
     //
     tipsList: [{
         id: "1",
@@ -65,7 +65,15 @@ Page({
     //举报资源总长度  限制上传数量
     reportlength: 0,
     //举报描述
-    desc: '',
+    desc: [],
+    descType: '', //描述的类型--图片--视频
+    imgDescList: [], //图片对应描述
+    voidDescList: [], //视频对应描述 
+    redioId: '', //当前选中的快捷提示id
+    imgY: 0, //图片描述的标识
+    voidY: 0, //视频描述的标识
+
+
     //上传的第几个资源
     i: 0,
     //成功个数
@@ -91,17 +99,19 @@ Page({
         name: '4严重不达标',
         value: '严重不达标'
       },
-    ]
+    ],
+
   },
 
 
   onLoad: function(options) {
+
     qqmapsdk = new QQMapWX({
       key: this.data.key
     });
     this.currentLocation();
   },
-   /**
+  /**
    ***********************************地图**************************************
    */
   regionchange(e) {
@@ -161,10 +171,10 @@ Page({
     })
   },
 
-   /**
+  /**
    ***********************************录音**************************************
    */
-//提示
+  //提示
   tip: function(msg) {
     wx.showModal({
       title: '提示',
@@ -173,7 +183,7 @@ Page({
     })
   },
 
-// 开始录音
+  // 开始录音
   startRecord: function() {
     var that = this;
     that.setData({
@@ -271,7 +281,7 @@ Page({
     that.stopTimer();
   },
 
- /**
+  /**
    ***********************************倒计时**************************************
    */
   updateTimer: function() {
@@ -334,33 +344,33 @@ Page({
    ***********************************测评结果单选框**************************************
    */
 
-    radioChange: function(e) {
+  radioChange: function(e) {
     var that = this;
-    if(e.detail.value=='达标'){
+    if (e.detail.value == '达标') {
       that.setData({
-        judge:true,
-        ScoreValue:''
+        judge: true,
+        ScoreValue: ''
       })
-    }else{
-       that.setData({
-        judge:false
+    } else {
+      that.setData({
+        judge: false
       })
     }
 
   },
-   /**
+  /**
    ***********************************评分**************************************
    */
-  textScore:function(e){
+  textScore: function(e) {
     var that = this;
     var ScoreValue = e.detail.value;
     //成功=赋值
     that.setData({
-      ScoreValue:ScoreValue
+      ScoreValue: ScoreValue
     })
 
     // 输入范围不对清空
-    if(ScoreValue>that.data.maxScore || ScoreValue<0 || isNaN((ScoreValue/10))){
+    if (ScoreValue > that.data.maxScore || ScoreValue < 0 || isNaN((ScoreValue / 10))) {
       wx.showToast({
         title: '请重新输入',
         icon: 'loading',
@@ -368,18 +378,21 @@ Page({
         mask: true
       })
       that.setData({
-        ScoreValue:''
+        ScoreValue: ''
       })
     }
   },
- /**
+  /**
    ***********************************模态框**************************************
    */
   showModal(e) {
     this.setData({
       idModelShow: '0',
-      modalName: e.currentTarget.dataset.target
+      modalName: e.currentTarget.dataset.target,
+      redioId: e.currentTarget.dataset.index,
+      descType: e.currentTarget.dataset.type
     })
+
   },
   hideModal(e) {
     this.setData({
@@ -388,11 +401,63 @@ Page({
     })
   },
   hideModal2(e) {
-    this.setData({
-      modalName: null,
-      idModelShow: '1',
-      desc: this.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ',')
-    })
+
+    var that = this;
+    var descType = that.data.descType;
+    if (descType === 'Img') {
+      var id = that.data.redioId;
+      var redioId = '[' + id + ']'
+      // var test = 'imgDescList[' + redioId + '].desc'
+      var test = 'imgDescList[' + id + '].desc'
+      var imgY = that.data.imgY;
+      if (this.data.imgY === id) {
+        this.setData({
+          modalName: null,
+          idModelShow: '1',
+          imgY: imgY + 1,
+          // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+          [test]: this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','
+        })
+
+      } else {
+        this.setData({
+          modalName: null,
+          idModelShow: '1',
+          // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+          [test]: that.data.imgDescList[id].desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ',')
+        })
+      }
+      // console.log(this.data.desc)
+      console.log("这是图片描述", this.data.imgDescList)
+    } else {
+      var id = that.data.redioId;
+      var redioId = '[' + id + ']'
+      // var test = 'imgDescList[' + redioId + '].desc'
+      var test = 'voidDescList[' + id + '].desc'
+      var voidY = that.data.voidY;
+      if (this.data.voidY === id) {
+        this.setData({
+          modalName: null,
+          idModelShow: '1',
+          voidY: voidY + 1,
+          // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+          [test]: this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','
+        })
+
+      } else {
+        this.setData({
+          modalName: null,
+          idModelShow: '1',
+          // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+          [test]: that.data.voidDescList[id].desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ',')
+        })
+      }
+      // console.log(this.data.desc)
+      console.log("这是视频描述", this.data.voidDescList)
+    }
+
+
+
   },
   showModal2(e) {
     this.setData({
@@ -402,30 +467,6 @@ Page({
   },
 
   ChooseImage(e) {
-    var type = this.data.type;
-    if (type == 'adds') {
-      wx.chooseImage({
-        count: 1, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], //从相册选择
-        success: (res) => {
-          if (this.data.addressImgList.length != 0) {
-            this.setData({
-              addressImgList: this.data.addressImgList.concat(res.tempFilePaths),
-              modalName: '',
-              addslength: this.data.addslength + 1
-            })
-          } else {
-            this.setData({
-              addressImgList: res.tempFilePaths,
-              modalName: '',
-              addslength: this.data.addslength + 1
-            })
-          }
-        },
-
-      });
-    } else {
       wx.chooseImage({
         count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -437,6 +478,7 @@ Page({
               modalName: '',
               reportlength: this.data.reportlength + 1
             })
+             console.log("图片资源",this.data.imgList)
           } else {
             this.setData({
               imgList: res.tempFilePaths,
@@ -446,7 +488,7 @@ Page({
           }
         }
       });
-    }
+      
   },
   chooseVideo() {
     let vm = this;
@@ -456,34 +498,6 @@ Page({
       'src': '',
       'poster': ''
     };
-    var type = this.data.type;
-    if (type == 'adds') {
-      wx.chooseVideo({
-        sourceType: ['album', 'camera'],
-        maxDuration: 30,
-        camera: 'back',
-        success: (res) => {
-          obj.src = res.tempFilePath
-          obj.poster = res.thumbTempFilePath
-          urlArray.push(obj)
-          if (vm.data.addressVideoList.length != 0) {
-            vm.setData({
-              addressVideoList: vm.data.addressVideoList.concat(urlArray),
-              modalName: '',
-              addslength: vm.data.addslength + 1
-            })
-            //   vm.data.addrvideoSrcs.push(res.tempFilePath)
-          } else {
-            vm.setData({
-              addressVideoList: urlArray,
-              modalName: '',
-              addslength: vm.data.addslength + 1
-            })
-            //    vm.data.addrvideoSrcs.push(res.tempFilePath)
-          }
-        }
-      })
-    } else {
       wx.chooseVideo({
         sourceType: ['album', 'camera'],
         maxDuration: 30,
@@ -498,7 +512,6 @@ Page({
               modalName: '',
               reportlength: vm.data.reportlength + 1
             })
-            //  vm.data.videoSrcs.push(res.tempFilePath)
           } else {
             vm.setData({
               videoList: urlArray,
@@ -509,8 +522,6 @@ Page({
           }
         }
       })
-    }
-
 
   },
   ViewImageForreport(e) {
@@ -546,16 +557,22 @@ Page({
         if (res.confirm) {
           if (type == "reportImg") {
             this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+            this.data.imgDescList.splice(e.currentTarget.dataset.index, 1);
             this.setData({
               imgList: this.data.imgList,
-              reportlength: this.data.reportlength - 1
+              reportlength: this.data.reportlength - 1,
+              imgDescList: this.data.imgDescList,
+              imgY:this.data.imgY - 1
             })
           }
           if (type == "reportVideo") {
             this.data.videoList.splice(e.currentTarget.dataset.index, 1);
+              this.data.voidDescList.splice(e.currentTarget.dataset.index, 1);
             this.setData({
               videoList: this.data.videoList,
-              reportlength: this.data.reportlength - 1
+              reportlength: this.data.reportlength - 1,
+              voidDescList: this.data.voidDescList,
+              voidY:this.data.voidY - 1
             })
           }
         }
@@ -797,7 +814,7 @@ Page({
     // })
     var that = this;
     that.setData({
-      ScoreValue1:that.data.ScoreValue/10
+      ScoreValue1: that.data.ScoreValue / 10
     })
     console.log(this.data.ScoreValue1)
   }

@@ -1,2 +1,21 @@
-<!--pages/Professional/ceshi2/ceshi2.wxml-->
-<text>pages/Professional/ceshi2/ceshi2.wxml</text>
+<view class="table">
+  <view class="tr bg-w">
+    <view class="th">参数</view>
+    <view class="th-2">内容</view>
+  </view>
+  <block wx:for="{{listData}}" wx:key="{{code}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td-1" selectable="true">{{item.code}}</view>
+      <view class="td-2" selectable="true" scroll-y="true" >
+      <text class="th-text"  style="overflow-y:auto;overflow-x:scroll" selectable="true">{{item.text}}</text>
+      </view>
+      <!--view class="td">{{item.type}}</view-->
+    </view>
+    <view class="tr bg-g2" wx:else>
+      <view class="td-1" selectable="true">{{item.code}}</view>
+      <view class="td-2" selectable="true"  scroll-y="true" >
+      <text class="th-text"  style="overflow-y:auto;overflow-x:scroll" selectable="true">{{item.text}}</text>
+     </view>
+    </view>
+  </block>
+  </view>

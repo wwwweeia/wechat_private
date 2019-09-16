@@ -162,3 +162,30 @@ height: auto;
 background-color: rgba(0, 0, 0, 0.5);
 
 }
+
+/*针对图片*/
+.cu-tag-user{
+font-size: 24rpx;
+vertical-align: middle;
+position: absolute;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+box-sizing: border-box;
+padding: 0rpx 16rpx;
+height: 48rpx;
+font-family: Helvetica Neue, Helvetica, sans-serif;
+white-space: nowrap;
+background-color: rgba(0, 0, 0, 0.5);
+
+}
+.video-user{
+  width: 240rpx;
+display: inline-block;
+line-height: 0;
+overflow: hidden;
+position: relative;
+z-index: 0;
+height: 6.4em;
+margin-right: 20rpx;
+}

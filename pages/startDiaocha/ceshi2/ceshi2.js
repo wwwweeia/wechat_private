@@ -1,66 +1,17 @@
-// pages/Professional/ceshi2/ceshi2.js
+var idinfolist = [
+  { "code": "结", "text": '测评' },
+  { "code": "这下行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行了吧这", "text": '' },
+  { "code": "市行了吧这下行行行了吧这下行行行了吧这下行行行了吧这下行行行了吧这下行行行了吧这下行行", "text": '' },
+  { "code": "县", "text": '测评'},
+  { "code": "性别", "text": ''},
+  { "code": "出生年月", "text": ''},
+  { "code": "地址这是一个测试这个只有一行", "text": '测评'}
+]
+ 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    listData: idinfolist,   
+    inputValue: '', //用于显示输入语句
+    searchinput: ''
   }
-})
+  })

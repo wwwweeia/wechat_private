@@ -16,7 +16,9 @@ Page({
      var that = this;
     var terminalUserId = app.terminalUserId;
     var projectId = options.projectId;
+    var isGrade = options.isGrade;//是否打分
     wx.setStorageSync('projectId', projectId)
+    wx.setStorageSync('isGrade', isGrade)
     that.setData({
       projectId:projectId
     })
@@ -35,23 +37,20 @@ Page({
           'Content-Type': 'application/json'
         },
         success: (res) => {
-          // console.log("点位类型",res)
         if (res.data.status == 'success') {
           var mapList = res.data.retObj;
-          console.log(mapList.length)
          let map = [];
          for (let i = 0; i < mapList.length; i++) {
-            map.push({
+          if(mapList[i].locationList!=null){
+              map.push({
               list: mapList[i].locationList
             })
-
+          }
          }
-         console.log('map',map.length)
-         console.log('map集合',map)
+
           let mapLists = [];
          for (let i = 0; i < map.length; i++) {
           for(let j = 0; j < map[i].list.length; j++){
-            console.log('长度',map[i].list.length)
             mapLists.push({
               longitude: map[i].list[j].longitude,
               latitude: map[i].list[j].latitude,
@@ -61,12 +60,11 @@ Page({
             })
           }
          }
-         console.log("mapLists集合",mapLists)
             that.setData({
               list:res.data.retObj,
               markersList:mapLists  
             })
-         
+           console.log("点位",this.data.list)
           } else {
             wx.showToast({
               title: '获取点位树失败',
@@ -144,5 +142,9 @@ goToMap:function(){
     res.eventChannel.emit('pointTypePage', { data: that.data.markersList })
   }
      })
+},
+submit:function(e){
+  let id = e.currentTarget.dataset.index;
+  console.log("提交了",id)
 }
 });

@@ -53,10 +53,5 @@ Page({
       }
     })
 
-  },
-
-  goToPoint_type:function(even){
-    console.log("点击了")
-     console.log(even)
   }
 })

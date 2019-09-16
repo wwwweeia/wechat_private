@@ -39,9 +39,6 @@
 </view>
 
 
-
-
-
 <!-- 拍摄照片/视频 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
@@ -57,47 +54,23 @@
   </view>
 </view>
 
-<!-- <view class="cu-form-group">
-  <view class="grid col-4 grid-square flex-sub">
-    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
-      <image src='{{imgList[index]}}' mode='aspectFill'></image>
-      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
-        <text class="cuIcon-close"></text>
-      </view>
-
-<input value="这到底该怎么办啊啊啊啊啊啊啊啊啊"></input>
-    </view>
-
-    <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index]}}" data-index="{{index}}">
-      <video id='reportVideo{{index}}' src="{{videoList[index].src}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
-      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
-        <text class="cuIcon-close"></text>
-      </view>
-    </view>
-
-    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
-      <text class="cuIcon-cameraadd"></text>
-    </view>
-  </view>
-</view>
- -->
-
-
-<!-- <view class="cu-card article no-card">
-  <view class="cu-item shadow">
-   
-    <view class="content" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
-      <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>
-      <view class="desc">
-        <view class="text-content"> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</view>
-        <view>
-          <view class="cu-tag bg-red light sm round">正义天使</view>
-          <view class="cu-tag bg-green light sm round">史诗</view>
+<!-- 提示语弹出层 -->
+<view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap>
+    <radio-group class="block">
+      <view class="cu-list menu text-left">
+        <view class="cu-item" wx:for="{{tipsList}}" wx:key>
+          <label class="flex justify-between align-center flex-sub" bindtap="hideModal2" data-value="{{item.id}}">
+            <view class="flex-sub">{{item.name}}</view>
+            <radio class="round"></radio>
+          </label>
         </view>
       </view>
-    </view>
+    </radio-group>
   </view>
-  </view> -->
+</view>
+
+
   <!-- 图片加描述 -->
 <view class="cu-card article no-card">
   <view class="cu-item shadow">
@@ -109,9 +82,9 @@
       </view>
       <view class="desc">
         <!-- <view class="text-content"> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</view> -->
-        <input  class="text-content" value="{{desc}}"></input>
+        <input  class="text-content" value="{{imgDescList[index].desc}}"></input>
         <view>
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal">快捷输入</view>
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}" >快捷输入</view>
          
         </view>
       </view>
@@ -129,9 +102,9 @@
       </view>
       <view class="desc">
         <!-- <view class="text-content"> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</view> -->
-        <input  class="text-content" value="{{desc}}"></input>
+        <input  class="text-content" value="{{voidDescList[index].desc}}"></input>
         <view>
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal">快捷输入</view>
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Vido" data-index="{{index}}" >快捷输入</view>
          
         </view>
       </view>
@@ -245,21 +218,7 @@
   </view>
 </view> -->
 
-<!-- 提示语弹出层 -->
-<view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
-  <view class="cu-dialog" catchtap>
-    <radio-group class="block">
-      <view class="cu-list menu text-left">
-        <view class="cu-item" wx:for="{{tipsList}}" wx:key>
-          <label class="flex justify-between align-center flex-sub" bindtap="hideModal2" data-value="{{item.id}}">
-            <view class="flex-sub">{{item.name}}</view>
-            <radio class="round"></radio>
-          </label>
-        </view>
-      </view>
-    </radio-group>
-  </view>
-</view>
+
 
 <!-- 编辑框 -->
 <!-- <view class="cu-form-group">

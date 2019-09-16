@@ -24,12 +24,12 @@
     <view class="tr bg-g" wx:if="{{item.finished==0}}">
       <view class="td ">　{{item.content}}
         <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
-      <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
+      <view class="td1 text-blue" data-isRecord="{{item.isRecord}}" bind:tap="goToUpload">测评</view>
     </view>
     <view class="tr" wx:else>
       <view class="td">　{{item.content}}
         <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text></view>
-      <view class="td1 text-blue" bind:tap="goToUpload">测评</view>
+      <view class="td1 text-blue" data-isRecord="{{item.isRecord}}" bind:tap="goToUpload">测评</view>
     </view>
   </block>
   <!--提示框alert-->
@@ -78,7 +78,9 @@
             <block wx:for-items="{{list}}" wx:key="{{item.id}}" >
               <view data-index="{{index}}" class="tui-cell tui-cell_access" bindtap="hideModal" data-type="0" data-target="viewModal" data-quotaId="{{item.id}}" data-content="{{item.content}}" data-variable="{{variable}}">
                 <view class="tui-cell_bd text-smm" >{{item.content}}</view>
-                <view class="{{item.isLast==0?'cuIcon-roundclosefill text-red' : 'cuIcon-roundcheckfill  text-blue'}} ">　</view>
+                 <view wx:if="{{item.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
+                   <view wx:if="{{item.submitStatus==2}}" class="cuIcon-roundcheckfill  text-blue">
+                   </view>
                 <view class="tui-cell_ft tui-cell_ft_in-access"></view>
               </view>
             </block>

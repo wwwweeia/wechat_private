@@ -20,7 +20,9 @@ Page({
     // 提示id
     tipsId: null,
     // 设置一个变量判断手风琴点击的是正常点位还是问题分类 0--正常，1-问题分类
-    variable:0
+    variable:0,
+    //是否需要录音，0-不需要 1-需要
+    isRecord:''
   },
 
  onLoad: function (e) {
@@ -48,7 +50,7 @@ getQuotaList(pointTypeId){
       'Content-Type': 'application/json'
     },
     success: (res) => {
-      // console.log('指标列表',res.data.retObj)
+      console.log('指标列表',res.data.retObj)
        if (res.data.status == 'success') {
         var quotaList = res.data.retObj;
           let arr = [];
@@ -93,7 +95,10 @@ getQuotaList(pointTypeId){
 
 
 // 跳转上传页面
-goToUpload:function(){
+goToUpload:function(e){
+var that = this;
+let isRecord = e.currentTarget.dataset.isrecord;
+wx.setStorageSync('isRecord',isRecord);
   wx.navigateTo({
     url:"../task_upload/task_upload"
   })
