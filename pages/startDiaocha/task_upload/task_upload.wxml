@@ -1,4 +1,4 @@
-<!-- 地图 -->
+<!-- 地图 --> 
 <!-- <view class="container padding bg-white " hover-stop-propagation="false" hover-class="none"> -->
 <!-- 地图控件 -->
 <!-- <map wx:if="{{hidden == false}}" id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location bindregionchange="regionchange">
@@ -59,9 +59,9 @@
   <view class="cu-dialog" catchtap>
     <radio-group class="block">
       <view class="cu-list menu text-left">
-        <view class="cu-item" wx:for="{{tipsList}}" wx:key>
-          <label class="flex justify-between align-center flex-sub" bindtap="hideModal2" data-value="{{item.id}}">
-            <view class="flex-sub">{{item.name}}</view>
+        <view class="cu-item" wx:for="{{tipsList}}" wx:key="index">
+          <label class="flex justify-between align-center flex-sub" bindtap="hideModal2" data-value="{{index}}">
+            <view class="flex-sub">{{item}}</view>
             <radio class="round"></radio>
           </label>
         </view>
@@ -174,8 +174,8 @@
   </view>
 </view>
 <!-- 录音 -->
-
-<view wx:if="{{isRecord}}" class="cu-bar solid-bottom">
+<!-- wx:if="{{isRecord}}" -->
+<view  class="cu-bar solid-bottom">
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 录音
   </view>
@@ -233,9 +233,9 @@
 
 </view>
 <view  class="radioChange_user">
-  <radio-group bindchange="radioChange">
-    <label class="radio" wx:for="{{items}}" wx:key>
-      <radio class="blue margin-left-sm" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+  <radio-group bindchange="radioChange" data-id="{{item.id}}">
+    <label class="radio" wx:for="{{items}}" wx:key >
+      <radio class="blue margin-left-sm" value="{{item.id}}"  checked="{{item.checked}}" />{{item.content}}
     </label>
   </radio-group>
 </view>
@@ -248,9 +248,9 @@
     <input placeholder="最低0分,最高{{maxScore}}分,达标默认不扣分" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
   </view>
 
-<!-- <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
-</view> -->
 <view class="padding-xl_user">
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
+</view>
+<!-- <view class="padding-xl_user">
   <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='goToQuota_list'>提交</button>
 </view>

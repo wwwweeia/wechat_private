@@ -86,8 +86,9 @@ Page({
   goToquota_list:function(){
     var pointTypeId = this.data.pointTypeId;
     var pointName= this.data.pointName;
+    var pointId = this.data.pointId;
      wx.navigateTo({
-       url: "../quota_list/quota_list?pointName=" + pointName+"&pointTypeId="+pointTypeId
+       url: "../quota_list/quota_list?pointName=" + pointName+"&pointTypeId="+pointTypeId+'&pointId='+pointId
      })
   },
 

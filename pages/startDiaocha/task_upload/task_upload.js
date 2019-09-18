@@ -1,5 +1,6 @@
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 const util = require('../../../utils/util_time.js')
+
 let qqmapsdk;
 //获取应用实例
 const app = getApp()
@@ -27,36 +28,16 @@ Page({
     ScoreValue2: 0, //无评分默认分数
     judge: false, //评分框是否禁用，true-是 false-否
     maxScore: 70,
-    //
-    tipsList: [{
-        id: "1",
-        name: '这是快捷输入1111'
-      },
-      {
-        id: "2",
-        name: '这是快捷输入2222'
-      },
-      {
-        id: "3",
-        name: '这是快捷输入3333'
-      },
-      {
-        id: "4",
-        name: '这是快捷输入4444'
-      },
-      {
-        id: "5",
-        name: '这是快捷输入5555'
-      },
-      {
-        id: "6",
-        name: '这是快捷输入6666'
-      },
-      {
-        id: "7",
-        name: '这是快捷输入7777'
-      }
-    ],
+    //问题id
+    questionId:'',
+    //选项id
+    optionId:'',
+    //点位id
+    pointId:'',
+    // 指标id
+    quotaId:'',
+    //快捷输入集合
+    tipsList: [ ],
     //图片上传数据
     imgList: [],
     //视频上传数据
@@ -67,40 +48,23 @@ Page({
     //举报描述
     desc: [],
     descType: '', //描述的类型--图片--视频
-    imgDescList: [], //图片对应描述
-    voidDescList: [], //视频对应描述 
+    imgDescList: [{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "}], //图片对应描述
+    voidDescList: [{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "},{desc:" "}], //视频对应描述 
     redioId: '', //当前选中的快捷提示id
     imgY: 0, //图片描述的标识
     voidY: 0, //视频描述的标识
     isGrade: '', //是否打分，0不是-1是
     isRecord: '', //是否录音，0不需要 1需要
-
-    //上传的第几个资源
-    i: 0,
+     terminalUserId:'',//调查员id
+     i:0,
     //成功个数
     success: 0,
     //失败个数
     fail: 0,
-    //openid
-    openid: '',
-    items: [{
-        name: '达标',
-        value: '达标'
-        // checked: 'true'
-      },
-      {
-        name: '2不达标',
-        value: '不达标'
-      },
-      {
-        name: '3一般不达标',
-        value: '一般不达标'
-      },
-      {
-        name: '4严重不达标',
-        value: '严重不达标'
-      },
-    ],
+    // 封装资源列表
+   resourceList:[],
+   //单选框数据
+    items: []
 
   },
 
@@ -108,6 +72,16 @@ Page({
   onLoad: function(options) {
     var isGrade = wx.getStorageSync('isGrade');
     var isRecord = wx.getStorageSync('isRecord');
+    var terminalUserId = app.terminalUserId;
+    var questionId = options.questionId;
+    var quotaId = options.quotaId;
+    var pointId = options.pointId;
+    this.setData({
+      terminalUserId:terminalUserId,
+      questionId:questionId,
+      quotaId : quotaId,
+      pointId : pointId
+    })
     if (isGrade == 0) {
       this.setData({
         isGrade: false
@@ -130,7 +104,43 @@ Page({
       key: this.data.key
     });
     this.currentLocation();
+    this.getQuestionDetail(questionId);
   },
+  /**
+   ***********************************问题描述和问题选项**************************************
+   */
+   getQuestionDetail:function(questionId){
+    var that = this;
+    wx.request({
+      // 必需
+      url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getQuestionDetailById',
+      data: {
+        questionId:questionId
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        if(res.data.status == 'success'){
+           console.log("问题描述和问题选项：",res.data.retObj)
+        
+          that.setData({
+            tipsList:res.data.retObj.infoList,
+            items:res.data.retObj.optionList
+          })
+          console.log("tipsList:",that.data.tipsList)
+          console.log("items:",that.data.items)
+        }
+       
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
+    })
+   },
   /**
    ***********************************地图**************************************
    */
@@ -366,15 +376,20 @@ Page({
 
   radioChange: function(e) {
     var that = this;
+    console.log("选项",e)
     if (e.detail.value == '达标') {
       that.setData({
+        optionId:e.detail.value,
         judge: true,
         ScoreValue: ''
       })
+      // console.log("选项id",that.data.optionId)
     } else {
       that.setData({
+        optionId:e.detail.value,
         judge: false
       })
+      // console.log("选项id",that.data.optionId)
     }
 
   },
@@ -436,7 +451,7 @@ Page({
           idModelShow: '1',
           imgY: imgY + 1,
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','
+          [test]: this.data.tipsList[e.currentTarget.dataset.value] + ','
         })
 
       } else {
@@ -444,7 +459,7 @@ Page({
           modalName: null,
           idModelShow: '1',
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: that.data.imgDescList[id].desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ',')
+          [test]: that.data.imgDescList[id].desc.concat(this.data.tipsList[e.currentTarget.dataset.value] + ',')
         })
       }
       // console.log(this.data.desc)
@@ -461,7 +476,7 @@ Page({
           idModelShow: '1',
           voidY: voidY + 1,
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','
+          [test]: this.data.tipsList[e.currentTarget.dataset.value] + ','
         })
 
       } else {
@@ -469,7 +484,7 @@ Page({
           modalName: null,
           idModelShow: '1',
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: that.data.voidDescList[id].desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ',')
+          [test]: that.data.voidDescList[id].desc.concat(this.data.tipsList[e.currentTarget.dataset.value] + ',')
         })
       }
       // console.log(this.data.desc)
@@ -607,26 +622,19 @@ Page({
   //提交按钮
   submit() {
     var that = this;
-    //举报描述
-    var desc = this.data.desc;
-    //举报经纬度
-    var longitude = this.data.longitude;
-    var latitude = this.data.latitude;
-    //举报地址
-    var address = this.data.address;
+    // //举报描述
+    // var desc = this.data.desc;
+    // //举报经纬度
+    // var longitude = this.data.longitude;
+    // var latitude = this.data.latitude;
+    // //举报地址
+    // var address = this.data.address;
     //举报图片集合
     var reportImg = that.data.imgList;
     //举报视频集合
     var reportVideo = that.data.videoList;
-
-
-    var app = getApp();
-    var openid = app.openid;
-    that.setData({
-      openid: openid
-    })
-    var openid = that.data.openid;
-    console.log("普通资源携带的openid:？", openid);
+    //录音
+    var audioSrc = that.data.audioSrc;
 
 
     if ((reportImg.length + reportVideo.length) < 1) {
@@ -639,124 +647,108 @@ Page({
       return
     }
 
-    if (desc == '') {
-      wx.showToast({
-        title: '请填写举报描述',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
-    }
 
-
-    //发送请求到后台，存储：经纬度、地址、描述、问题ID 
-    wx.request({
-      url: "http://221.216.95.200:8285/home/manage/createAnswer",
-      data: {
-        "longitude": longitude,
-        "latitude": latitude,
-        "address": address,
-        "desc": desc,
-        "openid": openid,
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'POST',
-      dataType: 'json',
-      success(res) {
-        //console.log("answerId:", res);
-        //得到答案id
-        // 执行图片上传递归函数
-        // that.uploadImage(0, res.data.retObj);
-        that.setData({
-          answerId: res.data.retObj
-        })
-        that.uploadImage(res.data.retObj);
-
-      },
-      //请求失败
-      fail: function(err) {
-        console.log("请求失败：", err)
-      },
-      complete: function() {} //请求完成后执行的函数
-    })
-
-    setTimeout(function() {
-      wx.hideLoading()
-    }, 2000)
-
-  },
-
-
-  /**
-   * 图片/视频资源上传
-   * @param e(index) 当前图片下标
-   */
-  uploadImage: function(answerId) {
-    var that = this;
-
-    //举报图片集合
-    var reportImg = that.data.imgList;
-    //举报视频集合
-    var reportVideo = that.data.videoList;
-
-
-    wx.showLoading({
-      title: '资源上传中...',
-      mask: true,
-    })
     if (reportImg.length > 0) {
       //举报图片
-      that.reportImg11();
+      that.uploadImage();
     }
     if (reportVideo.length > 0) {
       //举报视频
-      that.reportVideo11();
+      that.uploadVideo();
 
     }
+    if(audioSrc.length>0){
+      //音频
+      that.uploadAudioSrc();
+    }
+ 
+    
 
-    setTimeout(function() {
-      wx.reLaunch({
-        url: "../success/success"
-      })
-    }, 1000)
+    // //发送请求到后台，存储：经纬度、地址、描述、问题ID 
+    // wx.request({
+    //   url: "http://221.216.95.200:8285/home/manage/createAnswer",
+    //   data: {
+    //     "longitude": longitude,
+    //     "latitude": latitude,
+    //     "address": address,
+    //     "desc": desc,
+    //     "openid": openid,
+    //   },
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded'
+    //   },
+    //   method: 'POST',
+    //   dataType: 'json',
+    //   success(res) {
+    //     //console.log("answerId:", res);
+    //     //得到答案id
+    //     // 执行图片上传递归函数
+    //     // that.uploadImage(0, res.data.retObj);
+    //     that.setData({
+    //       answerId: res.data.retObj
+    //     })
+    //     that.uploadImage(res.data.retObj);
 
+    //   },
+    //   //请求失败
+    //   fail: function(err) {
+    //     console.log("请求失败：", err)
+    //   },
+    //   complete: function() {} //请求完成后执行的函数
+    // })
+
+    // setTimeout(function() {
+    //   wx.hideLoading()
+    // }, 2000)
 
   },
 
 
+
+
   //举报图片集合
-  reportImg11: function() {
+  uploadImage: function() {
     var that = this;
     //举报图片集合
     var reportImg = that.data.imgList;
-    var answerId = that.data.answerId;
+
+    var terminalUserId = that.data.terminalUserId;
     var i = that.data.i;
     var success = that.data.success;
     var fail = that.data.fail;
-    var openid = that.data.openid;
-    console.log("图片资源携带的openid:？", openid);
-
+    var resourceList = that.data.resourceList;
+    var imgDescList = that.data.imgDescList;
     //上传举报图片
     wx.uploadFile({
-      // 192.168.15.193:8199
-      url: 'http://221.216.95.200:8285/home/manage/upload',
-      // url: 'http://192.168.15.67:8080/home/manage/upload',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldResource/upload',
       filePath: reportImg[i],
-      name: 'reportImg' + i + openid,
+      name: 'reportImg' + i + terminalUserId,
       formData: {
-        'answerId': answerId,
-        'key': 'reportImg' + i + openid,
-        'openid': openid,
+        'key': 'reportImg' + i + terminalUserId,
+        'type': 0
       },
       success(res) {
         // 操作成功
-        setTimeout(function() {
-          wx.hideLoading()
-        }, 1000)
+        var imageMap = JSON.parse(res.data);
+       var desc =  imgDescList[i].desc;
+         if(i==0){
+            resourceList.push({
+            url:imageMap.url,
+            type:0,
+            description:desc,
+            ismodel:1
+          })
 
+          }else{
+            resourceList.push({
+            url:imageMap.url,
+            type:0,
+            description:desc,
+            ismodel:0
+          })
+
+          }
+      
         success++;
       },
       //请求失败
@@ -765,14 +757,22 @@ Page({
       },
       complete: () => {
         i++;
-        if (i >= reportImg.length) { //当图片传完时，停止调用     
-          console.log('---上传举报图片执行完毕---');
+        if (i >= reportImg.length) { //当图片传完时，停止调用  
+          that.data.resourceList = resourceList;  
+          console.log("图片返回数据：",that.data.resourceList )
+            console.log('---上传举报图片执行完毕---');
           console.log('成功：' + success + " 失败：" + fail);
+
+
+      that.uploadAnswer();
+
+
+
         } else { //若图片还没有传完，则继续调用函数
           that.data.i = i;
           that.data.success = success;
           that.data.fail = fail;
-          that.reportImg11();
+          that.uploadImage();
         }
       }
 
@@ -780,30 +780,35 @@ Page({
 
   },
   //举报视频集合
-  reportVideo11: function() {
+  uploadVideo: function() {
     var that = this;
     //举报视频集合
     var reportVideo = that.data.videoList;
-    var answerId = that.data.answerId;
-
+    var terminalUserId = that.data.terminalUserId;
     var i = that.data.i;
     var success = that.data.success;
     var fail = that.data.fail;
-    var openid = that.data.openid;
-
+    var resourceList = that.data.resourceList;
+    var voidDescList = that.data.voidDescList;
     wx.uploadFile({
-      url: 'http://221.216.95.200:8285/home/manage/upload',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldResource/upload',
       filePath: reportVideo[i].src,
-      name: 'reportVideo' + i + openid,
+      name: 'reportVideo' + i + terminalUserId,
       formData: {
-        'answerId': answerId,
-        'key': 'reportVideo' + i + openid,
-        'openid': openid,
+        'key': 'reportVideo' + i + terminalUserId,
+        'type': '2'
       },
       success(res) {
-        // 操作成功
-        wx.hideLoading();
         success++;
+        // 操作成功
+       var voidMap = JSON.parse(res.data);
+       var desc = voidDescList[i].desc;
+       resourceList.push({
+            url:voidMap.url,
+            type:2,
+            description:desc,
+            ismodel:0
+       })
       },
       //请求失败
       fail: function(err) {
@@ -812,13 +817,18 @@ Page({
       complete: () => {
         i++;
         if (i >= reportVideo.length) { //当图片传完时，停止调用     
-          console.log('上传举报视频执行完毕');
+          that.data.resourceList = resourceList;  
+          console.log("视频返回数据：",that.data.resourceList)
+          console.log('上传视频执行完毕');
           console.log('成功：' + success + " 失败：" + fail);
+
+          that.uploadAnswer();
+
         } else { //若图片还没有传完，则继续调用函数
           that.data.i = i;
           that.data.success = success;
           that.data.fail = fail;
-          that.reportVideo11();
+          that.uploadVideo();
         }
       }
 
@@ -826,6 +836,154 @@ Page({
 
 
   },
+
+   //录音
+  uploadAudioSrc: function() {
+    var that = this;
+
+    var audioSrc = that.data.audioSrc;
+    var terminalUserId = that.data.terminalUserId;
+    var success = that.data.success;
+    var fail = that.data.fail;
+    var resourceList = that.data.resourceList;
+    console.log('格式',audioSrc)
+    wx.uploadFile({
+      url: 'http://192.168.15.147:8080/wechat/api/fieldResource/upload',
+      filePath: audioSrc,
+      name: 'audioSrc'  + terminalUserId,
+      formData: {
+        'key': 'audioSrc'  + terminalUserId,
+        'type': '1'
+      },
+      success(res) {
+        // 操作成功
+        success++;
+       var audioMap = JSON.parse(res.data);
+       resourceList.push({
+            url:audioMap.url,
+            type:1,
+            description:"",
+            ismodel:0
+       })
+
+       that.uploadAnswer();
+      },
+      //请求失败
+      fail: function(err) {
+        fail++;
+      },
+      complete: () => {
+         console.log('上传录音执行完毕');
+        console.log('成功：' + success + " 失败：" + fail);
+      }
+
+    })
+
+
+  },
+
+    /**
+   * 上传答案
+   */
+  uploadAnswer: function() {
+    var that = this;
+    var audioSrc = that.data.audioSrc;
+    var imgList = that.data.imgList;
+    var videoList = that.data.videoList;
+    var resourceList =  that.data.resourceList;
+    console.log("这是咋回事啊",audioSrc)
+    if(audioSrc == null || audioSrc ==''){
+      // 本地资源长度
+      var length = imgList.length + videoList.length;
+      
+    }else{
+      var length = imgList.length + videoList.length + 1;
+    }
+    
+    
+    // 上传成功的资源长度
+    var rsLength = resourceList.length;
+    console.log("这是咋回事啊length:",length)
+    console.log("这是咋回事啊rsLength:",rsLength)
+     // 资源全部上传成功 上传答案
+     if(length == rsLength){
+        that.uploadAnswerTrue();
+     }else{//有资源上传失败
+        wx.showToast({
+        title: '有资源上传失败',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+     }
+  },
+  // 资源全部上传成功，上传答案
+uploadAnswerTrue:function(){
+  var  that = this;
+  var resourceList = that.data.resourceList;
+  //选项id
+  var optionId = that.data.optionId;
+  // 调查员id
+  var surveyorId = app.terminalUserId;
+  // 点位id
+  var locationId = that.data.pointId;
+  // 问题id
+  var questionId = that.data.questionId;
+  //经纬度
+  var longitude = that.data.longitude;
+  var latitude = that.data.latitude;
+  //指标id
+  var quotaId = that.data.quotaId;
+  // 项目id
+  var projectId = wx.getStorageSync('projectId');
+  //地址
+  var address = that.data.address;
+  // 分数
+  var deduction = that.data.ScoreValue / 10;
+  var fieldAnswer = {
+    optionId:optionId,
+    surveyorId:surveyorId,
+    locationId:locationId,
+    questionId:questionId,
+    longitude:longitude,
+    latitude:latitude,
+    quotaId:quotaId,
+    projectId:projectId,
+    address:address,
+    deduction:deduction
+  };
+  
+
+console.log(fieldAnswer)
+
+
+
+
+  wx.request({
+    // 必需
+    url: 'http://192.168.15.147:8080/wechat/api/fieldAnswer/saveFieldAnswer',
+    method:'POST',
+    data: {
+      fieldAnswerStr:JSON.stringify(fieldAnswer),
+      resourceListStr:JSON.stringify(resourceList)
+    },
+    header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+    success: (res) => {
+      console.log("成功了")
+    },
+    fail: (res) => {
+      
+    },
+    complete: (res) => {
+      
+    }
+  })
+
+
+
+},
 
   //返回指标页面
   goToQuota_list: function() {

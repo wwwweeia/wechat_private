@@ -1,21 +1,21 @@
 <!-- 初始加载显示部分 -->
 <scroll-view scroll-y class="  DrawerPage {{modalName=='viewModal'?'show':''}}">
-<block >
-<view class="cu-bar bg-white1  solid-bottom "  >
-  <view class="h1" >
-{{pointName}}
-  </view>  
-  </view>
-  <view class="cu-bar bg-white1  solid-bottom "  >
-  <view class="h2">
-    <!-- <text class="cuIcon-titles text-blue "></text> -->　{{quotaName}}
-  </view>  
-  </view>
-  <text>　{{tips}}</text>
-</block>
-      
+  <block>
+    <view class="cu-bar bg-white1  solid-bottom ">
+      <view class="h1">
+        {{pointName}}
+      </view>
+    </view>
+    <view class="cu-bar bg-white1  solid-bottom ">
+      <view class="h2">
+        <!-- <text class="cuIcon-titles text-blue "></text> -->　{{quotaName}}
+      </view>
+    </view>
+    <text>　{{tips}}</text>
+  </block>
+
   <!-- 操作表格 -->
-  <view class="table">
+  <!--  <view class="table">
   <view class="tr bg-w">
     <view class="th">检查内容</view>
     <view class="th1">操作</view>
@@ -32,61 +32,109 @@
       <view class="td1 text-blue" data-isRecord="{{item.isRecord}}" bind:tap="goToUpload">测评</view>
     </view>
   </block>
-  <!--提示框alert-->
     <tui-alert show="{{visible}}" bind:click="hideAlert" bind:cancel="hideAlert" maskClosable="true" btnColor="#e54d42" color="#333" btnText="点击关闭">
     <view  class="tips2">
      该问题无提示
     </view>
     </tui-alert>
+  </view> 
+ -->
+
+  <view class="table">
+    <view class="tr bg-w">
+      <view class="th">检查内容</view>
+      <view class="th-2">操作</view>
+    </view>
+    <block wx:for="{{listData}}" wx:key="{{item}}">
+      <!-- <view class="tr bg-g" wx:if="{{item.finished==0}}" > -->
+      <view class="tr bg-g" wx:if="{{index%2==0}}">
+        <view class="td-1" selectable="true">　{{item.content}}
+          <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text>
+        </view>
+
+
+        <view class="td-2" selectable="true" scroll-y="true">
+          <text class="{{item.finished==0 ? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-id='{{item.id}}'  bind:tap="goToUpload">测评</text>
+        </view>
+      </view>
+
+      <view class="tr bg-g2" wx:else>
+        <view class="td-1" selectable="true">　{{item.content}}
+          <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text>
+
+        </view>
+
+
+        <view class="td-2" selectable="true" scroll-y="true">
+          <text class="{{item.finished==0? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-id='{{item.id}}'  bind:tap="goToUpload">测评</text>
+        </view>
+      </view>
+    </block>
+    <!--提示框alert-->
+    <tui-alert show="{{visible}}" bind:click="hideAlert" bind:cancel="hideAlert" maskClosable="true" btnColor="#e54d42" color="#333" btnText="点击关闭">
+      <view class="tips2">
+        该问题无提示
+      </view>
+    </tui-alert>
   </view>
 
 
+
+
+
+
+
+
+
+
+
+
   <view class='padding margin text-center'>
-        <view class='cu-btn bg-cyan lg block shadow radius margin-xl cuIcon-back_android' bindtap="showModal" data-target="viewModal">
-          切换指标
-        </view>
-      </view>
+    <view class='cu-btn bg-blue lg block shadow radius margin-xl cuIcon-back_android' bindtap="showModal" data-target="viewModal">
+      切换指标
+    </view>
+  </view>
 </scroll-view>
 
 <!-- 触摸屏幕回退列 -->
-<view class="DrawerClose {{modalName=='viewModal'?'show':''}} " data-type="1"  bindtap="hideModal">
+<view class="DrawerClose {{modalName=='viewModal'?'show':''}} " data-type="1" bindtap="hideModal">
   <text class="cuIcon-roundrightfill "></text>
 </view>
 <!-- 隐藏部分 -->
 <scroll-view scroll-y class=" DrawerWindow {{modalName=='viewModal'?'show':''}}">
-<!-- 描述 -->
-<view class="cu-bar solid-bottom">
+  <!-- 描述 -->
+  <view class="cu-bar solid-bottom">
 
-  <view class="action">
-    <button class="cu-btn bg-blue shadow" bindtap="goToSwitch" >切换</button>
+    <view class="action">
+      <button class="cu-btn bg-blue shadow" bindtap="goToSwitch">切换</button>
+    </view>
   </view>
-</view>
 
 
- <block >
-      <view class="kind-list_item">
-        <view  class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" >
-          <view class="cuIcon-unfold text-blue"></view>
-          <!-- 这里是点位 -->
-          <view class="tui-flex_item　 text-sm">　{{pointName}}</view>
-          <!-- <view class="cuIcon-unfold"></view> -->
-        </view>
-        <!-- <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}"> -->
-        <view class="kind-list_item-bd kind-list_item-bd_show">
-          <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
-           <view class="tui-cells tui-cells_show">
-            <block wx:for-items="{{list}}" wx:key="{{item.id}}" >
-              <view data-index="{{index}}" class="tui-cell tui-cell_access" bindtap="hideModal" data-type="0" data-target="viewModal" data-quotaId="{{item.id}}" data-content="{{item.content}}" data-variable="{{variable}}">
-                <view class="tui-cell_bd text-smm" >{{item.content}}</view>
-                 <view wx:if="{{item.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
-                   <view wx:if="{{item.submitStatus==2}}" class="cuIcon-roundcheckfill  text-blue">
-                   </view>
-                <view class="tui-cell_ft tui-cell_ft_in-access"></view>
+  <block>
+    <view class="kind-list_item">
+      <view class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}">
+        <view class="cuIcon-unfold text-blue"></view>
+        <!-- 这里是点位 -->
+        <view class="tui-flex_item　 text-sm">　{{pointName}}</view>
+        <!-- <view class="cuIcon-unfold"></view> -->
+      </view>
+      <!-- <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}"> -->
+      <view class="kind-list_item-bd kind-list_item-bd_show">
+        <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
+        <view class="tui-cells tui-cells_show">
+          <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+            <view data-index="{{index}}" class="tui-cell tui-cell_access" bindtap="hideModal" data-type="0" data-target="viewModal" data-quotaId="{{item.id}}" data-content="{{item.content}}" data-variable="{{variable}}">
+              <view class="tui-cell_bd text-smm">{{item.content}}</view>
+              <view wx:if="{{item.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
+              <view wx:if="{{item.submitStatus==2}}" class="cuIcon-roundcheckfill  text-blue">
               </view>
-            </block>
-          </view>
+              <view class="tui-cell_ft tui-cell_ft_in-access"></view>
+            </view>
+          </block>
         </view>
       </view>
-    </block>
+    </view>
+  </block>
 
 </scroll-view>
