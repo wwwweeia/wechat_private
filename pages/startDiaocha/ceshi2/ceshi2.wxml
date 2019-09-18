@@ -1,21 +1,3 @@
-<view class="table">
-  <view class="tr bg-w">
-    <view class="th">参数</view>
-    <view class="th-2">内容</view>
-  </view>
-  <block wx:for="{{listData}}" wx:key="{{code}}">
-    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-      <view class="td-1" selectable="true">{{item.code}}</view>
-      <view class="td-2" selectable="true" scroll-y="true" >
-      <text class="th-text"  style="overflow-y:auto;overflow-x:scroll" selectable="true">{{item.text}}</text>
-      </view>
-      <!--view class="td">{{item.type}}</view-->
-    </view>
-    <view class="tr bg-g2" wx:else>
-      <view class="td-1" selectable="true">{{item.code}}</view>
-      <view class="td-2" selectable="true"  scroll-y="true" >
-      <text class="th-text"  style="overflow-y:auto;overflow-x:scroll" selectable="true">{{item.text}}</text>
-     </view>
-    </view>
-  </block>
-  </view>
+<button bindtap="start" class='btn'>开始录音</button>
+<button bindtap="stop" class='btn'>停止录音</button>
+<button bindtap="play" class='btn'>播放录音</button>

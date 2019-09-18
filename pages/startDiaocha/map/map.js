@@ -19,7 +19,7 @@ Page({
     showAddress: '',
     showDistance: '',
     showId: '',
-    pointId:'',
+    pointId: '',
     hidden: true,
 
     markersList: []
@@ -27,8 +27,8 @@ Page({
 
   onLoad: function(options) {
     const that = this;
-     const eventChannel = this.getOpenerEventChannel();
-      eventChannel.on('pointTypePage', function(data) {
+    const eventChannel = this.getOpenerEventChannel();
+    eventChannel.on('pointTypePage', function(data) {
       that.setData({
         markersList: data.data
       })
@@ -48,7 +48,7 @@ Page({
     //     key: this.data.key
     //   })
     // })
-     qqmapsdk = new QQMapWX({
+    qqmapsdk = new QQMapWX({
       key: this.data.key
     });
     this.currentLocation();
@@ -57,7 +57,7 @@ Page({
     this.getList();
   },
 
-  currentLocation(){
+  currentLocation() {
     //当前位置
     const that = this;
     wx.getLocation({
@@ -72,7 +72,7 @@ Page({
       }
     })
   },
-    getAddress:function(lng,lat){
+  getAddress: function(lng, lat) {
     //根据经纬度获取地址信息
     qqmapsdk.reverseGeocoder({
       location: {
@@ -82,7 +82,7 @@ Page({
       success: (res) => {
 
         // console.log(res)
-        
+
         this.setData({
           lng: res.result.location.lng,
           lat: res.result.location.lat
@@ -121,7 +121,7 @@ Page({
     const showId = item.id;
     const log = item.longitude;
     const lat = item.latitude;
-      // 调用接口
+    // 调用接口
     qqmapsdk.calculateDistance({
       to: [{
         latitude: lat, //商家的纬度
@@ -132,9 +132,9 @@ Page({
         let hw = res.result.elements[0].distance //拿到距离(米)
         if (hw < 1000) {
           hw = hw + 'm',
-          that.setData({
-            showDistance: hw
-          })
+            that.setData({
+              showDistance: hw
+            })
         } else {
           if (hw && hw !== -1) { //拿到正确的值
             //转换成公里
@@ -150,12 +150,12 @@ Page({
       }
     });
     that.setData({
-        showTitle: showTitle,
-        showAddress: showAddress,
-        showId: showId,
-        hidden: false
-      })
-    this.getLocationByLonglat(log,lat);
+      showTitle: showTitle,
+      showAddress: showAddress,
+      showId: showId,
+      hidden: false
+    })
+    this.getLocationByLonglat(log, lat);
   },
   // // 计算距离
   // findShop(log, lat) {
@@ -164,17 +164,17 @@ Page({
   //   // var demo = new QQMapWX({
   //   //   key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP' // 必填
   //   // });
-  
+
   // },
   // 
-    //经纬度获取位置
-  getLocationByLonglat: function (log, lat){
+  //经纬度获取位置
+  getLocationByLonglat: function(log, lat) {
     qqmapsdk.reverseGeocoder({
       location: {
-        latitude:lat,
-        longitude:log
+        latitude: lat,
+        longitude: log
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(res)
         let city = res.result.address_component.city;
         // console.log(city)
@@ -216,7 +216,7 @@ Page({
         longitude: list[i].longitude,
         title: list[i].name,
         address: list[i].address,
-        pointId:list[i].pointId
+        pointId: list[i].pointId
       })
     }
     that.setData({
@@ -226,15 +226,15 @@ Page({
 
     wx.hideLoading()
   },
-  goToPoint_detail:function(event){
+  goToPoint_detail: function(event) {
     var that = this;
     const index = Number(event.currentTarget.dataset.id);
     const item = this.data.address[index];
     const id = item.pointId;
     const name = item.title;
     // var id = that.data.pointId;
-     wx.navigateTo({
-       url:"../point_detail/point_detail?id="+id+"&name="+name
-     })
+    wx.navigateTo({
+      url: "../point_detail/point_detail?id=" + id + "&name=" + name
+    })
   }
 })

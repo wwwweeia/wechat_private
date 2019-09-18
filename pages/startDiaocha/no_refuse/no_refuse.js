@@ -6,12 +6,12 @@ Page({
   data: {
     key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
     //******************* 需要上传的信息*******************//
-    address:"正在获取地址...",
+    address: "正在获取地址...",
     longitude: 116.397452,
     latitude: 39.909042,
-    terminalUserId:'',//调查员id
-    projectId:'',//项目id
-    locationId:'',//当前点位id
+    terminalUserId: '', //调查员id
+    projectId: '', //项目id
+    locationId: '', //当前点位id
     hidden: false,
     //图片上传数据
     imgList: [],
@@ -20,29 +20,33 @@ Page({
     //举报资源总长度  限制上传数量
     reportlength: 0,
     //举报描述
-    desc: ''
+    desc: '',
+    // 是否打分
+    isGrade: ''
   },
 
-onLoad: function(options) {
+  onLoad: function(options) {
 
     qqmapsdk = new QQMapWX({
       key: this.data.key
     });
     var that = this;
-     // 获取调查员id
+    // 获取调查员id
     var app = getApp();
     var terminalUserId = app.terminalUserId;
     //获取项目id
-     var projectId =  wx.getStorageSync('projectId');
-     //获取具体点位id
-     var locationId = options.locationId;
+    var projectId = wx.getStorageSync('projectId');
+    //获取具体点位id
+    var locationId = options.locationId;
+    // 是否打分
+    var isgrade = options.isgrade;
+    that.setData({
+      isgrade: isgrade,
+      terminalUserId: terminalUserId,
+      projectId: projectId,
+      locationId: locationId
+    })
 
-     that.setData({
-      terminalUserId:terminalUserId,
-      projectId:projectId,
-      locationId:locationId
-     })
-    
     that.currentLocation()
   },
   regionchange(e) {
@@ -65,7 +69,7 @@ onLoad: function(options) {
       })
     }
   },
-  getAddress:function(lng,lat){
+  getAddress: function(lng, lat) {
     //根据经纬度获取地址信息
     qqmapsdk.reverseGeocoder({
       location: {
@@ -84,7 +88,7 @@ onLoad: function(options) {
       }
     })
   },
-  currentLocation(){
+  currentLocation() {
     //当前位置
     const that = this;
     wx.getLocation({
@@ -99,7 +103,7 @@ onLoad: function(options) {
     })
   },
 
- 
+
 
 
   takePhoto() {
@@ -112,9 +116,9 @@ onLoad: function(options) {
       }
     })
   },
-    hideModal(e) {
+  hideModal(e) {
     this.setData({
-      idModelShow:'1',
+      idModelShow: '1',
       hidden: false,
       modalName: null
     })
@@ -126,28 +130,28 @@ onLoad: function(options) {
       modalName: e.currentTarget.dataset.target,
     })
   },
-  
+
   ChooseImage(e) {
-      wx.chooseImage({
-        count: 1, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], //从相册选择
-        success: (res) => {
-          if (this.data.imgList.length != 0) {
-            this.setData({
-              imgList: this.data.imgList.concat(res.tempFilePaths),
-              modalName: '',
-              reportlength: this.data.reportlength + 1
-            })
-          } else {
-            this.setData({
-              imgList: res.tempFilePaths,
-              modalName: '',
-              reportlength: this.data.reportlength + 1
-            })
-          }
+    wx.chooseImage({
+      count: 1, //默认9
+      sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], //从相册选择
+      success: (res) => {
+        if (this.data.imgList.length != 0) {
+          this.setData({
+            imgList: this.data.imgList.concat(res.tempFilePaths),
+            modalName: '',
+            reportlength: this.data.reportlength + 1
+          })
+        } else {
+          this.setData({
+            imgList: res.tempFilePaths,
+            modalName: '',
+            reportlength: this.data.reportlength + 1
+          })
         }
-      });
+      }
+    });
 
   },
   chooseVideo() {
@@ -158,31 +162,31 @@ onLoad: function(options) {
       'src': '',
       'poster': ''
     };
-      wx.chooseVideo({
-        sourceType: ['album', 'camera'],
-        maxDuration: 30,
-        camera: 'back',
-        success: (res) => {
-          obj.src = res.tempFilePath
-          obj.poster = res.thumbTempFilePath
-          urlArray.push(obj)
-          if (vm.data.videoList.length != 0) {
-            vm.setData({
-              videoList: vm.data.videoList.concat(urlArray),
-              modalName: '',
-              reportlength: vm.data.reportlength + 1
-            })
-            //  vm.data.videoSrcs.push(res.tempFilePath)
-          } else {
-            vm.setData({
-              videoList: urlArray,
-              modalName: '',
-              reportlength: vm.data.reportlength + 1
-            })
-            //  vm.data.videoSrcs.push(res.tempFilePath)
-          }
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      maxDuration: 30,
+      camera: 'back',
+      success: (res) => {
+        obj.src = res.tempFilePath
+        obj.poster = res.thumbTempFilePath
+        urlArray.push(obj)
+        if (vm.data.videoList.length != 0) {
+          vm.setData({
+            videoList: vm.data.videoList.concat(urlArray),
+            modalName: '',
+            reportlength: vm.data.reportlength + 1
+          })
+          //  vm.data.videoSrcs.push(res.tempFilePath)
+        } else {
+          vm.setData({
+            videoList: urlArray,
+            modalName: '',
+            reportlength: vm.data.reportlength + 1
+          })
+          //  vm.data.videoSrcs.push(res.tempFilePath)
         }
-      })
+      }
+    })
   },
   ViewImageForreport(e) {
     wx.previewImage({
@@ -239,13 +243,13 @@ onLoad: function(options) {
   //提交按钮
   submit() {
     var that = this;
-   var desc = that.data.desc;
-   console.log("看看看这个有没有",desc)
+    var desc = that.data.desc;
+    console.log("看看看这个有没有", desc)
     //举报图片集合
     var reportImg = that.data.imgList;
     //举报视频集合
     var reportVideo = that.data.videoList;
-  
+
     if ((reportImg.length + reportVideo.length) < 1) {
       wx.showToast({
         title: '请拍摄举报图片/视频',
@@ -255,7 +259,7 @@ onLoad: function(options) {
       })
       return
     }
-   
+
     if (desc == '') {
       wx.showToast({
         title: '请填写举报描述',
@@ -273,7 +277,7 @@ onLoad: function(options) {
     if (reportVideo.length > 0) {
       //举报视频
       that.reportVideo11();
-  
+
     }
 
 
@@ -282,7 +286,7 @@ onLoad: function(options) {
   //举报图片集合
   reportImg11: function() {
     var that = this;
-     //调查员id
+    //调查员id
     var terminalUserId = that.data.terminalUserId;
     //项目id
     var projectId = that.data.projectId;
@@ -297,10 +301,10 @@ onLoad: function(options) {
     var address = that.data.address;
     //举报图片集合
     var reportImg = that.data.imgList;
-   var i = 0;
+    var i = 0;
     //上传举报图片
     wx.uploadFile({
-       url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/refuseAccess',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/refuseAccess',
       filePath: reportImg[i],
       name: 'reportImg' + i + terminalUserId,
       formData: {
@@ -314,15 +318,13 @@ onLoad: function(options) {
         'key': 'reportImg' + i + terminalUserId,
       },
       success(res) {
-         wx.redirectTo({
-              url: '../point_type/point_type?projectId='+projectId
-            })
+        wx.redirectTo({
+          url: '../point_type/point_type?projectId=' + projectId　 + "&isgrade=" + isgrade
+        })
       },
       //请求失败
-      fail: function(err) {
-      },
-      complete: () => {
-      }
+      fail: function(err) {},
+      complete: () => {}
 
     })
 
@@ -330,7 +332,7 @@ onLoad: function(options) {
   //举报视频集合
   reportVideo11: function() {
     var that = this;
-      //调查员id
+    //调查员id
     var terminalUserId = that.data.terminalUserId;
     //项目id
     var projectId = that.data.projectId;
@@ -362,19 +364,17 @@ onLoad: function(options) {
       },
       success(res) {
         wx.redirectTo({
-              url: '../point_type/point_type?projectId='+projectId
-            }) 
+          url: '../point_type/point_type?projectId=' + projectId　 + "&isgrade=" + isgrade
+        })
       },
       //请求失败
-      fail: function(err) {
-      },
-      complete: () => {
-      }
+      fail: function(err) {},
+      complete: () => {}
 
     })
 
 
   },
 
-  
+
 })

@@ -108,7 +108,7 @@ text-align: left;
 }
 .lg1 {
 /*padding: 0 60rpx;*/
-font-size: 32rpx;
+font-size: 36rpx;
 /*height: 80rpx;*/
 
 }

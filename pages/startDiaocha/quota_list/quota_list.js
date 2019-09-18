@@ -25,7 +25,7 @@ Page({
     //是否需要录音，0-不需要 1-需要
     isRecord: '',
     // 是否切换 1-问题分类查 0-指标查
-    qiehuan:1
+    qiehuan: 1
   },
 
   onLoad: function(e) {
@@ -82,7 +82,7 @@ Page({
         } else {
           wx.showToast({
             title: '获取指标列表失败',
-            icon: 'loading',
+            icon: 'none',
             duration: 1000,
             mask: true
           })
@@ -107,11 +107,13 @@ Page({
     let isRecord = e.currentTarget.dataset.isrecord;
     let questionId = e.currentTarget.dataset.id;
     let pointId = that.data.pointId;
+    let pointTypeId = that.data.pointTypeId;
+    let pointName = that.data.pointName;
     let quotaId = that.data.quotaId;
-    console.log("指标id", quotaId)
+    // console.log("指标id", quotaId)
     wx.setStorageSync('isRecord', isRecord);
     wx.navigateTo({
-      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId
+      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId
     })
   },
 
@@ -255,82 +257,82 @@ Page({
   // 切换  按问题分类查
   goToSwitch: function(e) {
     var that = this;
-   
+
     var projectId = that.data.projectId;
     var pointTypeId = that.data.pointTypeId;
     var pointId = that.data.pointId;
-  if(that.data.qiehuan == 1){
-    console.log("问题分类查")
-     that.setData({
-      variable: 1,
-      qiehuan:0
-    })
-    wx.request({
-      // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByPointId',
-      data: {
-        pointId: pointTypeId,
-        projectId: projectId
-      },
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: (res) => {
-        console.log('指标列表', res.data.retObj)
-        if (res.data.status == 'success') {
-          var quotaList = res.data.retObj;
-          let arr = [];
-          let ayy = [];
-          for (let i = 0; i < quotaList.length; i++) {
-            if (i === 0) {
-              arr.push(quotaList[i].id),
-                ayy.push(quotaList[i].content)
+    if (that.data.qiehuan == 1) {
+      console.log("问题分类查")
+      that.setData({
+        variable: 1,
+        qiehuan: 0
+      })
+      wx.request({
+        // 必需
+        url: 'http://192.168.15.147:8080/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByPointId',
+        data: {
+          pointId: pointTypeId,
+          projectId: projectId
+        },
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: (res) => {
+          console.log('指标列表', res.data.retObj)
+          if (res.data.status == 'success') {
+            var quotaList = res.data.retObj;
+            let arr = [];
+            let ayy = [];
+            for (let i = 0; i < quotaList.length; i++) {
+              if (i === 0) {
+                arr.push(quotaList[i].id),
+                  ayy.push(quotaList[i].content)
+              }
             }
+
+            // 数组转字符得到第一个指标的id
+            var arrtest = arr.join();
+            var ayytest = ayy.join();
+            var pointTypeId = that.data.pointTypeId
+            that.setData({
+              list: res.data.retObj,
+              quotaName: ayytest
+            })
+            // 加载第一个指标下的问题
+            that.getProblemByfenlei(pointTypeId, arrtest, projectId);
+          } else {
+            wx.showToast({
+              title: '获取指标列表失败',
+              icon: 'loading',
+              duration: 1000,
+              mask: true
+            })
           }
 
-          // 数组转字符得到第一个指标的id
-          var arrtest = arr.join();
-          var ayytest = ayy.join();
-          var pointTypeId = that.data.pointTypeId
-          that.setData({
-            list: res.data.retObj,
-            quotaName: ayytest
-          })
-          // 加载第一个指标下的问题
-          that.getProblemByfenlei(pointTypeId, arrtest, projectId);
-        } else {
-          wx.showToast({
-            title: '获取指标列表失败',
-            icon: 'loading',
-            duration: 1000,
-            mask: true
-          })
+        },
+        fail: (res) => {
+
+        },
+        complete: (res) => {
+
         }
+      })
 
-      },
-      fail: (res) => {
-
-      },
-      complete: (res) => {
-
-      }
-    })
-
-  }else{
-    console.log("指标类型查")
-     that.setData({
-      variable: 0,
-      qiehuan:1
-     })
+    } else {
+      console.log("指标类型查")
+      that.setData({
+        variable: 0,
+        qiehuan: 1
+      })
       that.getQuotaList(pointTypeId, pointId, projectId);
 
-     
 
-  }
 
-     
+    }
 
-   
+
+
+
 
   },
 

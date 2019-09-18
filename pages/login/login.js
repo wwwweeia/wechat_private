@@ -63,9 +63,9 @@ Page({
         },
         success: (res) => {
           if (res.data.status == 'success') {
-            console.log("后台传输的数据：",res.data.retObj)
+            console.log("后台传输的数据：", res.data.retObj)
             var list = res.data.retObj.qxMenus;
-            app.terminalUserId=res.data.retObj.terminalUserId;
+            app.terminalUserId = res.data.retObj.terminalUserId;
             wx.navigateTo({
               url: '../menus/menu',
               success: function(res) {
@@ -81,7 +81,7 @@ Page({
           } else {
             wx.showToast({
               title: '用户名或密码错误',
-              icon: 'loading',
+              icon: 'none',
               duration: 1000,
               mask: true
             })
