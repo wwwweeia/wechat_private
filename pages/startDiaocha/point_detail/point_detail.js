@@ -1,10 +1,12 @@
 // pages/Professional/detail/point_detail.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    requestUrl: '',//服务器路径
     pointName: '',
     pointId: '',
     pointTypeId: '',
@@ -26,7 +28,9 @@ Page({
     var isGrade = options.isGrade;
     console.log("传递打分", isGrade);
     var name = options.name;
+    var requestUrl = app.globalData.requestUrl;//服务器路径
     that.setData({
+      requestUrl:requestUrl,
       isGrade: isGrade,
       projectId: projectId,
       pointName: name,
@@ -40,9 +44,10 @@ Page({
 
   getPointDetail: function(pointId) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//服务器路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/getFieldLocationDetailById',
+      url: requestUrl+'/wechat/api/fieldLocation/getFieldLocationDetailById',
       data: {
         id: pointId
       },

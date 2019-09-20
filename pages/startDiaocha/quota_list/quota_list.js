@@ -1,7 +1,8 @@
 //index.js
-
+var app = getApp();
 Page({
   data: {
+    requestUrl: '',//服务器路径
     open: false,
     selected: [true], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
     active: null, // 当前展开的项的index值
@@ -34,7 +35,9 @@ Page({
     var pointTypeId = e.pointTypeId;
     var pointName = e.pointName;
     var locationId = e.pointId;
+    var requestUrl = app.globalData.requestUrl;//服务器路径
     this.setData({
+      requestUrl:requestUrl,
       pointName: pointName,
       pointTypeId: pointTypeId,
       projectId: projectId,
@@ -45,9 +48,10 @@ Page({
   // 获取指标列表
   getQuotaList(pointTypeId, locationId, projectId) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//服务器路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/quota/getQuotaListByPointId',
+      url: requestUrl+'/wechat/api/quota/getQuotaListByPointId',
       data: {
         pointId: pointTypeId,
         locationId: locationId,
@@ -190,9 +194,10 @@ Page({
     var that = this;
     var projectId = that.data.projectId;
     var pointId  = that.data.pointId;
+    var requestUrl = that.data.requestUrl;//服务器路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
+      url: requestUrl+'/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
       data: {
         quotaId: quotaId,
         pointId: pointTypeId,
@@ -262,7 +267,7 @@ Page({
   // 切换  按问题分类查
   goToSwitch: function(e) {
     var that = this;
-
+    var requestUrl = that.data.requestUrl;//服务器路径
     var projectId = that.data.projectId;
     var pointTypeId = that.data.pointTypeId;
     var locationId = that.data.pointId;
@@ -274,7 +279,7 @@ Page({
       })
       wx.request({
         // 必需
-        url: 'http://192.168.15.147:8080/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByPointId',
+        url: requestUrl+'/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByPointId',
         data: {
           pointId: pointTypeId,
           projectId: projectId,
@@ -345,9 +350,10 @@ Page({
   //  问题分类下的问题列表
   getProblemByfenlei: function(pointTypeId, questionClassifyId, projectId,locationId) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//服务器路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
+      url: requestUrl+'/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
       data: {
         pointId: pointTypeId,
         questionClassifyId: questionClassifyId,

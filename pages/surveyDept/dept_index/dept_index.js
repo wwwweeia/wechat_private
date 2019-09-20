@@ -1,6 +1,8 @@
+var app = getApp()
 Page({
 
   data: {
+    requestUrl: '',//请求路径
      swiperIndex: 0, //初始化swiper索引
      swiperHeight: 350,
     // 问题栏默认值
@@ -42,6 +44,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    var requestUrl = app.globalData.requestUrl;//请求路径
+    this.setData({
+      requestUrl:requestUrl
+    })
     //加载轮播图
     this.getSwiperList();
     //加载问题栏
@@ -70,8 +76,9 @@ Page({
   getSwiperList() {
 
     let that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
     wx.request({
-      url: "http://221.216.95.200:8285/home/manage/searchViewPages",
+      url: requestUrl+"/home/manage/searchViewPages",
       success(res) {
         // console.log(res);
         if (res.data.status === "success") {
@@ -89,8 +96,9 @@ Page({
    */
   getProblemType() {
     let that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
     wx.request({
-      url: "http://221.216.95.200:8285/home/manage/searchQuestionSorts",
+      url: requestUrl+"/home/manage/searchQuestionSorts",
       success(res) {
         // console.log(res);
         if (res.data.status === "success") {
@@ -140,9 +148,10 @@ Page({
    */
   getTaskList: function(e) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
     //console.log(e);
     wx.request({
-      url: "http://221.216.95.200:8285/home/manage/searchTaskList",
+      url: requestUrl+"/home/manage/searchTaskList",
       data: {
         "sortId": e,
         "page": that.data.pagenum,
@@ -169,8 +178,9 @@ Page({
   //获取全部任务列表（页面加载）
   getTaskListAll: function() {
     var that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
     wx.request({
-      url: "http://221.216.95.200:8285/home/manage/searchTaskList",
+      url: requestUrl+"/home/manage/searchTaskList",
       data: {
         "page": that.data.pagenum,
       },

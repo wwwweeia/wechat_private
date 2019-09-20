@@ -4,6 +4,7 @@ let qqmapsdk;
 const app = getApp()
 Page({
   data: {
+    requestUrl: '',//服务器路径
     key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
     //******************* 需要上传的信息*******************//
     address: "正在获取地址...",
@@ -40,7 +41,9 @@ Page({
     var locationId = options.locationId;
     // 是否打分
     var isgrade = options.isgrade;
+    var requestUrl = app.globalData.requestUrl;//服务器路径
     that.setData({
+      requestUrl:requestUrl,
       isgrade: isgrade,
       terminalUserId: terminalUserId,
       projectId: projectId,
@@ -286,6 +289,8 @@ Page({
   //举报图片集合
   reportImg11: function() {
     var that = this;
+
+var requestUrl = that.data.requestUrl;//服务器路径
     //调查员id
     var terminalUserId = that.data.terminalUserId;
     //项目id
@@ -304,7 +309,7 @@ Page({
     var i = 0;
     //上传举报图片
     wx.uploadFile({
-      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/refuseAccess',
+      url: requestUrl+'/wechat/api/fieldLocation/refuseAccess',
       filePath: reportImg[i],
       name: 'reportImg' + i + terminalUserId,
       formData: {
@@ -332,6 +337,8 @@ Page({
   //举报视频集合
   reportVideo11: function() {
     var that = this;
+
+var requestUrl = that.data.requestUrl;//服务器路径
     //调查员id
     var terminalUserId = that.data.terminalUserId;
     //项目id
@@ -349,7 +356,7 @@ Page({
     var reportVideo = that.data.videoList;
     var i = 0;
     wx.uploadFile({
-      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/refuseAccess',
+      url: requestUrl+'/wechat/api/fieldLocation/refuseAccess',
       filePath: reportVideo[i].src,
       name: 'reportVideo' + i + terminalUserId,
       formData: {

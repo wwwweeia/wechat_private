@@ -3,6 +3,7 @@ const app = getApp();
 Page({
 
   data: {
+    requestUrl: '',//服务器路径
     projectId: '',
     surveyorId:'',
     isGrade: '',
@@ -19,10 +20,12 @@ Page({
     var terminalUserId = app.terminalUserId;
     var projectId = options.projectId;
     var isGrade = options.isGrade; //是否打分
+    var requestUrl = app.globalData.requestUrl;//服务器路径
     console.log("是否打分：", isGrade)
     wx.setStorageSync('projectId', projectId)
     wx.setStorageSync('isGrade', isGrade)
     that.setData({
+      requestUrl:requestUrl,
       isGrade: isGrade,
       projectId: projectId,
       surveyorId:terminalUserId
@@ -31,9 +34,10 @@ Page({
   },
   getLocationList: function(terminalUserId, projectId) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//服务器路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/getFieldPointLocationList',
+      url: requestUrl+'/wechat/api/fieldLocation/getFieldPointLocationList',
       data: {
         terminalUserId: terminalUserId,
         projectId: projectId
@@ -155,9 +159,10 @@ Page({
     let locationId = e.currentTarget.dataset.index;
     var surveyorId = that.data.surveyorId;
     var projectId = that.data.projectId;
+    var requestUrl = that.data.requestUrl;//服务器路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/updateCheckStatus',
+      url: requestUrl+'/wechat/api/fieldLocation/updateCheckStatus',
       data: {
           surveyorId:surveyorId,
           locationId:locationId,

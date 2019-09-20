@@ -2,6 +2,7 @@ const app = getApp();
 Page({
 
   data: {
+    requestUrl: '',//服务器路径
     elements: [],
   },
 
@@ -10,7 +11,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option) {
-
+    var requestUrl = app.globalData.requestUrl;//服务器路径
+     this.setData({
+      requestUrl:requestUrl
+    })
     var that = this;
     var terminalUserId = app.terminalUserId;
     // console.log(terminalUserId)
@@ -20,9 +24,10 @@ Page({
 
   getProjectList: function(terminalUserId) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//服务器路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldProject/getListByTerminalUserId',
+      url: requestUrl+'/wechat/api/fieldProject/getFieldProjectListByTerminalUserId',
       data: {
         terminalUserId: terminalUserId
       },

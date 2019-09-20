@@ -73,6 +73,7 @@ App({
 
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+     requestUrl:'http://192.168.15.147:8080'
   }
 })

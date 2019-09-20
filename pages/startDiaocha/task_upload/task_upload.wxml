@@ -208,8 +208,8 @@
 <view class="radioChange_user">
   <radio-group bindchange="radioChange" data-id="{{item.id}}">
     <label class="radio" wx:for="{{items}}" wx:key>
-      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}">{{item.content}}
-      </radio>
+      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}"/>{{item.content}}
+      
     </label>
   </radio-group>
 

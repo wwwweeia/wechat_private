@@ -1,5 +1,7 @@
+var app = getApp();
 Page({
   data: {
+    requestUrl: '',//请求路径
     //任务ID
     taskId: '',
     //资源
@@ -30,7 +32,9 @@ Page({
   onLoad: function (taskId) {
     var that = this;
     var id = taskId.id;
+    var requestUrl = app.globalData.requestUrl;//请求路径
     that.setData({
+      requestUrl:requestUrl,
       taskId: id
     })
     //console.log("这是任务详情Id:",taskId.id);
@@ -56,9 +60,9 @@ Page({
   detail: function () {
     var that = this;
     var imgSrc = '';
-   
+   var requestUrl = that.data.requestUrl;//请求路径
     wx.request({
-      url: "http://221.216.95.200:8285/home/manage/searchTaskInfo?taskId=20",
+      url: requestUrl+"/home/manage/searchTaskInfo?taskId=20",
       success(res) {
         if (res.data.status === "success") {
 

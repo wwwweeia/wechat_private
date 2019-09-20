@@ -15,7 +15,7 @@ Page({
    */
   onLoad: function(option) {
     var that = this;
-
+   
     const eventChannel = this.getOpenerEventChannel()
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     // login页面传递过来的菜单列表
@@ -39,6 +39,7 @@ Page({
   //点击菜单触发函数
   junmp: function(even) {
     var that = this;
+    
     that.setData({
       menuName: even.currentTarget.dataset.type
     })

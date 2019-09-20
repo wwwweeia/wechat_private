@@ -8,6 +8,7 @@ const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
 Page({
   data: {
+    requestUrl: '',//服务器路径
     //地图变量
     address: "正在获取地址...",
     longitude: 116.397452,
@@ -162,7 +163,9 @@ Page({
     var pointName = options.pointName;
     var pointTypeId = options.pointTypeId;
     var code = options.code;
+    var requestUrl = app.globalData.requestUrl;//请求路径
     this.setData({
+      requestUrl:requestUrl,
       code: code,
       projectId: projectId,
       terminalUserId: terminalUserId,
@@ -203,9 +206,10 @@ Page({
     var that = this;
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
+    var requestUrl = that.data.requestUrl;//请求路径
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
+      url: requestUrl+'/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
       data: {
         questionId: questionId,
         projectId: projectId,
@@ -909,9 +913,10 @@ Page({
   //举报图片集合
   uploadImage: function(filePath) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
     //举报图片集合
     var reportImg = that.data.imgList;
-console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length)
+    console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length)
     var terminalUserId = that.data.terminalUserId;
     var i = that.data.i;
     var success = that.data.success;
@@ -928,7 +933,7 @@ console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length
     //
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: 'http://192.168.15.147:8080/wechat/api/fieldResource/upload',
+        url: requestUrl+'/wechat/api/fieldResource/upload',
         filePath: filePath,
         name: 'reportImg' + i + terminalUserId,
         formData: {
@@ -989,6 +994,7 @@ console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length
   //举报视频集合
   uploadVideo: function(filePath) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
     //举报视频集合
     var reportVideo = that.data.videoList;
     var terminalUserId = that.data.terminalUserId;
@@ -1004,7 +1010,7 @@ console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length
 
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: 'http://192.168.15.147:8080/wechat/api/fieldResource/upload',
+        url: requestUrl+'/wechat/api/fieldResource/upload',
         filePath: filePath,
         name: 'reportVideo' + i + terminalUserId,
         formData: {
@@ -1056,6 +1062,7 @@ console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length
   //录音
   uploadAudioSrc: function(filePath) {
     var that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
      var i = that.data.i;
     var audioSrc = that.data.audioSrc;
     var terminalUserId = that.data.terminalUserId;
@@ -1071,7 +1078,7 @@ console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length
     console.log('格式', audioSrc)
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: 'http://192.168.15.147:8080/wechat/api/fieldResource/upload',
+        url: requestUrl+'/wechat/api/fieldResource/upload',
         filePath: filePath,
         name: 'audioSrc' + terminalUserId,
         formData: {
@@ -1119,6 +1126,7 @@ console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length
   // 资源全部上传成功，上传答案
   uploadAnswerTrue: function() {
     var that = this;
+    var requestUrl = that.data.requestUrl;//请求路径
     var resourceList = that.data.resourceList;
     //选项id
     var optionId = that.data.optionId;
@@ -1158,7 +1166,7 @@ console.log("图片长传集合：",reportImg,"图片长度：",reportImg.length
 
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldAnswer/saveFieldAnswer',
+      url: requestUrl+'/wechat/api/fieldAnswer/saveFieldAnswer',
       method: 'POST',
       data: {
         fieldAnswerStr: JSON.stringify(fieldAnswer),
