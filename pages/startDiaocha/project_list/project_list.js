@@ -22,7 +22,7 @@ Page({
     var that = this;
     wx.request({
       // 必需
-      url: 'http://192.168.15.147:8080/wechat/api/fieldProject/getFieldProjectListByTerminalUserId',
+      url: 'http://192.168.15.147:8080/wechat/api/fieldProject/getListByTerminalUserId',
       data: {
         terminalUserId: terminalUserId
       },

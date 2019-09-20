@@ -4,6 +4,7 @@ Page({
 
   data: {
     projectId: '',
+    surveyorId:'',
     isGrade: '',
     open: false,
     selected: [false, false, false], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
@@ -23,7 +24,8 @@ Page({
     wx.setStorageSync('isGrade', isGrade)
     that.setData({
       isGrade: isGrade,
-      projectId: projectId
+      projectId: projectId,
+      surveyorId:terminalUserId
     })
     that.getLocationList(terminalUserId, projectId);
   },
@@ -149,7 +151,39 @@ Page({
     })
   },
   submit: function(e) {
-    let id = e.currentTarget.dataset.index;
-    console.log("提交了", id)
+    var that = this;
+    let locationId = e.currentTarget.dataset.index;
+    var surveyorId = that.data.surveyorId;
+    var projectId = that.data.projectId;
+    wx.request({
+      // 必需
+      url: 'http://192.168.15.147:8080/wechat/api/fieldLocation/updateCheckStatus',
+      data: {
+          surveyorId:surveyorId,
+          locationId:locationId,
+          status:'2'        
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        console.log("提交按钮：",res.data)
+
+        that.getLocationList(surveyorId, projectId);
+
+
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
+    })
+
+
+
+
+
   }
 });

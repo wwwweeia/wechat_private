@@ -33,24 +33,24 @@ Page({
     var projectId = wx.getStorageSync('projectId');
     var pointTypeId = e.pointTypeId;
     var pointName = e.pointName;
-    var pointId = e.pointId;
+    var locationId = e.pointId;
     this.setData({
       pointName: pointName,
       pointTypeId: pointTypeId,
       projectId: projectId,
-      pointId: pointId
+      pointId: locationId
     })
-    that.getQuotaList(pointTypeId, pointId, projectId);
+    that.getQuotaList(pointTypeId, locationId, projectId);
   },
   // 获取指标列表
-  getQuotaList(pointTypeId, pointId, projectId) {
+  getQuotaList(pointTypeId, locationId, projectId) {
     var that = this;
     wx.request({
       // 必需
       url: 'http://192.168.15.147:8080/wechat/api/quota/getQuotaListByPointId',
       data: {
         pointId: pointTypeId,
-        locationId: pointId,
+        locationId: locationId,
         projectId: projectId
       },
       header: {
@@ -103,9 +103,11 @@ Page({
 
   // 跳转上传页面
   goToUpload: function(e) {
+
     var that = this;
     let isRecord = e.currentTarget.dataset.isrecord;
     let questionId = e.currentTarget.dataset.id;
+    let code = e.currentTarget.dataset.code;
     let pointId = that.data.pointId;
     let pointTypeId = that.data.pointTypeId;
     let pointName = that.data.pointName;
@@ -113,7 +115,7 @@ Page({
     // console.log("指标id", quotaId)
     wx.setStorageSync('isRecord', isRecord);
     wx.navigateTo({
-      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId
+      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code
     })
   },
 
@@ -160,6 +162,7 @@ Page({
     var pointTypeId = that.data.pointTypeId;
     var variable = e.currentTarget.dataset.variable;
     var projectId = that.data.projectId;
+    var locationId = that.data.locationId;
     this.setData({
       modalName: null,
       quotaName: quotaName
@@ -172,7 +175,7 @@ Page({
       if (variable == 0) {
         that.getQuotaDetail(quotaId, pointTypeId);
       } else {
-        that.getProblemByfenlei(pointTypeId, quotaId, projectId);
+        that.getProblemByfenlei(pointTypeId, quotaId, projectId,locationId);
       }
 
     } else {
@@ -186,13 +189,15 @@ Page({
   getQuotaDetail(quotaId, pointTypeId) {
     var that = this;
     var projectId = that.data.projectId;
+    var pointId  = that.data.pointId;
     wx.request({
       // 必需
       url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
       data: {
         quotaId: quotaId,
         pointId: pointTypeId,
-        projectId: projectId
+        projectId: projectId,
+        locationId:pointId
       },
       header: {
         'Content-Type': 'application/json'
@@ -260,7 +265,7 @@ Page({
 
     var projectId = that.data.projectId;
     var pointTypeId = that.data.pointTypeId;
-    var pointId = that.data.pointId;
+    var locationId = that.data.pointId;
     if (that.data.qiehuan == 1) {
       console.log("问题分类查")
       that.setData({
@@ -272,7 +277,8 @@ Page({
         url: 'http://192.168.15.147:8080/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByPointId',
         data: {
           pointId: pointTypeId,
-          projectId: projectId
+          projectId: projectId,
+          locationId:locationId
         },
         header: {
           'Content-Type': 'application/json'
@@ -299,7 +305,7 @@ Page({
               quotaName: ayytest
             })
             // 加载第一个指标下的问题
-            that.getProblemByfenlei(pointTypeId, arrtest, projectId);
+            that.getProblemByfenlei(pointTypeId, arrtest, projectId,locationId);
           } else {
             wx.showToast({
               title: '获取指标列表失败',
@@ -324,7 +330,7 @@ Page({
         variable: 0,
         qiehuan: 1
       })
-      that.getQuotaList(pointTypeId, pointId, projectId);
+      that.getQuotaList(pointTypeId, locationId, projectId);
 
 
 
@@ -337,15 +343,16 @@ Page({
   },
 
   //  问题分类下的问题列表
-  getProblemByfenlei: function(pointId, questionClassifyId, projectId) {
+  getProblemByfenlei: function(pointTypeId, questionClassifyId, projectId,locationId) {
     var that = this;
     wx.request({
       // 必需
       url: 'http://192.168.15.147:8080/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
       data: {
-        pointId: pointId,
+        pointId: pointTypeId,
         questionClassifyId: questionClassifyId,
-        projectId: projectId
+        projectId: projectId,
+        locationId:locationId
       },
       header: {
         'Content-Type': 'application/json'

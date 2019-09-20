@@ -89,7 +89,7 @@
 
 <!-- 编辑框 -->
 <view class="cu-form-group">
-  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="请描述无法调查原因"></textarea>
+  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="{{modalName=='Modal' ?' ' : '请描述无法调查原因'}}"></textarea>
 </view>
 <!-- <view>
   <view wx:if="{{tipsId == null || tipsId == ''}}" class="cu-form-group">

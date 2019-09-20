@@ -1,22 +1,12 @@
-var idinfolist = [
-  { "code": "结", "text": '测评' },
-  { "code": "这下行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行行了吧这下行了吧这", "text": '' },
-  { "code": "市行了吧这下行行行了吧这下行行行了吧这下行行行了吧这下行行行了吧这下行行行了吧这下行行", "text": '' },
-  { "code": "县", "text": '测评'},
-  { "code": "性别", "text": ''},
-  { "code": "出生年月", "text": ''},
-  { "code": "地址这是一个测试这个只有一行", "text": '测评'}
-]
+  const recorderManager = wx.getRecorderManager()
+  const innerAudioContext = wx.createInnerAudioContext()
  
 Page({
   data: {
-    listData: idinfolist,   
-    inputValue: '', //用于显示输入语句
-    searchinput: ''
+   
   },
  onLoad: function(options) {
-  const recorderManager = wx.getRecorderManager()
-const innerAudioContext = wx.createInnerAudioContext()
+
 },
 //开始录音的时候
   start: function () {
@@ -60,5 +50,31 @@ const innerAudioContext = wx.createInnerAudioContext()
       console.log(res.errCode)
     })
   },
-复制代码
+
+  //录音
+  uploadAudioSrc: function() {
+    var that = this;
+
+
+      wx.uploadFile({
+        url: 'http://192.168.15.147:8080/wechat/api/fieldResource/upload',
+        filePath: this.tempFilePath,
+        name: 'audioSrc' + '123456',
+        formData: {
+          'key': 'audioSrc' + '123456',
+          'type': '1'
+        },
+        success(res) {
+          var audio = JSON.parse(res.data);
+       console.log("操作成功：",audio.url)
+
+        },
+        
+
+
+    })
+  },
+
+
   })
+

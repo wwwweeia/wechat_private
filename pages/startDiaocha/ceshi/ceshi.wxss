@@ -187,5 +187,14 @@ overflow: hidden;
 position: relative;
 z-index: 0;
 height: 6.4em;
+margin-right: 20rpx;
+}
+
+
+
+.action-user {
+padding: 0 50rpx;
+display: flex;
+align-items: center;
 
 }
