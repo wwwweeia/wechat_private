@@ -297,3 +297,10 @@ button::after {
 .text-center{
   text-align: right;
 }
+
+/*右上角地图按钮*/
+.margin-tb-sm-user{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-right: 20rpx;
+}

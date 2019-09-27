@@ -3,9 +3,9 @@ const app = getApp();
 Page({
 
   data: {
-    requestUrl: '',//服务器路径
+    requestUrl: '', //服务器路径
     projectId: '',
-    surveyorId:'',
+    surveyorId: '',
     isGrade: '',
     open: false,
     selected: [false, false, false], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
@@ -20,24 +20,24 @@ Page({
     var terminalUserId = app.terminalUserId;
     var projectId = options.projectId;
     var isGrade = options.isGrade; //是否打分
-    var requestUrl = app.globalData.requestUrl;//服务器路径
+    var requestUrl = app.globalData.requestUrl; //服务器路径
     console.log("是否打分：", isGrade)
     wx.setStorageSync('projectId', projectId)
     wx.setStorageSync('isGrade', isGrade)
     that.setData({
-      requestUrl:requestUrl,
+      requestUrl: requestUrl,
       isGrade: isGrade,
       projectId: projectId,
-      surveyorId:terminalUserId
+      surveyorId: terminalUserId
     })
     that.getLocationList(terminalUserId, projectId);
   },
   getLocationList: function(terminalUserId, projectId) {
     var that = this;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
-      url: requestUrl+'/wechat/api/fieldLocation/getFieldPointLocationList',
+      url: requestUrl + '/wechat/api/fieldLocation/getFieldPointLocationList',
       data: {
         terminalUserId: terminalUserId,
         projectId: projectId
@@ -159,36 +159,58 @@ Page({
     let locationId = e.currentTarget.dataset.index;
     var surveyorId = that.data.surveyorId;
     var projectId = that.data.projectId;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
-      url: requestUrl+'/wechat/api/fieldLocation/updateCheckStatus',
+      url: requestUrl + '/wechat/api/fieldLocation/updateCheckStatus',
       data: {
-          surveyorId:surveyorId,
-          locationId:locationId,
-          status:'2'        
+        surveyorId: surveyorId,
+        locationId: locationId,
+        status: '2'
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("提交按钮：",res.data)
+        console.log("提交按钮：", res.data)
 
         that.getLocationList(surveyorId, projectId);
 
 
       },
       fail: (res) => {
-        
+
       },
       complete: (res) => {
-        
+
       }
     })
+  },
 
+  changeData: function () {
 
-
-
-
+  var options = {
+    projectId:this.data.projectId,
+    isGrade:this.data.isGrade
   }
+
+  this.onLoad(options);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+
+  },
+
+changeParentData: function () {
+    var pages =getCurrentPages();//当前页面栈
+    if (pages.length >1) {
+        var beforePage = pages[pages.length- 2];//获取上一个页面实例对象
+        // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+        //   id: res.data.data
+        // })
+        beforePage.changeData();//触发父页面中的方法
+    }
+},
+
+  onUnload: function() {
+    this.changeParentData();
+  }
+
 });

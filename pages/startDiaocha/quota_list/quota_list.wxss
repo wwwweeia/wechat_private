@@ -438,13 +438,19 @@ button::after {
 }
 /*字体*/
 .h1{
-  font-size: 45rpx;
+  font-size: 38rpx;
   font-weight:bold;
   margin:0 auto;
 }
-.h2{
-  font-size: 35rpx;
- font-weight:700;
+.h2{  
+  font-size: 34rpx;
+ font-weight:400;
+}
+.h3{
+  font-size: 28rpx;
+  line-height: 60rpx;
+text-align: justify;
+padding: 10rpx 30rpx 10rpx;
 }
 .tips{
   text-align:left;
@@ -461,9 +467,9 @@ button::after {
 .table {
   border: 2px solid darkgray;
   /*width: 100%;*/
-  margin-top: 1rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
+  /*margin-top: 40rpx;*/
+  margin-right: 20rpx;
+  margin-left: 20rpx;
   
  
 }
@@ -537,4 +543,29 @@ align-items: center;
 max-height: 3rem;
 max-width: 80%;
 text-align: center;
+}
+/*背景*/
+.bg-white1 {
+background-color: var(--white);
+
+}
+/*右上角按钮*/
+.margin-tb-sm-user{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-left: 510rpx;
+}
+
+
+.user1{
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+margin-left: 20rpx;
+/*border: 0.02px solid darkgray;*/
+}
+
+.user2{
+  margin-right: 20rpx;
+margin-left: 20rpx;
+/*border: 0.02px solid darkgray;*/
 }

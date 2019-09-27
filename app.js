@@ -24,6 +24,10 @@ App({
           wx.request({
             //    url: 'http://192.168.15.146:8080/member/manage/userLogin',
             url: 'http://192.168.15.147:8080/wehcat/api/memberMange/userLogin',
+            method:"GET",
+             header: {
+              "Content-Type": "application/json"
+            },
             data: {
               govCode: 'TJBS',
               code: res.code

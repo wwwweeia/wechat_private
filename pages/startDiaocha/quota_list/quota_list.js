@@ -112,6 +112,7 @@ Page({
     let isRecord = e.currentTarget.dataset.isrecord;
     let questionId = e.currentTarget.dataset.id;
     let code = e.currentTarget.dataset.code;
+    let grade = e.currentTarget.dataset.grade;//最大分
     let pointId = that.data.pointId;
     let pointTypeId = that.data.pointTypeId;
     let pointName = that.data.pointName;
@@ -119,7 +120,7 @@ Page({
     // console.log("指标id", quotaId)
     wx.setStorageSync('isRecord', isRecord);
     wx.navigateTo({
-      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code
+      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
     })
   },
 
@@ -415,43 +416,42 @@ Page({
 
       }
     })
+  },
+
+  changeData: function () {
+
+  var e = {
+    pointTypeId:this.data.pointTypeId,
+    pointName:this.data.pointName,
+    pointId:this.data.pointId
   }
 
+  this.onLoad(e);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+
+  },
+ 
 
 
+  changeParentData: function () {
+     var pointName = this.data.pointName;
+    var pointId = this.data.pointId;
+    var pointTypeId = this.data.pointTypeId;
+    var firstQuestion = wx.getStorageSync("firstQuestion");
+    var pages =getCurrentPages();//当前页面栈
+    if (pages.length >1) {
+        var beforePage = pages[pages.length- 2];//获取上一个页面实例对象
+        beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+          pointId: pointId,
+          pointName:pointName,
+          pointTypeId:pointTypeId,
+          firstQuestion:firstQuestion
+        })
+        beforePage.changeData();//触发父页面中的方法
+    }
+},
 
+  onUnload: function() {
+    this.changeParentData();
+  }
 
-
-  //手风琴
-  // kindToggle: function (e) {
-  //   //页面传递过来的点击id
-  //   let id = e.currentTarget.dataset.index;
-  //   //当前展开的id
-  //   let active = this.data.active;
-  //   //展开项给selected数组动态赋值
-  //   var selectId = 'selected[' + id + ']'
-  //   //不是展开项给selected数组动态赋值
-  //   var selectActive = 'selected[' + active + ']'
-  //   //获取页面id赋值
-  //   var Id = '[' + id + ']'
-  //   this.setData({
-  //     [selectId]: !this.data.selected[Id],
-  //     active: id
-  //   });
-
-  //   // 如果点击的不是当前展开的项，则关闭当前展开的项
-  //   // 这里就实现了点击一项，隐藏另一项
-  //   if (active !== null && active !== id) {
-  //     this.setData({
-  //       [selectActive]: false
-  //     });
-  //   }
-  //   if (active == id) {
-  //     this.setData({
-  //       [selectId]: false,
-  //       active: null
-  //     });
-  //   }
-
-  // }
 })

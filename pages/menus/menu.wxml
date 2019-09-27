@@ -1,26 +1,54 @@
-
 <!--pages/menus/menu.wxml-->
- 
-<view class="userinfo bg-white">
-<open-data type="userAvatarUrl"  class="userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
-<open-data type="userNickName" class="userinfo-nickname"></open-data>
- <view class="cu-form-group ">
-    <view class="title text-bold">联系人</view>
-    <text class="item-left">{{list.linkman}}</text>
+
+<!-- <view class="userinfo bg-white">
+  <open-data type="userAvatarUrl" class="userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
+  <open-data type="userNickName" class="userinfo-nickname"></open-data>
+  <view class="cu-form-group ">
+    <view class="title text-bold">调查员1</view>
   </view>
-   <view class="cu-form-group ">
-    <view class="title text-bold">联系人</view>
-    <text class="item-left">{{list.linkman}}</text>
+  <view class="cu-form-group ">
+    <view class="title text-bold">xxx</view>
+  </view>
+</view> -->
+<view class="cu-card article div-use">
+  <view class="cu-item shadow">
+      <view class="open-user">
+        <open-data type="userAvatarUrl" class=" userinfo bg-white userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
+       <!--  <open-data type="userNickName" class="userinfo-nickname"></open-data> -->
+        <!--   <view class="flex">
+        <view class="text-content"> 王二五</view>
+          
+      </view>
+      <view class="flex">
+        <view class="cu-tag bg-blue light sm round">飞天不</view>
+      </view> -->
+
+      <view  class=" box-user nav-list">
+    <view  class="user-text">
+    <text style="font-size: 38rpx;" >调查员1</text>
+    <view >
+      <text class="cu-tag bg-blue light round">文明办</text>
+     </view>
+       <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
+    </view>
+  </view>
+
+
+      </view>
+
+
+  
   </view>
 </view>
 
+
+
 <view id="box" class="nav-list">
-  <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp"
-  data-type="{{surveyList[index].name}}" class="nav-li">
-  <image  id="login"  src="{{item.url}}"></image>
-  <view id="text">
-  <text>{{item.name}}</text>
-  </view>
+  <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li">
+    <image id="login" src="{{item.url}}"></image>
+    <view id="text">
+      <text>{{item.name}}</text>
+    </view>
   </view>
 </view>
 <view class="copyright">

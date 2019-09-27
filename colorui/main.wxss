@@ -2334,7 +2334,8 @@ button.icon.lg {
 
 .cu-card.article>.cu-item .content {
 	display: flex;
-	padding: 0 30rpx;
+	/*padding: 0 30rpx;*/
+	padding: 30rpx 20rpx 0 30rpx;
 }
 
 .cu-card.article>.cu-item .content>image {

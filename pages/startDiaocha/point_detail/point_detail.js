@@ -18,17 +18,19 @@ Page({
 
   /**
    * 生命周期函数--监听页面加载
-   */
+   */ 
   onLoad: function(options) {
-    var projectId = wx.getStorageSync('projectId');
-    // console.log("项目id：",projectId)
     var that = this;
+    var projectId = wx.getStorageSync('projectId');
+     var isGrade = wx.getStorageSync('isGrade')
+        var requestUrl = app.globalData.requestUrl;//服务器路径
     var pointId = options.id;
     var pointTypeId = options.pointTypeId;
-    var isGrade = options.isGrade;
-    console.log("传递打分", isGrade);
+    var firstQuestion = options.firstQuestion;//是否为第一个问题，0是，1、2不是
+    console.log("传递是否为第一个问题", firstQuestion);
+    wx.setStorageSync("firstQuestion",firstQuestion);
     var name = options.name;
-    var requestUrl = app.globalData.requestUrl;//服务器路径
+
     that.setData({
       requestUrl:requestUrl,
       isGrade: isGrade,
@@ -87,14 +89,14 @@ Page({
 
 
 
-  //返回指标树页面
-  goToReturn: function() {
-    var projectId = this.data.projectId;
-    var isGrade = this.data.isGrade;
-    wx.navigateTo({
-      url: "../point_type/point_type?projectId=" + projectId + "&isGrade=" + isGrade
-    })
-  },
+  // //返回指标树页面
+  // goToReturn: function() {
+  //   var projectId = this.data.projectId;
+  //   var isGrade = this.data.isGrade;
+  //   wx.navigateTo({
+  //     url: "../point_type/point_type?projectId=" + projectId + "&isGrade=" + isGrade
+  //   })
+  // },
   //测评页面goToquota_list
   goToquota_list: function() {
     var pointTypeId = this.data.pointTypeId;
@@ -123,4 +125,36 @@ Page({
       url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade
     })
   },
+
+  changeData: function () {
+
+  var options = {
+    id:this.data.pointId,
+    pointTypeId:this.data.pointTypeId,
+    name:this.data.pointName,
+    firstQuestion:this.data.firstQuestion
+  }
+
+  this.onLoad(options);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+
+  },
+ 
+ changeParentData: function () {
+     var projectId = this.data.projectId;
+    var isGrade = this.data.isGrade;
+    var pages =getCurrentPages();//当前页面栈
+    if (pages.length >1) {
+        var beforePage = pages[pages.length- 2];//获取上一个页面实例对象
+        beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+          projectId: projectId,
+          isGrade:isGrade
+        })
+        beforePage.changeData();//触发父页面中的方法
+    }
+},
+
+  onUnload: function() {
+    this.changeParentData();
+  }
+
 })

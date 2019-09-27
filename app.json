@@ -15,7 +15,8 @@
     "pages/surveyDept/dept_index/dept_index",
     "pages/surveyDept/dept_swiper/dept_swiper",
     "pages/surveyDept/dept_task_detail/dept_task_detail",
-    "pages/startDiaocha/question_tips/question_tips"
+    "pages/startDiaocha/question_tips/question_tips",
+    "pages/startDiaocha/ceshi3/ceshi3"
   ],
   "window": {
     "backgroundTextStyle": "light",

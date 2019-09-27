@@ -76,7 +76,7 @@
   <view class="cu-item shadow">
 
     <view class="content" wx:for="{{imgList}}" wx:key="{{index}}">
-      <image src='{{imgList[index].url}}' mode='aspectFill' bindtap="ViewImageForreport" data-index='{{index}}' data-url="{{imgList[index].url}}"></image>
+      <image  src='{{imgList[index]}}' mode='aspectFill' bindtap="ViewImageForreport" data-index='{{index}}' data-url="{{imgList[index]}}"></image>
       <view class="cu-tag-user bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
         <text class="cuIcon-close"></text>
       </view>
@@ -220,7 +220,7 @@
 <view wx:if="{{isGrade}}" class="cu-form-group margin-top">
   <text class="cuIcon-title text-blue text-user"></text>
   <view class="title">评分</view>
-  <input placeholder="最低0分,最高{{maxScore}}分,达标默认不扣分" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
+  <input placeholder="最高可扣{{maxScore}}分,达标默认不扣分" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
 </view>
 
 <view class="padding-xl_user">

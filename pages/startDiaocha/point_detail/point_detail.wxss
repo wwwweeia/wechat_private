@@ -104,12 +104,12 @@ text-align: left;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 500rpx;
+  margin-top: 480rpx;
 }
 .lg1 {
-/*padding: 0 60rpx;*/
-font-size: 36rpx;
-/*height: 80rpx;*/
+padding: 0 40rpx;
+font-size: 34rpx;
+height: 80rpx;
 
 }
 .cu-form-group .title {
@@ -128,11 +128,27 @@ font-size: 36rpx;
 .text-sm1{
   margin-left: 18rpx;
   font-size: 35rpx;
+  margin: 0 auto;
+
 }
 
 
 
 .bg-white1 {
 background-color: var(--white);
+
+}
+/*按钮*/
+
+.margin-tb-sm-right{
+  margin-top: 20rpx;
+margin-bottom: 20rpx;
+margin-right: 25rpx;
+
+}
+.margin-tb-sm-left{
+  margin-top: 20rpx;
+margin-bottom: 20rpx;
+margin-left: 25rpx;
 
 }
