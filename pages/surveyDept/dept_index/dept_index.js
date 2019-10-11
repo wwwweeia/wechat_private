@@ -3,6 +3,7 @@ Page({
 
   data: {
     requestUrl: '',//请求路径
+    projectId:'',//项目id
      swiperIndex: 0, //初始化swiper索引
      swiperHeight: 350,
     // 问题栏默认值
@@ -45,15 +46,15 @@ Page({
    */
   onLoad(options) {
     var requestUrl = app.globalData.requestUrl;//请求路径
+    var projectId = options.projectId;
     this.setData({
-      requestUrl:requestUrl
+      requestUrl:requestUrl,
+      projectId:projectId
     })
     //加载轮播图
     this.getSwiperList();
-    //加载问题栏
-    this.getProblemType();
-    //默认第一次加载任务列表（全部）
-    this.getTaskListAll();
+    //默认第一次加载任务列表
+    this.getTaskList(this.data.TabCur);
 
   },
 
@@ -78,32 +79,12 @@ Page({
     let that = this;
     var requestUrl = that.data.requestUrl;//请求路径
     wx.request({
-      url: requestUrl+"/home/manage/searchViewPages",
+      url: requestUrl+"/wechat/api/carousel/getCarouselList",
       success(res) {
         // console.log(res);
         if (res.data.status === "success") {
           that.setData({
             swiperList: res.data.retObj
-          })
-        }
-      }
-    })
-  },
-
-
-  /**
-   * 获取问题类型数据
-   */
-  getProblemType() {
-    let that = this;
-    var requestUrl = that.data.requestUrl;//请求路径
-    wx.request({
-      url: requestUrl+"/home/manage/searchQuestionSorts",
-      success(res) {
-        // console.log(res);
-        if (res.data.status === "success") {
-          that.setData({
-            problemType: res.data.retObj
           })
         }
       }
@@ -134,14 +115,8 @@ Page({
     if (e.currentTarget.dataset.id != null) {
       //传参问题Id获取任务列表
       that.getTaskList(that.data.TabCur);
-    } else {
-      //获取全部任务列表
-      that.getTaskListAll();
     }
-
   },
-
-
   /**
    * 获取任务列表数据
    * 第一次默认加载全部，这里只加载一次，后面根据当前问题的ID发送请求
@@ -149,19 +124,28 @@ Page({
   getTaskList: function(e) {
     var that = this;
     var requestUrl = that.data.requestUrl;//请求路径
+    var projectId = that.data.projectId;//项目id
+    var TabCur = that.data.TabCur;//整改状态
+    var pagenum = that.data.pagenum;
     //console.log(e);
     wx.request({
-      url: requestUrl+"/home/manage/searchTaskList",
+      url: requestUrl+"/mobile/fieldTask/getFieldTaskListByResult",
       data: {
-        "sortId": e,
-        "page": that.data.pagenum,
+        "pageNum":  pagenum,
+        "PageSize": '10',
+        "projectId": projectId,
+        "result": TabCur
       },
       success(res) {
-        //console.log(res);
-        if (res.data.status === "success") {
+        console.log("任务列表",res.data.retObj.list);
+        var list = res.data.retObj.list;
+        if (list!=0) {
           that.setData({
-            taskList: that.data.taskList.concat(res.data.retObj),
-            maxPageNum: res.data.retObj[0].maxPageNum,
+            //1、that.data.taskList  获取当前页面存的taskList数组
+  //           //2、res.data.retObj   获取当前请求得到的taskList数组
+  //           //3、xxx.concat  把新加载的数组追加到当前页面之后
+            taskList: that.data.taskList.concat(res.data.retObj.list),
+            maxPageNum: res.data.retObj.pageCount,//总页数
             isNull: ''
           })
         } else {
@@ -175,37 +159,7 @@ Page({
       complete: function() {} //请求完成后执行的函数
     })
   },
-  //获取全部任务列表（页面加载）
-  getTaskListAll: function() {
-    var that = this;
-    var requestUrl = that.data.requestUrl;//请求路径
-    wx.request({
-      url: requestUrl+"/home/manage/searchTaskList",
-      data: {
-        "page": that.data.pagenum,
-      },
-      success(res) {
-        if (res.data.status === "success") {
-          that.setData({
-            //1、that.data.taskList  获取当前页面存的taskList数组
-            //2、res.data.retObj   获取当前请求得到的taskList数组
-            //3、xxx.concat  把新加载的数组追加到当前页面之后
-            taskList: that.data.taskList.concat(res.data.retObj),
-            //从当前请求得到总页数给maxPageNum赋值
-            maxPageNum: res.data.retObj[0].maxPageNum,
-            isNull: '',
-          })
-        }else{
-          isNull: 'true'
-        }
-        // 隐藏加载框
-        wx.hideLoading();
-      },
-      fail: function(err) {console.log('gg')}, //请求失败
-      complete: function() {} //请求完成后执行的函数
-    })
 
-  },
   //上拉函数
   onReachBottom: function() { //触底开始下一页
     var that = this;
@@ -217,9 +171,7 @@ Page({
     if (that.data.maxPageNum >= pagenum) {
       if (that.data.TabCur != null) {
         that.getTaskList(that.data.TabCur); //重新调用请求获取下一页数据
-      } else {
-        that.getTaskListAll(); //全部
-      }
+      } 
       // 显示加载图标
       wx.showLoading({
         title: '玩命加载中',
@@ -236,8 +188,5 @@ Page({
     setTimeout(function() {
       wx.hideLoading()
     }, 1000)
-
-
   },
-
 })

@@ -80,7 +80,7 @@
 
 
         <view class="td-2" selectable="true" scroll-y="true">
-          <text class="{{item.finished==0 ? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-grade='{{item.grade}}' bind:tap="goToUpload">测评</text>
+          <text class="{{item.finished==0 ? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
         </view>
       </view>
 

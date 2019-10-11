@@ -2322,6 +2322,7 @@ button.icon.lg {
 
 .cu-card.article>.cu-item {
 	padding-bottom: 30rpx;
+	/*padding-bottom: 15rpx;*/
 }
 
 .cu-card.article>.cu-item .title {

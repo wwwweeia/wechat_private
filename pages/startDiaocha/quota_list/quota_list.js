@@ -43,7 +43,9 @@ Page({
       projectId: projectId,
       pointId: locationId
     })
-    that.getQuotaList(pointTypeId, locationId, projectId);
+
+    //that.getQuotaList(pointTypeId, locationId, projectId);
+     that.getproblemList(pointTypeId,projectId,locationId);
   },
   // 获取指标列表
   getQuotaList(pointTypeId, locationId, projectId) {
@@ -101,96 +103,7 @@ Page({
     })
   },
 
-
-
-
-
-  // 跳转上传页面
-  goToUpload: function(e) {
-
-    var that = this;
-    let isRecord = e.currentTarget.dataset.isrecord;
-    let questionId = e.currentTarget.dataset.id;
-    let code = e.currentTarget.dataset.code;
-    let grade = e.currentTarget.dataset.grade;//最大分
-    let pointId = that.data.pointId;
-    let pointTypeId = that.data.pointTypeId;
-    let pointName = that.data.pointName;
-    let quotaId = that.data.quotaId;
-    // console.log("指标id", quotaId)
-    wx.setStorageSync('isRecord', isRecord);
-    wx.navigateTo({
-      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
-    })
-  },
-
-
-
-
-
-  // 提示弹框
-  showAlert(e) {
-    var that = this;
-    var url = e.currentTarget.dataset.url;
-    if (url) {
-      wx.navigateTo({
-        url: "../question_tips/question_tips?url=" + url
-      })
-
-    } else { //url为空
-      this.setData({
-        visible: true
-      })
-    }
-
-  },
-  hideAlert(type) {
-    this.setData({
-      visible: false
-    })
-  },
-
-
-  // 页面切换
-  showModal(e) {
-    // console.log("showModal:", e)
-    this.setData({
-      modalName: e.currentTarget.dataset.target
-    })
-  },
-  hideModal(e) {
-    var that = this;
-    // type 0-点击有效，1-无效
-    var type = e.currentTarget.dataset.type;
-    var quotaId = e.currentTarget.dataset.quotaid;
-    var quotaName = e.currentTarget.dataset.content;
-    var pointTypeId = that.data.pointTypeId;
-    var variable = e.currentTarget.dataset.variable;
-    var projectId = that.data.projectId;
-    var locationId = that.data.locationId;
-    this.setData({
-      modalName: null,
-      quotaName: quotaName
-    })
-    if (type == 0) {
-      this.setData({
-        modalName: null,
-        quotaName: quotaName
-      })
-      if (variable == 0) {
-        that.getQuotaDetail(quotaId, pointTypeId);
-      } else {
-        that.getProblemByfenlei(pointTypeId, quotaId, projectId,locationId);
-      }
-
-    } else {
-      this.setData({
-        modalName: null
-      })
-    }
-  },
-
-  // 获取指标下的问题
+ // 获取指标下的问题
   getQuotaDetail(quotaId, pointTypeId) {
     var that = this;
     var projectId = that.data.projectId;
@@ -265,22 +178,145 @@ Page({
     })
   },
 
+
+  // 跳转上传页面
+  goToUpload: function(e) {
+    var that = this;
+    let isRecord = e.currentTarget.dataset.isrecord;
+    let questionId = e.currentTarget.dataset.id;
+    let code = e.currentTarget.dataset.code;
+    let grade = e.currentTarget.dataset.grade;//最大分
+    let pointId = that.data.pointId;
+    let pointTypeId = that.data.pointTypeId;
+    let pointName = that.data.pointName;
+    let quotaId = e.currentTarget.dataset.quotaid;
+    wx.setStorageSync('isRecord', isRecord);
+    var list= {
+      questionId:questionId,
+      pointId:pointId,
+      quotaId:quotaId,
+      pointName:pointName,
+      pointTypeId:pointTypeId,
+      code:code,
+      grade:grade
+    };
+
+    wx.navigateTo({
+      // url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
+      url:'../task_upload/task_upload',
+      success: function(res) {
+     // 通过eventChannel向被打开页面传送数据
+       res.eventChannel.emit('quota_list_Page', { data: list })
+     }
+    })
+  },
+
+
+  // 提示弹框
+  showAlert(e) {
+    var that = this;
+    var url = e.currentTarget.dataset.url;
+    if (url) {
+      wx.navigateTo({
+        url: "../question_tips/question_tips?url=" + url
+      })
+
+    } else { //url为空
+      this.setData({
+        visible: true
+      })
+    }
+
+  },
+  hideAlert(type) {
+    this.setData({
+      visible: false
+    })
+  },
+
+
+  // 页面切换
+  showModal(e) {
+    // console.log("showModal:", e)
+    this.setData({
+      modalName: e.currentTarget.dataset.target
+    })
+  },
+  hideModal(e) {
+    var that = this;
+    // type 0-点击有效，1-无效
+    var type = e.currentTarget.dataset.type;
+    var quotaId = e.currentTarget.dataset.quotaid;
+    var quotaName = e.currentTarget.dataset.content;
+    var pointTypeId = that.data.pointTypeId;
+    var variable = e.currentTarget.dataset.variable;
+    var projectId = that.data.projectId;
+    var locationId = that.data.locationId;
+    this.setData({
+      modalName: null,
+      quotaName: quotaName
+    })
+    if (type == 0) {
+      this.setData({
+        quotaId:quotaId,
+        modalName: null,
+        quotaName: quotaName
+      })
+      if (variable == 0) {
+        that.getProblemByfenlei(pointTypeId, quotaId, projectId,locationId);
+        
+      } else {
+        that.getQuotaDetail(quotaId, pointTypeId);
+      }
+
+    } else {
+      this.setData({
+        modalName: null
+      })
+    }
+  },
+
+ 
+
   // 切换  按问题分类查
   goToSwitch: function(e) {
     var that = this;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    
     var projectId = that.data.projectId;
     var pointTypeId = that.data.pointTypeId;
     var locationId = that.data.pointId;
     if (that.data.qiehuan == 1) {
-      console.log("问题分类查")
+     
       that.setData({
         variable: 1,
         qiehuan: 0
       })
-      wx.request({
+   console.log("指标类型查")
+      this.getQuotaList(pointTypeId,locationId,projectId);
+
+    } else {
+      
+      that.setData({
+        variable: 0,
+        qiehuan: 1
+      })
+        console.log("问题分类查")
+      this.getproblemList(pointTypeId,projectId,locationId);
+   
+
+
+
+    }
+
+  },
+
+//按问题分类查
+getproblemList:function(pointTypeId,projectId,locationId){
+  var that = this;
+  var requestUrl = that.data.requestUrl;//服务器路径
+  wx.request({
         // 必需
-        url: requestUrl+'/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByPointId',
+        url: requestUrl+'/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByLocationId',
         data: {
           pointId: pointTypeId,
           projectId: projectId,
@@ -329,24 +365,7 @@ Page({
 
         }
       })
-
-    } else {
-      console.log("指标类型查")
-      that.setData({
-        variable: 0,
-        qiehuan: 1
-      })
-      that.getQuotaList(pointTypeId, locationId, projectId);
-
-
-
-    }
-
-
-
-
-
-  },
+},
 
   //  问题分类下的问题列表
   getProblemByfenlei: function(pointTypeId, questionClassifyId, projectId,locationId) {

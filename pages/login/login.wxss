@@ -70,3 +70,8 @@ button::after {
   color: #fafbfc !important;
   background: linear-gradient(-90deg, #cad8fb, #c9d3fb);
 }
+.form-user{
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}

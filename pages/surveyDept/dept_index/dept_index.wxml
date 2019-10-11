@@ -20,23 +20,51 @@
 
   <!-- 任务列表 -->
   <view class="cu-card article">
-    <navigator wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_detail/dept_task_detail?id={{item.taskId}}"'>
-
+    <navigator wx:if="{{TabCur==1}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_detail/dept_task_detail?id={{item.id}}&projectId={{item.projectId}}'>
       <view class="content">
-        <image src="{{item.imageUrl}}" mode="aspectFill"></image>
+        <image src="{{item.url}}" mode="aspectFill"></image>
         <view class="desc">
-          <view class="text-bold text-content1 box">{{item.describe}}</view>
-          <view class='text-content text-cut box'>{{item.addr}}</view>
+          <view class="text-bold text-content1 box">{{item.questionContent}}</view>
+          <view class='text-content text-cut box'>{{item.address}}</view>
           <view>
-            <view class='cu-tag bg-grey light sm round'>{{item.findTime}}
+            <view class='cu-tag bg-grey light sm round'>{{item.answerTime}}
             </view>
           </view>
         </view>
       </view>
     </navigator>
   </view>
-
+ <view class="cu-card article">
+    <navigator wx:if="{{TabCur==3}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_ Already/dept_task_ Already?id={{item.id}}&projectId={{item.projectId}}'>
+      <view class="content">
+        <image src="{{item.url}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class="text-bold text-content1 box">{{item.questionContent}}</view>
+          <view class='text-content text-cut box'>{{item.address}}</view>
+          <view>
+            <view class='cu-tag bg-grey light sm round'>{{item.answerTime}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+   <view class="cu-card article">
+    <navigator wx:if="{{TabCur==0 || TabCur==2}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_finish/dept_task_finish?id={{item.id}}&projectId={{item.projectId}}'>
+      <view class="content">
+        <image src="{{item.url}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class="text-bold text-content1 box">{{item.questionContent}}</view>
+          <view class='text-content text-cut box'>{{item.address}}</view>
+          <view>
+            <view class='cu-tag bg-grey light sm round'>{{item.answerTime}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view>
 </view>
 <view class="imagesize {{isNull=='true'?'show':'hide'}}">
-  <image src='/images/null.png' mode='scaleToFill' style='height:100%;width:100%'></image>
+  <image src='../../../images/null.png' mode='scaleToFill' style='height:100%;width:100%'></image>
 </view>

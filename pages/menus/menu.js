@@ -59,7 +59,7 @@ Page({
         break;
       case "开始整改":
         wx.navigateTo({
-          url: "../surveyDept/dept_index/dept_index"
+          url: "../surveyDept/dept_project/dept_project"
         })
         break;
 

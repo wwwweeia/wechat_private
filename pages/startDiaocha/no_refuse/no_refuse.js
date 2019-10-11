@@ -313,6 +313,7 @@ var requestUrl = that.data.requestUrl;//服务器路径
       filePath: reportImg[i],
       name: 'reportImg' + i + terminalUserId,
       formData: {
+        'type':0,
         'projectId': projectId,
         'surveyorId': terminalUserId,
         'locationId': locationId,
@@ -360,6 +361,7 @@ var requestUrl = that.data.requestUrl;//服务器路径
       filePath: reportVideo[i].src,
       name: 'reportVideo' + i + terminalUserId,
       formData: {
+        'type':2,
         'projectId': projectId,
         'surveyorId': terminalUserId,
         'locationId': locationId,
