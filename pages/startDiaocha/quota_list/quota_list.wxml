@@ -26,15 +26,6 @@
     <text wx:if="{{tips==null || tips==''}}" ></text>
 <text wx:else class="cu-bar user2 bg-white1 h3">{{tips}}</text>
 
-
-
-
-
-
-
-
-
-
   </block>
 
   <!-- 操作表格 -->

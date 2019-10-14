@@ -93,7 +93,7 @@ margin-top: 20rpx;
 
 /*字体*/
 .h1{
-  font-size: 45rpx;
+  font-size: 32rpx;
   font-weight:bold;
   margin:0 auto;
 }
@@ -153,4 +153,35 @@ margin-top: 20rpx;
   padding: 0 50rpx;
   display: flex;
   align-items: center;
+}
+
+
+.user1{
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+margin-left: 20rpx;
+/*border: 0.02px solid darkgray;*/
+}
+.user2{
+  margin-right: 20rpx;
+margin-left: 20rpx;
+/*border: 0.02px solid darkgray;*/
+}
+/*背景*/
+.bg-white1 {
+background-color: var(--white);
+
+}
+
+/*最上面的部分*/
+.text-sm1{
+  margin-left: 18rpx;
+  font-size: 35rpx;
+  margin: 0 auto;
+
+}
+/*文字居左*/
+.item-left {
+   flex: 1; /* 重要 */
+   align-items:center;
 }

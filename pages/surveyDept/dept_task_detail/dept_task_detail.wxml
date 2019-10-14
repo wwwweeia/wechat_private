@@ -1,9 +1,49 @@
-  <view class="　cu-bar1 solid-bottom  ">
-  <view class="h1" >
-任务详情
-  </view> 
+<!--   <view class="cu-bar user1 bg-white1  solid-bottom ">
+      <view class="h1">
+      <text class="cuIcon-favor text-blue "></text>任务详情
+      </view>
+    </view> -->
+<!-- <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">任务详情</text></tui-divider> -->
+
+   <!--  <block>
+    <view class="cu-bar user1 bg-white1  solid-bottom ">
+      <view class="h1">
+      <text class="cuIcon-favor text-blue "></text>{{pointName}}泰达大街
+      </view>
+    </view>
+    <view class="cu-bar user2 bg-white1  solid-bottom ">
+      <view class="h2">
+        <text class="cuIcon-titles text-blue "></text>{{quotaName}}第二点位
+      </view>
+    </view>
+     <view class="cu-bar user2 bg-white1  solid-bottom ">
+      <view class="h2">
+        <text class="cuIcon-titles text-blue "></text>{{quotaName}}这是问题啊
+      </view>
+     </view>
+
+
+  </block> -->
+
+  <view class="cu-bar bg-white1  solid-bottom  " >
+  <view class="text-sm1 text-bold">
+   <!--  <text class="cuIcon-title text-blue "></text>{{pointName}} -->
+    <text class="cuIcon-favor text-blue "></text>泰达大街
   </view>
 
+</view>
+  <view class="cu-form-group ">
+    <view class="title text-bold">点位:</view>
+    <text class="item-left">{{list.linkman}}这是点位啊</text>
+     <text class="cuIcon-location text-blue"></text>
+  </view> 
+    <view class="cu-form-group ">
+    <view class="title text-bold">问题:</view>
+    <text class="item-left">{{list.tel}}这是问题啊</text>
+     <text class="cuIcon-question text-green"></text>
+  </view>
+    
+  
 
 <!-- 举报图片/视频 -->
 <view class="cu-bar  solid-bottom">
@@ -14,10 +54,10 @@
 
 
 <!-- 图片加描述 -->
-<view class="cu-card article no-card">
-  <view class="cu-item shadow">
+<view class="cu-card article no-card ">
+  <view class="cu-item shadow" wx:for="{{imgList_No}}" wx:key="{{index}}">
 
-    <view class="content" wx:for="{{imgList_No}}" wx:key="{{index}}">
+    <view class="content" >
       <image  src='{{imgList_No[index]}}' mode='aspectFill' bindtap="ViewImageForreport_No" data-index='{{index}}' data-url="{{imgList_No[index]}}"></image>
      
       <view class="desc">
@@ -30,9 +70,9 @@
 </view>
 <!-- 视频加描述 -->
 <view class="cu-card article no-card">
-  <view class="cu-item shadow">
+  <view class="cu-item shadow" wx:for="{{videoList_No}}" wx:key="{{index}}">
 
-    <view class="content" wx:for="{{videoList_No}}" wx:key="{{index}}">
+    <view class="content" >
       <video class="video-user" bindtap="ViewVideoForreport" data-url="{{videoList_No[index].url}}" data-index="{{index}}" id='reportVideo{{index}}' src="{{videoList_No[index].url}}" poster="{{videoList_No[index].poster}}" bindfullscreenchange="start"></video>
      
       <view class="desc">
@@ -51,7 +91,7 @@
   </view>
 </view>
 
-<view class="cu-chat " wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index"  >
+<view class="cu-chat" wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index"  >
   <view class="cu-item">
     <view class="main" bindtap='playRecord_No' data-id="{{index}}">
       <view class="action text-bold text-blue">
@@ -79,24 +119,23 @@
 <view class="cu-bar bg-white text-center padding-neirong">
   <view class="action text-black " bindtap="go">
     <text ></text>{{address}}　
-    <text class="cuIcon-locationfill lg text-green"></text>
+    <text class="cuIcon-locationfill lg text-blue"></text>
   </view>
 </view>
-
-
-
-  <view class="　cu-bar1 solid-bottom  ">
-  <view class="h1" >
-整改上传
-  </view> 
-  </view>
+<!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
+<tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">整改上传</text></tui-divider>
+ <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
+      <view class="h1">
+      <text class="cuIcon-favor text-blue "></text>整改上传
+      </view>
+    </view> -->
 
   <!-- 拍摄 -->
 
 
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>举报图片上传
+    <text class="cuIcon-title text-blue"></text>整改图片/视频
   </view>
 </view>
 <view class="cu-bar bg-white">

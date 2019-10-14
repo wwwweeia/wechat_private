@@ -5,7 +5,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: { 
     menuName: '',
     surveyList: []
   },
@@ -24,6 +24,7 @@ Page({
       that.setData({
         surveyList: data.data
       })
+      console.log("绑定菜单",that.data.surveyList)
     })
     // app.js页面传递过来的菜单列表
     eventChannel.on('appPage', function(data) {
@@ -31,6 +32,7 @@ Page({
       that.setData({
         surveyList: data.data
       })
+      console.log("绑定菜单",that.data.surveyList)
     })
 
 

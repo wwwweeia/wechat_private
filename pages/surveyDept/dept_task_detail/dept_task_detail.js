@@ -6,6 +6,7 @@ const innerAudioContext = wx.createInnerAudioContext()
 Page({
   data: {
     requestUrl: '',//请求路径
+    gradualColor: ["red", "#4a67d6"],
     //任务ID
     taskId: '',
     projectId:'',//项目id
@@ -129,6 +130,7 @@ Page({
     longitude:'',
     code:'',//任务编码
     isSwitch:false,//复选框是否权属异议，默认false
+    dissent:'',//是否权属异议,o否，1是
     textDesc:'',//文本描述
       i: 0,
     success: 0, //成功个数
@@ -413,12 +415,11 @@ Page({
         console.log("任务详情：",res.data.retObj)
         if (res.data.status === "success") {
 
-            var images = res.data.retObj.pictureList;
-            var videos = res.data.retObj.videoList;
-            var audios = res.data.retObj.audioList;
+            var images = res.data.retObj.answerResourceMap[0];
+            var videos = res.data.retObj.answerResourceMap[2];
+            var audios = res.data.retObj.answerResourceMap[1];
             console.log("图片列表：",images,"---------视频列表：",videos,"-------音频列表：",audios )
             
-
             that.downlodaResource(images, videos, audios);
 
           that.setData({
@@ -442,29 +443,34 @@ Page({
     downlodaResource: async function(images, videos, audios) {
     var that = this;
     //如果录音有值显示录音
-    if (audios.length != 0) {
+    if (audios!=null) {
       that.setData({
         isShow_No: 0
       })
     }
-    var length = images.length + videos.length;
     var imgDesc = []; //图片描述
     var videoDesc = []; //视频描述
 
     var mapImage = []; //图片下载
+    if(images!=null){
     for (var i = 0; i < images.length; i++) {
+      console.log("图片的啥啊啊啊啊：",images[i].url)
       mapImage.push(images[i].url)
       imgDesc.push({
         description: images[i].description
       });
     }
+  }
 
     var mapVoid = []; //视频下载
-    for (var i = 0; i < videos.length; i++) {
-      mapVoid.push(videos[i].url)
-      videoDesc.push({
-        description: videos[i].description
-      })
+    if(videos !=null){
+      console.log("进来了吗")
+      for (var i = 0; i < videos.length; i++) {
+        mapVoid.push(videos[i].url)
+        videoDesc.push({
+          description: videos[i].description
+        })
+      }
     }
 
     that.setData({
@@ -482,10 +488,13 @@ Page({
     }
 
     var mapAudio = []; //音频下载
+    if(audios!=null){
+
 
     for (var i = 0; i < audios.length; i++) {
       mapAudio.push(audios[i].url)
 
+    }
     }
     for (var index = 0; index < mapAudio.length; index++) {
       await that.downlodaAudio(mapAudio[index]).then((res) => {})
@@ -722,8 +731,14 @@ go() {
   switch(e){
     console.log(e.detail.value)
     var  that = this;
+    if(e.detail.value==false){
+      var dissent=0;
+    }else{
+      var dissent=1;
+    }
     that.setData({
-      isSwitch:e.detail.value
+      isSwitch:e.detail.value,
+      dissent:dissent
     })
   },
  
@@ -740,8 +755,7 @@ go() {
     //整改说明
     var textDesc = that.data.textDesc;
 
-    //复选框
-    var isSwitch = that.data.isSwitch;
+    
     console.log("看看这个视频：",reportVideo);
     if ((reportImg.length + reportVideo.length) < 1) {
       wx.showToast({
@@ -1052,6 +1066,9 @@ go() {
     var remarks = that.data.textDesc;
     //项目id
     var projectId = that.data.projectId;
+    //复选框
+    var dissent = that.data.dissent;
+  
     wx.request({
       // 必需
       url: requestUrl + '/mobile/fieldTask/saveResource',
@@ -1061,6 +1078,7 @@ go() {
         terminalUserId:terminalUserId,
         taskId:taskId,
         remarks:remarks,
+        dissent:dissent,
         resourceListStr: JSON.stringify(resourceList)
       },
       header: {

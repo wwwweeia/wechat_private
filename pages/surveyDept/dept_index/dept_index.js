@@ -8,7 +8,7 @@ Page({
      swiperHeight: 350,
     // 问题栏默认值
     // TabCur: null,
-    TabCur: 1,
+    TabCur: 9,
     // 轮播图数据
     swiperList: [],
     // 问题类型数据
@@ -24,17 +24,14 @@ Page({
 
     problemType_user:[
       {
-        id: '1',
+        id: 9,
         name: '待整改'
       }, {
-        id: '3',
+        id: 3,
         name: '已整改'
       }, {
-        id: '0',
+        id: 0,
         name: '整改合格'
-      }, {
-        id: '2',
-        name: '整改不合格'
       }
     ]
 
@@ -130,6 +127,7 @@ Page({
     //console.log(e);
     wx.request({
       url: requestUrl+"/mobile/fieldTask/getFieldTaskListByResult",
+      // url: "http://192.168.15.71:8083/mobile/fieldTask/getFieldTaskListByResult",
       data: {
         "pageNum":  pagenum,
         "PageSize": '10',
@@ -137,7 +135,6 @@ Page({
         "result": TabCur
       },
       success(res) {
-        console.log("任务列表",res.data.retObj.list);
         var list = res.data.retObj.list;
         if (list!=0) {
           that.setData({
@@ -148,6 +145,7 @@ Page({
             maxPageNum: res.data.retObj.pageCount,//总页数
             isNull: ''
           })
+          console.log("看看这个任务列表：",that.data.taskList)
         } else {
           that.setData({
             isNull: 'true',

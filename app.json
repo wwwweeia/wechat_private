@@ -18,8 +18,7 @@
     "pages/startDiaocha/question_tips/question_tips",
     "pages/startDiaocha/ceshi3/ceshi3",
     "pages/surveyDept/dept_project/dept_project",
-    "pages/surveyDept/dept_task_ Already/dept_task_ Already",
-    "pages/surveyDept/dept_task_finish/dept_task_finish"
+    "pages/surveyDept/dept_task_ Already/dept_task_ Already"
   ],
   "window": {
     "backgroundTextStyle": "light",

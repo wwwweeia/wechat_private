@@ -30,6 +30,7 @@ Page({
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/fieldProject/getListByTerminalUserId',
+      // url: 'http://192.168.15.71:8083/wechat/api/fieldProject/getListByTerminalUserId',
       data: {
         terminalUserId: terminalUserId
       },
