@@ -1,4 +1,4 @@
-	.tower-swiper .tower-item {
+/* pages/ShiDiCheck/check_check_detail/check_check_detail.wxss */	.tower-swiper .tower-item {
 		transform: scale(calc(0.5 + var(--index) / 10));
 		margin-left: calc(var(--left) * 100rpx - 150rpx);
 		z-index: var(--index);
@@ -183,4 +183,20 @@ background-color: var(--white);
 .item-left {
    flex: 1; /* 重要 */
    align-items:center;
+}
+/*问题*/
+.h3{
+font-size: 28rpx;
+line-height: 50rpx;
+text-align: justify;
+padding: 1rpx 0rpx 10rpx;
+}
+
+.cu-bar-user{
+min-height: 20rpx;
+}
+
+.radioChange_user {
+  text-align: center;
+  padding-top: 25rpx;
 }

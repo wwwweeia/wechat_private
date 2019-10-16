@@ -4,6 +4,7 @@ Page({
   data: {
     requestUrl: '',//请求路径
     projectId:'',//项目id
+    terminalUserId:'',//调查员id
      swiperIndex: 0, //初始化swiper索引
      swiperHeight: 350,
     // 问题栏默认值
@@ -44,9 +45,11 @@ Page({
   onLoad(options) {
     var requestUrl = app.globalData.requestUrl;//请求路径
     var projectId = options.projectId;
+    var terminalUserId = app.terminalUserId;//调查员id
     this.setData({
       requestUrl:requestUrl,
-      projectId:projectId
+      projectId:projectId,
+      terminalUserId:terminalUserId
     })
     //加载轮播图
     this.getSwiperList();
@@ -124,11 +127,13 @@ Page({
     var projectId = that.data.projectId;//项目id
     var TabCur = that.data.TabCur;//整改状态
     var pagenum = that.data.pagenum;
+    var terminalUserId = that.data.terminalUserId;
     //console.log(e);
     wx.request({
-      url: requestUrl+"/mobile/fieldTask/getFieldTaskListByResult",
+      url: requestUrl+"/mobile/fieldTask/getRectifyFieldTaskList",
       // url: "http://192.168.15.71:8083/mobile/fieldTask/getFieldTaskListByResult",
       data: {
+        "terminalUserId":terminalUserId,
         "pageNum":  pagenum,
         "PageSize": '10',
         "projectId": projectId,

@@ -27,8 +27,8 @@
   </view> 
     <view class="cu-form-group ">
     <view class="title text-bold">问题:</view>
-    <text class="item-left">{{questionContent}}</text>
-     <text class="cuIcon-question text-green"></text>
+    <text class="item-left h3">{{questionContent}}</text>
+     <!-- <text class="cuIcon-question text-green"></text> -->
   </view>
     
 
@@ -126,20 +126,18 @@
     <text class="cuIcon-title text-blue"></text>整改图片/视频
   </view>
 </view>
-
+  
+  <view class="cu-bar-user bg-white">
+</view>
 <view class="cu-form-group">
   <view class="grid col-4 grid-square flex-sub">
     <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
       <image src='{{imgList[index]}}' mode='aspectFill'></image>
-      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
-        <text class="cuIcon-close"></text>
-      </view>
+      
     </view>
-    <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index]}}" data-index="{{index}}">
-      <video id='reportVideo{{index}}' src="{{videoList[index].src}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
-      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
-        <text class="cuIcon-close"></text>
-      </view>
+    <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index].url}}" data-index="{{index}}">
+      <video id='reportVideo{{index}}' src="{{videoList[index].url}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
+      
     </view>
 
   
@@ -157,11 +155,7 @@
  
 </view>
 
-<modal title="{{remainTimeText}}" hidden="{{modalHidden}}" bindconfirm="stopRecord" bindcancel="modalCandel">
-  <view>
-    <image class="image-audio" src="../../../images/audio.gif" mode='aspectFill'></image>
-  </view>
-</modal>
+
 
 <view class="cu-chat" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
   <view class="cu-item">
@@ -193,6 +187,7 @@
    <text>无</text>
 </view>
 <view wx:else class="cu-form-group">
-   <text>{{auditContent}}</text>
+   <text>　{{auditContent}}</text>
 </view>
-
+ <view class="cu-bar-user">
+</view>

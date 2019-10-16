@@ -22,7 +22,7 @@
   <view class="cu-card article">
     <navigator wx:if="{{TabCur==9}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_detail/dept_task_detail?id={{item.id}}&projectId={{item.projectId}}'>
       <view class="content">
-        <image src="{{item.url}}" mode="aspectFill"></image>
+        <image src="{{item.url==''? '/images/null.png' : item.url}}" mode="aspectFill"></image>
         <view class="desc">
           <view class="text-bold text-content1 box">{{item.questionContent}}</view>
           <view class='text-content text-cut box'>{{item.address}}</view>
@@ -42,7 +42,7 @@
     </navigator>
   </view>
  <view class="cu-card article">
-    <navigator wx:if="{{TabCur==3 || TabCur==0}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_ Already/dept_task_ Already?id={{item.id}}&projectId={{item.projectId}}'>
+    <navigator wx:if="{{TabCur==3 || TabCur==0}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_Already/dept_task_Already?id={{item.id}}&projectId={{item.projectId}}'>
       <view class="content">
         <image src="{{item.url}}" mode="aspectFill"></image>
         <view class="desc">

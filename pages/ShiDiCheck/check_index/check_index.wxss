@@ -100,7 +100,7 @@
   color: #333333;
   font-weight: 700;
   letter-spacing: 3rpx;
-  margin-bottom: 20rpx;
+  margin-bottom: 45rpx;
 }
 .list_cons .right .list1{
     margin-bottom: 17rpx;
@@ -108,7 +108,7 @@
 .list_cons .right .list1 .condition1{
   font-size: 28rpx;
   color: #999999;
-  margin-bottom: 15rpx;
+  margin-bottom: 45rpx;
 }
 .list_cons .right .list1 .condition2{
   font-size: 24rpx;
@@ -168,4 +168,15 @@
 
 .cu-form-group .title {
   min-width: calc(4em + 30rpx);
+}
+
+.box{
+width:400rpx;
+font-size:30rpx;
+overflow:hidden;
+text-overflow: ellipsis;
+display:-webkit-box;
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+text-align: left;
 }

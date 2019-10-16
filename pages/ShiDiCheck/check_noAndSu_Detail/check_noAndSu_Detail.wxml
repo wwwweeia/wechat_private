@@ -1,3 +1,17 @@
+<!--   <view class="cu-bar user1 bg-white1  solid-bottom ">
+      <view class="h1">
+      <text class="cuIcon-favor text-blue "></text>任务详情
+      </view>
+    </view> -->
+<!-- <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">任务详情</text></tui-divider>
+ -->
+  
+ <view wx:if="{{commitContent}}" class="cu-form-group ">
+    <view class="title text-bold">审核意见</view>
+    <text class="item-left">{{commitContent}}</text>
+     <text class="cuIcon-question text-green"></text>
+  </view>
+    
 
   <view class="cu-bar bg-white1  solid-bottom  " >
   <view class="text-sm1 text-bold">
@@ -13,9 +27,11 @@
   </view> 
     <view class="cu-form-group ">
     <view class="title text-bold">问题:</view>
-    <text class="item-left">{{questionContent}}</text>
-     <text class="cuIcon-question text-green"></text>
+    <text class="item-left h3">{{questionContent}}</text>
+     <!-- <text class="cuIcon-question text-green"></text> -->
   </view>
+    
+
 
 <!-- 举报图片/视频 -->
 <view class="cu-bar  solid-bottom">
@@ -24,14 +40,18 @@
   </view>
 </view>
 
+
 <!-- 图片加描述 -->
 <view class="cu-card article no-card ">
   <view class="cu-item shadow" wx:for="{{imgList_No}}" wx:key="{{index}}">
 
     <view class="content" >
       <image  src='{{imgList_No[index]}}' mode='aspectFill' bindtap="ViewImageForreport_No" data-index='{{index}}' data-url="{{imgList_No[index]}}"></image>
+     
       <view class="desc">
-        <input class="text-content" value="{{imgDescList[index].description}}"></input>
+
+        <input class="text-content" disabled="true" value="{{imgDescList[index].description}}"></input>
+        
       </view>
     </view>
   </view>
@@ -39,14 +59,18 @@
 <!-- 视频加描述 -->
 <view class="cu-card article no-card">
   <view class="cu-item shadow" wx:for="{{videoList_No}}" wx:key="{{index}}">
+
     <view class="content" >
       <video class="video-user" bindtap="ViewVideoForreport" data-url="{{videoList_No[index].url}}" data-index="{{index}}" id='reportVideo{{index}}' src="{{videoList_No[index].url}}" poster="{{videoList_No[index].poster}}" bindfullscreenchange="start"></video>
+     
       <view class="desc">
-        <input class="text-content" value="{{voidDescList[index].description}}"></input>
+
+        <input class="text-content" disabled="true" value="{{voidDescList[index].description}}"></input>
       </view>
     </view>
   </view>
 </view>
+
 
 <!-- 录音 -->
 <view class="cu-bar  solid-bottom" wx:if="{{isShow_No==0}}">
@@ -68,7 +92,9 @@
     <!-- <view class="action-user" bindtap='delAudio' data-id="{{index}}">
       <text class="cuIcon-close text-red"></text>
     </view> -->
+
   </view>
+
 </view>
 
 <!-- 定位信息 -->
@@ -77,89 +103,53 @@
     <text class="cuIcon-title text-blue"></text>定位信息
   </view>
 </view>
+
 <view class="cu-bar bg-white text-center padding-neirong">
   <view class="action text-black " bindtap="go">
     <text ></text>{{address}}　
     <text class="cuIcon-locationfill lg text-blue"></text>
   </view>
 </view>
-<!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
+<view wx:if="{{checkShow}}">
 <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">整改上传</text></tui-divider>
- <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
-      <view class="h1">
-      <text class="cuIcon-favor text-blue "></text>整改上传
-      </view>
-    </view> -->
 
-  <!-- 拍摄 -->
+
 
 <view class="cu-bar  solid-bottom">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>整改图片/视频
   </view>
 </view>
-<view class="cu-bar bg-white">
-  <view class="action">
-    上传图片或视频
-  </view>
-  <view class="action">
-    {{reportlength}}/4
-  </view>
+  
+  <view class="cu-bar-user bg-white">
 </view>
 <view class="cu-form-group">
   <view class="grid col-4 grid-square flex-sub">
     <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
       <image src='{{imgList[index]}}' mode='aspectFill'></image>
-      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
-        <text class="cuIcon-close"></text>
-      </view>
+      
     </view>
     <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index].url}}" data-index="{{index}}">
       <video id='reportVideo{{index}}' src="{{videoList[index].url}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
-      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
-        <text class="cuIcon-close"></text>
-      </view>
+      
     </view>
 
-    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<4}}" data-target="Modal" data-type="report">
-      <text class="cuIcon-cameraadd"></text>
-    </view>
+  
   </view>
 </view>
 
-<view class="cu-modal {{modalName=='Modal'?'show':''}}">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <!-- <view class="content">Modal标题</view> -->
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red"></text>
-      </view>
-    </view>
-    <!-- <view class="padding-xl justify-end"> -->
-    <view class="padding flex flex-direction">
-      <button class="cu-btn bg-green lg" bindtap='ChooseImage'>上传照片 </button>
-      <button class="cu-btn bg-blue margin-tb-sm lg" bindtap='chooseVideo'>上传视频</button>
-    </view>
-    <!-- </view> -->
-  </view>
-</view>
+
 
 <!-- 录音 -->
 <!-- wx:if="{{isRecord}}" -->
-<view class="cu-bar solid-bottom">
+<view class="cu-bar solid-bottom" wx:if="{{isShow==0}}">
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 录音
   </view>
-  <view class="action">
-    <button class="cu-btn bg-blue shadow" bindtap="startRecord" data-target='Modal1'>点击录音</button>
-  </view>
+ 
 </view>
 
-<modal title="{{remainTimeText}}" hidden="{{modalHidden}}" bindconfirm="stopRecord" bindcancel="modalCandel">
-  <view>
-    <image class="image-audio" src="../../../images/audio.gif" mode='aspectFill'></image>
-  </view>
-</modal>
+
 
 <view class="cu-chat" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
   <view class="cu-item">
@@ -179,6 +169,7 @@
 
 </view>
 
+
 <!-- 整改说明 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
@@ -186,16 +177,12 @@
   </view>
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
-<view class="cu-form-group">
-<!--   <textarea maxlength="-1"  bindinput="textareaAInput" placeholder="提供针对此类问题长效管理措施说明" ></textarea> -->
-   <textarea maxlength="-1"  bindinput="textareaAInput" placeholder="{{modalName=='Modal1' ?' ' : '提供针对此类问题长效管理措施说明'}}" ></textarea>
+<view wx:if="{{auditContent==''}}" class="cu-form-group">
+   <text>无</text>
 </view>
-
-  <view class="cu-form-group margin-top">
-    <view class="title">权属异议</view>
-  <switch class="blue sm" bindchange="switch" ></switch>
-  </view>
-
-  <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg"  bindtap='submit'>上传</button>
+<view wx:else class="cu-form-group">
+   <text>　{{auditContent}}</text>
+</view>
+ <view class="cu-bar-user">
+</view>
 </view>

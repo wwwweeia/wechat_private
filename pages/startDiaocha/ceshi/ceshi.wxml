@@ -1,1 +1,127 @@
-<image src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+ <!-- 导航栏-->
+  <scroll-view scroll-x class="bg-white nav text-center" scroll-with-animation scroll-left="{{scrollLeft}}">
+  <!--   <view class="cu-item {{null==TabCur?'text-blue cur':'text-grey'}} cu-btn round linebordersize   " bindtap="tabSelect">
+      全部
+    </view> -->
+    <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key bindtap="tabSelect" data-id="{{item.id}}">
+      {{item.name}}
+    </view>
+  </scroll-view>
+ 
+<!--   <view class="cu-form-group margin-top">
+    <view class="title">普通选择</view>
+    <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+      <view class="picker">
+        {{index?picker[index]:'请选择对应操作'}}
+      </view>
+    </picker>
+  </view> -->
+
+<view class='header1'>
+  <view class='header'>
+    <view class='header_con flex_between'>
+      <view class='left'>
+        共计{{tasks.length}}件商品
+      </view>
+
+      <view class='right flex_end'>
+        <view wx:if="{{!management_good}}" class='flex_center' bindtap='management'>
+          管理
+        </view>
+        <view wx:if="{{management_good}}" class='flex_center' bindtap='finish_management'>
+          完成
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='bottom flex_between' wx:if="{{management_good}}">
+
+  <view class='left flex_start'>
+    <block wx:if="{{select_all}}">
+      <view bindtap='select_none' class='flex_start'>
+        <icon type="success" size="30" color="red" />
+        <view>
+          取消全选
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{!select_all}}">
+      <view bindtap='select_all' class='flex_start'>
+        <view class='select_none'>
+        </view>
+        <view>
+          全选
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class='right flex_end'>
+  <!--   <view style='text-align:right'>
+      <view class='all'>
+        共选中{{middlearr.length}}件商品
+      </view>
+    </view> -->
+
+      <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+
+      <view class="picker text-blue" >
+      <text class="cuIcon-unfold text-blue "></text>
+        {{index?picker[index]:'请选择对应操作'}}
+      </view>
+    </picker>
+
+
+    <view bindtap='deleteitem' class='sure'>
+      确定
+    </view>
+  </view>
+</view>
+
+
+
+<view class='onlinechoose'>
+  <view class='hotel_list flex_center' wx:for="{{tasks}}" wx:key="items" wx:for-item="i" data-id="{{index}}"  >
+    <view class='list_cons flex_start'>
+      <view wx:if="{{management_good}}" data-id="{{index}}"  bindtap='select' class='lefts'>
+        <block wx-if="{{!i.checked}}">
+          <view class='icon_none'></view>
+        </block>
+        <block wx-if="{{i.checked}}">
+          <icon type="success" size="30" color="red" />
+        </block>
+      </view>
+      <image src='/images/null.png'></image>
+      <view class='right' bind:tap="go">
+        <view class='name'>
+          {{i.name}}
+        </view>
+        <view class='list1 flex_between'>
+          <view class='left'>
+            <view class='condition1'>
+              16㎡|双人床|含早
+            </view>
+            <view class='condition2'>
+              <block>
+                间数：10
+              </block>
+              <block>
+                间数：2
+              </block>
+            </view>
+          </view>
+        </view>
+        <view class='list1 flex_between'>
+          <view class='left'>
+            <view class='condition2'>
+              类目一
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+  

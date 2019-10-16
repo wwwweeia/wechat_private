@@ -102,11 +102,8 @@ Page({
         break;
 
       case "实地审核":
-        wx.showToast({
-          title: '待开发',
-          icon: 'loading',
-          duration: 1000,
-          mask: true
+       wx.navigateTo({
+          url: "../ShiDiCheck/check_project/check_project"
         })
         break;
 

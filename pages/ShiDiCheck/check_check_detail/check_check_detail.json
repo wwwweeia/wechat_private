@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "待审核详情",
+  "usingComponents": {
+    "tui-divider": "../../../components/divider/divider"
+  }
+}

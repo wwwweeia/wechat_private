@@ -914,7 +914,7 @@ Page({
   },
   ViewVideoForreport(e) {
     console.log("视频的啥？：", e);
-    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
+    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.url);
     this.VideoContext.requestFullScreen(0);
   },
 

@@ -22,7 +22,7 @@ App({
         if (res.code) {
           //发起网络请求
           wx.request({
-            //    url: 'http://192.168.15.146:8080/member/manage/userLogin',
+            //    url: ''http://221.216.95.200:8286/wehcat/api/memberMange/userLogin',
             url: 'http://192.168.15.147:8080/wehcat/api/memberMange/userLogin',
             method:"GET",
              header: {
@@ -78,6 +78,7 @@ App({
   },
   globalData: {
     userInfo: null,
+    // requestUrl:'http://221.216.95.200:8286'
      requestUrl:'http://192.168.15.147:8080'
   }
 })

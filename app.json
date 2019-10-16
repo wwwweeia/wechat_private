@@ -18,7 +18,12 @@
     "pages/startDiaocha/question_tips/question_tips",
     "pages/startDiaocha/ceshi3/ceshi3",
     "pages/surveyDept/dept_project/dept_project",
-    "pages/surveyDept/dept_task_ Already/dept_task_ Already"
+    "pages/surveyDept/dept_task_Already/dept_task_Already",
+    "pages/ShiDiCheck/check_project/check_project",
+    "pages/ShiDiCheck/check_index/check_index",
+    "pages/ShiDiCheck/check_check_detail/check_check_detail",
+    "pages/ShiDiCheck/check_objection_detail/check_objection_detail",
+    "pages/ShiDiCheck/check_noAndSu_Detail/check_noAndSu_Detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

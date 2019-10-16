@@ -135,6 +135,9 @@ Page({
       i: 0,
     success: 0, //成功个数
     fail: 0, //失败个数
+    locationName: '', //点位
+    pointName: '', //点位类型
+    questionContent: '', //问题
   },
 
 
@@ -405,7 +408,7 @@ Page({
     var taskId = that.data.taskId;//任务id
    var requestUrl = that.data.requestUrl;//请求路径
     wx.request({
-      url: requestUrl+"/mobile/fieldTask/getFieldTaskAnswerDetail",
+      url: requestUrl+"/mobile/fieldTask/getFieldTaskDetail",
       // url: "http://192.168.15.71:8083/mobile/fieldTask/getFieldTaskAnswerDetail",
       data:{
         'projectId':projectId,
@@ -427,7 +430,11 @@ Page({
             //经纬度
             latitude: res.data.retObj.latitude,
             longitude: res.data.retObj.longitude,
-            code: res.data.retObj.code
+            code: res.data.retObj.code,
+            pointName: res.data.retObj.pointName,
+            locationName: res.data.retObj.locationName,
+            auditContent: res.data.retObj.auditContent,
+            questionContent:res.data.retObj.questionContent
           })
         }
       },
@@ -669,7 +676,7 @@ Page({
   },
   ViewVideoForreport(e) {
     console.log("视频的啥？：", e);
-    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
+    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.url);
     this.VideoContext.requestFullScreen(0);
   },
  

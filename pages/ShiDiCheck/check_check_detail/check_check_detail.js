@@ -100,35 +100,18 @@ Page({
     //视频上传数据
     videoList_No: [],
     videoList: [],
-    //举报资源总长度  限制上传数量
-    reportlength: 0,
 
-    //上传资源绑定的问题ID
-    answerId: '',
-
-    //倒计时变量
-    remainTimeText: '00:00',
-    log: {},
-    isRuning: false,
     //录音变量
     audioSrc: [],
     audioSrc_No: [],
     isShow: 1,
     isShow_No: 1,
-    modalHidden: true,
-    fuzhi: 0, //定义一个变量来控制取消的时候不给已有的录音赋值  0-赋值，
 
     resourceList: [], //资源集合
 
     address: '', //地址
     latitude: '', //地址经纬度
     longitude: '',
-    code: '', //任务编码
-    isSwitch: false, //复选框是否权属异议，默认false
-    textDesc: '', //文本描述
-    i: 0,
-    success: 0, //成功个数
-    fail: 0, //失败个数
 
     //任务ID
     taskId: '',
@@ -137,8 +120,21 @@ Page({
     locationName: '', //点位
     pointName: '', //点位类型
     questionContent: '', //问题
-    auditContent:'',//整改说明
-    commitContent:'',//审核意见
+    auditContent: '', //整改说明
+    commitContent: '', //审核意见
+
+    radios: [{
+      id: 0,
+      content: '通过',
+    }, {
+      id: 2,
+      content: '不通过',
+    }, {
+      id: 1,
+      content: '长期整改',
+    }],
+    desc:'',//审批意见
+    redioId:0,//选项id
   },
 
 
@@ -148,7 +144,7 @@ Page({
   onLoad: function(e) {
     var that = this;
     var terminalUserId = app.terminalUserId;
-    var taskId = e.id;
+    var taskId = e.taskId;
     var projectId = e.projectId;
     var requestUrl = app.globalData.requestUrl; //请求路径
     that.setData({
@@ -208,7 +204,7 @@ Page({
     var taskId = that.data.taskId; //任务id
     var requestUrl = that.data.requestUrl; //请求路径
     wx.request({
-      url: requestUrl + "/mobile/fieldTask/getFieldTaskAnswerDetail",
+      url: requestUrl + "/mobile/fieldTask/getFieldTaskDetail",
       // url: "http://192.168.15.71:8083/mobile/fieldTask/getFieldTaskAnswerDetail",
       data: {
         'projectId': projectId,
@@ -222,7 +218,7 @@ Page({
           var videos = res.data.retObj.answerResourceMap[2];
           var audios = res.data.retObj.answerResourceMap[1];
           // console.log("图片列表：",images,"---------视频列表：",videos,"-------音频列表：",audios )
-          
+
 
           var images_task = res.data.retObj.taskResourceMap[0];
           var videos_task = res.data.retObj.taskResourceMap[2];
@@ -231,7 +227,7 @@ Page({
           that.downlodaResource(images, videos, audios);
 
           that.downlodaResource_task(images_task, videos_task, audios_task);
-         
+
           that.setData({
             address: res.data.retObj.address,
             //经纬度
@@ -242,7 +238,7 @@ Page({
             pointName: res.data.retObj.pointName,
             locationName: res.data.retObj.locationName,
             auditContent: res.data.retObj.auditContent,
-           commitContent: res.data.retObj.commitContent
+            commitContent: res.data.retObj.commitContent
           })
         }
       },
@@ -508,7 +504,7 @@ Page({
   },
   ViewVideoForreport(e) {
     console.log("视频的啥？：", e);
-    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
+    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.url);
     this.VideoContext.requestFullScreen(0);
   },
 
@@ -528,5 +524,25 @@ Page({
     })
   },
 
+  //-------------- 审批意见-----------
+   textareaAInput(e) {
+    this.data.desc = e.detail.value;
+    },
+
+      /**
+   ***********************************测评结果单选框**************************************
+   */
+
+  radioChange: function(e) {
+    var that = this;
+    this.data.redioId =  e.detail.value;
+  },
+
+  submit:function(){
+    var that = this;
+    var desc = that.data.desc;
+    var redioId = that.data.redioId;
+    console.log("答案和id：",desc,"----",redioId)
+  }
 
 })
