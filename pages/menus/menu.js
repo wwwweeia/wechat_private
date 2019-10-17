@@ -1,15 +1,23 @@
 // pages/menus/menu.js
+const QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js');
 const app = getApp();
+let qqmapsdk;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: { 
+    requestUrl: '', //服务器路径
     menuName: '',
     terminalUserName:'',//调查员名称
     departmentName:'',//所属部门
-    surveyList: []
+    surveyList: [],
+    key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
+    address: '',
+    longitude: '',
+    latitude: '',
+
   },
 
   /**
@@ -41,9 +49,85 @@ Page({
       console.log("绑定菜单",that.data.surveyList)
     })
 
-
+     qqmapsdk = new QQMapWX({
+      key: this.data.key
+    });
+     //获取当前位置
+     this.currentLocation();
 
   },
+
+  currentLocation() {
+    //当前位置
+    const that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success(res) {
+        // console.log(res)
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
+        that.getAddress(res.longitude, res.latitude);
+      }
+    })
+  },
+  getAddress: function(lng, lat) {
+    //根据经纬度获取地址信息
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: lat,
+        longitude: lng
+      },
+      success: (res) => {
+        // console.log(res)
+        this.setData({
+          address: res.result.formatted_addresses.recommend //res.result.address
+        })
+        this.saveUserLog();
+      },
+      fail: (res) => {
+        this.setData({
+          address: "获取位置信息失败"
+        })
+      }
+    })
+  },
+// 保存用户登录信息
+saveUserLog:function(){
+  var that= this;
+  var requestUrl = app.globalData.requestUrl; //请求路径
+  var longitude = that.data.longitude;
+  var latitude = that.data.latitude;
+  var address = that.data.address;
+  var terminalUserId = app.terminalUserId;
+  // console.log("这是调查员id",terminalUserId)
+  // console.log("这是地址",address)
+  if (terminalUserId!='') {
+    wx.request({
+      // 必需
+      url: requestUrl+'/wehcat/api/memberMange/saveUserLog',
+      method: "POST",
+      data: {
+        'terminalUserId':terminalUserId,
+        'longitude':longitude,
+        'latitude':latitude,
+        'address':address
+      },
+      header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+      success: (res) => {
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
+    })
+  }
+},
   //点击菜单触发函数
   junmp: function(even) {
     var that = this;

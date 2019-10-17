@@ -1,21 +1,13 @@
 //app.js
 App({
   data: {
-
   },
   onLaunch: function() {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
     // 获取用户信息
-
     let that = this;
     wx.login({
       success(res) {
@@ -34,11 +26,11 @@ App({
             },
             success(res) {
               if (res.data.status == 'success') {
-                
-                console.log("获取的用户信息：", res.data.retObj)
                 var app = getApp();
+                // console.log("获取的用户信息：", res.data.retObj)
+                
                 app.openid = res.data.retObj.openId;
-                console.log("这是初始化appid：", app.openid)
+                // console.log("这是初始化appid：", app.openid)
 
                 app.existence = res.data.retObj.existence;
                 // 调查员id
