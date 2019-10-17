@@ -1,0 +1,14 @@
+<view class="container">
+<scroll-view scroll-y class="scrollPage">
+<view class="tui-article-pic">
+  <image src='../../../images/haibao.png' mode='widthFix' class='png' style='width:100%;height:486rpx'></image>
+  </view>
+  <view class='nav-list'>
+    <navigator open-type="navigate"  hover-class='none' url="../dept_index/dept_index?projectId={{item.id}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="{{index}}">
+      <view class="nav-title">{{item.name}}</view>
+      <view class="nav-name">Project</view>
+    </navigator>
+  </view>
+  <view class='cu-tabbar-height'></view>
+</scroll-view>
+</view>

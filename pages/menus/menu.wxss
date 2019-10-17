@@ -51,11 +51,23 @@
     margin-bottom: 200rpx;
     margin-top: 60rpx;
 }
+.nav-list-open-user {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0rpx 60rpx 0rpx 10rpx;
+  justify-content: space-between;
+}
 .nav-list {
   display: flex;
   flex-wrap: wrap;
   padding: 0rpx 60rpx 0rpx 10rpx;
   justify-content: space-between;
+}
+.nav-list-4 {
+  display: flex;
+  flex-wrap: wrap;
+  /*padding: 0rpx 60rpx 0rpx 10rpx;*/
+  /*justify-content: space-between;*/
 }
 
 .nav-li {
@@ -68,6 +80,9 @@
   background-position: center;
   position: relative;
   z-index: 1;*/
+}
+.nav-li-4 {
+  margin: 0 4% 40rpx;
 }
 
 /*顶部*/

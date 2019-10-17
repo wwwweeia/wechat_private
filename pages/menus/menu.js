@@ -7,6 +7,8 @@ Page({
    */
   data: { 
     menuName: '',
+    terminalUserName:'',//调查员名称
+    departmentName:'',//所属部门
     surveyList: []
   },
 
@@ -22,15 +24,19 @@ Page({
     eventChannel.on('loginPage', function(data) {
       // console.log("loginPage传递过来的数据", data.data)
       that.setData({
-        surveyList: data.data
+        surveyList: data.data,
+        departmentName:data.departmentName,
+        terminalUserName:data.terminalUserName
       })
       console.log("绑定菜单",that.data.surveyList)
     })
     // app.js页面传递过来的菜单列表
     eventChannel.on('appPage', function(data) {
-      // console.log("appPage传递过来的数据", data.data)
+      // console.log("appPage传递过来的数据", data)
       that.setData({
-        surveyList: data.data
+        surveyList: data.data,
+        departmentName:data.departmentName,
+        terminalUserName:data.terminalUserName
       })
       console.log("绑定菜单",that.data.surveyList)
     })
@@ -93,11 +99,8 @@ Page({
         break;
 
       case "材料上报":
-        wx.showToast({
-          title: '待开发',
-          icon: 'loading',
-          duration: 1000,
-          mask: true
+       wx.navigateTo({
+          url: "../DatumUpload/upload_project/upload_project"
         })
         break;
 

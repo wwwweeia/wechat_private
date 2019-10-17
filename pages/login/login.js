@@ -69,13 +69,17 @@ Page({
           if (res.data.status == 'success') {
             console.log("后台传输的数据：", res.data.retObj)
             var list = res.data.retObj.qxMenus;
+            var terminalUserName = res.data.retObj.terminalUserName;
+            var departmentName = res.data.retObj.departmentName
             app.terminalUserId = res.data.retObj.terminalUserId;
             wx.navigateTo({
               url: '../menus/menu',
               success: function(res) {
                 // 通过eventChannel向被打开页面传送数据
                 res.eventChannel.emit('loginPage', {
-                  data: list
+                  data: list,
+                  terminalUserName:terminalUserName,
+                  departmentName:departmentName
                 })
               }
             })

@@ -23,11 +23,11 @@
         <view class="cu-tag bg-blue light sm round">飞天不</view>
       </view> -->
 
-      <view  class=" box-user nav-list">
+      <view  class=" box-user nav-list-open-user">
     <view  class="user-text">
-    <text style="font-size: 38rpx;" >调查员1</text>
+    <text style="font-size: 38rpx;" >{{terminalUserName}}</text>
     <view >
-      <text class="cu-tag bg-blue light round">文明办</text>
+      <text class="cu-tag bg-blue light round">{{departmentName}}</text>
      </view>
        <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
     </view>

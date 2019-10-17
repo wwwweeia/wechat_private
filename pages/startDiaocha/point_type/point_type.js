@@ -5,7 +5,7 @@ Page({
   data: {
     requestUrl: '', //服务器路径
     projectId: '',
-    surveyorId: '',
+    surveyorId: '',//调查员id
     isGrade: '',
     open: false,
     selected: [false, false, false], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开

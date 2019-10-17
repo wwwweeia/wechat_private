@@ -22,7 +22,7 @@ App({
         if (res.code) {
           //发起网络请求
           wx.request({
-            //    url: ''http://221.216.95.200:8286/wehcat/api/memberMange/userLogin',
+              //  url: 'http://221.216.95.200:8286/wehcat/api/memberMange/userLogin',
             url: 'http://192.168.15.147:8080/wehcat/api/memberMange/userLogin',
             method:"GET",
              header: {
@@ -34,6 +34,8 @@ App({
             },
             success(res) {
               if (res.data.status == 'success') {
+                
+                console.log("获取的用户信息：", res.data.retObj)
                 var app = getApp();
                 app.openid = res.data.retObj.openId;
                 console.log("这是初始化appid：", app.openid)
@@ -45,12 +47,16 @@ App({
                 // 当前微信用户已经绑定调查员 跳转菜单页
                 if (app.existence = true) {
                   var list = res.data.retObj.qxMenus;
+                  var terminalUserName = res.data.retObj.terminalUserName;
+                  var departmentName = res.data.retObj.departmentName
                   wx.navigateTo({
-                    url: '../menus/menu',
+                    url: '../menus/menu', 
                     success: function(res) {
                       // 通过eventChannel向被打开页面传送数据
                       res.eventChannel.emit('appPage', {
-                        data: list
+                        data: list,
+                        terminalUserName:terminalUserName,
+                        departmentName:departmentName
                       })
                     }
                   })
