@@ -50,7 +50,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -133,6 +133,13 @@
 					"id": 11,
 					"name": "开始整改--已整改",
 					"pathName": "pages/surveyDept/dept_task_ Already/dept_task_ Already",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "欢迎页",
+					"pathName": "pages/index/index",
 					"query": "",
 					"scene": null
 				}

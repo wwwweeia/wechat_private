@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/login/login",
+    "pages/index/index",
     "pages/menus/menu",
+    "pages/login/login",
     "pages/startDiaocha/project_list/project_list",
     "pages/startDiaocha/point_type/point_type",
     "pages/startDiaocha/ceshi/ceshi",
@@ -25,6 +26,7 @@
     "pages/ShiDiCheck/check_objection_detail/check_objection_detail",
     "pages/ShiDiCheck/check_noAndSu_Detail/check_noAndSu_Detail",
     "pages/DatumUpload/upload_project/upload_project"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

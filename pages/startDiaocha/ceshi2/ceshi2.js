@@ -43,4 +43,14 @@ Page({
 
   
   },
+  loadModal:function() {
+    this.setData({
+      loadModal: true
+    })
+    setTimeout(() => {
+      this.setData({
+        loadModal: false
+      })
+    }, 2000)
+  },
 })

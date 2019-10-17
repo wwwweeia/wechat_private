@@ -1,19 +1,15 @@
- <!-- 导航栏-->
-  <scroll-view scroll-x class="bg-white nav text-center" scroll-with-animation scroll-left="{{scrollLeft}}">
-  <!--   <view class="cu-item {{null==TabCur?'text-blue cur':'text-grey'}} cu-btn round linebordersize   " bindtap="tabSelect">
-      全部
-    </view> -->
-    <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key bindtap="tabSelect" data-id="{{item.id}}">
-      {{item.name}}
-    </view>
-  </scroll-view>
- 
-  <view class="cu-form-group margin-top">
-    <view class="title">普通选择</view>
-    <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
-      <view class="picker">
-        {{index?picker[index]:'请选择对应操作'}}
-      </view>
-    </picker>
+<view class="cu-bar bg-white margin-top">
+  <view class='action'>
+    <text class='cuIcon-title text-blue'></text>弹框加载
   </view>
+  <view class='action'>
+    <button class='cu-btn bg-green shadow' bindtap='loadModal'>
+      点我
+    </button>
+  </view>
+</view>
 
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <image src='/images/logo_user.jpg' class='png' mode='aspectFit'></image>
+  <view class='blue-text'>加载中...</view>
+</view>

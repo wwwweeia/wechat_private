@@ -48,7 +48,6 @@ Page({
       })
       console.log("绑定菜单",that.data.surveyList)
     })
-
      qqmapsdk = new QQMapWX({
       key: this.data.key
     });

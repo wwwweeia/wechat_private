@@ -117,3 +117,20 @@ margin-left: 15rpx;
 margin-right: 15rpx;
 
 }
+
+.userinfo-null {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar-null {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname-null {
+  color: #aaa;
+}

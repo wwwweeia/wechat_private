@@ -1,0 +1,6 @@
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <image src='/images/logo_user.jpg' class='png' mode='aspectFit'></image>
+  <view class='blue-text'>加载中...</view>
+</view>
+
+<image class="img" src="/images/hello.png" > </image>

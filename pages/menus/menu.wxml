@@ -1,15 +1,5 @@
 <!--pages/menus/menu.wxml-->
 
-<!-- <view class="userinfo bg-white">
-  <open-data type="userAvatarUrl" class="userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
-  <open-data type="userNickName" class="userinfo-nickname"></open-data>
-  <view class="cu-form-group ">
-    <view class="title text-bold">调查员1</view>
-  </view>
-  <view class="cu-form-group ">
-    <view class="title text-bold">xxx</view>
-  </view>
-</view> -->
 <view class="cu-card article div-use">
   <view class="cu-item shadow">
       <view class="open-user">
@@ -23,7 +13,7 @@
         <view class="cu-tag bg-blue light sm round">飞天不</view>
       </view> -->
 
-      <view  class=" box-user nav-list-open-user">
+      <view wx:if="{{surveyList}}"  class="box-user nav-list-open-user">
     <view  class="user-text">
     <text style="font-size: 38rpx;" >{{terminalUserName}}</text>
     <view >
@@ -32,11 +22,14 @@
        <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
     </view>
   </view>
-
+   <view wx:else  class="box-user nav-list-open-user">
+    <view  class="user-text">
+    <text style="font-size: 38rpx;" >请绑定调查员账号</text>
+       <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
+    </view>
+  </view>
 
       </view>
-
-
   
   </view>
 </view>
