@@ -1,6 +1,11 @@
+//腾讯地图js
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
-const util = require('../../../utils/util_time.js')
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime.js'
+//倒计时js
+const util = require('../../../utils/util_time.js');
+//同步js
+import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime.js';
+// 引入跳转js
+import router from '../../../utils/router.js';
 let qqmapsdk;
 //获取应用实例
 const app = getApp()
@@ -159,33 +164,48 @@ Page({
     var projectId = wx.getStorageSync('projectId');
     var terminalUserId = app.terminalUserId;
 
-    const eventChannel = this.getOpenerEventChannel()
-
+    var questionId = options.questionId;
+    var quotaId = options.quotaId;
+    var pointId = options.pointId;
+    var pointName = options.pointName;
+    var pointTypeId = options.pointTypeId;
+    var code = options.code;
+    var grade = options.grade;
     var requestUrl = app.globalData.requestUrl; //请求路径
-    // 获取上一页面通过eventChannel传送到当前页面的数据
-    eventChannel.on('quota_list_Page', function(data) {
-      var questionId = data.data.questionId;
-      var quotaId = data.data.quotaId;
-      var pointId = data.data.pointId;
-      var pointName = data.data.pointName;
-      var pointTypeId = data.data.pointTypeId;
-      var code = data.data.code;
-      var grade = data.data.grade;
-      that.setData({
-        code: code,
-        maxScore: grade * 10,
-        questionId: questionId,
-        quotaId: quotaId,
-        pointId: pointId,
-        pointName: pointName,
-        pointTypeId: pointTypeId
-      })
-    })
+    // const eventChannel = this.getOpenerEventChannel()
+
+    
+    // // 获取上一页面通过eventChannel传送到当前页面的数据
+    // eventChannel.on('quota_list_Page', function(data) {
+    //   var questionId = data.data.questionId;
+    //   var quotaId = data.data.quotaId;
+    //   var pointId = data.data.pointId;
+    //   var pointName = data.data.pointName;
+    //   var pointTypeId = data.data.pointTypeId;
+    //   var code = data.data.code;
+    //   var grade = data.data.grade;
+    //   that.setData({
+    //     code: code,
+    //     maxScore: grade * 10,
+    //     questionId: questionId,
+    //     quotaId: quotaId,
+    //     pointId: pointId,
+    //     pointName: pointName,
+    //     pointTypeId: pointTypeId
+    //   })
+    // })
 
     this.setData({
       requestUrl: requestUrl,
       projectId: projectId,
       terminalUserId: terminalUserId,
+      code: code,
+      maxScore: grade * 10,
+      questionId: questionId,
+      quotaId: quotaId,
+      pointId: pointId,
+      pointName: pointName,
+      pointTypeId: pointTypeId
     })
 
     if (isGrade == 0) {
@@ -1370,9 +1390,10 @@ Page({
       },
       success: (res) => {
         if (res.data.status == 'success') {
-          wx.navigateTo({
-            url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
-          })
+          router.navigateTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
+          // wx.navigateTo({
+          //   url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
+          // })
         }
       },
       fail: (res) => {
@@ -1405,7 +1426,7 @@ Page({
     }
   },
 
-  onUnload: function() {
-    this.changeParentData();
-  }
+  // onUnload: function() {
+  //   this.changeParentData();
+  // }
 })

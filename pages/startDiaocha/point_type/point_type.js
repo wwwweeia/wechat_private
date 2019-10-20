@@ -144,6 +144,7 @@ Page({
   goToMap: function() {
     var that = this;
     var projectId = that.data.projectId;
+    console.log("地图资源：",that.data.markersList)
     wx.navigateTo({
       url: "../map/map",
       success: function(res) {

@@ -1,6 +1,6 @@
 <view class="maps-container">
   <map latitude="{{lat}}" longitude="{{lng}}" markers="{{covers}}" bindmarkertap="marker" scale="11"></map>
- <scroll-view scroll-y="true" hidden="{{hidden}}" class="scrollView" style="height:{{scrollH}}px">
+ <scroll-view scroll-y="true" wx:if="{{hidden==false}}"  class="scrollView" style="height:{{scrollH}}px">
     <view class="tui-list">
       <view class="tui-list-cell tui-cell-last">
         <view class=" addr-title">{{showTitle}}</view>

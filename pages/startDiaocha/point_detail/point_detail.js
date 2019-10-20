@@ -1,4 +1,6 @@
 // pages/Professional/detail/point_detail.js
+// 引入跳转js
+import router from '../../../utils/router.js';
 var app = getApp();
 Page({
 
@@ -102,9 +104,10 @@ Page({
     var pointTypeId = this.data.pointTypeId;
     var pointName = this.data.pointName;
     var pointId = this.data.pointId;
-    wx.navigateTo({
-      url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
-    })
+    router.navigateTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
+    // wx.navigateTo({
+    //   url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
+    // })
   },
 
   //无法调查页面goNo_investigate
@@ -112,18 +115,20 @@ Page({
     var that = this;
     var locationId = that.data.pointId;
     var isGrade = that.data.isGrade;
-    wx.navigateTo({
-      url: "../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade
-    })
+    router.navigateTo({url:"../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade})
+    // wx.navigateTo({
+    //   url: "../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade
+    // })
   },
   //跳转拒访页面
   goToNo_refuse: function() {
     var that = this;
     var locationId = that.data.pointId;
     var isGrade = that.data.isGrade;
-    wx.navigateTo({
-      url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade
-    })
+    router.navigateTo({url:"../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade})
+    // wx.navigateTo({
+    //   url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade
+    // })
   },
 
   changeData: function () {

@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    requestUrl: '', //服务器路径
    loadModal:false
   },
 
@@ -13,18 +14,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.userLogin();
+  
+
+    // this.userLogin();
+    
+    
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+      setTimeout(() => {
+      this.userLogin();
+    }, 100)
   },
   
   userLogin: function() {
     var that = this;
+    var requestUrl = app.globalData.requestUrl; //服务器路径
     wx.login({
       success(res) {
         if (res.code) {
           //发起网络请求
           wx.request({
-              //  url: 'http://221.216.95.200:8286/wehcat/api/memberMange/userLogin',
-            url: 'http://192.168.15.147:8080/wehcat/api/memberMange/userLogin',
+               url: requestUrl+'/wehcat/api/memberMange/userLogin',//线上
+            // url: 'http://221.216.95.200:8286/wehcat/api/memberMange/userLogin',//35
+            // url: 'http://192.168.15.147:8080/wehcat/api/memberMange/userLogin',
             method:"GET",
              header: {
               "Content-Type": "application/json"

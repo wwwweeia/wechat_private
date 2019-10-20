@@ -1,5 +1,7 @@
 //index.js
 var app = getApp();
+// 引入跳转js
+import router from '../../../utils/router.js';
 Page({
   data: {
     requestUrl: '',//服务器路径
@@ -191,24 +193,25 @@ Page({
     let pointName = that.data.pointName;
     let quotaId = e.currentTarget.dataset.quotaid;
     wx.setStorageSync('isRecord', isRecord);
-    var list= {
-      questionId:questionId,
-      pointId:pointId,
-      quotaId:quotaId,
-      pointName:pointName,
-      pointTypeId:pointTypeId,
-      code:code,
-      grade:grade
-    };
-
-    wx.navigateTo({
-      // url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
-      url:'../task_upload/task_upload',
-      success: function(res) {
-     // 通过eventChannel向被打开页面传送数据
-       res.eventChannel.emit('quota_list_Page', { data: list })
-     }
-    })
+    // var list= {
+    //   questionId:questionId,
+    //   pointId:pointId,
+    //   quotaId:quotaId,
+    //   pointName:pointName,
+    //   pointTypeId:pointTypeId,
+    //   code:code,
+    //   grade:grade
+    // };
+    //跳转上传页面
+     router.navigateTo({url:"../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade})
+    // wx.navigateTo({
+    //   // url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
+    //   url:'../task_upload/task_upload',
+    //   success: function(res) {
+    //  // 通过eventChannel向被打开页面传送数据
+    //    res.eventChannel.emit('quota_list_Page', { data: list })
+    //  }
+    // })
   },
 
 
@@ -217,9 +220,10 @@ Page({
     var that = this;
     var url = e.currentTarget.dataset.url;
     if (url) {
-      wx.navigateTo({
-        url: "../question_tips/question_tips?url=" + url
-      })
+      router.navigateTo({url:"../question_tips/question_tips?url=" + url})
+      // wx.navigateTo({
+      //   url: "../question_tips/question_tips?url=" + url
+      // })
 
     } else { //url为空
       this.setData({
@@ -251,7 +255,7 @@ Page({
     var pointTypeId = that.data.pointTypeId;
     var variable = e.currentTarget.dataset.variable;
     var projectId = that.data.projectId;
-    var locationId = that.data.locationId;
+    var locationId = that.data.pointId;
     this.setData({
       modalName: null,
       quotaName: quotaName

@@ -1,3 +1,5 @@
+// 引入跳转js
+import router from '../../../utils/router.js';
 var app = getApp()
 Page({
   data: {
@@ -47,7 +49,7 @@ Page({
    */
   onLoad: function(option) {
     var requestUrl = app.globalData.requestUrl; //请求路径
-    var projectId = option.projectId; //服务器路径
+    var projectId = option.projectId; //项目id
     var terminalUserId = app.terminalUserId; //调查员id
     this.setData({
       projectId: projectId,
@@ -484,23 +486,26 @@ Page({
     //初次待审核
     if (TabCur == 3 || TabCur == 2) {
       console.log("跳转审核页面")
-      wx.navigateTo({
-        url: '../check_check_detail/check_check_detail?projectId='+projectId+"&taskId="+taskId
-      })
+      router.navigateTo({url:'../check_check_detail/check_check_detail?projectId='+projectId+"&taskId="+taskId})
+      // wx.navigateTo({
+      //   url: '../check_check_detail/check_check_detail?projectId='+projectId+"&taskId="+taskId
+      // })
     }
     //未整改、整改合格
     if (TabCur == 1 || TabCur == 0) {
       console.log("跳转未整改、整改合格页面")
-      wx.navigateTo({
-        url: '../check_noAndSu_Detail/check_noAndSu_Detail?projectId='+projectId+"&taskId="+taskId
-      })
+      router.navigateTo({url:'../check_noAndSu_Detail/check_noAndSu_Detail?projectId='+projectId+"&taskId="+taskId})
+      // wx.navigateTo({
+      //   url: '../check_noAndSu_Detail/check_noAndSu_Detail?projectId='+projectId+"&taskId="+taskId
+      // })
     }
     // 权属异议
     if (TabCur == 4) {
       console.log("跳转权属异议页面")
-       wx.navigateTo({
-        url: '../check_objection_detail/check_objection_detail?projectId='+projectId+"&taskId="+taskId
-      })
+      router.navigateTo({url:'../check_objection_detail/check_objection_detail?projectId='+projectId+"&taskId="+taskId})
+      //  wx.navigateTo({
+      //   url: '../check_objection_detail/check_objection_detail?projectId='+projectId+"&taskId="+taskId
+      // })
     }
   },
 

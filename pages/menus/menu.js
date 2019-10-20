@@ -1,5 +1,7 @@
 // pages/menus/menu.js
 const QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js');
+// 引入跳转js
+import router from '../../utils/router.js';
 const app = getApp();
 let qqmapsdk;
 Page({
@@ -51,8 +53,8 @@ Page({
      qqmapsdk = new QQMapWX({
       key: this.data.key
     });
-     //获取当前位置
-     this.currentLocation();
+     //获取当前位置 测试阶段先关闭了
+     // this.currentLocation();
 
   },
 
@@ -83,6 +85,7 @@ Page({
         this.setData({
           address: res.result.formatted_addresses.recommend //res.result.address
         })
+        // 保存用户登录信息
         this.saveUserLog();
       },
       fail: (res) => {
@@ -138,20 +141,22 @@ saveUserLog:function(){
     // console.log(menuName)
     switch (menuName) {
       case "绑定账号":
-        wx.navigateTo({
-          url: "../login/login"
-        })
-
+       router.navigateTo({url:"../login/login"})
+        // wx.navigateTo({
+        //   url: "../login/login"
+        // })
         break;
       case "开始调查":
-        wx.navigateTo({
-          url: "../startDiaocha/project_list/project_list"
-        })
+      router.navigateTo({url:"../startDiaocha/project_list/project_list"})
+        // wx.navigateTo({
+        //   url: "../startDiaocha/project_list/project_list"
+        // })
         break;
       case "开始整改":
-        wx.navigateTo({
-          url: "../surveyDept/dept_project/dept_project"
-        })
+      router.navigateTo({url:"../surveyDept/dept_project/dept_project"})
+        // wx.navigateTo({
+        //   url: "../surveyDept/dept_project/dept_project"
+        // })
         break;
 
       case "实时监控":
@@ -182,15 +187,17 @@ saveUserLog:function(){
         break;
 
       case "材料上报":
-       wx.navigateTo({
-          url: "../DatumUpload/upload_project/upload_project"
-        })
+      router.navigateTo({url:"../DatumUpload/upload_project/upload_project"})
+       // wx.navigateTo({
+       //    url: "../DatumUpload/upload_project/upload_project"
+       //  })
         break;
 
       case "实地审核":
-       wx.navigateTo({
-          url: "../ShiDiCheck/check_project/check_project"
-        })
+      router.navigateTo({url:"../ShiDiCheck/check_project/check_project"})
+       // wx.navigateTo({
+       //    url: "../ShiDiCheck/check_project/check_project"
+       //  })
         break;
 
       case "开始复查":

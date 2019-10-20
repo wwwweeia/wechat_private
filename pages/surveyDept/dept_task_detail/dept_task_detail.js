@@ -1,5 +1,7 @@
 const util = require('../../../utils/util_time.js')
 import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime.js'
+// 引入跳转js
+import router from '../../../utils/router.js';
 var app = getApp();
 const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
@@ -1093,9 +1095,10 @@ go() {
       },
       success: (res) => {
         if (res.data.status == 'success') {
-          wx.navigateTo({
-            url: "../dept_index/dept_index?projectId=" + projectId
-          })
+          router.navigateTo({url:"../dept_index/dept_index?projectId=" + projectId})
+          // wx.navigateTo({
+          //   url: "../dept_index/dept_index?projectId=" + projectId
+          // })
           console.log("好了，这下上传成功了。")
         }
       },

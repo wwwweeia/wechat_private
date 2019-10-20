@@ -1,3 +1,5 @@
+// 引入跳转js
+import router from '../../../utils/router.js';
 var app = getApp()
 Page({
 
@@ -67,9 +69,10 @@ Page({
     // 跳转轮播图详情
     toswiper:function(){
       var swiperIndex = this.data.swiperIndex;
-       wx.navigateTo({
-      url:"../dept_swiper/dept_swiper?id="+swiperIndex
-    })
+    router.navigateTo({url:"../dept_swiper/dept_swiper?id="+swiperIndex})
+    //    wx.navigateTo({
+    //   url:"../dept_swiper/dept_swiper?id="+swiperIndex
+    // })
     },
   /**
    * 获取轮播图数据

@@ -6,10 +6,10 @@
 <!-- <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">任务详情</text></tui-divider>
  -->
   
- <view wx:if="{{commitContent}}" class="cu-form-group ">
+ <view wx:if="{{auditContent}}" class="cu-form-group ">
     <view class="title text-bold">审核意见</view>
-    <text class="item-left">{{commitContent}}</text>
-     <text class="cuIcon-question text-green"></text>
+    <text class="item-left">{{auditContent}}</text>
+     
   </view>
     
 
@@ -183,11 +183,11 @@
   </view>
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
-<view wx:if="{{auditContent==''}}" class="cu-form-group">
+<view wx:if="{{commitContent==''}}" class="cu-form-group">
    <text>无</text>
 </view>
 <view wx:else class="cu-form-group">
-   <text>　{{auditContent}}</text>
+   <text>　{{commitContent}}</text>
 </view>
  <view class="cu-bar-user">
 </view>

@@ -36,7 +36,7 @@
 
 
 
-<view id="box" class="nav-list">
+<view wx:if="{{surveyList.length%2!=0 || surveyList.length==4}}" id="box" class="nav-list">
  <view bindtap="junmp" data-type="绑定账号" class="nav-li">
     <image id="login" src="../../images/denglu.png"></image>
     <view id="text">
@@ -44,6 +44,20 @@
     </view>
   </view>
   <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li">
+    <image id="login" src="{{item.url}}"></image>
+    <view id="text">
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+</view>
+<view wx:else id="box" class="nav-list-2">
+ <view bindtap="junmp" data-type="绑定账号" class="nav-li-2">
+    <image id="login" src="../../images/denglu.png"></image>
+    <view id="text">
+      <text>绑定账号</text>
+    </view>
+  </view>
+  <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li-2">
     <image id="login" src="{{item.url}}"></image>
     <view id="text">
       <text>{{item.name}}</text>

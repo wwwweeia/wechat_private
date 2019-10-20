@@ -120,8 +120,8 @@ Page({
     locationName: '', //点位
     pointName: '', //点位类型
     questionContent: '', //问题
-    auditContent: '',//整改说明
-    commitContent: '',//审核意见
+    auditContent: '',//审核意见
+    commitContent: '',//整改说明
 
     checkShow:true,//是否显示责任单位审核资源
   },

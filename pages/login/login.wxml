@@ -7,7 +7,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title"><text class="cuIcon-unlock text-blue "></text></view>
-		<input password class="tui-input" name="pwd" placeholder="请输入密码" maxlength="50" type="text" />
+		<input password class="tui-input" name="pwd" placeholder="请输入密码" maxlength="50" type="number" />
 	</view>
 	</view>
   <view class="tui-btn-box">
