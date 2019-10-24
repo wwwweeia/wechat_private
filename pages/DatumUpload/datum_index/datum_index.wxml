@@ -1,0 +1,104 @@
+<!-- 初始加载显示部分 -->
+<scroll-view scroll-y class="  DrawerPage {{modalName=='viewModal'?'show':''}}">
+  <block>
+   <view class="margin-tb-sm-user text-center">
+    <button class="cu-btn round lg1 bg-blue cuIcon-back_android " bindtap="showModal" data-target="viewModal">切换任务</button>
+  </view>
+<view>
+  <view class="cu-form-group ">
+      <view class="title text-bold">任务编号:</view>
+      <text class="item-left">{{detailList.taskCode}}</text>
+    </view> 
+    <view class="cu-form-group ">
+      <view class="title text-bold">任务名称:</view>
+      <text class="item-left  h3">{{detailList.content}}</text>
+    </view> 
+  <view class="cu-form-group ">
+      <view class="title text-bold">结束日期:</view>
+      <text class="item-left">{{detailList.endTime}}</text>
+    </view> 
+    <view class="cu-form-group ">
+      <view class="title text-bold">审核结果:</view>
+      <text class="item-left" wx:if="{{detailList.status==0}}">未开启</text>
+      <text class="item-left" wx:elif="{{detailList.status==1}}">待上报</text>
+       <text class="item-left" wx:elif="{{detailList.status==2}}">待审核</text>
+        <text class="item-left" wx:elif="{{detailList.status==3}}">合格</text>
+       <text class="item-left" wx:elif="{{detailList.status==4}}">不合格</text>
+       <text class="item-left" wx:elif="{{detailList.status==5}}">已停止</text>
+      <text class="item-left" wx:elif="{{detailList.status==6}}">一审中</text>
+        <text class="item-left" wx:elif="{{detailList.status==7}}">二审中</text>
+    </view> 
+     <view class="cu-form-group ">
+      <view class="title text-bold">操作:</view>
+       <view wx:if="{{detailList.status!=6 || detailList.status!=7}}"  class="margin-tb-sm view-user text-center" bind:tap="goUpload" data-projectid="{{detailList.projectId}}" data-id="{{detailList.id}}" data-departmentid="{{detailList.departmentId}}">
+        <button class="cu-btn round bg-blue ">编辑</button>
+      </view>
+      <view wx:if="{{detailList.status!=1}}" class="margin-tb-sm view-user text-center" bind:tap="nextPage">
+        <button class="cu-btn round bg-grey ">查看</button>
+      </view>
+      
+    </view> 
+</view>
+  </block>
+
+ 
+</scroll-view>
+
+<!-- 触摸屏幕回退列 -->
+<view class="DrawerClose {{modalName=='viewModal'?'show':''}} " data-type="1" bindtap="hideModal">
+  <text class="cuIcon-roundrightfill "></text>
+</view>
+<!-- 隐藏部分 -->
+<scroll-view scroll-y class=" DrawerWindow {{modalName=='viewModal'?'show':''}}">
+  <!-- 描述 -->
+  <view class="cu-bar solid-bottom">
+
+    <view class="action">
+      <button class="cu-btn bg-blue shadow" bindtap="goToSwitch">切换</button>
+    </view>
+  </view>
+
+
+  <block>
+    <view class="kind-list_item">
+      <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+        <view class="search-form round">
+          <text class="cuIcon-search"></text>
+          <input type="text" bindinput="textInput" placeholder="输入搜索的关键词" confirm-type="search"></input>
+        </view>
+        <view class="action" bind:tap="getDatumTaskList">
+          <button class="cu-btn bg-gradual-blue shadow-blur round">搜索</button>
+        </view>
+      </view>
+      <view class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}">
+        <view class="cuIcon-unfold text-blue"></view>
+        <!-- 这里是点位 -->
+        <view class="tui-flex_item　 text-sm">　共<text class="text-red">{{pageCount}}</text>条任务</view>
+        <!-- <view class="cuIcon-unfold"></view> -->
+      </view>
+      <!-- <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}"> -->
+      <view class="kind-list_item-bd kind-list_item-bd_show">
+        <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
+        <view class="tui-cells tui-cells_show">
+          <block wx:for-items="{{taskList}}" wx:key="{{item.id}}">
+            <view  class="tui-cell tui-cell_access" bindtap="goTask"   data-id="{{item.id}}" data-content="{{item.content}}">
+              <view class="tui-cell_bd text-smm">
+                <text class="text-blue">{{index+1}}、</text>{{item.content}}</view>
+             
+              <view class="tui-cell_ft tui-cell_ft_in-access"></view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+ <view class="grid  padding-sm">
+  <view hidden="{{last}}"  class="margin-tb-sm view-user text-center" bind:tap="lastPage">
+    <button class="cu-btn round bg-grey ">上一页</button>
+  </view>
+  <view hidden="{{next}}" class="margin-tb-sm view-user text-center" bind:tap="nextPage">
+    <button class="cu-btn round bg-grey ">下一页</button>
+  </view>
+</view>
+
+</scroll-view>

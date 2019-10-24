@@ -83,6 +83,120 @@
     <text class="cuIcon-locationfill lg text-blue"></text>
   </view>
 </view>
+
+
+<!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
+<view hidden="{{checkShow}}">
+<tui-divider  gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">上次整改资源</text></tui-divider></view>
+ <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
+      <view class="h1">
+      <text class="cuIcon-favor text-blue "></text>整改上传
+      </view>
+    </view> -->
+
+  <!-- 拍摄 -->
+
+
+<view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>上次整改图片/视频
+  </view>
+</view>
+  
+  <view hidden="{{checkShow}}" class="cu-bar-user bg-white">
+</view>
+<view hidden="{{checkShow}}" class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img" wx:for="{{imgList_Dep}}" wx:key="{{index}}" bindtap="ViewImageForreport_Dep" data-url="{{imgList_Dep[index]}}">
+      <image src='{{imgList_Dep[index]}}' mode='aspectFill'></image>
+      
+    </view>
+    <view class="bg-img" wx:for="{{videoList_Dep}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList_Dep[index].url}}" data-index="{{index}}">
+      <video id='reportVideo{{index}}' src="{{videoList_Dep[index].url}}" poster="{{videoList_Dep[index].poster}}" bindfullscreenchange="start"></video>
+      
+    </view>
+
+  
+  </view>
+</view>
+
+
+
+<!-- 录音 -->
+<!-- wx:if="{{isRecord}}" -->
+<view hidden="{{checkShow}}" class="cu-bar solid-bottom" wx:if="{{isShow_Dep==0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue "></text> 录音
+  </view>
+ 
+</view>
+
+
+
+<view hidden="{{checkShow}}" class="cu-chat" wx:if="{{isShow_Dep==0}}" wx:for="{{audioSrc_Dep}}" wx:key="index">
+  <view class="cu-item">
+    <view class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <view class="content shadow">
+        <text class="cuIcon-sound text-xxl padding-right-xl"> </text>
+      </view>
+    </view>
+    <view class="action-user" bindtap='delAudio' data-id="{{index}}">
+      <text class="cuIcon-close text-red"></text>
+    </view>
+
+  </view>
+
+</view>
+
+
+<!-- 整改说明 -->
+<view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>整改说明
+  </view>
+</view>
+<!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
+<view hidden="{{checkShow}}" wx:if="{{commitContent==''}}" class="cu-form-group">
+   <text>　无</text>
+</view>
+<view hidden="{{checkShow}}" wx:else class="cu-form-group">
+   <text>　{{commitContent}}</text>
+</view>
+ <view hidden="checkShow" class="cu-bar-user">
+</view>
+<!-- 审批意见 -->
+<view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>审批意见
+  </view>
+</view>
+<!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
+<view hidden="{{checkShow}}" wx:if="{{auditContent==''}}" class="cu-form-group">
+   <text>无</text>
+</view>
+<view hidden="{{checkShow}}" wx:else class="cu-form-group">
+   <text>　{{auditContent}}</text>
+</view>
+ <view hidden="{{checkShow}}" class="cu-bar-user">
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
 <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">整改上传</text></tui-divider>
  <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">

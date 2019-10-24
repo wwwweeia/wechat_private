@@ -25,8 +25,11 @@
     "pages/ShiDiCheck/check_check_detail/check_check_detail",
     "pages/ShiDiCheck/check_objection_detail/check_objection_detail",
     "pages/ShiDiCheck/check_noAndSu_Detail/check_noAndSu_Detail",
-    "pages/DatumUpload/upload_project/upload_project"
-    
+    "pages/DatumUpload/upload_project/upload_project",
+    "pages/DatumUpload/datum_index/datum_index",
+    "pages/DatumUpload/datum_upload/datum_upload",
+    "pages/DatumCheck/datum_check_project/datum_check_project",
+    "pages/DatumCheck/datum_check_index/datum_check_index"
   ],
   "window": {
     "backgroundTextStyle": "light",

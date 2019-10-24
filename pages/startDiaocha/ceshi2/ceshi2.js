@@ -14,7 +14,40 @@ Page({
         id: 0,
         name: '整改合格'
       }
-    ]
+    ],
+     modalHidden:true,
+     
+    index: null, //下拉框选中的值
+    picker: ['批量审核通过', '批量不通过(整改说明)', '批量审核不通过', '批量审核长期整改'],
+  },
+
+  // 下拉选
+  PickerChange(e) {
+    this.setData({
+      index: e.detail.value
+    })
+  },
+    // 开始录音
+  start: function() {
+    var that = this;
+    that.setData({
+      modalHidden: false
+    })
+  },
+  sub:function(){
+     var that = this;
+    that.setData({
+      modalHidden: true
+    })
+     console.log("确定了")
+  },
+  
+  cancel:function(){
+     var that = this;
+    that.setData({
+      modalHidden: true
+    })
+    console.log("取消了")
   },
   // 下拉选
   PickerChange(e) {

@@ -41,7 +41,7 @@ Page({
         var arr = [];
         if (res.data.status == 'success') {
           var projectList = res.data.retObj;
-          console.log("进来看看",projectList)
+          console.log("进来看看", projectList)
           for (var i = 0; i < projectList.length; i++) {
             var color = colorList[i];
             arr.push({

@@ -1,15 +1,19 @@
-<view class="cu-bar bg-white margin-top">
-  <view class='action'>
-    <text class='cuIcon-title text-blue'></text>弹框加载
+
+<view class="cu-bar solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue "></text> 录音
   </view>
-  <view class='action'>
-    <button class='cu-btn bg-green shadow' bindtap='loadModal'>
-      点我
-    </button>
+  <view class="action">
+    <button class="cu-btn bg-green shadow" bindtap="start">点击录音</button>
   </view>
 </view>
 
-<view class='cu-load load-modal' wx:if="{{loadModal}}">
-  <image src='/images/logo_user.jpg' class='png' mode='aspectFit'></image>
-  <view class='blue-text'>加载中...</view>
-</view>
+<modal  hidden="{{modalHidden}}" bindconfirm="sub" bindcancel="cancel">
+     
+<picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+
+      <view class="picker text-blue" >
+        {{index?picker[index]:'请选择对应操作'}}
+      </view>
+    </picker>
+</modal>

@@ -1109,6 +1109,7 @@ Page({
           'code': code
         },
         success(res) {
+          console.log("后台返回的视频数据：", res)
           var imageMap = JSON.parse(res.data);
 
           if (imageMap.url != null && imageMap.url != '') {
@@ -1199,7 +1200,9 @@ Page({
           'code': code
         },
         success(res) {
+         console.log("后台返回的视频数据res：", res)
           var voidMap = JSON.parse(res.data);
+          console.log("后台返回的视频数json：", voidMap)
           if (voidMap.url != null && voidMap.url != '') {
             resolve(res.data)
             success++;

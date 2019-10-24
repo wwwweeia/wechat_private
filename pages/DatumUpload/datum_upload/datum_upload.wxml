@@ -1,0 +1,58 @@
+
+<!-- 拍摄照片/视频 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>实景图片
+  </view>
+</view>
+<view class="cu-bar bg-white">
+  <view class="action">
+    上传图片
+  </view>
+  <view class="action">
+    {{imageLength}}/4
+  </view>
+</view>
+
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+      <image src='{{imgList[index]}}' mode='aspectFill'></image>
+      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
+        <text class="cuIcon-close"></text>
+      </view>
+    </view>
+
+    <view class="solids" bindtap="ChooseImage" wx:if="{{imageLength<4}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-cameraadd"></text>
+    </view>
+  </view>
+</view>
+
+
+<!-- 拍摄照片/视频 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>说明报告
+  </view>
+</view>
+<view class="cu-bar bg-white">
+  <view class="action">
+    上传文档
+  </view>
+  <view class="action">
+    {{imageLength}}/4
+  </view>
+</view>
+
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" >
+      <text>{{imgList[index].name}}</text>
+    </view>
+
+    <view class="solids" bindtap="goBG" wx:if="{{imageLength<4}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-edit"></text>
+    </view>
+  </view>
+</view>

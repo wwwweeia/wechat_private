@@ -17,7 +17,15 @@ Page({
 
 
     index: null, //下拉框选中的值
-    picker: ['批量审核通过','批量不通过(整改说明)','批量审核不通过', '批量审核长期整改'],
+
+    // 初次待审核：{result=3,auditType=0}
+    // 多次待审核：{result=3,auditType=1}
+    // 未整改：{result=1,auditType不传}
+    // 整改合格：{result=0,auditType不传}
+
+    picker: ['批量审核通过', '批量不通过(整改说明)', '批量审核不通过', '批量审核长期整改'],
+    indexDep:null,
+    pickerDep: [],
     TabCur: 3,
     problemType_user: [{
       id: 3,
@@ -43,6 +51,12 @@ Page({
     maxPageNum: 1,
     pageCount: 0, //总任务数量
     idNeed: true, //是否需要批量操作的控制变量
+    modalHidden: true, //控制弹框的变量 
+    tId :'',//选中的任务id字符串
+    desc1:'',//输入的数字
+    desc2:'',//审批意见
+    depList:[],//部门列表
+    taskIdByDep:'',//点击更改部门获取任务id
   },
   /**
    * 生命周期函数--监听页面加载
@@ -58,6 +72,54 @@ Page({
     })
     console.log("审核项目id：", projectId)
     this.getCheckFieldTaskList(3, 0);
+    this.getDepList();
+  },
+//获取项目下部门
+  getDepList:function(){
+    var that = this;
+    var projectId = that.data.projectId;
+    var requestUrl = that.data.requestUrl;
+    wx.request({
+      // 必需
+      url: requestUrl+'/mobile/fieldTask/getDepartmentListByProjectId',
+      data: {
+        projectId:projectId
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        console.log("后台返回的部门数据：",res)
+          if (res.data.status === "success") {
+            var list = res.data.retObj;
+            var depName=[];
+            for (var i = 0; i < list.length; i++) {
+              depName.push(
+                list[i].name
+                )
+            }
+            that.setData({
+              depList:list,
+              pickerDep:depName
+            })
+        } else {
+          wx.showToast({
+            title: '获取部门数据失败',
+            icon: 'none', // "success", "loading", "none"
+            duration: 1500,
+            mask: false,
+
+          })
+        }
+        
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
+    })
   },
   /**
    * 动态改变问题类型的ID，传参加载ID下的任务列表
@@ -69,7 +131,7 @@ Page({
       this.setData({
         TabCur: tabId,
         tasks: [], //任务列表置空
-        select_all: false,//全选按钮图标判断
+        select_all: false, //全选按钮图标判断
         pageCount: '', //总任务数置空
         //每次切换问题，给pagenum重新赋值为1
         pagenum: 1
@@ -90,7 +152,7 @@ Page({
         that.setData({
           management_good: false, //隐藏下拉操作
           index: null, //下拉选中的值置为空
-          picker: ['批量审核通过','批量不通过(整改说明)','批量审核不通过','批量审核长期整改'],
+          picker: ['批量审核通过', '批量不通过(整改说明)', '批量审核不通过', '批量审核长期整改'],
           idNeed: true //显示批量操作
         })
         that.getCheckFieldTaskList(tabId, auditType);
@@ -413,17 +475,10 @@ Page({
   // 确认操作
   submit: function(e) {
     var that = this;
-    console.log('选中的下拉选：',e.currentTarget.dataset.index)
+    console.log('选中的下拉选：', e.currentTarget.dataset.index)
     var middlearr = that.data.middlearr;
     var index = that.data.index;
-    if (middlearr.length == 0) {
-      wx.showToast({
-        title: '请选择任务',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-    }
+
     if (index == null) {
       wx.showToast({
         title: '请选中对应操作',
@@ -432,10 +487,212 @@ Page({
         mask: true
       })
     }
-    console.log('选中的集合：',middlearr)
+    if (middlearr.length == 0) {
+      wx.showToast({
+        title: '请选择任务',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+    } else {
+      console.log('选中的集合：', middlearr)
+      //切割选中的任务集合Id拼接字符串
+      var id = '';
+      for (var i = 0; i < middlearr.length; i++) {
+        id += middlearr[i].id + ",";
+      }
+      //任务id字符串
+      var tId = id.substring(0, id.length - 1);
+      var requestUrl = that.data.requestUrl; //服务器路径
+      var terminalUserId = that.data.terminalUserId; //调查员id
+      switch (index) {
+        //批量审核通过
+        case "0":
+          var result = 0;
+          that.batchTGandNTG(requestUrl, tId, terminalUserId, result);
+          break;
+          //批量审核不通过(整改说明)
+        case "1":
+          console.log("批量审核不通过(整改说明)啦啦啦啦啦")
+          that.setData({
+            tId:tId
+          })
+          that.start();
+          break;
+          //批量审核不通过
+        case "2":
+          var result = 2;
+          that.batchTGandNTG(requestUrl, tId, terminalUserId, result);
+          break;
+          //批量审核长期整改
+        case "3":
+          var longTask = 1;
+          that.batchLong(requestUrl, tId, terminalUserId, longTask);
+          break;
+        default:
+          console.log("批量操作错误")
+      }
+    }
 
-    
   },
+
+  //批量通过不通过
+  batchTGandNTG: function(requestUrl, tId, terminalUserId, result) {
+    var that = this;
+    var projectId = that.data.projectId;
+    wx.request({
+      // 必需
+      url: requestUrl + '/mobile/fieldTask/batchCheck',
+      data: {
+        'taskIds': tId,
+        'auditContent': '',
+        'result': result,
+        'terminalUserId': terminalUserId
+      },
+      method: "POST",
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: (res) => {
+        if (res.data.status === "success") {
+          router.navigateTo({
+            url: "../check_index/check_index?projectId=" + projectId
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+        }
+      },
+      fail: (res) => {
+
+      },
+      complete: (res) => {
+
+      }
+    })
+  },
+  //批量长期整改
+  batchLong: function(requestUrl, tId, terminalUserId, longTask) {
+    var that = this;
+    var projectId = that.data.projectId;
+    wx.request({
+      // 必需
+      url: requestUrl + '/mobile/fieldTask/batchCheck',
+      data: {
+        'taskIds': tId,
+        'auditContent': '',
+        'longTask': longTask,
+        'terminalUserId': terminalUserId
+      },
+      method: "POST",
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: (res) => {
+        if (res.data.status === "success") {
+          router.navigateTo({
+            url: "../check_index/check_index?projectId=" + projectId
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+        }
+      },
+      fail: (res) => {
+
+      },
+      complete: (res) => {
+
+      }
+    })
+  },
+  //弹出框
+  start: function() {
+    var that = this;
+    that.setData({
+      modalHidden: false
+    })
+  },
+  text1Input(e) {
+    this.data.desc1 = e.detail.value;
+  },
+  text2Input(e) {
+    this.data.desc2 = e.detail.value;
+  },
+  //确定--后台交互
+  sub: function() {
+    var that = this;
+    that.setData({
+      modalHidden: true
+    })
+    var requestUrl = that.data.requestUrl; //服务器路径
+    var projectId = that.data.projectId;
+    var tId = that.data.tId; //任务id字符串
+    var terminalUserId = that.data.terminalUserId; //调查员id
+    var TabCur = that.data.TabCur;
+    var auditType='';
+    if (TabCur==3) {
+        auditType=0;
+    }else{
+      auditType=1;
+    }
+    var checkStandardNum = that.data.desc1;
+    var auditContent = that.data.desc2;
+    wx.request({
+      // 必需
+      url: requestUrl + '/mobile/fieldTask/batchCheckToUnPassWithAuditContent',
+      data: {
+        'auditType':auditType,
+        'taskIds': tId,
+        'auditContent': auditContent,
+        'checkStandardNum': checkStandardNum,
+        'terminalUserId': terminalUserId
+      },
+      method: "POST",
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: (res) => {
+        console.log("批量审核不通过(整改说明)后台数据",res)
+        if (res.data.status === "success") {
+          router.navigateTo({
+            url: "../check_index/check_index?projectId=" + projectId
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+        }
+      },
+      fail: (res) => {
+
+      },
+      complete: (res) => {
+
+      }
+    })
+
+  },
+  //取消
+  cancel: function() {
+    var that = this;
+    that.setData({
+      modalHidden: true
+    })
+    console.log("取消了")
+  },
+
   // 全选
   select_all: function() {
     let that = this;
@@ -481,12 +738,14 @@ Page({
   goDetailPage: function(e) {
     var that = this;
     var TabCur = that.data.TabCur;
-    var taskId = e.currentTarget.dataset.id;//任务id
-    var projectId = that.data.projectId;//项目id
+    var taskId = e.currentTarget.dataset.id; //任务id
+    var projectId = that.data.projectId; //项目id
     //初次待审核
     if (TabCur == 3 || TabCur == 2) {
       console.log("跳转审核页面")
-      router.navigateTo({url:'../check_check_detail/check_check_detail?projectId='+projectId+"&taskId="+taskId})
+      router.navigateTo({
+        url: '../check_check_detail/check_check_detail?projectId=' + projectId + "&taskId=" + taskId
+      })
       // wx.navigateTo({
       //   url: '../check_check_detail/check_check_detail?projectId='+projectId+"&taskId="+taskId
       // })
@@ -494,7 +753,9 @@ Page({
     //未整改、整改合格
     if (TabCur == 1 || TabCur == 0) {
       console.log("跳转未整改、整改合格页面")
-      router.navigateTo({url:'../check_noAndSu_Detail/check_noAndSu_Detail?projectId='+projectId+"&taskId="+taskId})
+      router.navigateTo({
+        url: '../check_noAndSu_Detail/check_noAndSu_Detail?projectId=' + projectId + "&taskId=" + taskId
+      })
       // wx.navigateTo({
       //   url: '../check_noAndSu_Detail/check_noAndSu_Detail?projectId='+projectId+"&taskId="+taskId
       // })
@@ -502,7 +763,9 @@ Page({
     // 权属异议
     if (TabCur == 4) {
       console.log("跳转权属异议页面")
-      router.navigateTo({url:'../check_objection_detail/check_objection_detail?projectId='+projectId+"&taskId="+taskId})
+      router.navigateTo({
+        url: '../check_objection_detail/check_objection_detail?projectId=' + projectId + "&taskId=" + taskId
+      })
       //  wx.navigateTo({
       //   url: '../check_objection_detail/check_objection_detail?projectId='+projectId+"&taskId="+taskId
       // })
@@ -511,12 +774,72 @@ Page({
 
 
 
-  // 下拉选
+  // 批量下拉选
   PickerChange(e) {
     this.setData({
       index: e.detail.value
     })
   },
+  //获取点击的任务id
+   getTaskId:function(e){
+    var that = this;
+    that.setData({
+      taskIdByDep:e.currentTarget.dataset.taskid
+    })
+  },
+// 部门下拉选
+  PickerChangeDep(e) {
+    var  that = this;
+    var requestUrl = that.data.requestUrl;
+    var projectId = that.data.projectId;
+    var terminalUserId = that.data.terminalUserId;
+    var taskIdByDep = that.data.taskIdByDep;
+    var depList = that.data.depList;
+    var depId=e.detail.value;
+    that.setData({
+      indexDep: depId
+    })
+    var departmentId = depList[depId].id;
 
+    wx.request({
+      // 必需
+      url: requestUrl+'/mobile/fieldTask/updateDepartment',
+      data: {
+        'id':taskIdByDep,
+        'terminalUserId':terminalUserId,
+        'departmentId':departmentId
+      },
+      method:"POST",
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: (res) => {
+        console.log("更改部门后台返回数据：",res)
+         if (res.data.status === "success") {
+          
+          router.navigateTo({
+            url: "../check_index/check_index?projectId=" + projectId
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+        }
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
+    })
+
+
+
+  },
+ 
 
 })

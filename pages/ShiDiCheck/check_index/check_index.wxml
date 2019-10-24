@@ -80,8 +80,17 @@
 </view>
 
 
+<modal  hidden="{{modalHidden}}" bindconfirm="sub" bindcancel="cancel">
+              <view class="cu-form-group">
+          <input type="number" bindinput="text1Input" value="" placeholder="请输入分数"></input>
+        </view>
+         <view class="cu-form-group">
+          <textarea bindinput="text2Input" value="" placeholder="请输入审批意见"></textarea>
+        </view>
+</modal>
 
-<view class='onlinechoose'>
+
+<view wx:if="{{TabCur!=4}}" class='onlinechoose'>
   <view class='hotel_list flex_center' wx:for="{{tasks}}" wx:key="items" wx:for-item="i" data-id="{{index}}"  >
     <view class='list_cons flex_start'>
       <view wx:if="{{management_good}}" data-id="{{index}}"  bindtap='select' class='lefts'>
@@ -120,6 +129,61 @@
             <view class='condition2'>
               类目一
             </view>
+          </view>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:else class='onlinechoose'>
+  <view class='hotel_list flex_center' wx:for="{{tasks}}" wx:key="items" wx:for-item="i" data-id="{{index}}"  >
+    <view class='list_cons flex_start'>
+      <view wx:if="{{management_good}}" data-id="{{index}}"  bindtap='select' class='lefts'>
+        <block wx-if="{{!i.checked}}">
+          <view class='icon_none'></view>
+        </block>
+        <block wx-if="{{i.checked}}">
+          <icon type="success" size="30" color="red" />
+        </block>
+      </view>
+     
+      <image src="{{i.url==''? '/images/null.png' : i.url}}"></image>
+      <view class='right'  data-id='{{i.id}}'>
+        <view class='name1 box'>
+          {{i.questionContent}}
+        </view>
+        <view class='list1 flex_between' bind:tap="getTaskId" data-taskid='{{i.id}}'>
+          <view class='left'> 
+            <view class='condition11 box'>
+              {{i.address}}
+            </view>
+            <view class='condition2 ' >
+         <!--    <view class='cu-tag bg-grey light sm round'>{{i.answerTime}}
+            </view>wx:for="{{pickerDep}}" wx:key="index" -->
+              <picker  bindchange="PickerChangeDep"  value="{{index}}" range="{{pickerDep}}">
+
+      <view class="picker text-blue" >
+        更改部门
+      </view>
+    </picker>
+           <!--    <block > 
+                2019-10-14
+              </block> -->
+              <!-- <block>
+                啊哈哈哈
+              </block> -->
+            </view>
+          </view>
+        </view>
+       <!--  <view class='list1 flex_between'>
+          <view class='left'>
+            <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+
+      <view class="picker text-blue" >
+        {{index?picker[index]:'请选择对应操作'}}
+      </view>
+    </picker>
           </view>
         </view> -->
       </view>

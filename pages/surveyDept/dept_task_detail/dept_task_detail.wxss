@@ -185,3 +185,6 @@ background-color: var(--white);
    flex: 1; /* 重要 */
    align-items:center;
 }
+.cu-bar-user{
+min-height: 20rpx;
+}

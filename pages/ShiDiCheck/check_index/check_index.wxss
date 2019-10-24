@@ -102,13 +102,25 @@
   letter-spacing: 3rpx;
   margin-bottom: 45rpx;
 }
+.list_cons .right .name1{
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+  margin-bottom: 30rpx;
+}
 .list_cons .right .list1{
-    margin-bottom: 17rpx;
+    margin-bottom: 20rpx;
 }
 .list_cons .right .list1 .condition1{
   font-size: 28rpx;
   color: #999999;
   margin-bottom: 45rpx;
+}
+.list_cons .right .list1 .condition11{
+  font-size: 28rpx;
+  color: #999999;
+  margin-bottom: 30rpx;
 }
 .list_cons .right .list1 .condition2{
   font-size: 24rpx;
