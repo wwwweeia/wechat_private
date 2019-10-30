@@ -76,7 +76,7 @@
   <view class="cu-item shadow">
 
     <view class="content" wx:for="{{imgList}}" wx:key="{{index}}">
-      <image  src='{{imgList[index]}}' mode='aspectFill' bindtap="ViewImageForreport" data-index='{{index}}' data-url="{{imgList[index]}}"></image>
+      <image src='{{imgList[index]}}' mode='aspectFill' bindtap="ViewImageForreport" data-index='{{index}}' data-url="{{imgList[index]}}"></image>
       <view class="cu-tag-user bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
         <text class="cuIcon-close"></text>
       </view>
@@ -208,8 +208,8 @@
 <view class="radioChange_user">
   <radio-group bindchange="radioChange" data-id="{{item.id}}">
     <label class="radio" wx:for="{{items}}" wx:key>
-      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}"/>{{item.content}}
-      
+      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}" />{{item.content}}
+
     </label>
   </radio-group>
 

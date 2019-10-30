@@ -12,11 +12,11 @@
     {{gfFileLength}}/4
   </view>
 </view>
-<view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="{{index}}" >
+<view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="{{index}}">
   <view class="cu-item">
-    <view bind:tap="openDocument" data-url='{{gfFileList[index].path}}' >
-     <text class="text-blue">{{gfFileList[index].name}}</text>
-     <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
+    <view bind:tap="openDocument" data-url='{{gfFileList[index].path}}'>
+      <text class="text-blue">{{gfFileList[index].name}}</text>
+      <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
     </view>
     <view class="action-user" bindtap="delGF" data-index="{{index}}">
       <text class="cuIcon-close text-red"></text>
@@ -44,10 +44,10 @@
     {{smReportLength}}/4
   </view>
 </view>
-<view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="{{index}}" >
+<view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="{{index}}">
   <view class="cu-item">
-    <view bind:tap="openDocument" data-url='{{smReportList[index].path}}' >
-     <text class="text-blue">{{smReportList[index].name}}</text>
+    <view bind:tap="openDocument" data-url='{{smReportList[index].path}}'>
+      <text class="text-blue">{{smReportList[index].name}}</text>
     </view>
     <view class="action-user" bindtap="delSM" data-index="{{index}}">
       <text class="cuIcon-close text-red"></text>
@@ -105,10 +105,10 @@
     {{tjChartLength}}/4
   </view>
 </view>
-<view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="{{index}}" >
+<view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="{{index}}">
   <view class="cu-item">
-    <view bind:tap="openDocument" data-url='{{tjChartList[index].path}}' >
-     <text class="text-blue">{{tjChartList[index].name}}</text>
+    <view bind:tap="openDocument" data-url='{{tjChartList[index].path}}'>
+      <text class="text-blue">{{tjChartList[index].name}}</text>
     </view>
     <view class="action-user" bindtap="delTJ" data-index="{{index}}">
       <text class="cuIcon-close text-red"></text>
@@ -124,7 +124,7 @@
 </view>
 
 
-  <!-- 备注 -->
+<!-- 备注 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 备注
@@ -135,7 +135,7 @@
 
 <!-- 编辑框 -->
 <view class="cu-form-group">
-  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="此处填写备注"></textarea>
+  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="此处填写备注"></textarea>
 </view>
 
 <view class="padding-xl_user">

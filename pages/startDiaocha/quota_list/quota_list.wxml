@@ -1,11 +1,11 @@
 <!-- 初始加载显示部分 -->
 <scroll-view scroll-y class="  DrawerPage {{modalName=='viewModal'?'show':''}}">
- 
+
   <!--   <view class="margin-tb-sm-user text-center" >
     <button class="cu-btn round lg1 bg-blue cuIcon-back_android " bindtap="showModal" data-target="viewModal">切换指标</button>
   </view> -->
 
- <!--   <view class='padding margin text-center'>
+  <!--   <view class='padding margin text-center'>
     <view class='cu-btn bg-blue lg block shadow radius margin-xl cuIcon-back_android' bindtap="showModal" data-target="viewModal">
       切换指标
     </view>
@@ -14,7 +14,7 @@
   <block>
     <view class="cu-bar user1 bg-white1  solid-bottom ">
       <view class="h1">
-      <text class="cuIcon-favor text-blue "></text>{{pointName}}
+        <text class="cuIcon-favor text-blue "></text>{{pointName}}
       </view>
     </view>
     <view class="cu-bar user2 bg-white1  solid-bottom ">
@@ -22,9 +22,9 @@
         <text class="cuIcon-titles text-blue "></text>{{quotaName}}
       </view>
     </view>
-    
-    <text wx:if="{{tips==null || tips==''}}" ></text>
-<text wx:else class="cu-bar user2 bg-white1 h3">{{tips}}</text>
+
+    <text wx:if="{{tips==null || tips==''}}"></text>
+    <text wx:else class="cu-bar user2 bg-white1 h3">{{tips}}</text>
 
   </block>
 
@@ -53,7 +53,7 @@
     </tui-alert>
   </view> 
  -->
-     <view class="margin-tb-sm-user text-center" >
+  <view class="margin-tb-sm-user text-center">
     <button class="cu-btn round lg1 bg-blue cuIcon-back_android " bindtap="showModal" data-target="viewModal">切换指标</button>
   </view>
 
@@ -71,7 +71,8 @@
 
 
         <view class="td-2" selectable="true" scroll-y="true">
-          <text class="{{item.finished==0 ? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
+          <text class="{{item.finished==0 ? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}'
+            data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
         </view>
       </view>
 
@@ -83,7 +84,8 @@
 
 
         <view class="td-2" selectable="true" scroll-y="true">
-          <text class="{{item.finished==0? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
+          <text class="{{item.finished==0? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}'
+            data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
         </view>
       </view>
     </block>
@@ -106,7 +108,7 @@
 
 
 
- 
+
 </scroll-view>
 
 <!-- 触摸屏幕回退列 -->

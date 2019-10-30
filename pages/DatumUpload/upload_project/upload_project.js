@@ -2,7 +2,7 @@ const app = getApp();
 Page({
 
   data: {
-    requestUrl: '',//服务器路径
+    requestUrl: '', //服务器路径
     colorList: ['green', 'blue', 'cyan', 'olive', 'orange', 'red', 'brown', 'pink', 'mauve', 'purple'],
     elements: [],
   },
@@ -11,8 +11,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (option) {
-    var requestUrl = app.globalData.requestUrl;//服务器路径
+  onLoad: function(option) {
+    var requestUrl = app.globalData.requestUrl; //服务器路径
     this.setData({
       requestUrl: requestUrl
     })
@@ -23,9 +23,9 @@ Page({
   },
 
 
-  getProjectList: function (terminalUserId) {
+  getProjectList: function(terminalUserId) {
     var that = this;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl; //服务器路径
     var colorList = that.data.colorList;
     wx.request({
       // 必需
@@ -41,7 +41,7 @@ Page({
         var arr = [];
         if (res.data.status == 'success') {
           var projectList = res.data.retObj;
-          console.log("进来看看",projectList)
+          console.log("进来看看", projectList)
           for (var i = 0; i < projectList.length; i++) {
             var color = colorList[i];
             arr.push({
@@ -84,9 +84,9 @@ Page({
     })
 
   },
-  changeData: function () {
+  changeData: function() {
 
-    this.onLoad();//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+    this.onLoad(); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 
   },
 })

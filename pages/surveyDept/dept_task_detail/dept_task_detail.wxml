@@ -1,21 +1,20 @@
-
-  <view class="cu-bar bg-white1  solid-bottom  " >
+<view class="cu-bar bg-white1  solid-bottom  ">
   <view class="text-sm1 text-bold">
-   <!--  <text class="cuIcon-title text-blue "></text>{{pointName}} -->
+    <!--  <text class="cuIcon-title text-blue "></text>{{pointName}} -->
     <text class="cuIcon-favor text-blue "></text>{{pointName}}
   </view>
 
 </view>
-  <view class="cu-form-group ">
-    <view class="title text-bold">点位:</view>
-    <text class="item-left">{{locationName}}</text>
-     <text class="cuIcon-location text-blue"></text>
-  </view> 
-    <view class="cu-form-group ">
-    <view class="title text-bold">问题:</view>
-    <text class="item-left">{{questionContent}}</text>
-     <text class="cuIcon-question text-green"></text>
-  </view>
+<view class="cu-form-group ">
+  <view class="title text-bold">点位:</view>
+  <text class="item-left">{{locationName}}</text>
+  <text class="cuIcon-location text-blue"></text>
+</view>
+<view class="cu-form-group ">
+  <view class="title text-bold">问题:</view>
+  <text class="item-left">{{questionContent}}</text>
+  <text class="cuIcon-question text-green"></text>
+</view>
 
 <!-- 举报图片/视频 -->
 <view class="cu-bar  solid-bottom">
@@ -28,8 +27,8 @@
 <view class="cu-card article no-card ">
   <view class="cu-item shadow" wx:for="{{imgList_No}}" wx:key="{{index}}">
 
-    <view class="content" >
-      <image  src='{{imgList_No[index]}}' mode='aspectFill' bindtap="ViewImageForreport_No" data-index='{{index}}' data-url="{{imgList_No[index]}}"></image>
+    <view class="content">
+      <image src='{{imgList_No[index]}}' mode='aspectFill' bindtap="ViewImageForreport_No" data-index='{{index}}' data-url="{{imgList_No[index]}}"></image>
       <view class="desc">
         <input class="text-content" value="{{imgDescList[index].description}}"></input>
       </view>
@@ -39,7 +38,7 @@
 <!-- 视频加描述 -->
 <view class="cu-card article no-card">
   <view class="cu-item shadow" wx:for="{{videoList_No}}" wx:key="{{index}}">
-    <view class="content" >
+    <view class="content">
       <video class="video-user" bindtap="ViewVideoForreport" data-url="{{videoList_No[index].url}}" data-index="{{index}}" id='reportVideo{{index}}' src="{{videoList_No[index].url}}" poster="{{videoList_No[index].poster}}" bindfullscreenchange="start"></video>
       <view class="desc">
         <input class="text-content" value="{{voidDescList[index].description}}"></input>
@@ -55,7 +54,7 @@
   </view>
 </view>
 
-<view class="cu-chat" wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index"  >
+<view class="cu-chat" wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index">
   <view class="cu-item">
     <view class="main" bindtap='playRecord_No' data-id="{{index}}">
       <view class="action text-bold text-blue">
@@ -79,7 +78,7 @@
 </view>
 <view class="cu-bar bg-white text-center padding-neirong">
   <view class="action text-black " bindtap="go">
-    <text ></text>{{address}}　
+    <text></text>{{address}}
     <text class="cuIcon-locationfill lg text-blue"></text>
   </view>
 </view>
@@ -87,14 +86,17 @@
 
 <!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
 <view hidden="{{checkShow}}">
-<tui-divider  gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">上次整改资源</text></tui-divider></view>
- <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
+  <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}">
+    <text class="text-blue h1">上次整改资源</text>
+  </tui-divider>
+</view>
+<!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
       <view class="h1">
       <text class="cuIcon-favor text-blue "></text>整改上传
       </view>
     </view> -->
 
-  <!-- 拍摄 -->
+<!-- 拍摄 -->
 
 
 <view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
@@ -102,21 +104,21 @@
     <text class="cuIcon-title text-blue"></text>上次整改图片/视频
   </view>
 </view>
-  
-  <view hidden="{{checkShow}}" class="cu-bar-user bg-white">
+
+<view hidden="{{checkShow}}" class="cu-bar-user bg-white">
 </view>
 <view hidden="{{checkShow}}" class="cu-form-group">
   <view class="grid col-4 grid-square flex-sub">
     <view class="bg-img" wx:for="{{imgList_Dep}}" wx:key="{{index}}" bindtap="ViewImageForreport_Dep" data-url="{{imgList_Dep[index]}}">
       <image src='{{imgList_Dep[index]}}' mode='aspectFill'></image>
-      
+
     </view>
     <view class="bg-img" wx:for="{{videoList_Dep}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList_Dep[index].url}}" data-index="{{index}}">
       <video id='reportVideo{{index}}' src="{{videoList_Dep[index].url}}" poster="{{videoList_Dep[index].poster}}" bindfullscreenchange="start"></video>
-      
+
     </view>
 
-  
+
   </view>
 </view>
 
@@ -128,7 +130,7 @@
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 录音
   </view>
- 
+
 </view>
 
 
@@ -160,12 +162,12 @@
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
 <view hidden="{{checkShow}}" wx:if="{{commitContent==''}}" class="cu-form-group">
-   <text>　无</text>
+  <text>　无</text>
 </view>
 <view hidden="{{checkShow}}" wx:else class="cu-form-group">
-   <text>　{{commitContent}}</text>
+  <text>　{{commitContent}}</text>
 </view>
- <view hidden="checkShow" class="cu-bar-user">
+<view hidden="checkShow" class="cu-bar-user">
 </view>
 <!-- 审批意见 -->
 <view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
@@ -175,12 +177,12 @@
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
 <view hidden="{{checkShow}}" wx:if="{{auditContent==''}}" class="cu-form-group">
-   <text>无</text>
+  <text>无</text>
 </view>
 <view hidden="{{checkShow}}" wx:else class="cu-form-group">
-   <text>　{{auditContent}}</text>
+  <text>　{{auditContent}}</text>
 </view>
- <view hidden="{{checkShow}}" class="cu-bar-user">
+<view hidden="{{checkShow}}" class="cu-bar-user">
 </view>
 
 
@@ -198,14 +200,16 @@
 
 
 <!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
-<tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}"><text class="text-blue h1">整改上传</text></tui-divider>
- <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
+<tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}">
+  <text class="text-blue h1">整改上传</text>
+</tui-divider>
+<!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
       <view class="h1">
       <text class="cuIcon-favor text-blue "></text>整改上传
       </view>
     </view> -->
 
-  <!-- 拍摄 -->
+<!-- 拍摄 -->
 
 <view class="cu-bar  solid-bottom">
   <view class="action">
@@ -301,15 +305,15 @@
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
 <view class="cu-form-group">
-<!--   <textarea maxlength="-1"  bindinput="textareaAInput" placeholder="提供针对此类问题长效管理措施说明" ></textarea> -->
-   <textarea maxlength="-1"  bindinput="textareaAInput" placeholder="{{modalName=='Modal1' ?' ' : '提供针对此类问题长效管理措施说明'}}" ></textarea>
+  <!--   <textarea maxlength="-1"  bindinput="textareaAInput" placeholder="提供针对此类问题长效管理措施说明" ></textarea> -->
+  <textarea maxlength="-1" bindinput="textareaAInput" placeholder="{{modalName=='Modal1' ?' ' : '提供针对此类问题长效管理措施说明'}}"></textarea>
 </view>
 
-  <view class="cu-form-group margin-top">
-    <view class="title">权属异议</view>
-  <switch class="blue sm" bindchange="switch" ></switch>
-  </view>
+<view class="cu-form-group margin-top">
+  <view class="title">权属异议</view>
+  <switch class="blue sm" bindchange="switch"></switch>
+</view>
 
-  <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg"  bindtap='submit'>上传</button>
+<view class="padding-xl_user">
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>上传</button>
 </view>

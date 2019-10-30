@@ -135,8 +135,8 @@ Page({
       id: 1,
       content: '长期整改',
     }],
-    desc:'',//审批意见
-    redioId:0,//选项id
+    desc: '', //审批意见
+    redioId: 0, //选项id
   },
 
 
@@ -155,7 +155,7 @@ Page({
       projectId: projectId,
       terminalUserId: terminalUserId
     })
-    console.log("任务id：", this.data.taskId,",项目id：", this.data.projectId)
+    console.log("任务id：", this.data.taskId, ",项目id：", this.data.projectId)
     //获取数据
     that.detail();
 
@@ -527,26 +527,26 @@ Page({
   },
 
   //-------------- 审批意见-----------
-   textareaAInput(e) {
+  textareaAInput(e) {
     this.data.desc = e.detail.value;
-    },
+  },
 
-      /**
+  /**
    ***********************************测评结果单选框**************************************
    */
 
   radioChange: function(e) {
     var that = this;
-    this.data.redioId =  e.detail.value;
+    this.data.redioId = e.detail.value;
   },
 
-  submit:function(){
+  submit: function() {
     var that = this;
-   
-    var auditContent = that.data.desc;//创文办审批意见
-    var redioId = that.data.redioId;//整改结果  0||2->result -- 1->longTask
+
+    var auditContent = that.data.desc; //创文办审批意见
+    var redioId = that.data.redioId; //整改结果  0||2->result -- 1->longTask
     //审批意见不能为空
-    if (auditContent=='') {
+    if (auditContent == '') {
       wx.showToast({
         title: '请输入审批意见',
         icon: 'none',
@@ -555,102 +555,106 @@ Page({
       })
       return
     }
-      wx.showToast({
-          title: '审核结果已提交',
-          icon: 'none',
-          duration: 1000,
-          mask: true
-        })
-    if (redioId==0 || redioId==2) {
-        that.resultSubmit(auditContent,redioId);
-    }else{
-        that.longTaskSubmit(auditContent,redioId);
+    wx.showToast({
+      title: '审核结果已提交',
+      icon: 'none',
+      duration: 1000,
+      mask: true
+    })
+    if (redioId == 0 || redioId == 2) {
+      that.resultSubmit(auditContent, redioId);
+    } else {
+      that.longTaskSubmit(auditContent, redioId);
     }
 
-    console.log("答案和id：",auditContent,"----",redioId)
+    console.log("答案和id：", auditContent, "----", redioId)
   },
   //合格不合格上传
-  resultSubmit:function(auditContent,redioId){
+  resultSubmit: function(auditContent, redioId) {
     var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
-    var taskId = that.data.taskId;//任务id
+    var taskId = that.data.taskId; //任务id
     var terminalUserId = app.terminalUserId;
-    var projectId = that.data.projectId;//项目id
+    var projectId = that.data.projectId; //项目id
 
     console.log("合格不合格")
     wx.request({
       // 必需
-      url: requestUrl+'/mobile/fieldTask/check',
+      url: requestUrl + '/mobile/fieldTask/check',
       data: {
-        'id':taskId,
-        'auditContent':auditContent,
-        'result':redioId,
-        'terminalUserId':terminalUserId
+        'id': taskId,
+        'auditContent': auditContent,
+        'result': redioId,
+        'terminalUserId': terminalUserId
       },
-      method:"POST",
+      method: "POST",
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: (res) => {
-        if(res.data.status==="success"){
-             router.navigateTo({url:"../check_index/check_index?projectId="+projectId})
+        if (res.data.status === "success") {
+          router.navigateTo({
+            url: "../check_index/check_index?projectId=" + projectId
+          })
 
-        }else{
-           wx.showToast({
-              title: res.data.message,
-              icon: 'none',
-              duration: 1000,
-              mask: true
-            })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
         }
       },
       fail: (res) => {
-        
+
       },
       complete: (res) => {
-        
+
       }
     })
 
   },
   //长期整改上传
-  longTaskSubmit:function(auditContent,redioId){
-   var that = this;
+  longTaskSubmit: function(auditContent, redioId) {
+    var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
-    var taskId = that.data.taskId;//任务id
+    var taskId = that.data.taskId; //任务id
     var terminalUserId = app.terminalUserId;
-    var projectId = that.data.projectId;//项目id
+    var projectId = that.data.projectId; //项目id
     console.log("长期整改")
     wx.request({
       // 必需
-      url: requestUrl+'/mobile/fieldTask/check',
+      url: requestUrl + '/mobile/fieldTask/check',
       data: {
-        'id':taskId,
-        'auditContent':auditContent,
-        'longTask':redioId,
-        'terminalUserId':terminalUserId
+        'id': taskId,
+        'auditContent': auditContent,
+        'longTask': redioId,
+        'terminalUserId': terminalUserId
       },
-      method:"POST",
+      method: "POST",
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: (res) => {
-      if(res.data.status==="success"){
-              router.navigateTo({url:"../check_index/check_index?projectId="+projectId})
-        }else{
-           wx.showToast({
-              title: res.data.message,
-              icon: 'none',
-              duration: 1000,
-              mask: true
-            })
+        if (res.data.status === "success") {
+          router.navigateTo({
+            url: "../check_index/check_index?projectId=" + projectId
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
         }
       },
       fail: (res) => {
-        
+
       },
       complete: (res) => {
-        
+
       }
     })
   }

@@ -183,7 +183,7 @@ Page({
         break;
 
       case "材料审核":
-      router.navigateTo({
+        router.navigateTo({
           url: "../DatumCheck/datum_check_project/datum_check_project"
         })
         break;

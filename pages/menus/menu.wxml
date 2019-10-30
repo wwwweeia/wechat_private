@@ -2,10 +2,10 @@
 
 <view class="cu-card article div-use">
   <view class="cu-item shadow">
-      <view class="open-user">
-        <open-data type="userAvatarUrl" class=" userinfo bg-white userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
-       <!--  <open-data type="userNickName" class="userinfo-nickname"></open-data> -->
-        <!--   <view class="flex">
+    <view class="open-user">
+      <open-data type="userAvatarUrl" class=" userinfo bg-white userinfo-avatar icon" style="border-radius: 5000rpx"></open-data>
+      <!--  <open-data type="userNickName" class="userinfo-nickname"></open-data> -->
+      <!--   <view class="flex">
         <view class="text-content"> 王二五</view>
           
       </view>
@@ -13,31 +13,31 @@
         <view class="cu-tag bg-blue light sm round">飞天不</view>
       </view> -->
 
-      <view wx:if="{{surveyList}}"  class="box-user nav-list-open-user">
-    <view  class="user-text">
-    <text style="font-size: 38rpx;" >{{terminalUserName}}</text>
-    <view >
-      <text class="cu-tag bg-blue light round">{{departmentName}}</text>
-     </view>
-       <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
-    </view>
-  </view>
-   <view wx:else  class="box-user nav-list-open-user">
-    <view  class="user-text">
-    <text style="font-size: 38rpx;" >请绑定调查员账号</text>
-       <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
-    </view>
-  </view>
-
+      <view wx:if="{{surveyList}}" class="box-user nav-list-open-user">
+        <view class="user-text">
+          <text style="font-size: 38rpx;">{{terminalUserName}}</text>
+          <view>
+            <text class="cu-tag bg-blue light round">{{departmentName}}</text>
+          </view>
+          <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
+        </view>
       </view>
-  
+      <view wx:else class="box-user nav-list-open-user">
+        <view class="user-text">
+          <text style="font-size: 38rpx;">请绑定调查员账号</text>
+          <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
+        </view>
+      </view>
+
+    </view>
+
   </view>
 </view>
 
 
 
 <view wx:if="{{surveyList.length%2!=0 || surveyList.length==4}}" id="box" class="nav-list">
- <view bindtap="junmp" data-type="绑定账号" class="nav-li">
+  <view bindtap="junmp" data-type="绑定账号" class="nav-li">
     <image id="login" src="../../images/denglu.png"></image>
     <view id="text">
       <text>绑定账号</text>
@@ -51,7 +51,7 @@
   </view>
 </view>
 <view wx:else id="box" class="nav-list-2">
- <view bindtap="junmp" data-type="绑定账号" class="nav-li-2">
+  <view bindtap="junmp" data-type="绑定账号" class="nav-li-2">
     <image id="login" src="../../images/denglu.png"></image>
     <view id="text">
       <text>绑定账号</text>

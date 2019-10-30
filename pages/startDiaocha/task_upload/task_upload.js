@@ -174,7 +174,7 @@ Page({
     var requestUrl = app.globalData.requestUrl; //请求路径
     // const eventChannel = this.getOpenerEventChannel()
 
-    
+
     // // 获取上一页面通过eventChannel传送到当前页面的数据
     // eventChannel.on('quota_list_Page', function(data) {
     //   var questionId = data.data.questionId;
@@ -1024,9 +1024,9 @@ Page({
 
 
     wx.showLoading({
-        title: '上传中',
-        mask:true
-      })
+      title: '上传中',
+      mask: true
+    })
     for (var index = 0; index < reportImg.length; index++) {
       //举报图片
       await that.uploadImage(reportImg[index]).then((res) => {
@@ -1203,7 +1203,7 @@ Page({
           'code': code
         },
         success(res) {
-         console.log("后台返回的视频数据res：", res)
+          console.log("后台返回的视频数据res：", res)
           var voidMap = JSON.parse(res.data);
           console.log("后台返回的视频数json：", voidMap)
           if (voidMap.url != null && voidMap.url != '') {
@@ -1396,23 +1396,23 @@ Page({
       },
       success: (res) => {
         if (res.data.status == 'success') {
-          wx.setStorageSync("pointName",pointName);
-          wx.setStorageSync("pointTypeId",pointTypeId);
-          wx.setStorageSync("pointId",pointId);
+          wx.setStorageSync("pointName", pointName);
+          wx.setStorageSync("pointTypeId", pointTypeId);
+          wx.setStorageSync("pointId", pointId);
           wx.navigateBack({
             delta: 1
           })
-           // router.redirectTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
+          // router.redirectTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
           // wx.navigateTo({
           //   url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
           // })
-        }else{
-           wx.showToast({
-          title: '资源上传失败',
-          icon: 'none',
-          duration: 1000,
-          mask: true
-        })
+        } else {
+          wx.showToast({
+            title: '资源上传失败',
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
         }
       },
       fail: (res) => {

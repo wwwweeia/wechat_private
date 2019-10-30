@@ -4,7 +4,7 @@ let qqmapsdk;
 const app = getApp()
 Page({
   data: {
-    requestUrl: '',//服务器路径
+    requestUrl: '', //服务器路径
     key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
     //******************* 需要上传的信息*******************//
     address: "正在获取地址...",
@@ -39,9 +39,9 @@ Page({
     var locationId = options.locationId;
     // 是否打分
     var isGrade = options.isGrade;
-    var requestUrl = app.globalData.requestUrl;//服务器路径
+    var requestUrl = app.globalData.requestUrl; //服务器路径
     that.setData({
-      requestUrl:requestUrl,
+      requestUrl: requestUrl,
       isGrade: isGrade,
       terminalUserId: terminalUserId,
       projectId: projectId,
@@ -270,10 +270,10 @@ Page({
       })
       return
     }
-      wx.showLoading({
-        title: '上传中',
-        mask:true
-      })
+    wx.showLoading({
+      title: '上传中',
+      mask: true
+    })
     if (reportImg.length > 0) {
       //举报图片
       that.reportImg11();
@@ -290,7 +290,7 @@ Page({
   //举报图片集合
   reportImg11: function() {
     var that = this;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl; //服务器路径
     var isGrade = that.data.isGrade;
     //调查员id
     var terminalUserId = that.data.terminalUserId;
@@ -310,11 +310,11 @@ Page({
     var i = 0;
     //上传举报图片
     wx.uploadFile({
-      url: requestUrl+'/wechat/api/fieldLocation/setUnSurvey',
+      url: requestUrl + '/wechat/api/fieldLocation/setUnSurvey',
       filePath: reportImg[i],
       name: 'reportImg' + i + terminalUserId,
       formData: {
-        'type':0,
+        'type': 0,
         'projectId': projectId,
         'surveyorId': terminalUserId,
         'locationId': locationId,
@@ -340,7 +340,7 @@ Page({
   //举报视频集合
   reportVideo11: function() {
     var that = this;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl; //服务器路径
     var isGrade = that.data.isGrade;
     //调查员id
     var terminalUserId = that.data.terminalUserId;
@@ -359,11 +359,11 @@ Page({
     var reportVideo = that.data.videoList;
     var i = 0;
     wx.uploadFile({
-      url: requestUrl+'/wechat/api/fieldLocation/setUnSurvey',
+      url: requestUrl + '/wechat/api/fieldLocation/setUnSurvey',
       filePath: reportVideo[i].src,
       name: 'reportVideo' + i + terminalUserId,
       formData: {
-        'type' : 2,
+        'type': 2,
         'projectId': projectId,
         'surveyorId': terminalUserId,
         'locationId': locationId,

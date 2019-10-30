@@ -5,7 +5,7 @@ Page({
   data: {
     requestUrl: '', //服务器路径
     projectId: '',
-    surveyorId: '',//调查员id
+    surveyorId: '', //调查员id
     isGrade: '',
     open: false,
     selected: [false, false, false], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
@@ -34,10 +34,10 @@ Page({
   },
   getLocationList: function(terminalUserId, projectId) {
     var that = this;
-     wx.showLoading({
-        title: '数据加载中',
-        mask:true
-      })
+    wx.showLoading({
+      title: '数据加载中',
+      mask: true
+    })
     var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
@@ -149,7 +149,7 @@ Page({
   goToMap: function() {
     var that = this;
     var projectId = that.data.projectId;
-    console.log("地图资源：",that.data.markersList)
+    console.log("地图资源：", that.data.markersList)
     wx.navigateTo({
       url: "../map/map",
       success: function(res) {
@@ -193,27 +193,27 @@ Page({
     })
   },
 
-  changeData: function () {
+  changeData: function() {
 
-  var options = {
-    projectId:this.data.projectId,
-    isGrade:this.data.isGrade
-  }
+    var options = {
+      projectId: this.data.projectId,
+      isGrade: this.data.isGrade
+    }
 
-  this.onLoad(options);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+    this.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 
   },
 
-changeParentData: function () {
-    var pages =getCurrentPages();//当前页面栈
-    if (pages.length >1) {
-        var beforePage = pages[pages.length- 2];//获取上一个页面实例对象
-        // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-        //   id: res.data.data
-        // })
-        beforePage.changeData();//触发父页面中的方法
+  changeParentData: function() {
+    var pages = getCurrentPages(); //当前页面栈
+    if (pages.length > 1) {
+      var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
+      // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+      //   id: res.data.data
+      // })
+      beforePage.changeData(); //触发父页面中的方法
     }
-},
+  },
 
   onUnload: function() {
     this.changeParentData();

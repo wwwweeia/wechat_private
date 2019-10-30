@@ -6,18 +6,18 @@ import md5 from '../../libs/md5.js';
 const app = getApp()
 Page({
   data: {
-    requestUrl: '',//服务器路径
+    requestUrl: '', //服务器路径
   },
   onLoad: function(options) {
     // console.log(md5('123456'))
     var requestUrl = app.globalData.requestUrl;
     this.setData({
-      requestUrl:requestUrl
+      requestUrl: requestUrl
     })
   },
   formSubmit: function(e) {
     var that = this;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl; //服务器路径
     //表单规则
 
     //表单规则
@@ -55,7 +55,7 @@ Page({
       // })
       wx.request({
         // 必需
-        url: requestUrl+'/wehcat/api/memberMange/bindSurveyor',
+        url: requestUrl + '/wehcat/api/memberMange/bindSurveyor',
         method: "POST",
         data: {
           openid: openid,
@@ -78,8 +78,8 @@ Page({
                 // 通过eventChannel向被打开页面传送数据
                 res.eventChannel.emit('loginPage', {
                   data: list,
-                  terminalUserName:terminalUserName,
-                  departmentName:departmentName
+                  terminalUserName: terminalUserName,
+                  departmentName: departmentName
                 })
               }
             })

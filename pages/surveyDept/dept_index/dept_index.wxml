@@ -10,7 +10,7 @@
 
   <!-- 导航栏-->
   <scroll-view scroll-x class="bg-white nav text-center" scroll-with-animation scroll-left="{{scrollLeft}}">
-  <!--   <view class="cu-item {{null==TabCur?'text-blue cur':'text-grey'}} cu-btn round linebordersize   " bindtap="tabSelect">
+    <!--   <view class="cu-item {{null==TabCur?'text-blue cur':'text-grey'}} cu-btn round linebordersize   " bindtap="tabSelect">
       全部
     </view> -->
     <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key bindtap="tabSelect" data-id="{{item.id}}">
@@ -29,24 +29,24 @@
           <view wx:if="{{item.result==1 && item.longTask==0}}">
             <view class='cu-tag bg-grey light sm round'>{{item.answerTime}}
             </view>
-              <text class="text-blue">　初次待整改</text>
+            <text class="text-blue">　初次待整改</text>
           </view>
-           <view wx:elif="{{item.result==2 && item.longTask==0}}">
+          <view wx:elif="{{item.result==2 && item.longTask==0}}">
             <view class='cu-tag bg-grey light sm round'>{{item.answerTime}}
             </view>
-              <text class="text-red">　多次待整改</text>
+            <text class="text-red">　多次待整改</text>
           </view>
-           <view wx:else>
+          <view wx:else>
             <view class='cu-tag bg-grey light sm round'>{{item.answerTime}}
             </view>
-              <text class="text-green">　长期整改</text>
+            <text class="text-green">　长期整改</text>
           </view>
 
         </view>
       </view>
     </navigator>
   </view>
- <view class="cu-card article">
+  <view class="cu-card article">
     <navigator wx:if="{{TabCur==3 || TabCur==0}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_Already/dept_task_Already?id={{item.id}}&projectId={{item.projectId}}'>
       <view class="content">
         <image src="{{item.url==''? '/images/null.png' : item.url}}" mode="aspectFill"></image>

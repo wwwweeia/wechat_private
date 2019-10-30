@@ -24,7 +24,7 @@ Page({
     // 整改合格：{result=0,auditType不传}
 
     picker: ['批量审核通过', '批量不通过(整改说明)', '批量审核不通过', '批量审核长期整改'],
-    indexDep:null,
+    indexDep: null,
     pickerDep: [],
     TabCur: 3,
     problemType_user: [{
@@ -52,11 +52,11 @@ Page({
     pageCount: 0, //总任务数量
     idNeed: true, //是否需要批量操作的控制变量
     modalHidden: true, //控制弹框的变量 
-    tId :'',//选中的任务id字符串
-    desc1:'',//输入的数字
-    desc2:'',//审批意见
-    depList:[],//部门列表
-    taskIdByDep:'',//点击更改部门获取任务id
+    tId: '', //选中的任务id字符串
+    desc1: '', //输入的数字
+    desc2: '', //审批意见
+    depList: [], //部门列表
+    taskIdByDep: '', //点击更改部门获取任务id
   },
   /**
    * 生命周期函数--监听页面加载
@@ -74,34 +74,34 @@ Page({
     this.getCheckFieldTaskList(3, 0);
     this.getDepList();
   },
-//获取项目下部门
-  getDepList:function(){
+  //获取项目下部门
+  getDepList: function() {
     var that = this;
     var projectId = that.data.projectId;
     var requestUrl = that.data.requestUrl;
     wx.request({
       // 必需
-      url: requestUrl+'/mobile/fieldTask/getDepartmentListByProjectId',
+      url: requestUrl + '/mobile/fieldTask/getDepartmentListByProjectId',
       data: {
-        projectId:projectId
+        projectId: projectId
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("后台返回的部门数据：",res)
-          if (res.data.status === "success") {
-            var list = res.data.retObj;
-            var depName=[];
-            for (var i = 0; i < list.length; i++) {
-              depName.push(
-                list[i].name
-                )
-            }
-            that.setData({
-              depList:list,
-              pickerDep:depName
-            })
+        console.log("后台返回的部门数据：", res)
+        if (res.data.status === "success") {
+          var list = res.data.retObj;
+          var depName = [];
+          for (var i = 0; i < list.length; i++) {
+            depName.push(
+              list[i].name
+            )
+          }
+          that.setData({
+            depList: list,
+            pickerDep: depName
+          })
         } else {
           wx.showToast({
             title: '获取部门数据失败',
@@ -111,13 +111,13 @@ Page({
 
           })
         }
-        
+
       },
       fail: (res) => {
-        
+
       },
       complete: (res) => {
-        
+
       }
     })
   },
@@ -515,7 +515,7 @@ Page({
         case "1":
           console.log("批量审核不通过(整改说明)啦啦啦啦啦")
           that.setData({
-            tId:tId
+            tId: tId
           })
           that.start();
           break;
@@ -638,11 +638,11 @@ Page({
     var tId = that.data.tId; //任务id字符串
     var terminalUserId = that.data.terminalUserId; //调查员id
     var TabCur = that.data.TabCur;
-    var auditType='';
-    if (TabCur==3) {
-        auditType=0;
-    }else{
-      auditType=1;
+    var auditType = '';
+    if (TabCur == 3) {
+      auditType = 0;
+    } else {
+      auditType = 1;
     }
     var checkStandardNum = that.data.desc1;
     var auditContent = that.data.desc2;
@@ -650,7 +650,7 @@ Page({
       // 必需
       url: requestUrl + '/mobile/fieldTask/batchCheckToUnPassWithAuditContent',
       data: {
-        'auditType':auditType,
+        'auditType': auditType,
         'taskIds': tId,
         'auditContent': auditContent,
         'checkStandardNum': checkStandardNum,
@@ -661,7 +661,7 @@ Page({
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: (res) => {
-        console.log("批量审核不通过(整改说明)后台数据",res)
+        console.log("批量审核不通过(整改说明)后台数据", res)
         if (res.data.status === "success") {
           router.navigateTo({
             url: "../check_index/check_index?projectId=" + projectId
@@ -781,21 +781,21 @@ Page({
     })
   },
   //获取点击的任务id
-   getTaskId:function(e){
+  getTaskId: function(e) {
     var that = this;
     that.setData({
-      taskIdByDep:e.currentTarget.dataset.taskid
+      taskIdByDep: e.currentTarget.dataset.taskid
     })
   },
-// 部门下拉选
+  // 部门下拉选
   PickerChangeDep(e) {
-    var  that = this;
+    var that = this;
     var requestUrl = that.data.requestUrl;
     var projectId = that.data.projectId;
     var terminalUserId = that.data.terminalUserId;
     var taskIdByDep = that.data.taskIdByDep;
     var depList = that.data.depList;
-    var depId=e.detail.value;
+    var depId = e.detail.value;
     that.setData({
       indexDep: depId
     })
@@ -803,20 +803,20 @@ Page({
 
     wx.request({
       // 必需
-      url: requestUrl+'/mobile/fieldTask/updateDepartment',
+      url: requestUrl + '/mobile/fieldTask/updateDepartment',
       data: {
-        'id':taskIdByDep,
-        'terminalUserId':terminalUserId,
-        'departmentId':departmentId
+        'id': taskIdByDep,
+        'terminalUserId': terminalUserId,
+        'departmentId': departmentId
       },
-      method:"POST",
+      method: "POST",
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: (res) => {
-        console.log("更改部门后台返回数据：",res)
-         if (res.data.status === "success") {
-          
+        console.log("更改部门后台返回数据：", res)
+        if (res.data.status === "success") {
+
           router.navigateTo({
             url: "../check_index/check_index?projectId=" + projectId
           })
@@ -830,16 +830,16 @@ Page({
         }
       },
       fail: (res) => {
-        
+
       },
       complete: (res) => {
-        
+
       }
     })
 
 
 
   },
- 
+
 
 })

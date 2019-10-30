@@ -1,10 +1,10 @@
 <!-- 地图 -->
 <!-- <view class="container padding bg-white " hover-stop-propagation="false" hover-class="none"> -->
-  <!-- 地图控件 -->
-  <!-- <map wx:if="{{hidden == false}}" id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location bindregionchange="regionchange">
+<!-- 地图控件 -->
+<!-- <map wx:if="{{hidden == false}}" id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location bindregionchange="regionchange">
     <cover-image class="cover-image" src="../../../images/location.png" />
   </map> -->
-  <!-- 弹出层替换地图 -->
+<!-- 弹出层替换地图 -->
 <!--   <image wx:if="{{hidden == true}}" class="image_user" src="../../../images/replace.jpg" mode="scaleToFill"></image>
 
 </view> -->
@@ -14,7 +14,7 @@
   <view class="action">
     <text class="cuIcon-title text-blue"></text>地址定位
   </view>
-   <view class="action">
+  <view class="action">
     <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
   </view>
 </view>
@@ -89,7 +89,7 @@
 
 <!-- 编辑框 -->
 <view class="cu-form-group">
-  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="{{modalName=='Modal' ?' ' : '请描述无法调查原因'}}"></textarea>
+  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="{{modalName=='Modal' ?' ' : '请描述无法调查原因'}}"></textarea>
 </view>
 <!-- <view>
   <view wx:if="{{tipsId == null || tipsId == ''}}" class="cu-form-group">
@@ -105,5 +105,5 @@
   <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
 </view> -->
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg"  bindtap='submit'>提交</button>
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
 </view>

@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    requestUrl: '',//服务器路径
+    requestUrl: '', //服务器路径
     pointName: '',
     pointId: '',
     pointTypeId: '',
@@ -20,21 +20,21 @@ Page({
 
   /**
    * 生命周期函数--监听页面加载
-   */ 
+   */
   onLoad: function(options) {
     var that = this;
     var projectId = wx.getStorageSync('projectId');
     var isGrade = wx.getStorageSync('isGrade')
-    var requestUrl = app.globalData.requestUrl;//服务器路径
+    var requestUrl = app.globalData.requestUrl; //服务器路径
     var pointId = options.id;
     var pointTypeId = options.pointTypeId;
-    var firstQuestion = options.firstQuestion;//是否为第一个问题，0是，1、2不是
+    var firstQuestion = options.firstQuestion; //是否为第一个问题，0是，1、2不是
     console.log("传递是否为第一个问题", firstQuestion);
-    wx.setStorageSync("firstQuestion",firstQuestion);
+    wx.setStorageSync("firstQuestion", firstQuestion);
     var name = options.name;
 
     that.setData({
-      requestUrl:requestUrl,
+      requestUrl: requestUrl,
       isGrade: isGrade,
       projectId: projectId,
       pointName: name,
@@ -48,10 +48,10 @@ Page({
 
   getPointDetail: function(pointId) {
     var that = this;
-    var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
-      url: requestUrl+'/wechat/api/fieldLocation/getFieldLocationDetailById',
+      url: requestUrl + '/wechat/api/fieldLocation/getFieldLocationDetailById',
       data: {
         id: pointId
       },
@@ -96,10 +96,12 @@ Page({
     var pointTypeId = this.data.pointTypeId;
     var pointName = this.data.pointName;
     var pointId = this.data.pointId;
-    wx.setStorageSync("pointName",pointName);
-    wx.setStorageSync("pointTypeId",pointTypeId);
-    wx.setStorageSync("pointId",pointId);
-    router.navigateTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
+    wx.setStorageSync("pointName", pointName);
+    wx.setStorageSync("pointTypeId", pointTypeId);
+    wx.setStorageSync("pointId", pointId);
+    router.navigateTo({
+      url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
+    })
     // wx.navigateTo({
     //   url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
     // })
@@ -110,7 +112,9 @@ Page({
     var that = this;
     var locationId = that.data.pointId;
     var isGrade = that.data.isGrade;
-    router.navigateTo({url:"../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade})
+    router.navigateTo({
+      url: "../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade
+    })
     // wx.navigateTo({
     //   url: "../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade
     // })
@@ -120,38 +124,40 @@ Page({
     var that = this;
     var locationId = that.data.pointId;
     var isGrade = that.data.isGrade;
-    router.navigateTo({url:"../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade})
+    router.navigateTo({
+      url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade
+    })
     // wx.navigateTo({
     //   url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade
     // })
   },
 
-  changeData: function () {
+  changeData: function() {
 
-  var options = {
-    id:this.data.pointId,
-    pointTypeId:this.data.pointTypeId,
-    name:this.data.pointName,
-    firstQuestion:this.data.firstQuestion
-  }
+    var options = {
+      id: this.data.pointId,
+      pointTypeId: this.data.pointTypeId,
+      name: this.data.pointName,
+      firstQuestion: this.data.firstQuestion
+    }
 
-  this.onLoad(options);//最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+    this.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 
   },
- 
- changeParentData: function () {
-     var projectId = this.data.projectId;
+
+  changeParentData: function() {
+    var projectId = this.data.projectId;
     var isGrade = this.data.isGrade;
-    var pages =getCurrentPages();//当前页面栈
-    if (pages.length >1) {
-        var beforePage = pages[pages.length- 2];//获取上一个页面实例对象
-        beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-          projectId: projectId,
-          isGrade:isGrade
-        })
-        beforePage.changeData();//触发父页面中的方法
+    var pages = getCurrentPages(); //当前页面栈
+    if (pages.length > 1) {
+      var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
+      beforePage.setData({ //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+        projectId: projectId,
+        isGrade: isGrade
+      })
+      beforePage.changeData(); //触发父页面中的方法
     }
-},
+  },
 
   onUnload: function() {
     this.changeParentData();

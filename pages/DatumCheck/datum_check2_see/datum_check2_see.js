@@ -10,7 +10,7 @@ Page({
   data: {
     requestUrl: '', //服务器路径
     taskId: '',
-    projectId:'',
+    projectId: '',
     desc: '', //审核意见
     gfFileList: [], //规范文件上传数据
     smReportList: [], //说明文件上传数据
@@ -18,7 +18,7 @@ Page({
     tjChartList: [], //统计表格上传数据
     unRedios: [], //不合格redios集合
     redios: [], //不合格redios集合
-    departmentTask:[],//部门资源（备注）
+    departmentTask: [], //部门资源（备注）
   },
 
   /**
@@ -32,7 +32,7 @@ Page({
     that.setData({
       taskId: taskId,
       requestUrl: requestUrl,
-      projectId:projectId
+      projectId: projectId
     })
     that.getResourceList(taskId);
   },
@@ -132,14 +132,14 @@ Page({
       },
       success: (res) => {
         console.log("审核资源：", res)
-          var gf = res.data.resource.authorityFile;
-          var sm = res.data.resource.explainReport;
-          var img = res.data.resource.scenePicture;
-          var tj = res.data.resource.statisticalTable;
-          that.setData({
-           departmentTask:res.data.departmentTask
-          }) 
-          that.downlodaResource(gf, sm, img, tj);
+        var gf = res.data.resource.authorityFile;
+        var sm = res.data.resource.explainReport;
+        var img = res.data.resource.scenePicture;
+        var tj = res.data.resource.statisticalTable;
+        that.setData({
+          departmentTask: res.data.departmentTask
+        })
+        that.downlodaResource(gf, sm, img, tj);
       },
       fail: (res) => {
 
@@ -339,12 +339,12 @@ Page({
     this.data.desc = e.detail.value;
   },
   //合格不合格
-    go: function(e) {
+  go: function(e) {
     var that = this;
-       wx.showLoading({
-        title: '上传中',
-        mask:true
-      })
+    wx.showLoading({
+      title: '上传中',
+      mask: true
+    })
     var requestUrl = that.data.requestUrl; //请求路径
     var projectId = that.data.projectId;
     var unRedios = that.data.unRedios;
@@ -367,26 +367,26 @@ Page({
     var status = e.currentTarget.dataset.status;
     var auditContent = that.data.desc;
     var taskId = that.data.taskId;
-    
-    console.log("id",taskId)
+
+    console.log("id", taskId)
     console.log("合格字符串：", qualifiedResourceIds)
     console.log("不合格字符串：", unQualifiedResourceIds)
-    console.log("审核意见：",auditContent)
-    console.log("状态：",status)
-    console.log("调查员id",terminalUserId)
+    console.log("审核意见：", auditContent)
+    console.log("状态：", status)
+    console.log("调查员id", terminalUserId)
 
-       wx.request({
+    wx.request({
       // 必需
       url: requestUrl + '/mobile/datumTask/check',
       // url: 'http://192.168.15.71:8083/wechat/api/fieldAnswer/saveFieldAnswer',
       method: 'POST',
       data: {
-        terminalUserId:terminalUserId,
-        id:taskId,
-        status:status,
-        auditContent:auditContent,
-        qualifiedResourceIds:qualifiedResourceIds,
-        unQualifiedResourceIds:unQualifiedResourceIds
+        terminalUserId: terminalUserId,
+        id: taskId,
+        status: status,
+        auditContent: auditContent,
+        qualifiedResourceIds: qualifiedResourceIds,
+        unQualifiedResourceIds: unQualifiedResourceIds
       },
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -395,8 +395,10 @@ Page({
         console.log(res)
         if (res.data.status == 'success') {
           wx.hideLoading();
-          router.redirectTo({url:"../datum_check_index/datum_check_index?projectId=" + projectId })
-        
+          router.redirectTo({
+            url: "../datum_check_index/datum_check_index?projectId=" + projectId
+          })
+
         }
       },
       fail: (res) => {

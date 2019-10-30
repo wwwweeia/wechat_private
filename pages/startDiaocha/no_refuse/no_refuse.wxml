@@ -1,10 +1,9 @@
-
 <!-- 地址定位 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>地址定位
   </view>
-   <view class="action">
+  <view class="action">
     <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
   </view>
 </view>
@@ -79,7 +78,7 @@
 
 <!-- 编辑框 -->
 <view class="cu-form-group">
-  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="{{modalName=='Modal' ?' ' : '请描述拒访原因'}}"></textarea>
+  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="{{modalName=='Modal' ?' ' : '请描述拒访原因'}}"></textarea>
 </view>
 <!-- <view>
   <view wx:if="{{tipsId == null || tipsId == ''}}" class="cu-form-group">
@@ -93,5 +92,5 @@
 
 
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg"  bindtap='submit'>提交</button>
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
 </view>

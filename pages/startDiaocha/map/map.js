@@ -1,7 +1,7 @@
 // const amap = require('../../../libs/amap-wx.js');
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 let qqmapsdk;
-  
+
 Page({
   data: {
     inputShowed: false,

@@ -1,73 +1,73 @@
 <!-- 初始加载显示部分 -->
 <scroll-view scroll-y class="  DrawerPage {{modalName=='viewModal'?'show':''}}">
   <block>
-   
-<view>
-  <view class="cu-form-group ">
-      <view class="title text-bold">任务编号:</view>
-      <text class="item-left">{{detailList.code}}</text>
-    </view> 
-    <view class="cu-form-group ">
-      <view class="title text-bold">任务名称:</view>
-      <text class="item-left  h3">{{detailList.content}}</text>
-    </view> 
-</view>
+
+    <view>
+      <view class="cu-form-group ">
+        <view class="title text-bold">任务编号:</view>
+        <text class="item-left">{{detailList.code}}</text>
+      </view>
+      <view class="cu-form-group ">
+        <view class="title text-bold">任务名称:</view>
+        <text class="item-left  h3">{{detailList.content}}</text>
+      </view>
+    </view>
   </block>
-<view class="margin-tb-sm-user text-center">
+  <view class="margin-tb-sm-user text-center">
     <button class="cu-btn round lg1 bg-blue cuIcon-back_android " bindtap="showModal" data-target="viewModal">切换任务</button>
   </view>
 
-    <view class="table" wx:if="{{departmentList.length!=0}}">
+  <view class="table" wx:if="{{departmentList.length!=0}}">
     <view class="tr bg-w">
       <view class="th">单位</view>
       <view class="th-2">审核结果</view>
       <view class="th-3">审核状态</view>
     </view>
-    <block  wx:for="{{departmentList}}" wx:key="{{item}}">
-      <view class="tr bg-g" >
+    <block wx:for="{{departmentList}}" wx:key="{{item}}">
+      <view class="tr bg-g">
         <view class="td-1" selectable="true">
-          <text >{{item.departmentName}}</text>
+          <text>{{item.departmentName}}</text>
         </view>
         <view class="td-2" selectable="true" scroll-y="true">
-       <text  wx:if="{{item.status==1}}">未上报</text>
-         <text  wx:elif="{{item.status==2}}">待审核</text>
-        <text  wx:elif="{{item.status==3}}" class="text-blue">合格</text>
-       <text  wx:elif="{{item.status==4}}" class="text-red">不合格</text>
-       <text  wx:elif="{{item.status==5}}">已结束</text>
-      <text wx:elif="{{item.status==6}}">一审中</text>
-        <text  wx:else="{{item.status==7}}">二审中</text>
+          <text wx:if="{{item.status==1}}">未上报</text>
+          <text wx:elif="{{item.status==2}}">待审核</text>
+          <text wx:elif="{{item.status==3}}" class="text-blue">合格</text>
+          <text wx:elif="{{item.status==4}}" class="text-red">不合格</text>
+          <text wx:elif="{{item.status==5}}">已结束</text>
+          <text wx:elif="{{item.status==6}}">一审中</text>
+          <text wx:else="{{item.status==7}}">二审中</text>
         </view>
         <view class="td-3" selectable="true" scroll-y="true">
-        <text  wx:if="{{item.status==1 || item.status==4}}">待上报</text>
-        <text  wx:elif="{{item.status==2 || item.status==3 || item.status==6 || item.status==7}}" class="text-blue" data-id="{{item.id}}" data-projectid="{{item.projectId}}" bind:tap="goSee">审核</text>
-        <text  wx:else="{{item.status==5}}" class="text-green">查看</text>
+          <text wx:if="{{item.status==1 || item.status==4}}">待上报</text>
+          <text wx:elif="{{item.status==2 || item.status==3 || item.status==6 || item.status==7}}" class="text-blue" data-id="{{item.id}}" data-projectid="{{item.projectId}}" bind:tap="goSee">审核</text>
+          <text wx:else="{{item.status==5}}" class="text-green">查看</text>
         </view>
       </view>
     </block>
   </view>
- <view class="table" wx:else>
+  <view class="table" wx:else>
     <view class="tr bg-w">
       <view class="th">单位</view>
       <view class="th-2">审核结果</view>
       <view class="th-3">审核状态</view>
     </view>
     <block>
-      <view class="tr bg-g" >
+      <view class="tr bg-g">
         <view class="td-1" selectable="true">
-          <text >无</text>
+          <text>无</text>
         </view>
         <view class="td-2" selectable="true" scroll-y="true">
-        <text>无</text>
+          <text>无</text>
         </view>
         <view class="td-3" selectable="true" scroll-y="true">
-        <text>无</text>
-      
+          <text>无</text>
+
         </view>
       </view>
     </block>
   </view>
 
- 
+
 </scroll-view>
 
 <!-- 触摸屏幕回退列 -->
@@ -99,7 +99,8 @@
       <view class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}">
         <view class="cuIcon-unfold text-blue"></view>
         <!-- 这里是点位 -->
-        <view class="tui-flex_item　 text-sm">　共<text class="text-red">{{pageCount}}</text>条任务</view>
+        <view class="tui-flex_item　 text-sm">　共
+          <text class="text-red">{{pageCount}}</text>条任务</view>
         <!-- <view class="cuIcon-unfold"></view> -->
       </view>
       <!-- <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}"> -->
@@ -107,10 +108,10 @@
         <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
         <view class="tui-cells tui-cells_show">
           <block wx:for-items="{{taskList}}" wx:key="{{item.id}}">
-            <view  class="tui-cell tui-cell_access" bindtap="goTask"   data-id="{{item.id}}" data-content="{{item.content}}">
+            <view class="tui-cell tui-cell_access" bindtap="goTask" data-id="{{item.id}}" data-content="{{item.content}}">
               <view class="tui-cell_bd text-smm">
                 <text class="text-blue">{{index+1}}、</text>{{item.content}}</view>
-             
+
               <view class="tui-cell_ft tui-cell_ft_in-access"></view>
             </view>
           </block>
@@ -118,13 +119,13 @@
       </view>
     </view>
   </block>
- <view class="grid  padding-sm">
-  <view hidden="{{last}}"  class="margin-tb-sm view-user text-center" bind:tap="lastPage">
-    <button class="cu-btn round bg-grey ">上一页</button>
+  <view class="grid  padding-sm">
+    <view hidden="{{last}}" class="margin-tb-sm view-user text-center" bind:tap="lastPage">
+      <button class="cu-btn round bg-grey ">上一页</button>
+    </view>
+    <view hidden="{{next}}" class="margin-tb-sm view-user text-center" bind:tap="nextPage">
+      <button class="cu-btn round bg-grey ">下一页</button>
+    </view>
   </view>
-  <view hidden="{{next}}" class="margin-tb-sm view-user text-center" bind:tap="nextPage">
-    <button class="cu-btn round bg-grey ">下一页</button>
-  </view>
-</view>
 
 </scroll-view>

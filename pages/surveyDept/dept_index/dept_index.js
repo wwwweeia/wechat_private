@@ -4,11 +4,11 @@ var app = getApp()
 Page({
 
   data: {
-    requestUrl: '',//请求路径
-    projectId:'',//项目id
-    terminalUserId:'',//调查员id
-     swiperIndex: 0, //初始化swiper索引
-     swiperHeight: 350,
+    requestUrl: '', //请求路径
+    projectId: '', //项目id
+    terminalUserId: '', //调查员id
+    swiperIndex: 0, //初始化swiper索引
+    swiperHeight: 350,
     // 问题栏默认值
     // TabCur: null,
     TabCur: 9,
@@ -25,18 +25,16 @@ Page({
     //空内容提示标识
     isNull: '',
 
-    problemType_user:[
-      {
-        id: 9,
-        name: '待整改'
-      }, {
-        id: 3,
-        name: '已整改'
-      }, {
-        id: 0,
-        name: '整改合格'
-      }
-    ]
+    problemType_user: [{
+      id: 9,
+      name: '待整改'
+    }, {
+      id: 3,
+      name: '已整改'
+    }, {
+      id: 0,
+      name: '整改合格'
+    }]
 
 
 
@@ -45,13 +43,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    var requestUrl = app.globalData.requestUrl;//请求路径
+    var requestUrl = app.globalData.requestUrl; //请求路径
     var projectId = options.projectId;
-    var terminalUserId = app.terminalUserId;//调查员id
+    var terminalUserId = app.terminalUserId; //调查员id
     this.setData({
-      requestUrl:requestUrl,
-      projectId:projectId,
-      terminalUserId:terminalUserId
+      requestUrl: requestUrl,
+      projectId: projectId,
+      terminalUserId: terminalUserId
     })
     //加载轮播图
     this.getSwiperList();
@@ -61,28 +59,30 @@ Page({
   },
 
   bindchange(e) {
-      this.setData({
-        swiperIndex: e.detail.current
-      })
-    },
+    this.setData({
+      swiperIndex: e.detail.current
+    })
+  },
 
-    // 跳转轮播图详情
-    toswiper:function(){
-      var swiperIndex = this.data.swiperIndex;
-    router.navigateTo({url:"../dept_swiper/dept_swiper?id="+swiperIndex})
+  // 跳转轮播图详情
+  toswiper: function() {
+    var swiperIndex = this.data.swiperIndex;
+    router.navigateTo({
+      url: "../dept_swiper/dept_swiper?id=" + swiperIndex
+    })
     //    wx.navigateTo({
     //   url:"../dept_swiper/dept_swiper?id="+swiperIndex
     // })
-    },
+  },
   /**
    * 获取轮播图数据
    */
   getSwiperList() {
 
     let that = this;
-    var requestUrl = that.data.requestUrl;//请求路径
+    var requestUrl = that.data.requestUrl; //请求路径
     wx.request({
-      url: requestUrl+"/wechat/api/carousel/getCarouselList",
+      url: requestUrl + "/wechat/api/carousel/getCarouselList",
       success(res) {
         // console.log(res);
         if (res.data.status === "success") {
@@ -126,34 +126,34 @@ Page({
    */
   getTaskList: function(e) {
     var that = this;
-    var requestUrl = that.data.requestUrl;//请求路径
-    var projectId = that.data.projectId;//项目id
-    var TabCur = that.data.TabCur;//整改状态
+    var requestUrl = that.data.requestUrl; //请求路径
+    var projectId = that.data.projectId; //项目id
+    var TabCur = that.data.TabCur; //整改状态
     var pagenum = that.data.pagenum;
     var terminalUserId = that.data.terminalUserId;
     //console.log(e);
     wx.request({
-      url: requestUrl+"/mobile/fieldTask/getRectifyFieldTaskList",
+      url: requestUrl + "/mobile/fieldTask/getRectifyFieldTaskList",
       // url: "http://192.168.15.71:8083/mobile/fieldTask/getFieldTaskListByResult",
       data: {
-        "terminalUserId":terminalUserId,
-        "pageNum":  pagenum,
+        "terminalUserId": terminalUserId,
+        "pageNum": pagenum,
         "PageSize": '10',
         "projectId": projectId,
         "result": TabCur
       },
       success(res) {
         var list = res.data.retObj.list;
-        if (list!=0) {
+        if (list != 0) {
           that.setData({
             //1、that.data.taskList  获取当前页面存的taskList数组
-  //           //2、res.data.retObj   获取当前请求得到的taskList数组
-  //           //3、xxx.concat  把新加载的数组追加到当前页面之后
+            //           //2、res.data.retObj   获取当前请求得到的taskList数组
+            //           //3、xxx.concat  把新加载的数组追加到当前页面之后
             taskList: that.data.taskList.concat(res.data.retObj.list),
-            maxPageNum: res.data.retObj.pageCount,//总页数
+            maxPageNum: res.data.retObj.pageCount, //总页数
             isNull: ''
           })
-          console.log("看看这个任务列表：",that.data.taskList)
+          console.log("看看这个任务列表：", that.data.taskList)
         } else {
           that.setData({
             isNull: 'true',
@@ -177,7 +177,7 @@ Page({
     if (that.data.maxPageNum >= pagenum) {
       if (that.data.TabCur != null) {
         that.getTaskList(that.data.TabCur); //重新调用请求获取下一页数据
-      } 
+      }
       // 显示加载图标
       wx.showLoading({
         title: '玩命加载中',
