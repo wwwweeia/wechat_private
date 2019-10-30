@@ -1,0 +1,4 @@
+/* pages/DatumUpload/datum_check_see/datum_check_see.wxss */
+.cu-bar-user{
+min-height: 20rpx;
+}

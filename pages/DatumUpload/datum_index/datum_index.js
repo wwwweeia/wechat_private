@@ -233,8 +233,15 @@ goUpload:function(e){
   var projectId = e.currentTarget.dataset.projectid;
   var departmentId = e.currentTarget.dataset.departmentid;
   var id = e.currentTarget.dataset.id;
-  console.log(projectId,"---",departmentId,"---",id)
+  console.log("上传资源",projectId,"---",departmentId,"---",id)
    router.navigateTo({url:"../datum_upload/datum_upload?projectId=" + projectId + "&departmentId=" + departmentId + '&id=' + id})
+},
+//查看
+goSee:function(e){
+   var that = this;
+    var id = e.currentTarget.dataset.id;
+    console.log("查看资源","---",id)
+     router.navigateTo({url:"../datum_check_see/datum_check_see?id="+id})
 },
 
 })

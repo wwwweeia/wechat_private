@@ -23,7 +23,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.3",
+	"libVersion": "2.9.1",
 	"appid": "wx30a56175a6a091db",
 	"projectname": "wechart_public",
 	"debugOptions": {
@@ -50,7 +50,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 14,
 			"list": [
 				{
 					"id": -1,
@@ -147,6 +147,13 @@
 					"id": -1,
 					"name": "材料上报-上报页面",
 					"pathName": "pages/DatumUpload/datum_upload/datum_upload",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "材料上报--查看资源",
+					"pathName": "pages/DatumUpload/datum_check_see/datum_check_see",
 					"query": "",
 					"scene": null
 				}

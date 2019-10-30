@@ -1,5 +1,68 @@
+<!-- 规范文件 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>规范文件
+  </view>
+</view>
+<view class="cu-bar bg-white">
+  <view class="action">
+    上传规范文件
+  </view>
+  <view class="action">
+    {{gfFileLength}}/4
+  </view>
+</view>
+<view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="{{index}}" >
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{gfFileList[index].path}}' >
+     <text class="text-blue">{{gfFileList[index].name}}</text>
+     <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
+    </view>
+    <view class="action-user" bindtap="delGF" data-index="{{index}}">
+      <text class="cuIcon-close text-red"></text>
+    </view>
+  </view>
+</view>
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="solids" bindtap="goGF" wx:if="{{gfFileLength<4}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-copy"></text>
+    </view>
+  </view>
+</view>
+<!-- 说明报告 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>说明报告
+  </view>
+</view>
+<view class="cu-bar bg-white">
+  <view class="action">
+    上传说明报告文件
+  </view>
+  <view class="action">
+    {{smReportLength}}/4
+  </view>
+</view>
+<view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="{{index}}" >
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{smReportList[index].path}}' >
+     <text class="text-blue">{{smReportList[index].name}}</text>
+    </view>
+    <view class="action-user" bindtap="delSM" data-index="{{index}}">
+      <text class="cuIcon-close text-red"></text>
+    </view>
+  </view>
+</view>
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="solids" bindtap="goSM" wx:if="{{smReportLength<4}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-edit"></text>
+    </view>
+  </view>
+</view>
 
-<!-- 拍摄照片/视频 -->
+<!-- 实景图片 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>实景图片
@@ -7,7 +70,7 @@
 </view>
 <view class="cu-bar bg-white">
   <view class="action">
-    上传图片
+    上传实景图片
   </view>
   <view class="action">
     {{imageLength}}/4
@@ -16,7 +79,7 @@
 
 <view class="cu-form-group">
   <view class="grid col-4 grid-square flex-sub">
-    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="openDocument" data-url="{{imgList[index]}}">
       <image src='{{imgList[index]}}' mode='aspectFill'></image>
       <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
         <text class="cuIcon-close"></text>
@@ -28,31 +91,53 @@
     </view>
   </view>
 </view>
-
-
-<!-- 拍摄照片/视频 -->
+<!-- 统计表格 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>说明报告
+    <text class="cuIcon-title text-blue"></text>统计表格
   </view>
 </view>
 <view class="cu-bar bg-white">
   <view class="action">
-    上传文档
+    上传统计表格文件
   </view>
   <view class="action">
-    {{imageLength}}/4
+    {{tjChartLength}}/4
+  </view>
+</view>
+<view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="{{index}}" >
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{tjChartList[index].path}}' >
+     <text class="text-blue">{{tjChartList[index].name}}</text>
+    </view>
+    <view class="action-user" bindtap="delTJ" data-index="{{index}}">
+      <text class="cuIcon-close text-red"></text>
+    </view>
+  </view>
+</view>
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="solids" bindtap="goTJ" wx:if="{{tjChartLength<4}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-vipcard"></text>
+    </view>
   </view>
 </view>
 
-<view class="cu-form-group">
-  <view class="grid col-4 grid-square flex-sub">
-    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" >
-      <text>{{imgList[index].name}}</text>
-    </view>
 
-    <view class="solids" bindtap="goBG" wx:if="{{imageLength<4}}" data-target="Modal" data-type="report">
-      <text class="cuIcon-edit"></text>
-    </view>
+  <!-- 备注 -->
+<view class="cu-bar solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue "></text> 备注
   </view>
+
+</view>
+
+
+<!-- 编辑框 -->
+<view class="cu-form-group">
+  <textarea  value="{{desc}}"  maxlength="-1"  bindinput="textareaAInput" placeholder="此处填写备注"></textarea>
+</view>
+
+<view class="padding-xl_user">
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap="submit">提交</button>
 </view>

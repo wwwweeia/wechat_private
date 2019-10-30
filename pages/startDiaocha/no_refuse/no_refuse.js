@@ -40,11 +40,11 @@ Page({
     //获取具体点位id
     var locationId = options.locationId;
     // 是否打分
-    var isgrade = options.isgrade;
+    var isGrade = options.isGrade;
     var requestUrl = app.globalData.requestUrl;//服务器路径
     that.setData({
       requestUrl:requestUrl,
-      isgrade: isgrade,
+      isGrade: isGrade,
       terminalUserId: terminalUserId,
       projectId: projectId,
       locationId: locationId
@@ -272,7 +272,10 @@ Page({
       })
       return
     }
-
+     wx.showLoading({
+        title: '上传中',
+        mask:true
+      })
     if (reportImg.length > 0) {
       //举报图片
       that.reportImg11();
@@ -290,7 +293,8 @@ Page({
   reportImg11: function() {
     var that = this;
 
-var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl;//服务器路径
+    var isGrade = that.data.isGrade;
     //调查员id
     var terminalUserId = that.data.terminalUserId;
     //项目id
@@ -324,8 +328,9 @@ var requestUrl = that.data.requestUrl;//服务器路径
         'key': 'reportImg' + i + terminalUserId,
       },
       success(res) {
+        wx.hideLoading();
         wx.redirectTo({
-          url: '../point_type/point_type?projectId=' + projectId　 + "&isgrade=" + isgrade
+          url: '../point_type/point_type?projectId=' + projectId　 + "&isGrade=" + isGrade
         })
       },
       //请求失败
@@ -339,7 +344,8 @@ var requestUrl = that.data.requestUrl;//服务器路径
   reportVideo11: function() {
     var that = this;
 
-var requestUrl = that.data.requestUrl;//服务器路径
+    var requestUrl = that.data.requestUrl;//服务器路径
+    var isGrade = that.data.isGrade;
     //调查员id
     var terminalUserId = that.data.terminalUserId;
     //项目id
@@ -372,8 +378,9 @@ var requestUrl = that.data.requestUrl;//服务器路径
         'key': 'reportVideo' + i + terminalUserId
       },
       success(res) {
+        wx.hideLoading();
         wx.redirectTo({
-          url: '../point_type/point_type?projectId=' + projectId　 + "&isgrade=" + isgrade
+          url: '../point_type/point_type?projectId=' + projectId　 + "&isGrade=" + isGrade
         })
       },
       //请求失败

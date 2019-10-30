@@ -34,6 +34,10 @@ Page({
   },
   getLocationList: function(terminalUserId, projectId) {
     var that = this;
+     wx.showLoading({
+        title: '数据加载中',
+        mask:true
+      })
     var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
@@ -47,6 +51,7 @@ Page({
       },
       success: (res) => {
         if (res.data.status == 'success') {
+          wx.hideLoading();
           var mapList = res.data.retObj;
           let map = [];
           for (let i = 0; i < mapList.length; i++) {

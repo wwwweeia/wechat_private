@@ -1,0 +1,69 @@
+<!-- 规范文件 -->
+<view class="cu-bar  solid-bottom" wx:if="{{gfFileList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>规范文件
+  </view>
+</view>
+
+<view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="{{index}}" >
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{gfFileList[index].url}}' >
+     <text class="text-blue">{{gfFileList[index].name}}</text>
+     <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
+    </view>
+ 
+  </view>
+</view>
+
+<!-- 说明报告 -->
+<view class="cu-bar  solid-bottom" wx:if="{{smReportList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>说明报告
+  </view>
+</view>
+
+<view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="{{index}}" >
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{smReportList[index].url}}' >
+     <text class="text-blue">{{smReportList[index].name}}</text>
+    </view>
+
+  </view>
+</view>
+
+<!-- 实景图片 -->
+<view class="cu-bar  solid-bottom" wx:if="{{imgList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>实景图片
+  </view>
+</view>
+ <view class="cu-bar-user bg-white" wx:if="{{imgList.length!=0}}">
+</view>
+<view class="cu-form-group" wx:if="{{imgList.length!=0}}">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport"  data-url="{{imgList[index]}}">
+      <image src='{{imgList[index]}}' mode='aspectFill'></image>
+      
+    </view>
+
+  </view>
+</view>
+<!-- 统计表格 -->
+<view class="cu-bar  solid-bottom" wx:if="{{tjChartList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>统计表格
+  </view>
+</view>
+
+<view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="{{index}}" >
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{tjChartList[index].url}}' >
+     <text class="text-blue">{{tjChartList[index].name}}</text>
+    </view>
+ 
+  </view>
+</view>
+
+
+
+

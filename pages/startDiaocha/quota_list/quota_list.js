@@ -193,6 +193,7 @@ Page({
     let pointName = that.data.pointName;
     let quotaId = e.currentTarget.dataset.quotaid;
     wx.setStorageSync('isRecord', isRecord);
+    console.log("看看这个quotaId:",quotaId)
     // var list= {
     //   questionId:questionId,
     //   pointId:pointId,
@@ -475,6 +476,16 @@ getproblemList:function(pointTypeId,projectId,locationId){
 
   onUnload: function() {
     this.changeParentData();
-  }
+  },
+  onShow:function(){
+    var pointTypeId = wx.getStorageSync("pointTypeId");
+    var pointName = wx.getStorageSync("pointName");
+    var pointId = wx.getStorageSync("pointId");
+    this.onLoad({
+       pointTypeId:pointTypeId,
+       pointName:pointName,
+       pointId:pointId
+    });
+  },
 
 })

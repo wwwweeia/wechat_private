@@ -20,6 +20,7 @@ Page({
     searchDesc: '',//搜索的词
     last: true,//上一页隐藏
     next: false,//下一页显示
+    departmentList:[],//任务所属部门集合
   },
 
   /**
@@ -192,7 +193,7 @@ Page({
 
     wx.request({
       // 必需
-      url: requestUrl + '/mobile/datumTask/getReportDatumTaskDetail',
+      url: requestUrl + '/mobile/datumTask/getCheckDatumTaskDetail',
       data: {
         'id': id
       },
@@ -204,7 +205,8 @@ Page({
         if (res.data.status === "success") {
 
           that.setData({
-            detailList: res.data.retObj
+            detailList: res.data.retObj,
+            departmentList:res.data.retObj.departmentList
           })
 
         } else {
@@ -225,14 +227,14 @@ Page({
       }
     })
   },
-  //上传资源
-  goUpload: function (e) {
-    var that = this;
-    var projectId = e.currentTarget.dataset.projectid;
-    var departmentId = e.currentTarget.dataset.departmentid;
+  //审核
+goSee:function(e){
+   var that = this;
     var id = e.currentTarget.dataset.id;
-    console.log(projectId, "---", departmentId, "---", id)
-    router.navigateTo({ url: "../datum_upload/datum_upload?projectId=" + projectId + "&departmentId=" + departmentId + '&id=' + id })
-  },
+    var projectId = e.currentTarget.dataset.projectid;
+    console.log("项目id",projectId)
+    console.log("查看资源","---",id)
+     router.navigateTo({url:"../datum_check2_see/datum_check2_see?id="+id+"&projectId="+projectId})
+},
 
 })

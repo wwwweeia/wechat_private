@@ -33,9 +33,12 @@
        <view wx:if="{{detailList.status!=6 || detailList.status!=7}}"  class="margin-tb-sm view-user text-center" bind:tap="goUpload" data-projectid="{{detailList.projectId}}" data-id="{{detailList.id}}" data-departmentid="{{detailList.departmentId}}">
         <button class="cu-btn round bg-blue ">编辑</button>
       </view>
-      <view wx:if="{{detailList.status!=1}}" class="margin-tb-sm view-user text-center" bind:tap="nextPage">
+      <view wx:if="{{detailList.status!=1}}" class="margin-tb-sm view-user text-center" bind:tap="goSee" data-id="{{detailList.id}}">
         <button class="cu-btn round bg-grey ">查看</button>
       </view>
+       <!--  <view  class="margin-tb-sm view-user text-center" bind:tap="goSee" data-id="{{detailList.id}}">
+        <button class="cu-btn round bg-grey ">查看</button>
+      </view> -->
       
     </view> 
 </view>

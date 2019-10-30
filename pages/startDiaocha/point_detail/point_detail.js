@@ -24,8 +24,8 @@ Page({
   onLoad: function(options) {
     var that = this;
     var projectId = wx.getStorageSync('projectId');
-     var isGrade = wx.getStorageSync('isGrade')
-        var requestUrl = app.globalData.requestUrl;//服务器路径
+    var isGrade = wx.getStorageSync('isGrade')
+    var requestUrl = app.globalData.requestUrl;//服务器路径
     var pointId = options.id;
     var pointTypeId = options.pointTypeId;
     var firstQuestion = options.firstQuestion;//是否为第一个问题，0是，1、2不是
@@ -83,14 +83,6 @@ Page({
     })
   },
 
-
-
-
-
-
-
-
-
   // //返回指标树页面
   // goToReturn: function() {
   //   var projectId = this.data.projectId;
@@ -104,6 +96,9 @@ Page({
     var pointTypeId = this.data.pointTypeId;
     var pointName = this.data.pointName;
     var pointId = this.data.pointId;
+    wx.setStorageSync("pointName",pointName);
+    wx.setStorageSync("pointTypeId",pointTypeId);
+    wx.setStorageSync("pointId",pointId);
     router.navigateTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
     // wx.navigateTo({
     //   url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId

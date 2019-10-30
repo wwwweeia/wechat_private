@@ -1,19 +1,32 @@
+<view class="radioChange_user">
+  <radio-group bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key>
+      <radio class="blue margin-left-sm" value="{{item.id}}"/>{{item.content}}
+    </label>
+  </radio-group>
 
-<view class="cu-bar solid-bottom">
-  <view class="action">
-    <text class="cuIcon-title text-blue "></text> 录音
-  </view>
-  <view class="action">
-    <button class="cu-btn bg-green shadow" bindtap="start">点击录音</button>
-  </view>
 </view>
+<view class="radioChange_user">
+  <radio-group bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key>
+      <radio class="blue margin-left-sm" value="{{item.id}}"/>{{item.content}}
+    </label>
+  </radio-group>
 
-<modal  hidden="{{modalHidden}}" bindconfirm="sub" bindcancel="cancel">
-     
-<picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+</view>
+<view class="radioChange_user">
+  <radio-group bindchange="radioChange2">
+    <label class="radio" wx:for="{{items}}" wx:key>
+      <radio class="blue margin-left-sm" value="{{item.id}}"/>{{item.content}}
+    </label>
+  </radio-group>
 
-      <view class="picker text-blue" >
-        {{index?picker[index]:'请选择对应操作'}}
-      </view>
-    </picker>
-</modal>
+</view>
+<view class="radioChange_user">
+  <radio-group bindchange="radioChange3">
+    <label class="radio" wx:for="{{items}}" wx:key>
+      <radio class="blue margin-left-sm" value="{{item.id}}"/>{{item.content}}
+    </label>
+  </radio-group>
+
+</view>

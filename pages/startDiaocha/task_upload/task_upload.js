@@ -1023,7 +1023,10 @@ Page({
     }
 
 
-
+    wx.showLoading({
+        title: '上传中',
+        mask:true
+      })
     for (var index = 0; index < reportImg.length; index++) {
       //举报图片
       await that.uploadImage(reportImg[index]).then((res) => {
@@ -1043,7 +1046,7 @@ Page({
         // console.log("视频上传完了resourceList:",that.data.resourceList.length);
       });
     }
-
+    wx.hideLoading();
     var length = reportImg.length + reportVideo.length + audioSrc.length;
 
     // 上传成功的资源长度
@@ -1053,12 +1056,12 @@ Page({
     console.log("本地总资源:", length)
     // 资源全部上传成功 上传答案
     if (length == rsLength) {
-      wx.showToast({
-        title: '资源上传中',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
+      // wx.showToast({
+      //   title: '资源上传中',
+      //   icon: 'none',
+      //   duration: 1000,
+      //   mask: true
+      // })
       that.uploadAnswerTrue();
     } else { //有资源上传失败
       wx.showToast({
@@ -1393,10 +1396,23 @@ Page({
       },
       success: (res) => {
         if (res.data.status == 'success') {
-          router.navigateTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
+          wx.setStorageSync("pointName",pointName);
+          wx.setStorageSync("pointTypeId",pointTypeId);
+          wx.setStorageSync("pointId",pointId);
+          wx.navigateBack({
+            delta: 1
+          })
+           // router.redirectTo({url:"../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId})
           // wx.navigateTo({
           //   url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
           // })
+        }else{
+           wx.showToast({
+          title: '资源上传失败',
+          icon: 'none',
+          duration: 1000,
+          mask: true
+        })
         }
       },
       fail: (res) => {

@@ -1,1 +1,9 @@
 /* pages/DatumUpload/datum_upload/datum_upload.wxss */
+.action-user {
+  padding: 0 50rpx;
+  display: flex;
+  align-items: center;
+}
+.padding-xl_user {
+  padding: 50rpx 150rpx;
+}

@@ -1,6 +1,6 @@
 <view class="maps-container">
   <map latitude="{{lat}}" longitude="{{lng}}" markers="{{covers}}" bindmarkertap="marker" scale="11"></map>
- <scroll-view scroll-y="true" wx:if="{{hidden==false}}"  class="scrollView" style="height:{{scrollH}}px">
+ <scroll-view scroll-y="true"  wx:if="{{hidden==false}}" class="scrollView" >
     <view class="tui-list">
       <view class="tui-list-cell tui-cell-last">
         <view class=" addr-title">{{showTitle}}</view>
@@ -23,4 +23,26 @@
     </view>
   </scroll-view>
 </view>
- 
+<!--  
+<scroll-view scroll-y="true" wx:if="{{hidden==false}}"  class="scrollView" style="height:{{scrollH}}px">
+    <view class="tui-list">
+      <view class="tui-list-cell tui-cell-last">
+        <view class=" addr-title">{{showTitle}}</view>
+        <view class="addr-box">
+          <view class="addr-detail ">
+            <text class="distance ">{{showDistance}}</text> {{showAddress}}
+          </view>
+          <view class="addr-opera">
+        <view class="opera-box " hover-class="opcity" hover-stay-time="150 " bindtap="goToPoint_detail" data-id="{{showId}} ">
+              <image src="../../../images/list.png" class="mini-img"></image>
+              <view class="text ">点位详情</view>
+            </view>
+            <view class="opera-box " hover-class="opcity" hover-stay-time="150 " bindtap="go" data-id="{{showId}} ">
+              <image src="../../../images/go.png" class="mini-img"></image>
+              <view class="text ">到这里</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view> -->
