@@ -26,17 +26,17 @@ Page({
     markersList: []
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     const that = this;
     const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on('pointTypePage', function(data) {
+    eventChannel.on('pointTypePage', function (data) {
       that.setData({
         markersList: data.data
       })
     })
 
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         // 计算主体部分高度,单位为px
         that.setData({
           // second部分高度 = 利用窗口可使用高度 - first部分高度（这里的高度单位为px，所有利用比例将600rpx转换为px）
@@ -73,7 +73,7 @@ Page({
       }
     })
   },
-  getAddress: function(lng, lat) {
+  getAddress: function (lng, lat) {
     //根据经纬度获取地址信息
     qqmapsdk.reverseGeocoder({
       location: {
@@ -110,7 +110,7 @@ Page({
   //   })
   // },
 
-  marker: function(e) {
+  marker: function (e) {
     const that = this;
 
     const index = Number(e.markerId);
@@ -128,7 +128,7 @@ Page({
         latitude: lat, //商家的纬度
         longitude: log, //商家的经度
       }],
-      success: function(res) {
+      success: function (res) {
         // console.log("这是距离：",res)
         let hw = res.result.elements[0].distance //拿到距离(米)
         if (hw < 1000) {
@@ -169,13 +169,13 @@ Page({
   // },
   // 
   //经纬度获取位置
-  getLocationByLonglat: function(log, lat) {
+  getLocationByLonglat: function (log, lat) {
     qqmapsdk.reverseGeocoder({
       location: {
         latitude: lat,
         longitude: log
       },
-      success: function(res) {
+      success: function (res) {
         // console.log(res)
         let city = res.result.address_component.city;
         // console.log(city)
@@ -227,7 +227,7 @@ Page({
 
     wx.hideLoading()
   },
-  goToPoint_detail: function(event) {
+  goToPoint_detail: function (event) {
     var that = this;
     const index = Number(event.currentTarget.dataset.id);
     const item = this.data.address[index];

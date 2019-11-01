@@ -28,7 +28,14 @@
     "pages/DatumCheck/datum_check_project/datum_check_project",
     "pages/DatumCheck/datum_check_index/datum_check_index",
     "pages/DatumCheck/datum_check2_see/datum_check2_see",
-    "pages/DatumUpload/datum_check_see/datum_check_see"
+    "pages/DatumUpload/datum_check_see/datum_check_see",
+    "pages/fuCha/projectList/projectList",
+    "pages/fuCha/fuCha_point_type/fuCha_point_type",
+    "pages/fuCha/fuCha_map/fuCha_map",
+    "pages/fuCha/fuCha_point_detail/fuCha_point_detail",
+    "pages/fuCha/fuCha_quota_list/fuCha_quota_list",
+    "pages/fuCha/fuCha_tips/fuCha_tips",
+    "pages/fuCha/fuCha_upload/fuCha_upload"
   ],
   "window": {
     "backgroundTextStyle": "light",

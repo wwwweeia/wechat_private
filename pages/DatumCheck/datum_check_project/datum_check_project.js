@@ -84,6 +84,15 @@ Page({
     })
 
   },
+
+  go:function(e){
+    var projectId = e.currentTarget.dataset.id;
+    console.log("项目id",projectId)
+    wx.setStorageSync("projectId", projectId);
+    wx.navigateTo({
+      url:"../datum_check_index/datum_check_index"
+    })
+  },
   changeData: function() {
 
     this.onLoad(); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low

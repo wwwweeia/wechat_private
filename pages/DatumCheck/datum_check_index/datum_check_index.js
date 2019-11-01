@@ -27,8 +27,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var that = this;
-    var projectId = options.projectId;
+   
+  },
+  onShow:function(){
+     var that = this;
+    var projectId = wx.getStorageSync("projectId");
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;
     that.setData({

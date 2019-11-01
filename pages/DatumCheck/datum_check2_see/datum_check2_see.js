@@ -395,9 +395,12 @@ Page({
         console.log(res)
         if (res.data.status == 'success') {
           wx.hideLoading();
-          router.redirectTo({
-            url: "../datum_check_index/datum_check_index?projectId=" + projectId
-          })
+          wx.navigateBack({
+          delta: 1
+        })
+                  // router.redirectTo({
+          //   url: "../datum_check_index/datum_check_index?projectId=" + projectId
+          // })
 
         }
       },

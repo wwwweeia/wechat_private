@@ -4,10 +4,19 @@
       <image src='../../../images/haibao.png' mode='widthFix' class='png' style='width:100%;height:486rpx'></image>
     </view>
     <view class='nav-list'>
-      <navigator open-type="navigate" hover-class='none' url="../datum_check_index/datum_check_index?projectId={{item.id}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="{{index}}">
+   <!--    <navigator open-type="navigate" hover-class='none' url="../datum_check_index/datum_check_index?projectId={{item.id}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="{{index}}">
         <view class="nav-title">{{item.name}}</view>
         <view class="nav-name">Project</view>
       </navigator>
+ -->
+     <!--  <view class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="{{index}}" bind:tap="go">
+        <view class="nav-title">{{item.name}}</view>
+        <view class="nav-name">Project</view>
+      </view> -->
+      <view class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="{{index}}" bind:tap="go" data-id="{{item.id}}">
+        <view class="nav-title">{{item.name}}</view>
+        <view class="nav-name">Project</view>
+      </view>
     </view>
     <view class='cu-tabbar-height'></view>
   </scroll-view>

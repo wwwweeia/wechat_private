@@ -536,9 +536,13 @@ Page({
       success: (res) => {
         console.log("上传答案数据：", res)
         if (res.data.status == 'success') {
-          router.redirectTo({
-            url: "../datum_index/datum_index?projectId=" + projectId
+
+          wx.navigateBack({
+            delta: 1
           })
+          // router.redirectTo({
+          //   url: "../datum_index/datum_index?projectId=" + projectId
+          // })
 
         }
       },

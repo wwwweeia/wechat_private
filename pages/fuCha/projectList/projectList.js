@@ -11,7 +11,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(option) {
+  onLoad: function (option) {
     var requestUrl = app.globalData.requestUrl; //服务器路径
     this.setData({
       requestUrl: requestUrl
@@ -23,14 +23,13 @@ Page({
   },
 
 
-  getProjectList: function(terminalUserId) {
+  getProjectList: function (terminalUserId) {
     var that = this;
     var requestUrl = that.data.requestUrl; //服务器路径
     var colorList = that.data.colorList;
     wx.request({
       // 必需
-      url: requestUrl + '/mobile/datumTask/getDatumProjectListByTerminalUserId',
-      // url: 'http://192.168.15.71:8083/wechat/api/fieldProject/getListByTerminalUserId',
+      url: requestUrl + '/mobile/review/getReviewProjectListByTerminalUserId',
       data: {
         terminalUserId: terminalUserId
       },
@@ -38,10 +37,10 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
+        console.log("项目数据", res.data.retObj)
         var arr = [];
         if (res.data.status == 'success') {
           var projectList = res.data.retObj;
-          console.log("进来看看", projectList)
           for (var i = 0; i < projectList.length; i++) {
             var color = colorList[i];
             arr.push({
@@ -66,9 +65,10 @@ Page({
           that.setData({
             elements: arr
           })
+          console.log("修改后的项目数据", arr)
         } else {
           wx.showToast({
-            title: res.data.message,
+            title: '获取项目列表失败',
             icon: 'none',
             duration: 1000,
             mask: true
@@ -84,15 +84,9 @@ Page({
     })
 
   },
-   go:function(e){
-    var projectId = e.currentTarget.dataset.id;
-    console.log("项目id",projectId)
-    wx.setStorageSync("projectId", projectId);
-    wx.navigateTo({
-      url:"../datum_index/datum_index"
-    })
-  },
-  changeData: function() {
+  changeData: function () {
+
+    // var options = {'id':this.data.id}
 
     this.onLoad(); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 

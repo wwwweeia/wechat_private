@@ -207,12 +207,15 @@ Page({
         break;
 
       case "开始复查":
-        wx.showToast({
-          title: '待开发',
-          icon: 'loading',
-          duration: 1000,
-          mask: true
+       router.navigateTo({
+          url: "../fuCha/projectList/projectList"
         })
+        // wx.showToast({
+        //   title: '待开发',
+        //   icon: 'loading',
+        //   duration: 1000,
+        //   mask: true
+        // })
         break;
 
       case "数据分析":
