@@ -20,10 +20,10 @@
       <view class="cu-form-group ">
         <view class="title text-bold">审核结果:</view>
         <text class="item-left" wx:if="{{detailList.status==0}}">未开启</text>
-        <text class="item-left" wx:elif="{{detailList.status==1}}">待上报</text>
-        <text class="item-left" wx:elif="{{detailList.status==2}}">待审核</text>
-        <text class="item-left" wx:elif="{{detailList.status==3}}">合格</text>
-        <text class="item-left" wx:elif="{{detailList.status==4}}">不合格</text>
+        <text class="item-left text-green" wx:elif="{{detailList.status==1}}">待上报</text>
+        <text class="item-left text-orange" wx:elif="{{detailList.status==2}}">待审核</text>
+        <text class="item-left text-blue" wx:elif="{{detailList.status==3}}">合格</text>
+        <text class="item-left text-red" wx:elif="{{detailList.status==4}}">不合格</text>
         <text class="item-left" wx:elif="{{detailList.status==5}}">已停止</text>
         <text class="item-left" wx:elif="{{detailList.status==6}}">一审中</text>
         <text class="item-left" wx:elif="{{detailList.status==7}}">二审中</text>

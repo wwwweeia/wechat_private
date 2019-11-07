@@ -495,6 +495,7 @@ padding: 10rpx 30rpx 10rpx;
     /*text-align: center;*/
     border-right: 2px solid #ddd;
     height: 100%;
+    display: flex;
 }
 .td-2 {
     width:20%;
@@ -504,6 +505,7 @@ padding: 10rpx 30rpx 10rpx;
     height: 100%;
     max-width: 100%;
     padding: 30rpx 0;
+    display: flex;
 }
 .bg-w{
   background: #afb4db;
