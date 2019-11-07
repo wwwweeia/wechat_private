@@ -84,6 +84,16 @@ Page({
     })
 
   },
+    go:function(e){
+    var projectId = e.currentTarget.dataset.id;
+    var isGrade = e.currentTarget.dataset.isgrade;
+    console.log("项目id",projectId)
+    wx.setStorageSync("projectId", projectId);
+    wx.setStorageSync("isGrade", isGrade);
+    wx.navigateTo({
+      url:"../point_type/point_type"
+    })
+  },
   changeData: function() {
 
     // var options = {'id':this.data.id}

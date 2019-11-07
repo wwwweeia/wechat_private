@@ -77,8 +77,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    // requestUrl: 'https://wxp.diaochaonline.com'//线上
+    requestUrl: 'https://wxp.diaochaonline.com'//线上
     // requestUrl:'http://221.216.95.200:8286'//35
-    requestUrl:'http://192.168.15.147:8080'//本地
+    // requestUrl:'http://192.168.15.147:8080'//本地
   }
 })

@@ -34,7 +34,7 @@ Page({
         markersList: data.data
       })
     })
-
+    console.log("这是经纬度集合：", that.data.markersList)
     wx.getSystemInfo({
       success: function (res) {
         // 计算主体部分高度,单位为px
@@ -111,6 +111,7 @@ Page({
   // },
 
   marker: function (e) {
+    console.log("点击了", e)
     const that = this;
 
     const index = Number(e.markerId);
@@ -217,7 +218,8 @@ Page({
         longitude: list[i].longitude,
         title: list[i].name,
         address: list[i].address,
-        pointId: list[i].pointId
+        pointId: list[i].pointId,
+        pointTypeId:list[i].pointTypeId,
       })
     }
     that.setData({
@@ -233,9 +235,11 @@ Page({
     const item = this.data.address[index];
     const id = item.pointId;
     const name = item.title;
+    const pointTypeId = item.pointTypeId
     // var id = that.data.pointId;
     wx.navigateTo({
-      url: "../point_detail/point_detail?id=" + id + "&name=" + name
+      url: "../fuCha_point_detail/fuCha_point_detail?id=" + id + "&name=" + name+"&pointTypeId=" +pointTypeId
     })
-  }
+  },
+  
 })

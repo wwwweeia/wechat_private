@@ -217,7 +217,9 @@ Page({
         longitude: list[i].longitude,
         title: list[i].name,
         address: list[i].address,
-        pointId: list[i].pointId
+        pointId: list[i].pointId,
+        pointTypeId:list[i].pointTypeId,
+        submitStatus:list[i].submitStatus
       })
     }
     that.setData({
@@ -233,9 +235,11 @@ Page({
     const item = this.data.address[index];
     const id = item.pointId;
     const name = item.title;
+    const pointTypeId = item.pointTypeId;
+    const firstQuestion = item.submitStatus;
     // var id = that.data.pointId;
     wx.navigateTo({
-      url: "../point_detail/point_detail?id=" + id + "&name=" + name
+      url: "../point_detail/point_detail?id=" + id + "&name=" + name +"&pointTypeId=" +pointTypeId +"&firstQuestion=" +firstQuestion
     })
   }
 })

@@ -16,14 +16,16 @@ Page({
   },
 
   onLoad: function(options) {
+  
+  },
+
+  onShow:function(){
     var that = this;
     var terminalUserId = app.terminalUserId;
-    var projectId = options.projectId;
-    var isGrade = options.isGrade; //是否打分
+    var projectId = wx.getStorageSync('projectId');
+    var isGrade = wx.getStorageSync('isGrade'); //是否打分
     var requestUrl = app.globalData.requestUrl; //服务器路径
     console.log("是否打分：", isGrade)
-    wx.setStorageSync('projectId', projectId)
-    wx.setStorageSync('isGrade', isGrade)
     that.setData({
       requestUrl: requestUrl,
       isGrade: isGrade,
@@ -57,20 +59,22 @@ Page({
           for (let i = 0; i < mapList.length; i++) {
             if (mapList[i].locationList != null) {
               map.push({
+                pointTypeId:mapList[i].id,
                 list: mapList[i].locationList
               })
             }
           }
-
           let mapLists = [];
           for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].list.length; j++) {
               mapLists.push({
+                pointTypeId:map[i].pointTypeId,
                 longitude: map[i].list[j].longitude,
                 latitude: map[i].list[j].latitude,
                 name: map[i].list[j].name,
                 address: map[i].list[j].address,
-                pointId: map[i].list[j].id
+                pointId: map[i].list[j].id,
+                submitStatus: map[i].list[j].submitStatus
               })
             }
           }

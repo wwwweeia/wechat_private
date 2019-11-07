@@ -145,22 +145,22 @@ Page({
 
   },
 
-  changeParentData: function() {
-    var projectId = this.data.projectId;
-    var isGrade = this.data.isGrade;
-    var pages = getCurrentPages(); //当前页面栈
-    if (pages.length > 1) {
-      var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
-      beforePage.setData({ //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-        projectId: projectId,
-        isGrade: isGrade
-      })
-      beforePage.changeData(); //触发父页面中的方法
-    }
-  },
+  // changeParentData: function() {
+  //   var projectId = this.data.projectId;
+  //   var isGrade = this.data.isGrade;
+  //   var pages = getCurrentPages(); //当前页面栈
+  //   if (pages.length > 1) {
+  //     var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
+  //     beforePage.setData({ //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+  //       projectId: projectId,
+  //       isGrade: isGrade
+  //     })
+  //     beforePage.changeData(); //触发父页面中的方法
+  //   }
+  // },
 
-  onUnload: function() {
-    this.changeParentData();
-  }
+  // onUnload: function() {
+  //   this.changeParentData();
+  // }
 
 })

@@ -16,14 +16,14 @@ Page({
   },
 
   onLoad: function (options) {
+  },
+    onShow:function(){
     var that = this;
     var terminalUserId = app.terminalUserId;
-    var projectId = options.projectId;
-    var isGrade = options.isGrade; //是否打分
+    var projectId = wx.getStorageSync('projectId');
+    var isGrade = wx.getStorageSync('isGrade'); //是否打分
     var requestUrl = app.globalData.requestUrl; //服务器路径
     console.log("是否打分：", isGrade)
-    wx.setStorageSync('projectId', projectId)
-    wx.setStorageSync('isGrade', isGrade)
     that.setData({
       requestUrl: requestUrl,
       isGrade: isGrade,
@@ -66,6 +66,7 @@ Page({
           for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].list.length; j++) {
               mapLists.push({
+                pointTypeId:map[i].pointTypeId,
                 longitude: map[i].list[j].longitude,
                 latitude: map[i].list[j].latitude,
                 name: map[i].list[j].name,
@@ -152,6 +153,7 @@ Page({
     console.log("地图资源：", that.data.markersList)
     wx.navigateTo({
       url: "../fuCha_map/fuCha_map",
+       // url: "../../startDiaocha/ceshi/ceshi",
       success: function (res) {
         // 通过eventChannel向被打开页面传送数据
         res.eventChannel.emit('pointTypePage', {

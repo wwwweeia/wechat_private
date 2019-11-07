@@ -49,6 +49,10 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 14,
 			"list": [
@@ -155,6 +159,12 @@
 					"name": "材料上报--查看资源",
 					"pathName": "pages/DatumUpload/datum_check_see/datum_check_see",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "复查地图",
+					"pathName": "pages/fuCha/fuCha_map/fuCha_map",
 					"scene": null
 				}
 			]
