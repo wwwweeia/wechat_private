@@ -92,7 +92,7 @@
           <text class="cuIcon-search"></text>
           <input type="text" bindinput="textInput" placeholder="输入搜索的关键词" confirm-type="search"></input>
         </view>
-        <view class="action" bind:tap="getDatumTaskList">
+        <view class="action" bind:tap="getDatumTaskListSeraCh">
           <button class="cu-btn bg-gradual-blue shadow-blur round">搜索</button>
         </view>
       </view>

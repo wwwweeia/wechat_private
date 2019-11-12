@@ -12,6 +12,7 @@ Page({
     taskId: '',
     projectId: '',
     desc: '', //审核意见
+    documentDesc:'',//单个文档审批意见
     gfFileList: [], //规范文件上传数据
     smReportList: [], //说明文件上传数据
     imgList: [], //图片上传数据
@@ -19,6 +20,10 @@ Page({
     unRedios: [], //不合格redios集合
     redios: [], //不合格redios集合
     departmentTask: [], //部门资源（备注）
+    modalHidden: true, //控制弹框的变量 
+    documentId:'',//文档id
+    terminalUserId:'',
+    
   },
 
   /**
@@ -29,13 +34,142 @@ Page({
     var taskId = options.id;
     var projectId = options.projectId;
     var requestUrl = app.globalData.requestUrl; //服务器路径
+    var terminalUserId = app.terminalUserId;
     that.setData({
       taskId: taskId,
       requestUrl: requestUrl,
-      projectId: projectId
+      projectId: projectId,
+      terminalUserId:terminalUserId,
+      gfFileList: [], //规范文件上传数据
+      smReportList: [], //说明文件上传数据
+      imgList: [], //图片上传数据
+      tjChartList: [] //统计表格上传数据
     })
     that.getResourceList(taskId);
   },
+  open1:function(e){
+    var that = this;
+    var gfFileList = that.data.gfFileList;
+    // console.log(gfFileList);
+    var id = e.currentTarget.dataset.id;
+    var index = e.currentTarget.dataset.index;
+    var auditContent = gfFileList[index].auditContent;
+    that.setData({
+      documentDesc:auditContent,
+      modalHidden: false,
+      documentId:id
+    })
+
+  },
+    open2:function(e){
+    var that = this;
+    var smReportList = that.data.smReportList;
+    // console.log(smReportList);
+    var id = e.currentTarget.dataset.id;
+    var index = e.currentTarget.dataset.index;
+    var auditContent = smReportList[index].auditContent;
+    that.setData({
+      documentDesc:auditContent,
+      modalHidden: false,
+      documentId:id
+    })
+
+  },
+    open3:function(e){
+    var that = this;
+    var tjChartList = that.data.tjChartList;
+    // console.log(gfFileList);
+    var id = e.currentTarget.dataset.id;
+    var index = e.currentTarget.dataset.index;
+    var auditContent = tjChartList[index].auditContent;
+    that.setData({
+      documentDesc:auditContent,
+      modalHidden: false,
+      documentId:id
+    })
+
+  },
+  //确定--后台交互
+  sub: function () {
+    var that = this;
+    that.setData({
+      modalHidden: true
+    })
+    var documentDesc = that.data.documentDesc;
+     if (documentDesc == null || documentDesc == '') {
+      wx.showToast({
+        title: '审批意见不能为空',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      return
+    }
+    var requestUrl = that.data.requestUrl; //服务器路径
+
+    var terminalUserId = that.data.terminalUserId; //调查员id
+    var auditContent = that.data.documentDesc;//审批意见
+    var documentId = that.data.documentId;//文档id
+    // console.log("调查员",terminalUserId)
+    // console.log("auditContent",auditContent)
+    // console.log("文档id：",documentId)
+
+    wx.request({
+      // 必需
+      url: requestUrl + '/mobile/datumTask/updateDatumResource',
+      data: {
+        'terminalUserId': terminalUserId,
+        'id': documentId,
+        'auditContent': auditContent
+      },
+      method: "POST",
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: (res) => {
+        if (res.data.status === "success") {
+         wx.showToast({
+            title: "请求成功",
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+           var e = {
+            id: this.data.taskId,
+            projectId: this.data.projectId
+          }
+
+          this.onLoad(e); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+        }
+      },
+      fail: (res) => {
+
+      },
+      complete: (res) => {
+
+      }
+    })
+
+  },
+  //取消
+  cancel: function () {
+    var that = this;
+    that.setData({
+      modalHidden: true
+    })
+    console.log("取消了")
+  },
+  textInput(e) {
+    this.data.documentDesc = e.detail.value;
+  },
+ 
   //合格不合格单选框
   radioChange: function(e) {
     var that = this;
@@ -131,15 +265,26 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("审核资源：", res)
-        var gf = res.data.resource.authorityFile;
-        var sm = res.data.resource.explainReport;
-        var img = res.data.resource.scenePicture;
-        var tj = res.data.resource.statisticalTable;
-        that.setData({
-          departmentTask: res.data.departmentTask
-        })
-        that.downlodaResource(gf, sm, img, tj);
+          if (res.data.message == 'success') {
+          console.log("审核资源：",res.data.retObj)
+          var gf = res.data.retObj.resource.authorityFile;
+          var sm = res.data.retObj.resource.explainReport;
+          var img = res.data.retObj.resource.scenePicture;
+          var tj = res.data.retObj.resource.statisticalTable;
+          var departmentTask =  res.data.retObj.departmentTask;
+          that.setData({
+            departmentTask: departmentTask
+          })
+          that.downlodaResource(gf, sm, img, tj);
+        } else {
+          wx.showToast({
+            title: '获取资源失败',
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+        }
+
       },
       fail: (res) => {
 
@@ -157,6 +302,7 @@ Page({
       for (var i = 0; i < gf.length; i++) {
         mapGF.push({
           url: gf[i].url,
+          auditContent:gf[i].auditContent,
           name: gf[i].name,
           id: gf[i].id
         })
@@ -167,6 +313,7 @@ Page({
       for (var i = 0; i < sm.length; i++) {
         mapSM.push({
           url: sm[i].url,
+          auditContent:sm[i].auditContent,
           name: sm[i].name,
           id: sm[i].id
         })
@@ -183,6 +330,7 @@ Page({
       for (var i = 0; i < tj.length; i++) {
         mapTJ.push({
           url: tj[i].url,
+          auditContent:tj[i].auditContent,
           name: tj[i].name,
           id: tj[i].id
         })
@@ -191,11 +339,11 @@ Page({
     console.log("规范文件", mapGF, "说明报告", mapSM, "实景图片", mapIMG, "统计表格", mapTJ)
     //规范文件下载
     for (var index = 0; index < mapGF.length; index++) {
-      await that.downloadGF(mapGF[index].url, mapGF[index].name, mapGF[index].id).then((res) => {})
+      await that.downloadGF(mapGF[index].url, mapGF[index].name, mapGF[index].id,mapGF[index].auditContent).then((res) => {})
     }
     //说明报告下载
     for (var index = 0; index < mapSM.length; index++) {
-      await that.downloadSM(mapSM[index].url, mapSM[index].name, mapSM[index].id).then((res) => {})
+      await that.downloadSM(mapSM[index].url, mapSM[index].name, mapSM[index].id,mapSM[index].auditContent).then((res) => {})
     }
     //实景图片下载
     for (var index = 0; index < mapIMG.length; index++) {
@@ -203,7 +351,7 @@ Page({
     }
     //统计表格下载
     for (var index = 0; index < mapTJ.length; index++) {
-      await that.downloadTJ(mapTJ[index].url, mapTJ[index].name, mapTJ[index].id).then((res) => {})
+      await that.downloadTJ(mapTJ[index].url, mapTJ[index].name, mapTJ[index].id,mapTJ[index].auditContent).then((res) => {})
     }
 
   },
@@ -211,7 +359,7 @@ Page({
    ***********************************规范文件下载**************************************
    */
 
-  downloadGF: function(filePath, name, id) {
+  downloadGF: function(filePath, name, id,auditContent) {
     var that = this;
     var gfFileList = that.data.gfFileList;
     return new Promise((resolve, reject) => {
@@ -224,6 +372,7 @@ Page({
             gfFileList.push({
               url: res.tempFilePath,
               name: name,
+              auditContent:auditContent,
               id: id
             })
             that.setData({
@@ -239,7 +388,7 @@ Page({
    ***********************************说明报告下载**************************************
    */
 
-  downloadSM: function(filePath, name, id) {
+  downloadSM: function(filePath, name, id,auditContent) {
     var that = this;
     var smReportList = that.data.smReportList;
     return new Promise((resolve, reject) => {
@@ -252,6 +401,7 @@ Page({
             smReportList.push({
               url: res.tempFilePath,
               name: name,
+              auditContent:auditContent,
               id: id
             })
             that.setData({
@@ -291,7 +441,7 @@ Page({
    ***********************************统计表格下载**************************************
    */
 
-  downloadTJ: function(filePath, name, id) {
+  downloadTJ: function(filePath, name, id,auditContent) {
     var that = this;
     var tjChartList = that.data.tjChartList;
     return new Promise((resolve, reject) => {
@@ -304,6 +454,7 @@ Page({
             tjChartList.push({
               url: res.tempFilePath,
               name: name,
+              auditContent:auditContent,
               id: id
             })
             that.setData({
@@ -341,16 +492,38 @@ Page({
   //合格不合格
   go: function(e) {
     var that = this;
-    wx.showLoading({
-      title: '上传中',
-      mask: true
-    })
+    var status = e.currentTarget.dataset.status;
+    var unRedios = that.data.unRedios;
+    var redios = that.data.redios;
+    var gfFileList = that.data.gfFileList;
+    var smReportList = that.data.smReportList;
+    var tjChartList = that.data.tjChartList;
+    if(status==='3'){
+      var resourceLength=gfFileList.length+smReportList.length+tjChartList.length;
+      var rediosLength=unRedios.length+redios.length;
+          if (resourceLength != rediosLength) {
+             wx.showToast({
+              title: '所有文件都需审核',
+              icon: 'none',
+              duration: 1000,
+              mask: true
+            })
+          }else{
+            that.gogo(3);
+          }
+    }else{
+      that.gogo(4);
+    }
+
+   
+  },
+  gogo:function(status){
+     var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
     var projectId = that.data.projectId;
     var unRedios = that.data.unRedios;
     var redios = that.data.redios;
-
-    var qualifiedResourceIds = '';
+     var qualifiedResourceIds = '';
     var unQualifiedResourceIds = '';
     //不合格
     for (var i = 0; i < unRedios.length; i++) {
@@ -364,7 +537,7 @@ Page({
     qualifiedResourceIds = qualifiedResourceIds.substring(0, qualifiedResourceIds.length - 1);
 
     var terminalUserId = app.terminalUserId;
-    var status = e.currentTarget.dataset.status;
+    
     var auditContent = that.data.desc;
     var taskId = that.data.taskId;
 
@@ -374,7 +547,10 @@ Page({
     console.log("审核意见：", auditContent)
     console.log("状态：", status)
     console.log("调查员id", terminalUserId)
-
+    wx.showLoading({
+      title: '上传中',
+      mask: true
+    })
     wx.request({
       // 必需
       url: requestUrl + '/mobile/datumTask/check',

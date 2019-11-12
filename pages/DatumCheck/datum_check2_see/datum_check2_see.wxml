@@ -1,6 +1,6 @@
 <view class="cu-form-group align-start">
   <view class="title">单位备注</view>
-  <textarea maxlength="-1" bindinput="textareaBInput" value="{{departmentTask.commitContent==''?'　无':departmentTask.commitContent}}"></textarea>
+  <textarea maxlength="-1"  bindinput="textareaBInput" value="{{departmentTask.commitContent==''?'　无':departmentTask.commitContent}}"></textarea>
 </view>
 <!-- 规范文件 -->
 <view class="cu-bar  solid-bottom" wx:if="{{gfFileList.length!=0}}">
@@ -12,13 +12,13 @@
 <view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="{{index}}">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{gfFileList[index].url}}'>
-      <text class="text-blue">{{gfFileList[index].name}}</text>
-
+      <text class="text-blue">{{gfFileList[index].name}}　　</text>
       <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
     </view>
-
-  </view>
-  <view class="radioChange_user">
+    <button class="cu-btn bg-blue shadow" catchtap="open1" data-index="{{index}}" data-id="{{gfFileList[index].id}}">审批意见</button>
+    </view>
+    <view class="radioChange_user">
+  
     <radio-group bindchange="radioChange">
       <label class="radio">
         <radio class="blue margin-left-sm" value="on{{gfFileList[index].id}}" />合格
@@ -27,7 +27,10 @@
         <radio class="blue margin-left-sm" value="un{{gfFileList[index].id}}" />不合格
       </label>
     </radio-group>
+  
   </view>
+  
+  <tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
 </view>
 
 <!-- 说明报告 -->
@@ -40,9 +43,9 @@
 <view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="{{index}}">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{smReportList[index].url}}'>
-      <text class="text-blue">{{smReportList[index].name}}</text>
+      <text class="text-blue">{{smReportList[index].name}}　　</text>
     </view>
-
+     <button class="cu-btn bg-blue shadow" catchtap="open2" data-index="{{index}}" data-id="{{smReportList[index].id}}">审批意见</button>
   </view>
   <view class="radioChange_user">
     <radio-group bindchange="radioChange">
@@ -54,6 +57,7 @@
       </label>
     </radio-group>
   </view>
+<tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
 </view>
 
 <!-- 实景图片 -->
@@ -83,11 +87,12 @@
 <view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="{{index}}">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{tjChartList[index].url}}'>
-      <text class="text-blue">{{tjChartList[index].name}}</text>
+      <text class="text-blue">{{tjChartList[index].name}}　　</text>
     </view>
-
+    <button class="cu-btn bg-blue shadow" catchtap="open3" data-index="{{index}}" data-id="{{tjChartList[index].id}}">审批意见</button>
   </view>
   <view class="radioChange_user">
+  
     <radio-group bindchange="radioChange">
       <label class="radio">
         <radio class="blue margin-left-sm" value="on{{tjChartList[index].id}}" />合格
@@ -97,7 +102,17 @@
       </label>
     </radio-group>
   </view>
+  <tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
 </view>
+
+
+<modal hidden="{{modalHidden}}" bindconfirm="sub" bindcancel="cancel">
+  <view class="cu-form-group">
+    <textarea bindinput="textInput" class="text-blue" value="{{documentDesc}}" placeholder="针对单个文件审批意见"></textarea>
+  </view>
+</modal>
+
+
 
 <!-- 审核意见 -->
 <view class="cu-bar solid-bottom">

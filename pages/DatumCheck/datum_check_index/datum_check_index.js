@@ -109,6 +109,77 @@ Page({
       }
     })
   },
+  getDatumTaskListSeraCh: function() {
+    var that = this;
+    var requestUrl = that.data.requestUrl;
+    var projectId = that.data.projectId;
+    var pageNum = that.data.pageNum;
+    var pageSize = that.data.pageSize;
+    var content = that.data.searchDesc;
+    wx.request({
+      // 必需
+      url: requestUrl + '/mobile/datumTask/getCheckDatumTaskList',
+      data: {
+        'projectId': projectId,
+        'pageNum': 1,
+        'pageSize': pageSize,
+        'content': content
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        console.log("后端材料任务search：", res)
+        if (res.data.status === "success") {
+          var taskList = res.data.retObj.list;
+          var list = [];
+          var id = '';
+          for (var i = 0; i < taskList.length; i++) {
+            var content = taskList[i].content.split("—");
+            id = taskList[0].id;
+            list.push({
+              id: taskList[i].id,
+              content: content[content.length - 1]
+            })
+          }
+          that.setData({
+            maxPageNum: res.data.retObj.pageCount,
+            pageCount: res.data.retObj.count,
+            taskList: list
+          })
+          if (res.data.retObj.pageCount == 1) {
+            that.setData({
+              pageNum:1,
+              last:true,
+              next: true
+            })
+          } else {
+            that.setData({
+              pageNum:1,
+              last:true,
+              next: false
+            })
+          }
+
+          that.goTaskDetail(id);
+        } else {
+          wx.showToast({
+            title: '获取材料任务列表失败',
+            icon: 'none', // "success", "loading", "none"
+            duration: 1500,
+            mask: false,
+
+          })
+        }
+      },
+      fail: (res) => {
+
+      },
+      complete: (res) => {
+
+      }
+    })
+  },
 
 
   // 页面切换

@@ -1,5 +1,8 @@
 {
   "component": true,
   "navigationBarTitleText": "查看上传资源",
-  "usingComponents": {}
+  "usingComponents": {
+  	 "tui-alert": "../../../components/alert/alert",
+    "tui-button": "../../../components/button/button"
+  }
 }

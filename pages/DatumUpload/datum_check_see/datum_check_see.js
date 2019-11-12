@@ -15,7 +15,8 @@ Page({
     smReportList: [], //说明文件上传数据
     imgList: [], //图片上传数据
     tjChartList: [], //统计表格上传数据
-
+    commitContent:'',//审核内容
+    auditContent:'',//单个文件审批意见
   },
 
   /**
@@ -31,14 +32,28 @@ Page({
     })
     that.getResourceList(taskId);
   },
+ // 提示弹框
+  showAlert(e) {
+    var that = this;
+    var content = e.currentTarget.dataset.content;
+      this.setData({
+        auditContent:content,
+        visible: true
+      })
 
-
+  },
+  //隐藏弹框
+  hideAlert(type) {
+    this.setData({
+      visible: false
+    })
+  },
   getResourceList(taskId) {
     var that = this;
     var requestUrl = that.data.requestUrl;
     wx.request({
       // 必需
-      url: requestUrl + '/mobile/datumTask/getDatumResourceListByDatumDeptId',
+      url: requestUrl + '/mobile/datumTask/getDatumResourceListAndTaskByDatumDeptId',
       data: {
         'id': taskId
       },
@@ -46,17 +61,16 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        if (res.data.status == 'success') {
-          var gf = res.data.retObj.authorityFile;
-          var sm = res.data.retObj.explainReport;
-          var img = res.data.retObj.scenePicture;
-          var tj = res.data.retObj.statisticalTable;
-          // that.setData({
-          //   gfFileList:res.data.retObj.authorityFile,
-          //   smReportList:res.data.retObj.explainReport,
-          //   imgList:res.data.retObj.scenePicture,
-          //   tjChartList:res.data.retObj.statisticalTable
-          // }) 
+        if (res.data.message == 'success') {
+          console.log("材料下载：",res.data.retObj)
+          var gf = res.data.retObj.resource.authorityFile;
+          var sm = res.data.retObj.resource.explainReport;
+          var img = res.data.retObj.resource.scenePicture;
+          var tj = res.data.retObj.resource.statisticalTable;
+          var commitContent =  res.data.retObj.departmentTask.auditContent;
+          that.setData({
+            commitContent:commitContent
+          }) 
           that.downlodaResource(gf, sm, img, tj);
         } else {
           wx.showToast({
@@ -83,6 +97,7 @@ Page({
       for (var i = 0; i < gf.length; i++) {
         mapGF.push({
           url: gf[i].url,
+          auditContent:gf[i].auditContent,
           name: gf[i].name
         })
       }
@@ -92,6 +107,7 @@ Page({
       for (var i = 0; i < sm.length; i++) {
         mapSM.push({
           url: sm[i].url,
+          auditContent:sm[i].auditContent,
           name: sm[i].name
         })
       }
@@ -107,6 +123,7 @@ Page({
       for (var i = 0; i < tj.length; i++) {
         mapTJ.push({
           url: tj[i].url,
+          auditContent:tj[i].auditContent,
           name: tj[i].name
         })
       }
@@ -114,11 +131,11 @@ Page({
     console.log("规范文件", mapGF, "说明报告", mapSM, "实景图片", mapIMG, "统计表格", mapTJ)
     //规范文件下载
     for (var index = 0; index < mapGF.length; index++) {
-      await that.downloadGF(mapGF[index].url, mapGF[index].name).then((res) => {})
+      await that.downloadGF(mapGF[index].url, mapGF[index].name,mapGF[index].auditContent).then((res) => {})
     }
     //说明报告下载
     for (var index = 0; index < mapSM.length; index++) {
-      await that.downloadSM(mapSM[index].url, mapSM[index].name).then((res) => {})
+      await that.downloadSM(mapSM[index].url, mapSM[index].name,mapSM[index].auditContent).then((res) => {})
     }
     //实景图片下载
     for (var index = 0; index < mapIMG.length; index++) {
@@ -126,7 +143,7 @@ Page({
     }
     //统计表格下载
     for (var index = 0; index < mapTJ.length; index++) {
-      await that.downloadTJ(mapTJ[index].url, mapTJ[index].name).then((res) => {})
+      await that.downloadTJ(mapTJ[index].url, mapTJ[index].name,mapTJ[index].auditContent).then((res) => {})
     }
 
   },
@@ -134,7 +151,7 @@ Page({
    ***********************************规范文件下载**************************************
    */
 
-  downloadGF: function(filePath, name) {
+  downloadGF: function(filePath, name,auditContent) {
     var that = this;
     var gfFileList = that.data.gfFileList;
     return new Promise((resolve, reject) => {
@@ -146,7 +163,8 @@ Page({
             resolve(res.data)
             gfFileList.push({
               url: res.tempFilePath,
-              name: name
+              name: name,
+              auditContent:auditContent
             })
             that.setData({
               gfFileList: gfFileList
@@ -161,7 +179,7 @@ Page({
    ***********************************说明报告下载**************************************
    */
 
-  downloadSM: function(filePath, name) {
+  downloadSM: function(filePath, name,auditContent) {
     var that = this;
     var smReportList = that.data.smReportList;
     return new Promise((resolve, reject) => {
@@ -173,7 +191,8 @@ Page({
             resolve(res.data)
             smReportList.push({
               url: res.tempFilePath,
-              name: name
+              name: name,
+              auditContent:auditContent
             })
             that.setData({
               smReportList: smReportList
@@ -212,7 +231,7 @@ Page({
    ***********************************统计表格下载**************************************
    */
 
-  downloadTJ: function(filePath, name) {
+  downloadTJ: function(filePath, name,auditContent) {
     var that = this;
     var tjChartList = that.data.tjChartList;
     return new Promise((resolve, reject) => {
@@ -224,7 +243,8 @@ Page({
             resolve(res.data)
             tjChartList.push({
               url: res.tempFilePath,
-              name: name
+              name: name,
+              auditContent:auditContent
             })
             that.setData({
               tjChartList: tjChartList
@@ -245,13 +265,11 @@ Page({
   },
   //打开文件
   openDocument: function(e) {
-    console.log("进来了")
     var that = this;
     var url = e.currentTarget.dataset.url;
     wx.openDocument({
       filePath: url,
       success: function(res) {
-        console.log("打开了")
       }
     })
   },

@@ -87,7 +87,7 @@
 <!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
 <view hidden="{{checkShow}}">
   <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}">
-    <text class="text-blue h1">上次整改资源</text>
+    <text class="text-grey h1">上次整改资源</text>
   </tui-divider>
 </view>
 <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
@@ -101,7 +101,7 @@
 
 <view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>上次整改图片/视频
+    <text class="cuIcon-title text-blue"></text><text class="text-grey">上次整改图片/视频</text>
   </view>
 </view>
 
@@ -128,7 +128,7 @@
 <!-- wx:if="{{isRecord}}" -->
 <view hidden="{{checkShow}}" class="cu-bar solid-bottom" wx:if="{{isShow_Dep==0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 录音
+    <text class="cuIcon-title text-blue "></text><text class="text-grey"> 录音</text>
   </view>
 
 </view>
@@ -157,7 +157,7 @@
 <!-- 整改说明 -->
 <view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>整改说明
+    <text class="cuIcon-title text-blue"></text><text class="text-grey">整改说明</text>
   </view>
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
@@ -172,7 +172,7 @@
 <!-- 审批意见 -->
 <view hidden="{{checkShow}}" class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>审批意见
+    <text class="cuIcon-title text-blue"></text><text class="text-grey">审批意见</text>
   </view>
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
