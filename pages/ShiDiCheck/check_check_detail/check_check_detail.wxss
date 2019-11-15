@@ -12,7 +12,10 @@
   justify-content: space-between;
   margin-bottom: 20rpx;
 }
-
+/*背景*/
+.bg-white-user {
+background-color: var(--greyLight);
+}
 .other-img-wrap {
   display: flex;
   justify-content: center;
@@ -119,6 +122,14 @@ margin-top: 20rpx;
   padding: 0 50rpx;
   display: flex;
   align-items: center;
+}
+.image-audio-user {
+  width: 40rpx;
+  height: 60rpx;
+  /*margin: 10rpx 20rpx 0rpx 0rpx;*//*float: left;*/
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 /*针对图片*/

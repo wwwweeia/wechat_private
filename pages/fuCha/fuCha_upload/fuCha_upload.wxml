@@ -161,24 +161,34 @@
   </view>
 </modal>
 
-<view class="cu-chat" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
+<view class="cu-chat bg-white" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
   <view class="cu-item">
-    <view class="main" bindtap='playRecord' data-id="{{index}}">
+    <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
       <view class="action text-bold text-blue">
         第{{index+1}}个录音
       </view>
+      <!-- 静态图 -->
       <view class="content shadow">
-        <text class="cuIcon-sound text-xxl padding-right-xl"> </text>
+        <image class="image-audio-user" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
+       
+      </view>
+
+    </view>
+    <view wx:if="{{item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <!-- 动图 -->
+      <view class="content shadow">
+        <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
+        
       </view>
     </view>
     <view class="action-user" bindtap='delAudio' data-id="{{index}}">
       <text class="cuIcon-close text-red"></text>
     </view>
-
   </view>
-
 </view>
-
 
 
 <!-- 描述

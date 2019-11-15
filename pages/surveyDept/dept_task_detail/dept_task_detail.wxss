@@ -168,6 +168,10 @@ margin-left: 20rpx;
 /*border: 0.02px solid darkgray;*/
 }
 /*背景*/
+.bg-white-user {
+background-color: var(--greyLight);
+
+}
 .bg-white1 {
 background-color: var(--white);
 
@@ -187,4 +191,12 @@ background-color: var(--white);
 }
 .cu-bar-user{
 min-height: 20rpx;
+}
+.image-audio-user {
+  width: 40rpx;
+  height: 60rpx;
+  /*margin: 10rpx 20rpx 0rpx 0rpx;*//*float: left;*/
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }

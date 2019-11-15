@@ -21,6 +21,7 @@ Page({
     last: true, //上一页隐藏
     next: false, //下一页显示
     departmentList: [], //任务所属部门集合
+    userIndex:'',//用户操作的行
   },
 
   /**
@@ -64,39 +65,50 @@ Page({
       success: (res) => {
         console.log("后端材料任务：", res)
         if (res.data.status === "success") {
-          var taskList = res.data.retObj.list;
-          var list = [];
-          var id = '';
-          for (var i = 0; i < taskList.length; i++) {
-            var content = taskList[i].content.split("—");
-            id = taskList[0].id;
-            list.push({
-              id: taskList[i].id,
-              content: content[content.length - 1]
-            })
-          }
-          that.setData({
-            maxPageNum: res.data.retObj.pageCount,
-            pageCount: res.data.retObj.count,
-            taskList: list
-          })
-          if (res.data.retObj.pageCount === pageNum) {
-            that.setData({
-              next: true
-            })
-          } else {
-            that.setData({
-              next: false
-            })
-          }
+            if (res.data.retObj.list.length>'0') {
+                var taskList = res.data.retObj.list;
+                var list = [];
+                var id = '';
+                for (var i = 0; i < taskList.length; i++) {
+                  var content = taskList[i].content.split("—");
+                  id = taskList[0].id;
+                  list.push({
+                    id: taskList[i].id,
+                    content: content[content.length - 1]
+                  })
+                }
+                that.setData({
+                  maxPageNum: res.data.retObj.pageCount,
+                  pageCount: res.data.retObj.count,
+                  taskList: list
+                })
+                if (res.data.retObj.pageCount === pageNum) {
+                  that.setData({
+                    next: true
+                  })
+                } else {
+                  that.setData({
+                    next: false
+                  })
+                }
 
-          that.goTaskDetail(id);
+                that.goTaskDetail(id);
+            }else{
+               wx.showToast({
+                  title: '该项目下无数据',
+                  icon: 'none', // "success", "loading", "none"
+                  duration: 1500,
+                  mask: true,
+
+                })
+            }
+       
         } else {
           wx.showToast({
             title: '获取材料任务列表失败',
             icon: 'none', // "success", "loading", "none"
             duration: 1500,
-            mask: false,
+            mask: true,
 
           })
         }
@@ -143,6 +155,7 @@ Page({
             })
           }
           that.setData({
+            userIndex:'',
             maxPageNum: res.data.retObj.pageCount,
             pageCount: res.data.retObj.count,
             taskList: list
@@ -193,7 +206,7 @@ Page({
   hideModal(e) {
     var that = this;
     this.setData({
-      modalName: null,
+      modalName: null
     })
 
   },
@@ -206,6 +219,7 @@ Page({
     var that = this;
     var pageNum = that.data.pageNum - 1; //获取当前页数并+1
     that.setData({
+      userIndex:'',
       pageNum: pageNum //更新当前页数
     })
 
@@ -232,6 +246,7 @@ Page({
     var that = this;
     var pageNum = that.data.pageNum + 1; //获取当前页数并+1
     that.setData({
+      userIndex:'',
       pageNum: pageNum //更新当前页数
     })
 
@@ -255,8 +270,10 @@ Page({
   goTask: function(e) {
     var that = this;
     var id = e.currentTarget.dataset.id;
+    var userIndex = e.currentTarget.dataset.index;
     this.setData({
       modalName: null,
+      userIndex:userIndex
     })
     that.goTaskDetail(id);
   },

@@ -349,11 +349,12 @@ Page({
     that.startTimer();
   },
 
-  // 停止录音
+ // 停止录音
 
-  stopRecord: function () {
+  stopRecord: function() {
     var that = this;
     var audioSrc = this.data.audioSrc;
+    var remainTime = that.data.remainTime;
     that.setData({
       idModelShow: 1
     })
@@ -369,13 +370,22 @@ Page({
       } else {
 
         if (this.data.audioSrc.length != 0) {
+          audioSrc.push({
+            bl: false,
+            src: res.tempFilePath,
+            time: remainTime
+          })
           that.setData({
             modalHidden: true,
-            audioSrc: this.data.audioSrc.concat(res.tempFilePath),
+            audioSrc: audioSrc,
             isShow: 0
           })
         } else {
-          audioSrc.push(res.tempFilePath)
+          audioSrc.push({
+            bl: false,
+            src: res.tempFilePath,
+            time: remainTime
+          })
           that.setData({
             modalHidden: true,
             audioSrc: audioSrc,
@@ -384,6 +394,7 @@ Page({
         }
 
         that.tip("录音完成")
+        console.log("这是录音列表：", that.data.audioSrc);
       }
       // console.log("录音文件：",that.data.audioSrc,"长度：",that.data.audioSrc.length)
     })
@@ -391,11 +402,11 @@ Page({
     that.stopTimer();
   },
 
-  /**
+/**
    * 播放录音
    */
 
-  playRecord: function (e) {
+  playRecord: function(e) {
     var that = this;
     var audioSrc = this.data.audioSrc;
     var index = e.currentTarget.dataset.id;
@@ -404,12 +415,33 @@ Page({
       this.tip("请先录音！")
       return;
     }
-
+    audioSrc.forEach((v, i, array) => {
+      v.bl = false;
+      if (i == index) {
+        v.bl = true;
+      }
+    })
+    that.setData({
+      audioSrc: audioSrc
+    })
     innerAudioContext.autoplay = true
-    innerAudioContext.src = this.data.audioSrc[index],
+    innerAudioContext.src = this.data.audioSrc[index].src,
       innerAudioContext.onPlay(() => {
         console.log('开始播放')
       })
+
+    // 监听音频自然播放至结束的事件
+    innerAudioContext.onEnded(() => {
+      console.log("播放结束")
+      audioSrc[index].bl = false;
+      that.setData({
+        audioSrc: audioSrc,
+      })
+      // 取消自然播放至结束的事件
+      innerAudioContext.offEnded();
+
+    })
+
     // console.log("播放录音", that.data.audioSrc[index])
   },
   /**

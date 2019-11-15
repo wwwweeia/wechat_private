@@ -1,6 +1,6 @@
 <view class="cu-form-group align-start">
   <view class="title">单位备注</view>
-  <textarea maxlength="-1"  bindinput="textareaBInput" value="{{departmentTask.commitContent==''?'　无':departmentTask.commitContent}}"></textarea>
+  <textarea maxlength="-1" bindinput="textareaBInput" value="{{departmentTask.commitContent==''?'　无':departmentTask.commitContent}}"></textarea>
 </view>
 <!-- 规范文件 -->
 <view class="cu-bar  solid-bottom" wx:if="{{gfFileList.length!=0}}">
@@ -15,10 +15,10 @@
       <text class="text-blue">{{gfFileList[index].name}}　　</text>
       <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
     </view>
-    <button class="cu-btn bg-blue shadow" catchtap="open1" data-index="{{index}}" data-id="{{gfFileList[index].id}}">审批意见</button>
-    </view>
-    <view class="radioChange_user">
-  
+    <text class="cuIcon-writefill text-red" bind:tap="getResourceById" data-index="{{index}}" data-id="{{gfFileList[index].id}}"></text>
+  </view>
+  <view class="radioChange_user">
+
     <radio-group bindchange="radioChange">
       <label class="radio">
         <radio class="blue margin-left-sm" value="on{{gfFileList[index].id}}" />合格
@@ -27,9 +27,9 @@
         <radio class="blue margin-left-sm" value="un{{gfFileList[index].id}}" />不合格
       </label>
     </radio-group>
-  
+
   </view>
-  
+
   <tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
 </view>
 
@@ -45,7 +45,7 @@
     <view bind:tap="openDocument" data-url='{{smReportList[index].url}}'>
       <text class="text-blue">{{smReportList[index].name}}　　</text>
     </view>
-     <button class="cu-btn bg-blue shadow" catchtap="open2" data-index="{{index}}" data-id="{{smReportList[index].id}}">审批意见</button>
+    <text bind:tap="getResourceById" data-index="{{index}}" data-id="{{smReportList[index].id}}" class="cuIcon-writefill text-red"></text>
   </view>
   <view class="radioChange_user">
     <radio-group bindchange="radioChange">
@@ -57,7 +57,7 @@
       </label>
     </radio-group>
   </view>
-<tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
+  <tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
 </view>
 
 <!-- 实景图片 -->
@@ -89,20 +89,20 @@
     <view bind:tap="openDocument" data-url='{{tjChartList[index].url}}'>
       <text class="text-blue">{{tjChartList[index].name}}　　</text>
     </view>
-    <button class="cu-btn bg-blue shadow" catchtap="open3" data-index="{{index}}" data-id="{{tjChartList[index].id}}">审批意见</button>
+    <text class="cuIcon-writefill text-red" bind:tap="getResourceById" data-index="{{index}}" data-id="{{tjChartList[index].id}}"></text>
   </view>
-  <view class="radioChange_user">
-  
-    <radio-group bindchange="radioChange">
-      <label class="radio">
-        <radio class="blue margin-left-sm" value="on{{tjChartList[index].id}}" />合格
-      </label>
-      <label class="radio">
-        <radio class="blue margin-left-sm" value="un{{tjChartList[index].id}}" />不合格
-      </label>
-    </radio-group>
-  </view>
-  <tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
+<view class="radioChange_user">
+
+  <radio-group bindchange="radioChange">
+    <label class="radio">
+      <radio class="blue margin-left-sm" value="on{{tjChartList[index].id}}" />合格
+    </label>
+    <label class="radio">
+      <radio class="blue margin-left-sm" value="un{{tjChartList[index].id}}" />不合格
+    </label>
+  </radio-group>
+</view>
+<tui-divider dividerColor="#5677fc" color="#5677fc"></tui-divider>
 </view>
 
 

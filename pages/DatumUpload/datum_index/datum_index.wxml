@@ -15,7 +15,7 @@
       </view>
       <view class="cu-form-group ">
         <view class="title text-bold">结束日期:</view>
-        <text class="item-left">{{detailList.endTime}}</text>
+        <text class="item-left">{{detailList.endTimeStr}}</text>
       </view>
       <view class="cu-form-group ">
         <view class="title text-bold">审核结果:</view>
@@ -85,10 +85,10 @@
         <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
         <view class="tui-cells tui-cells_show">
           <block wx:for-items="{{taskList}}" wx:key="{{item.id}}">
-            <view class="tui-cell tui-cell_access" bindtap="goTask" data-id="{{item.id}}" data-content="{{item.content}}">
+            <view class="tui-cell tui-cell_access" bindtap="goTask" data-id="{{item.id}}" data-content="{{item.content}}" data-index="{{index}}">
               <view class="tui-cell_bd text-smm">
                 <text class="text-blue">{{index+1}}、</text>{{item.content}}</view>
-
+                <view wx:if="{{userIndex==index}}" class="cuIcon-creativefill  text-yellow"></view>
               <view class="tui-cell_ft tui-cell_ft_in-access"></view>
             </view>
           </block>

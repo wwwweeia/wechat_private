@@ -11,6 +11,10 @@
         <view class="title text-bold">任务名称:</view>
         <text class="item-left  h3">{{detailList.content}}</text>
       </view>
+       <view class="cu-form-group ">
+        <view class="title text-bold">结束日期:</view>
+        <text class="item-left">{{detailList.endTimeStr}}</text>
+      </view>
     </view>
   </block>
   <view class="margin-tb-sm-user text-center">
@@ -31,7 +35,7 @@
         <view class="td-2" selectable="true" scroll-y="true">
           <text wx:if="{{item.status==1}}">未上报</text>
           <text wx:elif="{{item.status==2}}">待审核</text>
-          <text wx:elif="{{item.status==3}}" class="text-blue">合格</text>
+          <text wx:elif="{{item.status==3}}" class="text-green">合格</text>
           <text wx:elif="{{item.status==4}}" class="text-red">不合格</text>
           <text wx:elif="{{item.status==5}}">已结束</text>
           <text wx:elif="{{item.status==6}}">一审中</text>
@@ -108,10 +112,10 @@
         <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
         <view class="tui-cells tui-cells_show">
           <block wx:for-items="{{taskList}}" wx:key="{{item.id}}">
-            <view class="tui-cell tui-cell_access" bindtap="goTask" data-id="{{item.id}}" data-content="{{item.content}}">
+            <view class="tui-cell tui-cell_access" bindtap="goTask" data-id="{{item.id}}" data-content="{{item.content}}" data-index="{{index}}">
               <view class="tui-cell_bd text-smm">
                 <text class="text-blue">{{index+1}}、</text>{{item.content}}</view>
-
+                <view wx:if="{{userIndex==index}}" class="cuIcon-creativefill  text-yellow"></view>
               <view class="tui-cell_ft tui-cell_ft_in-access"></view>
             </view>
           </block>

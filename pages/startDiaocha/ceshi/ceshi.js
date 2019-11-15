@@ -27,35 +27,7 @@ Page({
   },
 
   onLoad: function (options) {
-    const that = this;
-    const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on('pointTypePage', function (data) {
-      that.setData({
-        markersList: data.data
-      })
-    })
-    console.log("这是经纬度集合：", that.data.markersList)
-    wx.getSystemInfo({
-      success: function (res) {
-        // 计算主体部分高度,单位为px
-        that.setData({
-          // second部分高度 = 利用窗口可使用高度 - first部分高度（这里的高度单位为px，所有利用比例将600rpx转换为px）
-          scrollH: res.windowHeight - 50 - res.windowWidth / 750 * 600
-        })
-      }
-    })
-    // this.setData({
-    //   amapPlugin: new amap.AMapWX({
-    //     key: this.data.key
-    //   })
-    // })
-    qqmapsdk = new QQMapWX({
-      key: this.data.key
-    });
-    this.currentLocation();
-
-    // this.getLocation();
-    this.getList();
+   
   },
 
   currentLocation() {

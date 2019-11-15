@@ -29,7 +29,8 @@ Page({
     //是否需要录音，0-不需要 1-需要
     isRecord: '',
     // 是否切换 1-问题分类查 0-指标查
-    qiehuan: 1
+    qiehuan: 1,
+    userIndex:'',//用户操作的行
   },
 
   onLoad: function(e) {
@@ -258,6 +259,8 @@ Page({
   hideModal(e) {
     var that = this;
     // type 0-点击有效，1-无效
+    var userIndex = e.currentTarget.dataset.index;
+   
     var type = e.currentTarget.dataset.type;
     var quotaId = e.currentTarget.dataset.quotaid;
     var quotaName = e.currentTarget.dataset.content;
@@ -267,6 +270,7 @@ Page({
     var locationId = that.data.pointId;
     if (type == 0) {
       this.setData({
+        userIndex:userIndex,
         quotaId: quotaId,
         modalName: null,
         quotaName: quotaName
@@ -280,6 +284,7 @@ Page({
 
     } else {
       this.setData({
+        userIndex:userIndex,
         modalName: null
       })
     }
@@ -298,7 +303,8 @@ Page({
 
       that.setData({
         variable: 1,
-        qiehuan: 0
+        qiehuan: 0,
+        userIndex:''
       })
       console.log("指标类型查")
       this.getQuotaList(terminalUserId, locationId, projectId);
@@ -307,7 +313,8 @@ Page({
 
       that.setData({
         variable: 0,
-        qiehuan: 1
+        qiehuan: 1,
+        userIndex:''
       })
       console.log("问题分类查")
       this.getproblemList(terminalUserId, projectId, locationId);

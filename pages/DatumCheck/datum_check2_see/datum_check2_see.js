@@ -47,47 +47,44 @@ Page({
     })
     that.getResourceList(taskId);
   },
-  open1:function(e){
+  getResourceById:function(e){
     var that = this;
-    var gfFileList = that.data.gfFileList;
-    // console.log(gfFileList);
+    var requestUrl = that.data.requestUrl;
     var id = e.currentTarget.dataset.id;
-    var index = e.currentTarget.dataset.index;
-    var auditContent = gfFileList[index].auditContent;
     that.setData({
-      documentDesc:auditContent,
-      modalHidden: false,
-      documentId:id
+      modalHidden: false
     })
-
-  },
-    open2:function(e){
-    var that = this;
-    var smReportList = that.data.smReportList;
-    // console.log(smReportList);
-    var id = e.currentTarget.dataset.id;
-    var index = e.currentTarget.dataset.index;
-    var auditContent = smReportList[index].auditContent;
-    that.setData({
-      documentDesc:auditContent,
-      modalHidden: false,
-      documentId:id
+    wx.request({
+      // 必需
+      url: requestUrl+'/mobile/datumTask/getResourceById',
+      data: {
+        resourceId:id
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        if(res.data.message==="success"){
+          that.setData({
+            documentDesc:res.data.retObj.auditContent,
+            documentId:id
+          })
+        }else{
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000,
+            mask:true
+          })
+        }
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
     })
-
-  },
-    open3:function(e){
-    var that = this;
-    var tjChartList = that.data.tjChartList;
-    // console.log(gfFileList);
-    var id = e.currentTarget.dataset.id;
-    var index = e.currentTarget.dataset.index;
-    var auditContent = tjChartList[index].auditContent;
-    that.setData({
-      documentDesc:auditContent,
-      modalHidden: false,
-      documentId:id
-    })
-
   },
   //确定--后台交互
   sub: function () {
@@ -134,12 +131,12 @@ Page({
             duration: 1000,
             mask: true
           })
-           var e = {
-            id: this.data.taskId,
-            projectId: this.data.projectId
-          }
+          //  var e = {
+          //   id: this.data.taskId,
+          //   projectId: this.data.projectId
+          // }
 
-          this.onLoad(e); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+          // this.onLoad(e); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
         } else {
           wx.showToast({
             title: res.data.message,

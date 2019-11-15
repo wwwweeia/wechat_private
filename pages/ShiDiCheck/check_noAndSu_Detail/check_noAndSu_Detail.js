@@ -161,12 +161,31 @@ Page({
       this.tip("请先录音！")
       return;
     }
-
+    audioSrc.forEach((v, i, array) => {
+      v.bl = false;
+      if (i == index) {
+        v.bl = true;
+      }
+    })
+    that.setData({
+      audioSrc: audioSrc
+    })
     innerAudioContext.autoplay = true
-    innerAudioContext.src = this.data.audioSrc[index],
+    innerAudioContext.src = this.data.audioSrc[index].src,
       innerAudioContext.onPlay(() => {
         console.log('开始播放')
       })
+     // 监听音频自然播放至结束的事件
+    innerAudioContext.onEnded(() => {
+      console.log("播放结束")
+      audioSrc[index].bl = false;
+      that.setData({
+        audioSrc: audioSrc,
+      })
+      // 取消自然播放至结束的事件
+      innerAudioContext.offEnded();
+
+    })
     // console.log("播放录音", that.data.audioSrc[index])
   },
   /**
@@ -177,12 +196,31 @@ Page({
     var that = this;
     var audioSrc = this.data.audioSrc_No;
     var index = e.currentTarget.dataset.id;
-
+     audioSrc.forEach((v, i, array) => {
+      v.bl = false;
+      if (i == index) {
+        v.bl = true;
+      }
+    })
+    that.setData({
+      audioSrc_No: audioSrc
+    })
     innerAudioContext.autoplay = true
-    innerAudioContext.src = this.data.audioSrc_No[index],
+    innerAudioContext.src = this.data.audioSrc_No[index].src,
       innerAudioContext.onPlay(() => {
         console.log('开始播放')
       })
+       // 监听音频自然播放至结束的事件
+    innerAudioContext.onEnded(() => {
+      console.log("播放结束")
+      audioSrc_No[index].bl = false;
+      that.setData({
+        audioSrc_No: audioSrc_No,
+      })
+      // 取消自然播放至结束的事件
+      innerAudioContext.offEnded();
+
+    })
     // console.log("播放录音", that.data.audioSrc[index])
   },
 
@@ -452,7 +490,10 @@ Page({
           if (res.statusCode === 200) {
             resolve(res.data)
             // console.log("下载的音频:",res.tempFilePath)
-            audioSrc.push(res.tempFilePath)
+            audioSrc.push({
+               bl: false,
+               src: res.tempFilePath,
+            })
             that.setData({
               audioSrc_No: audioSrc
             })
@@ -473,7 +514,10 @@ Page({
           if (res.statusCode === 200) {
             resolve(res.data)
             // console.log("下载的音频:",res.tempFilePath)
-            audioSrc.push(res.tempFilePath)
+            audioSrc.push({
+               bl: false,
+               src: res.tempFilePath,
+            })
             that.setData({
               audioSrc: audioSrc
             })

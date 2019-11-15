@@ -13,7 +13,7 @@
 </view> -->
 
 
-<view class="cu-bar bg-white1  solid-bottom  ">
+<view class="cu-bar  solid-bottom bg-white-user ">
   <view class="text-sm1 text-bold">
     <!--  <text class="cuIcon-title text-blue "></text>{{pointName}} -->
     <text class="cuIcon-favor text-blue "></text>{{pointName}}
@@ -34,7 +34,7 @@
 
 
 <!-- 举报图片/视频 -->
-<view class="cu-bar  solid-bottom">
+<view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>不合格图片/视频
   </view>
@@ -73,13 +73,13 @@
 
 
 <!-- 录音 -->
-<view class="cu-bar  solid-bottom" wx:if="{{isShow_No==0}}">
+<view class="cu-bar bg-white-user  solid-bottom" wx:if="{{isShow_No==0}}">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>录音
   </view>
 </view>
 
-<view class="cu-chat" wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index">
+<!-- <view class="cu-chat" wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index">
   <view class="cu-item">
     <view class="main" bindtap='playRecord_No' data-id="{{index}}">
       <view class="action text-bold text-blue">
@@ -89,16 +89,40 @@
         <text class="cuIcon-sound text-xxl padding-right-xl"> </text>
       </view>
     </view>
-    <!-- <view class="action-user" bindtap='delAudio' data-id="{{index}}">
-      <text class="cuIcon-close text-red"></text>
-    </view> -->
+  </view>
+</view> -->
 
+
+<view class="cu-chat bg-white" wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index">
+  <view class="cu-item">
+    <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord_No' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <!-- 静态图 -->
+      <view class="content shadow">
+        <image class="image-audio-user" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
+      </view>
+
+    </view>
+    <view wx:if="{{item.bl}}" class="main" bindtap='playRecord_No' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <!-- 动图 -->
+      <view class="content shadow">
+        <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
+     
+      </view>
+    </view>
+ 
   </view>
 
 </view>
 
+
 <!-- 定位信息 -->
-<view class="cu-bar  solid-bottom">
+<view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>定位信息
   </view>
@@ -106,13 +130,13 @@
 
 <view class="cu-bar bg-white text-center padding-neirong">
   <view class="action text-black " bindtap="go">
-    <text></text>{{address}}
+    <text></text>{{address}}　
     <text class="cuIcon-locationfill lg text-blue"></text>
   </view>
 </view>
 <!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
 <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}">
-  <text class="text-blue h1">整改上传</text>
+  <text class="text-grey h1">整改上传</text>
 </tui-divider>
 <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
       <view class="h1">
@@ -123,7 +147,7 @@
 <!-- 拍摄 -->
 
 
-<view class="cu-bar  solid-bottom">
+<view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>整改图片/视频
   </view>
@@ -150,7 +174,7 @@
 
 <!-- 录音 -->
 <!-- wx:if="{{isRecord}}" -->
-<view class="cu-bar solid-bottom" wx:if="{{isShow==0}}">
+<view class="cu-bar solid-bottom bg-white-user"  wx:if="{{isShow==0}}">
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 录音
   </view>
@@ -159,7 +183,7 @@
 
 
 
-<view class="cu-chat" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
+<!-- <view class="cu-chat" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
   <view class="cu-item">
     <view class="main" bindtap='playRecord' data-id="{{index}}">
       <view class="action text-bold text-blue">
@@ -175,11 +199,37 @@
 
   </view>
 
+</view> -->
+
+<view class="cu-chat bg-white" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
+  <view class="cu-item">
+    <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <!-- 静态图 -->
+      <view class="content shadow">
+        <image class="image-audio-user" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
+      </view>
+
+    </view>
+    <view wx:if="{{item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <!-- 动图 -->
+      <view class="content shadow">
+        <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
+     
+      </view>
+    </view>
+  </view>
+
 </view>
 
 
 <!-- 整改说明 -->
-<view class="cu-bar  solid-bottom">
+<view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
     <text class="cuIcon-title text-blue"></text>整改说明
   </view>

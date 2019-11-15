@@ -98,17 +98,6 @@
   </view>
 
 
-
-
-
-
-
-
-
-
-
-
-
 </scroll-view>
 
 <!-- 触摸屏幕回退列 -->
@@ -141,6 +130,8 @@
           <block wx:for-items="{{list}}" wx:key="{{item.id}}">
             <view data-index="{{index}}" class="tui-cell tui-cell_access" bindtap="hideModal" data-type="0" data-target="viewModal" data-quotaId="{{item.id}}" data-content="{{item.content}}" data-variable="{{variable}}">
               <view class="tui-cell_bd text-smm">{{item.content}}</view>
+              
+              <view wx:if="{{userIndex==index}}" class="cuIcon-creativefill  text-yellow">　</view>
               <view wx:if="{{item.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
               <view wx:if="{{item.submitStatus==2}}" class="cuIcon-roundcheckfill  text-blue">
               </view>

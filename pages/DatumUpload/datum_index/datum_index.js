@@ -20,6 +20,7 @@ Page({
     searchDesc: '', //搜索的词
     last: true, //上一页隐藏
     next: false, //下一页显示
+    userIndex:'',//用户操作的行
   },
 
   /**
@@ -65,6 +66,7 @@ Page({
       success: (res) => {
         console.log("后端材料任务：", res)
         if (res.data.message === "success") {
+           if (res.data.retObj.list.length>'0') {
           var taskList = res.data.retObj.list;
           var list = [];
           var id = '';
@@ -92,6 +94,15 @@ Page({
           }
 
           that.goTaskDetail(id);
+           }else{
+               wx.showToast({
+                  title: '该项目下无数据',
+                  icon: 'none', // "success", "loading", "none"
+                  duration: 1500,
+                  mask: true,
+
+                })
+            }
         } else {
           wx.showToast({
             title: '获取材料任务列表失败',
@@ -145,6 +156,7 @@ Page({
             })
           }
           that.setData({
+            userIndex:'',
             maxPageNum: res.data.retObj.pageCount,
             pageCount: res.data.retObj.count,
             taskList: list
@@ -209,6 +221,7 @@ Page({
     var that = this;
     var pageNum = that.data.pageNum - 1; //获取当前页数并+1
     that.setData({
+      userIndex:'',
       pageNum: pageNum //更新当前页数
     })
 
@@ -235,6 +248,7 @@ Page({
     var that = this;
     var pageNum = that.data.pageNum + 1; //获取当前页数并+1
     that.setData({
+      userIndex:'',
       pageNum: pageNum //更新当前页数
     })
 
@@ -258,7 +272,9 @@ Page({
   goTask: function(e) {
     var that = this;
     var id = e.currentTarget.dataset.id;
+    var userIndex = e.currentTarget.dataset.index;
     this.setData({
+      userIndex:userIndex,
       modalName: null,
     })
     that.goTaskDetail(id);

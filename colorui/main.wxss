@@ -25,6 +25,7 @@ page {
 	--pink: #e03997;
 	--brown: #a5673f;
 	--grey: #8799a3;
+  --wx:#9EEA6A;
 	--black: #333333;
 	--darkGray: #666666;
 	--gray: #aaaaaa;
@@ -2132,7 +2133,7 @@ button.icon.lg {
 }
 
 .cu-chat .cu-item>.main .content {
-	padding: 0 40rpx;
+	padding: 0 60rpx;
 	border-radius: 6rpx;
 	display: inline-flex;
 	max-width: 100%;
@@ -2145,7 +2146,7 @@ button.icon.lg {
 }
 
 .cu-chat .cu-item>.main .content:not([class*="bg-"]) {
-	background-color: var(--white);
+	background-color: var(--blueLight);
 	color: var(--black);
 }
 
@@ -2372,7 +2373,14 @@ button.icon.lg {
 	min-height: 100rpx;
 	justify-content: space-between;
 }
-
+.cu-form-group-user {
+	background-color: var(--greyLight);
+	padding: 1rpx 30rpx;
+	display: flex;
+	align-items: center;
+	min-height: 100rpx;
+	justify-content: space-between;
+}
 .cu-form-group+.cu-form-group {
 	border-top: 1rpx solid #eee;
 }
