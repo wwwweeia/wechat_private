@@ -1,13 +1,11 @@
+//page/project_list/project_list.js
 const app = getApp();
 Page({
-
   data: {
     requestUrl: '', //服务器路径
     colorList: ['green', 'blue', 'cyan', 'olive', 'orange', 'red', 'brown', 'pink', 'mauve', 'purple'],
     elements: [],
   },
-
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -21,7 +19,6 @@ Page({
     // console.log(terminalUserId)
     that.getProjectList(terminalUserId);
   },
-
 
   getProjectList: function(terminalUserId) {
     var that = this;
@@ -82,8 +79,8 @@ Page({
 
       }
     })
-
   },
+  //点击
     go:function(e){
     var projectId = e.currentTarget.dataset.id;
     var isGrade = e.currentTarget.dataset.isgrade;
@@ -95,9 +92,7 @@ Page({
     })
   },
   changeData: function() {
-
     // var options = {'id':this.data.id}
-
     this.onLoad(); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 
   },

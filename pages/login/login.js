@@ -19,8 +19,6 @@ Page({
     var that = this;
     var requestUrl = that.data.requestUrl; //服务器路径
     //表单规则
-
-    //表单规则
     // let rules = [{
     //   name: "name",
     //   rule: ["required", "isChinese", "minLength:2", "maxLength:6"], //可使用区间，此处主要测试功能
@@ -83,9 +81,6 @@ Page({
                 })
               }
             })
-            // wx.navigateTo({
-            //   url:'/pages/login/login'
-            // })
           } else {
             wx.showToast({
               title: '用户名或密码错误',
@@ -96,14 +91,10 @@ Page({
           }
         },
         fail: (res) => {
-
         },
         complete: (res) => {
-
         }
       })
-
-
     } else {
       wx.showToast({
         title: checkRes,

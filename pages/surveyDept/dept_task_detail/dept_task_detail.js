@@ -323,7 +323,7 @@ Page({
       innerAudioContext.onPlay(() => {
         console.log('开始播放')
       })
-         // 监听音频自然播放至结束的事件
+    // 监听音频自然播放至结束的事件
     innerAudioContext.onEnded(() => {
       console.log("播放结束")
       audioSrc_No[index].bl = false;
@@ -358,7 +358,7 @@ Page({
       innerAudioContext.onPlay(() => {
         console.log('开始播放')
       })
-         // 监听音频自然播放至结束的事件
+    // 监听音频自然播放至结束的事件
     innerAudioContext.onEnded(() => {
       console.log("播放结束")
       audioSrc_Dep[index].bl = false;
@@ -481,18 +481,18 @@ Page({
 
 
 
-  ViewImageForreport(e) {
-    // console.log("图片数据：", e);
-    wx.previewImage({
-      urls: this.data.reportImgSrc,
-      current: e.currentTarget.dataset.url
-    });
-  },
-  ViewVideoForreport(e) {
-    //console.log("视频数据：",e);
-    this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
-    this.VideoContext.requestFullScreen(0);
-  },
+  // ViewImageForreport(e) {
+  //   // console.log("图片数据：", e);
+  //   wx.previewImage({
+  //     urls: this.data.reportImgSrc,
+  //     current: e.currentTarget.dataset.url
+  //   });
+  // },
+  // ViewVideoForreport(e) {
+  //   //console.log("视频数据：",e);
+  //   this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.index);
+  //   this.VideoContext.requestFullScreen(0);
+  // },
 
 
   //发送请求获取数据
@@ -531,6 +531,7 @@ Page({
 
           that.downlodaResource(images, videos, audios);
           that.downlodaResource_dep(images_dep, videos_dep, audios_dep);
+
           that.setData({
             address: res.data.retObj.address,
             //经纬度
@@ -543,6 +544,7 @@ Page({
             questionContent: res.data.retObj.questionContent,
             commitContent: res.data.retObj.commitContent
           })
+
         }
       },
       //请求失败
@@ -555,6 +557,10 @@ Page({
 
   downlodaResource: async function(images, videos, audios) {
     var that = this;
+    wx.showLoading({
+      title: '资源加载中',
+      mask: true
+    })
     //如果录音有值显示录音
     if (audios != null) {
       that.setData({
@@ -610,11 +616,15 @@ Page({
     for (var index = 0; index < mapAudio.length; index++) {
       await that.downlodaAudio(mapAudio[index]).then((res) => {})
     }
-
+    wx.hideLoading();
   },
 
   downlodaResource_dep: async function(images_dep, videos_dep, audios_dep) {
     var that = this;
+    wx.showLoading({
+      title: '资源加载中',
+      mask: true
+    })
     //如果录音有值显示录音
     if (audios_dep != null) {
       that.setData({
@@ -658,7 +668,8 @@ Page({
     for (var index = 0; index < mapAudio.length; index++) {
       await that.downlodaAudio_dep(mapAudio[index]).then((res) => {})
     }
-
+    console.log("视频数据：", that.data.videoList, "----", that.data.videoList_Dep)
+    wx.hideLoading();
   },
   /**
    ***********************************下载图片资源**************************************
@@ -779,8 +790,8 @@ Page({
             resolve(res.data)
             // console.log("下载的音频:",res.tempFilePath)
             audioSrc.push({
-               bl: false,
-               src: res.tempFilePath,
+              bl: false,
+              src: res.tempFilePath,
             })
             that.setData({
               audioSrc_No: audioSrc
@@ -807,8 +818,8 @@ Page({
             resolve(res.data)
             // console.log("下载的音频:",res.tempFilePath)
             audioSrc.push({
-               bl: false,
-               src: res.tempFilePath,
+              bl: false,
+              src: res.tempFilePath,
             })
             that.setData({
               audioSrc_Dep: audioSrc
@@ -913,6 +924,11 @@ Page({
   ViewVideoForreport(e) {
     console.log("视频的啥？：", e);
     this.VideoContext = wx.createVideoContext('reportVideo' + e.currentTarget.dataset.url);
+    this.VideoContext.requestFullScreen(0);
+  },
+  ViewVideoForreport_Dep(e) {
+    console.log("部门视频的啥？：", e);
+    this.VideoContext = wx.createVideoContext('reportVideoDep' + e.currentTarget.dataset.url);
     this.VideoContext.requestFullScreen(0);
   },
 
@@ -1036,7 +1052,7 @@ Page({
     }
     for (var index = 0; index < audioSrc.length; index++) {
       //举报音频
-      await that.uploadAudioSrc(audioSrc[index]).then((res) => {
+      await that.uploadAudioSrc(audioSrc[index].src).then((res) => {
         // console.log("视频上传完了resourceList:",that.data.resourceList.length);
       });
     }

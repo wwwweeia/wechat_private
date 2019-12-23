@@ -5,7 +5,6 @@ import router from '../../utils/router.js';
 const app = getApp();
 let qqmapsdk;
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -19,7 +18,6 @@ Page({
     address: '',
     longitude: '',
     latitude: '',
-
   },
 
   /**
@@ -27,7 +25,6 @@ Page({
    */
   onLoad: function(option) {
     var that = this;
-
     const eventChannel = this.getOpenerEventChannel()
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     // login页面传递过来的菜单列表
@@ -54,10 +51,8 @@ Page({
       key: this.data.key
     });
     //获取当前位置 测试阶段先关闭了
-    // this.currentLocation();
-
+    this.currentLocation();
   },
-
   currentLocation() {
     //当前位置
     const that = this;
@@ -121,10 +116,8 @@ Page({
         },
         success: (res) => {},
         fail: (res) => {
-
         },
         complete: (res) => {
-
         }
       })
     }
@@ -132,7 +125,6 @@ Page({
   //点击菜单触发函数
   junmp: function(even) {
     var that = this;
-
     that.setData({
       menuName: even.currentTarget.dataset.type
     })
@@ -143,27 +135,17 @@ Page({
         router.navigateTo({
           url: "../login/login"
         })
-        // wx.navigateTo({
-        //   url: "../login/login"
-        // })
         break;
       case "开始调查":
         router.navigateTo({
           url: "../startDiaocha/project_list/project_list"
         })
-        // wx.navigateTo({
-        //   url: "../startDiaocha/project_list/project_list"
-        // })
         break;
       case "开始整改":
         router.navigateTo({
           url: "../surveyDept/dept_project/dept_project"
         })
-        // wx.navigateTo({
-        //   url: "../surveyDept/dept_project/dept_project"
-        // })
         break;
-
       case "实时监控":
         wx.showToast({
           title: '待开发',
@@ -172,93 +154,39 @@ Page({
           mask: true
         })
         break;
-
       case "统计排名":
-        wx.showToast({
-          title: '待开发',
-          icon: 'loading',
-          duration: 1000,
-          mask: true
+        router.navigateTo({
+          url: "../paiMing/index/index"
         })
         break;
-
       case "材料审核":
         router.navigateTo({
           url: "../DatumCheck/datum_check_project/datum_check_project"
         })
         break;
-
       case "材料上报":
         router.navigateTo({
           url: "../DatumUpload/upload_project/upload_project"
         })
-        // wx.navigateTo({
-        //    url: "../DatumUpload/upload_project/upload_project"
-        //  })
         break;
-
       case "实地审核":
         router.navigateTo({
           url: "../ShiDiCheck/check_project/check_project"
         })
-        // wx.navigateTo({
-        //    url: "../ShiDiCheck/check_project/check_project"
-        //  })
         break;
-
       case "开始复查":
        router.navigateTo({
           url: "../fuCha/projectList/projectList"
         })
-        // wx.showToast({
-        //   title: '待开发',
-        //   icon: 'loading',
-        //   duration: 1000,
-        //   mask: true
-        // })
         break;
-
       case "数据分析":
-        wx.showToast({
-          title: '待开发',
-          icon: 'loading',
-          duration: 1000,
-          mask: true
+       router.navigateTo({
+          url: "../fenXi/index/index"
         })
         break;
-
-
       default:
         console.log("default");
     }
-
-
-
-
-    // //绑定账号
-    // if (menuName === "绑定账号") {
-    //   console.log("绑定账号进来了")
-    //   wx.navigateTo({
-    //     url: "../login/login"
-    //   })
-    // }
-    // //开始调查
-    // if (menuName ==="开始调查") {
-    //   console.log("开始调查进来了")
-    //   wx.navigateTo({
-    //    url: "../startDiaocha/project_list/project_list"
-    //   })
-    // }
-
-    // //开始调查
-    // if (menuName === "4654654") {
-    //   console.log("64654654")
-    //   wx.navigateTo({
-    //    url: "../startDiaocha/project_list/project_list"
-    //   })
-    // }
-
-
   }
 
 })

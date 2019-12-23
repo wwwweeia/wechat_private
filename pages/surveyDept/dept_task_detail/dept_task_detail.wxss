@@ -170,7 +170,6 @@ margin-left: 20rpx;
 /*背景*/
 .bg-white-user {
 background-color: var(--greyLight);
-
 }
 .bg-white1 {
 background-color: var(--white);

@@ -879,7 +879,7 @@ Page({
     }
     for (var index = 0; index < audioSrc.length; index++) {
       //举报音频
-      await that.uploadAudioSrc(audioSrc[index]).then((res) => {
+      await that.uploadAudioSrc(audioSrc[index].src).then((res) => {
         // console.log("视频上传完了resourceList:",that.data.resourceList.length);
       });
     }

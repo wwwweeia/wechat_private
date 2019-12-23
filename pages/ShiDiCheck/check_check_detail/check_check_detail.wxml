@@ -161,8 +161,8 @@
       <image src='{{imgList[index]}}' mode='aspectFill'></image>
 
     </view>
-    <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index].url}}" data-index="{{index}}">
-      <video id='reportVideo{{index}}' src="{{videoList[index].url}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
+    <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" id='reportVideo{{index}}' data-url="{{videoList[index].url}}" data-index="{{index}}">
+      <video  src="{{videoList[index].url}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
 
     </view>
 

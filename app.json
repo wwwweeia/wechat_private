@@ -35,7 +35,11 @@
     "pages/fuCha/fuCha_point_detail/fuCha_point_detail",
     "pages/fuCha/fuCha_quota_list/fuCha_quota_list",
     "pages/fuCha/fuCha_tips/fuCha_tips",
-    "pages/fuCha/fuCha_upload/fuCha_upload"
+    "pages/fuCha/fuCha_upload/fuCha_upload",
+    "pages/paiMing/index/index",
+    "pages/fenXi/index/index",
+    "pages/fenXi/zr_df_z/zr_df_z",
+    "pages/fenXi/zr_wt_z/zr_wt_z"
   ],
   "window": {
     "backgroundTextStyle": "light",

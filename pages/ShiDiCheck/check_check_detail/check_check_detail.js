@@ -291,6 +291,10 @@ Page({
 
   downlodaResource: async function(images, videos, audios) {
     var that = this;
+    wx.showLoading({
+      title: '资源加载中',
+      mask: true
+    })
     //如果录音有值显示录音
     if (audios != null) {
       that.setData({
@@ -342,11 +346,15 @@ Page({
     for (var index = 0; index < mapAudio.length; index++) {
       await that.downlodaAudio(mapAudio[index]).then((res) => {})
     }
-
+    wx.hideLoading();
   },
 
   downlodaResource_task: async function(images_task, videos_task, audios_task) {
     var that = this;
+    wx.showLoading({
+      title: '资源加载中',
+      mask: true
+    })
     //如果录音有值显示录音
     if (audios_task != null) {
       that.setData({
@@ -385,7 +393,7 @@ Page({
     for (var index = 0; index < mapAudio.length; index++) {
       await that.downlodaAudio_task(mapAudio[index]).then((res) => {})
     }
-
+    wx.hideLoading();
   },
   /**
    ***********************************下载图片资源**************************************

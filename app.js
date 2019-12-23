@@ -8,7 +8,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     // 获取用户信息
-    let that = this;
+    // let that = this;
     // wx.login({
     //   success(res) {
     //     if (res.code) {
@@ -77,8 +77,10 @@ App({
   },
   globalData: {
     userInfo: null,
-    requestUrl: 'https://wxp.diaochaonline.com'//线上
+    requestUrl: 'https://wxp.diaochaonline.com'//35
+    //  requestUrl: 'https://wmccpr.diaochaonline.com'//线上
     // requestUrl:'http://221.216.95.200:8286'//35
     // requestUrl:'http://192.168.15.147:8080'//本地
+    // requestUrl: 'http://192.168.35.56:8080'//本地
   }
 })

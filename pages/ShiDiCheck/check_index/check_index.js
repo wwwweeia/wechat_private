@@ -134,7 +134,7 @@ Page({
         select_all: false, //全选按钮图标判断
         pageCount: '', //总任务数置空
         //每次切换问题，给pagenum重新赋值为1
-        pagenum: 1
+        pageNum: 1
       })
     } else {
       this.setData({
@@ -389,10 +389,10 @@ Page({
   //--------上拉函数-----------
   onReachBottom: function() { //触底开始下一页
     var that = this;
-    var pagenum = that.data.pagenum + 1; //获取当前页数并+1
+    var pagenum = that.data.pageNum + 1; //获取当前页数并+1
     var TabCur = that.data.TabCur;
     that.setData({
-      pagenum: pagenum, //更新当前页数
+      pageNum: pagenum, //更新当前页数
     })
     if (that.data.maxPageNum >= pagenum) {
       if (TabCur != null) {
@@ -513,7 +513,6 @@ Page({
           break;
           //批量审核不通过(整改说明)
         case "1":
-          console.log("批量审核不通过(整改说明)啦啦啦啦啦")
           that.setData({
             tId: tId
           })

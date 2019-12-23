@@ -5,7 +5,7 @@
     <cover-view class="result-box">
       <cover-view class="info list-item">
         <cover-view class="badge"></cover-view>
-        <cover-view class="ellipsis"  bindtap="goToPoint_detail" data-id="{{showId}} ">{{showTitle}}</cover-view>
+        <cover-view class="ellipsis text-blue"  bindtap="goToPoint_detail" data-id="{{showId}} ">{{showTitle}}</cover-view>
       </cover-view>
        <cover-view class="info list-item">
         <cover-view class="badge orange"></cover-view>
