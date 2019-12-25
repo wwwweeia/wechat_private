@@ -38,12 +38,13 @@
 
 
 <view class="grid1 col-5 padding-sm  ">
+<view class="margin-tb-sm text-center">
+    <button class="cu-btn round lg1 bg-grey " bind:tap="goNo_investigate">无法调查</button>
+  </view>
   <view class="margin-tb-sm-left text-center">
     <button class="cu-btn round lg1 bg-blue " bind:tap="goToquota_list">测评</button>
   </view>
-  <view class="margin-tb-sm text-center">
-    <button class="cu-btn round lg1 bg-red " bind:tap="goNo_investigate">无法调查</button>
-  </view>
+  
   <view class="margin-tb-sm-right text-center">
     <button class="cu-btn round lg1 bg-grey " bind:tap="goToNo_refuse">拒访</button>
   </view>

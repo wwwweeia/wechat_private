@@ -275,6 +275,10 @@ Page({
 
   downlodaResource: async function(images, videos, audios) {
     var that = this;
+    wx.showLoading({ 
+      title: '数据加载中',
+      mask: true
+    })
     //如果录音有值显示录音
     if (audios.length != 0) {
       that.setData({
@@ -328,6 +332,7 @@ Page({
     for (var index = 0; index < mapAudio.length; index++) {
       await that.downlodaAudio(mapAudio[index]).then((res) => {})
     }
+     wx.hideLoading();
 
   },
   /**
@@ -849,7 +854,7 @@ Page({
     //   'url': ''
     // };
     wx.chooseImage({
-      count: 1, //默认9
+      count: 9, //默认9
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], //从相册选择
 

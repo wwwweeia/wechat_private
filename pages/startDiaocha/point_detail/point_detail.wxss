@@ -143,12 +143,12 @@ background-color: var(--white);
 .margin-tb-sm-right{
   margin-top: 20rpx;
 margin-bottom: 20rpx;
-margin-right: 25rpx;
+/*margin-right: 25rpx;*/
 
 }
 .margin-tb-sm-left{
   margin-top: 20rpx;
 margin-bottom: 20rpx;
-margin-left: 25rpx;
+/*margin-left: 25rpx;*/
 
 }

@@ -1,0 +1,39 @@
+
+<view class="page">
+
+  <view class="page_bd page_bd_spacing">
+    <view class="kind-list">
+      <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+        <view class="kind-list_item">
+          <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" >
+            <view class="cuIcon-titles text-blue"></view>
+            <view class="tui-flex_item　 text-sm" data-id="{{item.id}}" bind:tap="go">{{item.name}}</view>
+            <text class="text-blue" data-index="{{index}}" bindtap="kindToggle">{{item.fs}}　</text>
+            <view class="cuIcon-unfold" data-index="{{index}}" bindtap="kindToggle"></view>
+          </view>
+          <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
+            <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
+              <block wx:for-items="{{item.locationList}}" wx:for-item="page" wx:key="*item">
+                <navigator url="../point_detail/point_detail" class="tui-cell tui-cell_access">
+                  <view class="tui-cell_bd text-smm">　指标总数</view>
+                  <text class="text-blue">{{page.zb}}　</text>
+                  <!-- <view class="tui-cell_ft tui-cell_ft_in-access"></view> -->
+                </navigator>
+                 <navigator url="../point_detail/point_detail" class="tui-cell tui-cell_access">
+                  <view class="tui-cell_bd text-smm">　合格指标数</view>
+                  <text class="text-blue">{{page.hg}}　</text>
+                  <!-- <view class="tui-cell_ft tui-cell_ft_in-access"></view> -->
+                </navigator>
+                 <navigator url="../point_detail/point_detail" class="tui-cell tui-cell_access">
+                  <view class="tui-cell_bd text-smm">　不合格指标树</view>
+                  <text class="text-blue">{{page.bhg}}　</text>
+                  <!-- <view class="tui-cell_ft tui-cell_ft_in-access"></view> -->
+                </navigator>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<!-- <view class="container">
+  <ff-canvas id="stack-dom" canvas-id="stack" opts="{{ opts }}"></ff-canvas>
+</view> -->
+<!--index.wxml-->
+<view class="container">
+  <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+</view>

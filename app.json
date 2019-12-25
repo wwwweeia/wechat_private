@@ -39,7 +39,10 @@
     "pages/paiMing/index/index",
     "pages/fenXi/index/index",
     "pages/fenXi/zr_df_z/zr_df_z",
-    "pages/fenXi/zr_wt_z/zr_wt_z"
+    "pages/fenXi/zr_wt_z/zr_wt_z",
+    "pages/fenXi/zr_df_p/zr_df_p",
+    "pages/fenXi/dw_z/dw_z",
+    "pages/fenXi/zr_df_p_p/zr_df_p_p"
   ],
   "window": {
     "backgroundTextStyle": "light",

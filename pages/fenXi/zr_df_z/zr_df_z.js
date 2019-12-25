@@ -299,19 +299,25 @@
 //   return chart;
 // }
 
+
 import * as echarts from '../../../ec-canvas/echarts';
 
 let chart = null;
-
+let that =null;
 function initChart(canvas, width, height) {
+  // var list = that.data.list;
+  var array = that.data.array.reverse();
+  // var array2 = that.data.array;
+  console.log("这是倒序",array),
+  // console.log("这是正序",array2)
   chart = echarts.init(canvas, null, {
     width: width,
     height: height
   });
   canvas.setChart(chart);
-
+  
   var option = {
-    color: ['#37a2da', '#32c5e9', '#67e0e3'],
+    color: ['#37a2da', '#32c5e9'],
     tooltip: {
       trigger: 'axis',
       axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -323,7 +329,7 @@ function initChart(canvas, width, height) {
     //   data: ['热度', '正面', '负面']
     // },
     legend: {
-      data: ['热度', '正面']
+      data: ['得分', '问题']
     },
     grid: {
       y: 0,
@@ -334,25 +340,26 @@ function initChart(canvas, width, height) {
       containLabel: true
     },
 
-    xAxis: [
-      {
-        type: 'value',
-        axisLine: {
-          lineStyle: {
-            color: '#999'
-          }
-        },
-        axisLabel: {
-          color: '#666',
-          fontSize: '12'
-        }
-      }
-    ],
+    xAxis: {
+    type:'value'
+      // {
+      //   type: 'value',
+      //   axisLine: {
+      //     lineStyle: {
+      //       color: '#999'
+      //     }
+      //   },
+      //   axisLabel: {
+      //     color: '#666',
+      //     fontSize: '12'
+      //   }
+      // }
+    },
     yAxis: [
       {
         type: 'category',
-        axisTick: { show: false },
-        data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '这是测试数字影响'],
+        axisTick: { show: true },
+        data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '这是测试数字影响', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40'],
         axisLine: {
           fontSize: '14',
           lineStyle: {
@@ -381,7 +388,7 @@ function initChart(canvas, width, height) {
     ],
     series: [
       {
-        name: '热度',
+        name: '得分',
         type: 'bar',
         label: {
           normal: {
@@ -389,7 +396,9 @@ function initChart(canvas, width, height) {
             position: 'inside'
           }
         },
-        data: [40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+       
+        data:array,
+        // data: [40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
         itemStyle: {
           // emphasis: {
           //   color: '#37a2da'
@@ -397,7 +406,7 @@ function initChart(canvas, width, height) {
         }
       },
       {
-        name: '正面',
+        name: '问题',
         type: 'bar',
         label: {
           normal: {
@@ -405,7 +414,8 @@ function initChart(canvas, width, height) {
             position: 'inside'
           }
         },
-        data: [300, 270, 340, 344, 300, 320, 310, 350, 310, 322, 330, 340, 356, 360, 370, 380, 390, 327, 336, 272, 360, 384, 320, 370, 380, 344, 350, 270, 340, 344, 321, 267, 222, 333, 444],
+        // data:array2,
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,30, 31, 32, 33, 34, 35,36, 37, 38, 39, 40],
         itemStyle: {
           // emphasis: {
           //   color: '#37a2da'
@@ -429,6 +439,75 @@ Page({
     }
   },
   data: {
+    list: [
+    {
+      name:'中国电信文昌西街营业厅(电信)',
+      fs:'100.00',
+      locationList:[
+        {
+        zb:"28",
+        hg:'28',
+        bhg:'0'
+        }
+      ]
+    },
+    {
+      name:'中国电信白水东街营业厅(电信)',
+      fs:'100.00',
+      locationList:[
+        {
+        zb:"28",
+        hg:'28',
+        bhg:'0'
+        }
+      ]
+    },
+    {
+      name:'凤城开发区营业厅(电信)',
+      fs:'100.00',
+      locationList:[
+        {
+        zb:"28",
+        hg:'28',
+        bhg:'0'
+        }
+      ]
+    },
+    {
+      name:'开发区营业厅(兰花路)(联通)',
+      fs:'100.00',
+      locationList:[
+        {
+        zb:"28",
+        hg:'28',
+        bhg:'0'
+        }
+      ]
+    },
+    {
+      name:'中国电信红星东街营业厅(电信)',
+      fs:'100.00',
+      locationList:[
+        {
+        zb:"30",
+        hg:'30',
+        bhg:'0'
+        }
+      ]
+    },
+    {
+      name:'晋城市“三馆”大厦',
+      fs:'100.00',
+      locationList:[
+        {
+        zb:"45",
+        hg:'45',
+        bhg:'0'
+        }
+      ]
+    }
+  ],
+  array:[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,30, 31, 32, 33, 34, 35,36, 37, 38, 39, 40],
     ec: {
       onInit: initChart
     }
@@ -439,5 +518,11 @@ Page({
       // 获取 chart 实例的方式
       console.log(chart)
     }, 2000);
-  }
+  },
+   onLoad(){
+    that =this;   //页外保存page指针
+  },
+  onUnload(){
+    that =null;   //记得释放
+  },
 });

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "问题数量",
+  "navigationBarTitleText": "点位类型柱状图",
   "usingComponents": {
     "ec-canvas": "../../../ec-canvas/ec-canvas"
   }

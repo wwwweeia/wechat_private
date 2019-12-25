@@ -1,3 +1,8 @@
+/* pages/charts/stackBar/index.wxss */
+/*ff-canvas {
+  width: 100%;
+  height: 100%;
+}*/
 .container {
   position: absolute;
   top: 0;

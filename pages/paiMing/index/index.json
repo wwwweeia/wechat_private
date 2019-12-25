@@ -1,6 +1,4 @@
 {
-  "navigationBarTitleText": "首页",
-  "usingComponents": {
-    "ff-canvas": "@antv/f2-canvas"
-  }
+  "navigationBarTitleText": "首页"
+ 
 }

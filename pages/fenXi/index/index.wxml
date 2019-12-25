@@ -1,36 +1,36 @@
 <scroll-view scroll-y class="page show">
 
-  <view class="cu-list menu  card-menu margin-top" bind:tap="goZr1">
-    <view class="cu-item arrow">
+  <view class="cu-list menu  card-menu margin-top" >
+    <view class="cu-item arrow" bind:tap="goZr1">
       <view class="content">
-        <text class="cuIcon-upstagefill text-olive"></text>
+        <text class="cuIcon-upstagefill text-cyan"></text>
         <text class="text-grey">责任单位得分统计柱状图</text>
       </view>
     </view>
-    <view class="cu-item arrow">
+    <view class="cu-item arrow" bind:tap="goZr2">
       <view class="content">
         <text class="cuIcon-rankfill text-orange"></text>
         <text class="text-grey">责任单位问题数量柱状图</text>
       </view>
     </view>
-    <view class="cu-item arrow">
+    <view class="cu-item arrow"  bind:tap="goZr3">
       <view class="content">
-        <text class="cuIcon-upstagefill text-cyan"></text>
+        <text class="cuIcon-upstagefill text-olive"></text>
         <text class="text-grey">责任单位得分排名</text>
       </view>
     </view>
-    <view class="cu-item arrow">
+    <view class="cu-item arrow" bind:tap="goDw1">
       <view class="content">
-        <text class="cuIcon-upstagefill text-olive"></text>
-        <text class="text-grey">点位类型得分统计柱状图</text>
+        <text class="cuIcon-rankfill text-orange"></text>
+        <text class="text-grey">点位类型柱状图</text>
       </view>
     </view>
-    <view class="cu-item arrow">
+    <!-- <view class="cu-item arrow">
       <view class="content">
         <text class="cuIcon-rankfill text-orange"></text>
         <text class="text-grey">点位类型问题数量柱状图</text>
       </view>
-    </view>
+    </view> -->
     <view class="cu-item arrow">
       <view class="content">
         <text class="cuIcon-upstagefill text-cyan"></text>
