@@ -21,7 +21,7 @@
 
                   <view wx:if="{{page.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
                   <view wx:if="{{page.submitStatus==2}}">
-                    <view class="cu-tag bg-blue light  round" catchtap="submit" data-index="{{page.id}}">提交</view>
+                    <view class="cu-tag bg-blue light  round" catchtap="showModal" data-index="{{page.id}}">提交</view>
                   </view>
                   <view class="tui-cell_ft tui-cell_ft_in-access"></view>
                 </navigator>

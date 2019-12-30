@@ -29,16 +29,17 @@ Page({
     isRecord: '',
     // 是否切换 1-问题分类查 0-指标查
     qiehuan: 1,
-    userIndex:'',//用户操作的行
+    userIndex: '', //用户操作的行
   },
 
   onLoad: function(e) {
-   
+
   },
   // 获取指标列表
   getQuotaList(pointTypeId, locationId, projectId) {
     var that = this;
     var requestUrl = that.data.requestUrl; //服务器路径
+    var userIndex = that.data.userIndex;//用户操作的行
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/quota/getQuotaListByPointId',
@@ -51,28 +52,52 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log('指标列表', res.data.retObj)
+        // console.log('指标列表', res.data.retObj)
         if (res.data.status == 'success') {
           var quotaList = res.data.retObj;
-          let arr = [];
-          let ayy = [];
-          for (let i = 0; i < quotaList.length; i++) {
-            if (i === 0) {
-              arr.push(quotaList[i].id),
-                ayy.push(quotaList[i].content)
-            }
+          var pointTypeId = that.data.pointTypeId
+          console.log("指标分类userid：",userIndex)
+          if(userIndex===0 || userIndex===''){
+              let arr = [];
+              let ayy = [];
+              for (let i = 0; i < quotaList.length; i++) {
+                if (i === 0) {
+                  arr.push(quotaList[i].id),
+                    ayy.push(quotaList[i].content)
+                }
+              }
+              // 数组转字符得到第一个指标的id
+              var arrtest = arr.join();
+              var ayytest = ayy.join();
+              // console.log("arrtest:",arrtest,"ayytest:",ayytest)
+              that.setData({
+                list: res.data.retObj,
+                quotaName: ayytest
+              })
+              // 加载第一个指标下的问题
+              that.getQuotaDetail(arrtest, pointTypeId);
+          }else{
+              let testx = [];
+              let testy = [];
+              for (let j = 0; j < quotaList.length; j++) {
+                if (j === userIndex) {
+                  testx.push(quotaList[j].id),
+                    testy.push(quotaList[j].content)
+                }
+              }
+              // 数组转字符得到第一个指标的id
+              var testxx = testx.join();
+              var testyy = testy.join();
+              console.log("testxx:",testxx,"testyy:",testyy)
+              that.setData({
+                list: res.data.retObj,
+                quotaName: testyy
+              })
+              // 加载第一个指标下的问题
+              that.getQuotaDetail(testxx, pointTypeId);
           }
 
-          // 数组转字符得到第一个指标的id
-          var arrtest = arr.join();
-          var ayytest = ayy.join();
-          var pointTypeId = that.data.pointTypeId
-          that.setData({
-            list: res.data.retObj,
-            quotaName: ayytest
-          })
-          // 加载第一个指标下的问题
-          that.getQuotaDetail(arrtest, pointTypeId);
+          
         } else {
           wx.showToast({
             title: '获取指标列表失败',
@@ -113,7 +138,7 @@ Page({
 
         if (res.data.status == 'success') {
           var quotaList = res.data.retObj;
-          console.log("指标下的详情111111：", quotaList)
+          // console.log("指标下的详情111111：", quotaList)
 
           let arr = [];
           let ayy = [];
@@ -138,15 +163,11 @@ Page({
               })
             }
           }
-          // console.log("这是提示：",arr)
-          // console.log("删选后的指标详情",ayy)
-
           that.setData({
             listData: ayy,
             quotaId: quotaId,
             tips: arr
           })
-
         } else {
           wx.showToast({
             title: '获取点位树失败',
@@ -155,7 +176,6 @@ Page({
             mask: true
           })
         }
-
       },
       fail: (res) => {
 
@@ -165,8 +185,6 @@ Page({
       }
     })
   },
-
-
   // 跳转上传页面
   goToUpload: function(e) {
     var that = this;
@@ -228,8 +246,6 @@ Page({
       visible: false
     })
   },
-
-
   // 页面切换
   showModal(e) {
     // console.log("showModal:", e)
@@ -241,7 +257,7 @@ Page({
     var that = this;
     // type 0-点击有效，1-无效
     var userIndex = e.currentTarget.dataset.index;
-  
+    // console.log("第几行：", userIndex)
     var type = e.currentTarget.dataset.type;
     var quotaId = e.currentTarget.dataset.quotaid;
     var quotaName = e.currentTarget.dataset.content;
@@ -251,66 +267,54 @@ Page({
     var locationId = that.data.pointId;
     if (type == 0) {
       this.setData({
-        userIndex:userIndex,
+        userIndex: userIndex,
         quotaId: quotaId,
         modalName: null,
         quotaName: quotaName
       })
       if (variable == 0) {
         that.getProblemByfenlei(pointTypeId, quotaId, projectId, locationId);
-
       } else {
         that.getQuotaDetail(quotaId, pointTypeId);
       }
-
     } else {
       this.setData({
-        userIndex:userIndex,
+        userIndex: userIndex,
         modalName: null
       })
     }
   },
 
-
-
   // 切换  按问题分类查
   goToSwitch: function(e) {
     var that = this;
-
     var projectId = that.data.projectId;
     var pointTypeId = that.data.pointTypeId;
     var locationId = that.data.pointId;
     if (that.data.qiehuan == 1) {
-
       that.setData({
         variable: 1,
         qiehuan: 0,
-        userIndex:''
+        userIndex: ''
       })
       console.log("指标类型查")
       this.getQuotaList(pointTypeId, locationId, projectId);
-
     } else {
-
       that.setData({
         variable: 0,
         qiehuan: 1,
-        userIndex:''
+        userIndex: ''
       })
       console.log("问题分类查")
       this.getproblemList(pointTypeId, projectId, locationId);
-
-
-
-
     }
-
   },
 
   //按问题分类查
   getproblemList: function(pointTypeId, projectId, locationId) {
     var that = this;
     var requestUrl = that.data.requestUrl; //服务器路径
+    var userIndex = that.data.userIndex; //用户操作的行
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByLocationId',
@@ -326,25 +330,46 @@ Page({
         console.log('指标列表', res.data.retObj)
         if (res.data.status == 'success') {
           var quotaList = res.data.retObj;
-          let arr = [];
-          let ayy = [];
-          for (let i = 0; i < quotaList.length; i++) {
-            if (i === 0) {
-              arr.push(quotaList[i].id),
-                ayy.push(quotaList[i].content)
-            }
-          }
-
-          // 数组转字符得到第一个指标的id
-          var arrtest = arr.join();
-          var ayytest = ayy.join();
           var pointTypeId = that.data.pointTypeId
-          that.setData({
-            list: res.data.retObj,
-            quotaName: ayytest
-          })
-          // 加载第一个指标下的问题
-          that.getProblemByfenlei(pointTypeId, arrtest, projectId, locationId);
+          // that.setData({
+          //   list: res.data.retObj,
+          //   quotaName: ayytest
+          // })
+          if (userIndex === 0 || userIndex === '') {
+            let arr = [];
+            let ayy = [];
+            for (let i = 0; i < quotaList.length; i++) {
+              if (i === 0) {
+                arr.push(quotaList[i].id),
+                  ayy.push(quotaList[i].content)
+              }
+            }
+            // 数组转字符得到第一个指标的id
+            var arrtest = arr.join();
+            var ayytest = ayy.join();
+            that.setData({
+              list: res.data.retObj,
+              quotaName: ayytest
+            })
+            // 加载第一个指标下的问题
+            that.getProblemByfenlei(pointTypeId, arrtest, projectId, locationId);
+          } else {
+            let user = [];
+            let usery = [];
+            for (let j = 0; j < quotaList.length; j++) {
+              if (j === userIndex) {
+                user.push(quotaList[j].id),
+                  usery.push(quotaList[j].content)
+              }
+            }
+            var userIndexId = user.join();
+            var userY = usery.join();
+            that.setData({
+              list: res.data.retObj,
+              quotaName: userY
+            })
+            that.getProblemByfenlei(pointTypeId, userIndexId, projectId, locationId);
+          }
         } else {
           wx.showToast({
             title: '获取指标列表失败',
@@ -353,7 +378,6 @@ Page({
             mask: true
           })
         }
-
       },
       fail: (res) => {
 
@@ -383,8 +407,7 @@ Page({
       success: (res) => {
         if (res.data.status == 'success') {
           var quotaList = res.data.retObj;
-          console.log("指标下的详情：", quotaList)
-
+          // console.log("问题分类指标下的详情：", quotaList)
           let arr = [];
           let ayy = [];
           for (let i = 0; i < quotaList.length; i++) {
@@ -408,9 +431,6 @@ Page({
               })
             }
           }
-          // console.log("这是提示：",arr)
-          // console.log("删选后的指标详情",ayy)
-
           that.setData({
             listData: ayy,
             tips: arr
@@ -435,18 +455,13 @@ Page({
   },
 
   changeData: function() {
-
     var e = {
       pointTypeId: this.data.pointTypeId,
       pointName: this.data.pointName,
       pointId: this.data.pointId
     }
-
     this.onLoad(e); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
-
   },
-
-
 
   changeParentData: function() {
     var pointName = this.data.pointName;
@@ -470,10 +485,11 @@ Page({
     this.changeParentData();
   },
   onShow: function() {
-    console.log("进来了吗")
-  var that = this;
+    console.log("进来了吗", this.data.variable)
+    var that = this;
+    var variable = that.data.variable;
     var projectId = wx.getStorageSync('projectId');
-  var pointTypeId = wx.getStorageSync("pointTypeId");
+    var pointTypeId = wx.getStorageSync("pointTypeId");
     var pointName = wx.getStorageSync("pointName");
     var pointId = wx.getStorageSync("pointId");
     var requestUrl = app.globalData.requestUrl; //服务器路径
@@ -486,10 +502,11 @@ Page({
     })
 
     //that.getQuotaList(pointTypeId, locationId, projectId);
-    that.getproblemList(pointTypeId, projectId, pointId);
-
-
-
+    if(variable===0){
+      that.getproblemList(pointTypeId, projectId, pointId);
+    }else{
+      that.getQuotaList(pointTypeId,pointId,projectId);
+    }
    
     // this.onLoad({
     //   pointTypeId: pointTypeId,

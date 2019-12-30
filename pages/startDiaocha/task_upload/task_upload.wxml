@@ -81,11 +81,12 @@
         <text class="cuIcon-close"></text>
       </view>
       <view class="desc">
-
-        <input class="text-content" value="{{imgDescList[index].description}}"></input>
+        <!-- <input class="text-content" value="{{imgDescList[index].description}}"></input> -->
+          <view class="weui-cell input-user ">
+            <input class="text-content-user" type="text" value="{{imgDescList[index].description}}"/>
+          </view>
         <view>
           <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
-
         </view>
       </view>
     </view>
@@ -101,11 +102,9 @@
         <text class="cuIcon-close"></text>
       </view>
       <view class="desc">
-
-        <input class="text-content" value="{{voidDescList[index].description}}"></input>
+        <input class="text-content-user input-user" value="{{voidDescList[index].description}}"></input>
         <view>
           <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Vido" data-index="{{index}}">快捷输入</view>
-
         </view>
       </view>
     </view>
@@ -117,9 +116,14 @@
 
 <view class="cu-form-group">
   <view class="grid col-4 grid-square flex-sub">
-
-    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
+    <view class="solids" bindtap="ChooseImage" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
       <text class="cuIcon-cameraadd"></text>
+    </view>
+   <!--  <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-cameraadd"></text>
+    </view> -->
+     <view class="solids" bindtap="chooseVideo" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-video"></text>
     </view>
   </view>
 </view>

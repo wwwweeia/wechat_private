@@ -27,7 +27,7 @@ Page({
     fuzhi: 0, //定义一个变量来控制取消的时候不给已有的录音赋值  0-赋值，
     //倒计时变量
     remainTimeText: '00:00',
-    remainTime: '',//录音时间变量
+    remainTime: '', //录音时间变量
     log: {},
     isRuning: false,
     // 评分变量
@@ -275,7 +275,7 @@ Page({
 
   downlodaResource: async function(images, videos, audios) {
     var that = this;
-    wx.showLoading({ 
+    wx.showLoading({
       title: '数据加载中',
       mask: true
     })
@@ -292,17 +292,31 @@ Page({
     var mapImage = []; //图片下载
     for (var i = 0; i < images.length; i++) {
       mapImage.push(images[i].url)
-      imgDesc.push({
-        description: images[i].description
-      });
+      if (i===images.length-1) {
+        imgDesc.push({
+          description: images[i].description+","
+        });
+      }else{
+        imgDesc.push({
+          description: images[i].description
+        });
+      }
+      
     }
 
     var mapVoid = []; //视频下载
     for (var i = 0; i < videos.length; i++) {
       mapVoid.push(videos[i].url)
-      videoDesc.push({
-        description: videos[i].description
-      })
+      if (i===videos.length-1) {
+          videoDesc.push({
+            description: videos[i].description+","
+          })
+      }else{
+        videoDesc.push({
+          description: videos[i].description
+        })
+      }
+      
     }
 
     that.setData({
@@ -332,7 +346,7 @@ Page({
     for (var index = 0; index < mapAudio.length; index++) {
       await that.downlodaAudio(mapAudio[index]).then((res) => {})
     }
-     wx.hideLoading();
+    wx.hideLoading();
 
   },
   /**
@@ -402,8 +416,8 @@ Page({
             resolve(res.data)
             // console.log("下载的音频:",res.tempFilePath)
             audioSrc.push({
-               bl: false,
-               src: res.tempFilePath,
+              bl: false,
+              src: res.tempFilePath,
             })
             that.setData({
               audioSrc: audioSrc
@@ -457,6 +471,7 @@ Page({
       }
     })
   },
+
   currentLocation() {
     //当前位置
     const that = this;
@@ -1113,12 +1128,12 @@ Page({
             resolve(res.data)
 
             var desc = imgDescList[i].description;
-
+            var desc1 = desc.substring(0,desc.length-1);
             if (i == 0) {
               resourceList.push({
                 url: imageMap.url,
                 type: 0,
-                description: desc,
+                description: desc1,
                 ismodel: 1
               })
 
@@ -1126,7 +1141,7 @@ Page({
               resourceList.push({
                 url: imageMap.url,
                 type: 0,
-                description: desc,
+                description: desc1,
                 ismodel: 0
               })
 
@@ -1203,11 +1218,12 @@ Page({
             success++;
             // 操作成功
             var desc = voidDescList[i].description;
+            var desc1 = desc.substring(0,desc.length-1);
             console.log("这是第", i, "个视频描述：", desc)
             resourceList.push({
               url: voidMap.url,
               type: 2,
-              description: desc,
+              description: desc1,
               ismodel: 0
             })
           } else {
@@ -1339,6 +1355,9 @@ Page({
     var projectId = that.data.projectId;
     //地址
     var address = that.data.address;
+    if(address==="正在获取地址..."){
+      var address='';
+    }
     // 分数
     var deduction = that.data.ScoreValue / 10;
     // 跳转页面参数

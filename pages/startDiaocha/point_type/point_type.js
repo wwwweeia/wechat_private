@@ -164,9 +164,28 @@ Page({
       }
     })
   },
-  submit: function(e) {
+
+  showModal:function(e){
     var that = this;
     let locationId = e.currentTarget.dataset.index;
+      wx.showModal({
+      title: '提示',
+      content: '确定提交该点位下的资源吗？',
+      confirmColor:'#e54d42',
+      success (res) {
+        if (res.confirm) {
+          that.submit(locationId);
+        } else if (res.cancel) {
+          // console.log('用户点击取消')
+        }
+      }
+    })
+    },
+
+
+  submit: function(locationId) {
+    var that = this;
+    // let locationId = e.currentTarget.dataset.index;
     var surveyorId = that.data.surveyorId;
     var projectId = that.data.projectId;
     var requestUrl = that.data.requestUrl; //服务器路径
@@ -196,6 +215,9 @@ Page({
       }
     })
   },
+
+
+
 
   changeData: function() {
 

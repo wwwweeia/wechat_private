@@ -163,7 +163,7 @@ page {
 /* grid布局 */
 
 .grid {
-  display: inline;
+  /*display: inline;*/
   flex-wrap: wrap;
 }
 
@@ -209,4 +209,21 @@ page {
   padding: 0 50rpx;
   display: flex;
   align-items: center;
+}
+
+
+.input-user{
+/*border-top: 1rpx solid #1cbbb4;
+border-block: 1rpx solid #1cbbb4;*/
+border: 1px solid green;
+border-right-style: none;
+border-left-style: none;
+
+}
+.text-content-user{
+  font-size: 35rpx;
+/*color: #1cbbb4;*/
+height: 2.8em;
+overflow: hidden;
+
 }
