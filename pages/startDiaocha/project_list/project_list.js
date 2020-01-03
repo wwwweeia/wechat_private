@@ -5,17 +5,19 @@ Page({
     requestUrl: '', //服务器路径
     colorList: ['green', 'blue', 'cyan', 'olive', 'orange', 'red', 'brown', 'pink', 'mauve', 'purple'],
     elements: [],
+    terminalUserId:''
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option) {
-    var requestUrl = app.globalData.requestUrl; //服务器路径
-    this.setData({
-      requestUrl: requestUrl
-    })
     var that = this;
+    var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;
+    this.setData({
+      requestUrl: requestUrl,
+      terminalUserId:terminalUserId
+    })
     // console.log(terminalUserId)
     that.getProjectList(terminalUserId);
   },
@@ -82,15 +84,71 @@ Page({
   },
   //点击
     go:function(e){
+    var that = this;
     var projectId = e.currentTarget.dataset.id;
+    var terminalUserId = that.data.terminalUserId; 
     var isGrade = e.currentTarget.dataset.isgrade;
     console.log("项目id",projectId)
-    wx.setStorageSync("projectId", projectId);
-    wx.setStorageSync("isGrade", isGrade);
-    wx.navigateTo({
-      url:"../point_type/point_type"
+
+    that.validTime(projectId,terminalUserId,isGrade);
+
+    
+  },
+
+  validTime:function(projectId,terminalUserId,isGrade){
+    var that = this;
+    var requestUrl = that.data.requestUrl;
+    wx.request({
+      // 必需
+      url: requestUrl + '/wechat/api/fieldProject/validTime',
+      method: "POST",
+      data: {
+        surveyorId: terminalUserId,
+        projectId: projectId
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      success: (res) => {
+        if (res.data.httpStatusCode===200) {
+          var message =  res.data.message.substring(0,3);
+          // console.log("来了",message)
+          if (message==="002"|| message==="004" || message==="006") {
+            wx.setStorageSync("projectId", projectId);
+            wx.setStorageSync("isGrade", isGrade);
+            wx.navigateTo({
+              url:"../point_type/point_type"
+            })
+
+          }else{
+           wx.showModal({
+              title: '提示',
+              content: res.data.message,
+              showCancel:false,
+              confirmColor:"#0081ff",
+              success (res) {
+              }
+            })
+          }
+        }else{
+          wx.showToast({
+            title: '获取项目信息失败',
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+        }
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
     })
   },
+
+
   changeData: function() {
     // var options = {'id':this.data.id}
     this.onLoad(); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low

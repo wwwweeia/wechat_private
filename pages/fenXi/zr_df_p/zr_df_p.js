@@ -11,99 +11,58 @@ Page({
     open: false,
     selected: [false, false, false], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
     active: null, // 当前展开的项的index值
-    list: [{
-      name: '中国电信文昌西街营业厅(电信)',
-      id:'1',
-      fs: '100.00',
-      locationList: [
-        {
-          zb: "28",
-          hg: '28',
-          bhg: '0'
-        }
-      ]
-    },
-    {
-      name: '中国电信白水东街营业厅(电信)',
-      id:'12',
-      fs: '100.00',
-      locationList: [
-        {
-          zb: "28",
-          hg: '28',
-          bhg: '0'
-        }
-      ]
-    },
-    {
-      name: '凤城开发区营业厅(电信)',
-      id:'123',
-      fs: '100.00',
-      locationList: [
-        {
-          zb: "28",
-          hg: '28',
-          bhg: '0'
-        }
-      ]
-    },
-    {
-      name: '开发区营业厅(兰花路)(联通)',
-      id:'1234',
-      fs: '100.00',
-      locationList: [
-        {
-          zb: "28",
-          hg: '28',
-          bhg: '0'
-        }
-      ]
-    },
-    {
-      name: '中国电信红星东街营业厅(电信)',
-      id:'12345',
-      fs: '100.00',
-      locationList: [
-        {
-          zb: "30",
-          hg: '30',
-          bhg: '0'
-        }
-      ]
-    },
-    {
-      name: '晋城市“三馆”大厦',
-      id:'123456',
-      fs: '100.00',
-      locationList: [
-        {
-          zb: "45",
-          hg: '45',
-          bhg: '0'
-        }
-      ]
-    },
-
-    ],
+    list: [],
     // 指标经纬度集合
     markersList: []
   },
 
   onLoad: function (options) {
-
-  },
-
-  onShow: function () {
     var that = this;
-    var projectId = wx.getStorageSync('projectId');
+    var projectId = options.projectId;
     var requestUrl = app.globalData.requestUrl; //服务器路径
     that.setData({
       requestUrl: requestUrl,
       projectId: projectId,
     })
-    // that.getLocationList(terminalUserId, projectId);
+    that.getData(projectId,requestUrl);
   },
 
+  getData:function(projectId,requestUrl){
+    var that = this;
+    wx.request({
+      // 必需
+      url: requestUrl+'/mobile/dataStatistics/getScoreRankedDataByDepartment',
+      data: {
+        projectId:projectId
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        
+        if(res.data.retObj){
+          console.log("打印数据：",res.data.retObj)
+          that.setData({
+            list:res.data.retObj
+          })
+        }else{
+            wx.showModal({
+            title: '提示',
+            content: "该类型下无数据",
+            showCancel: false,
+            confirmColor: "#0081ff",
+            success(res) {}
+          })
+        }
+      },
+      fail: (res) => {
+        
+      },
+      complete: (res) => {
+        
+      }
+    })
+  },
 
 
   kindToggle: function (e) {
@@ -155,10 +114,12 @@ Page({
   // }
 
   go:function(e){
-     let id = e.currentTarget.dataset.id;
+    var that = this;
+     var  id = e.currentTarget.dataset.id;
+     var projectId = that.data.projectId;
      // console.log("id：",id)
      router.navigateTo({
-      url: "../zr_df_p_p/zr_df_p_p?id="+id
+      url: "../zr_df_p_p/zr_df_p_p?id="+id+"&projectId="+projectId
     })
   }
 

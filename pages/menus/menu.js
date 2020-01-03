@@ -181,7 +181,7 @@ Page({
         break;
       case "数据分析":
        router.navigateTo({
-          url: "../fenXi/index/index"
+         url: "../fenXi/projectList/projectList"
         })
         break;
       default:

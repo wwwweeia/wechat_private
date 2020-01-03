@@ -14,52 +14,52 @@ Page({
     list: [],
     // 指标经纬度集合
     markersList: [],
-    departmentId:''
+    departmentId: ''
   },
 
   onLoad: function (options) {
     var that = this;
-    var departmentId = options.id;
+    var pointId = options.id;
     var projectId = options.projectId;
     var requestUrl = app.globalData.requestUrl; //服务器路径
     that.setData({
-      departmentId:departmentId
+      pointId: pointId
     })
-    that.getData(projectId,departmentId,requestUrl);
+    that.getData(projectId, pointId, requestUrl);
   },
-  getData:function(projectId,departmentId,requestUrl){
+  getData: function (projectId, pointId, requestUrl) {
     var that = this;
     wx.request({
       // 必需
-      url: requestUrl+'/mobile/dataStatistics/getRankedTreeDataByDepartment',
+      url: requestUrl + '/mobile/dataStatistics/getRandedTreeDataByPoint',
       data: {
-        projectId:projectId,
-        departmentId:departmentId
+        projectId: projectId,
+        pointId: pointId
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: (res) => {
-         if(res.data.retObj){
-          console.log("打印数据：",res.data.retObj)
+        if (res.data.retObj) {
+          console.log("打印数据：", res.data.retObj)
           that.setData({
-            list:res.data.retObj
+            list: res.data.retObj
           })
-        }else{
-            wx.showModal({
+        } else {
+          wx.showModal({
             title: '提示',
             content: "获取数据失败",
             showCancel: false,
             confirmColor: "#0081ff",
-            success(res) {}
+            success(res) { }
           })
         }
       },
       fail: (res) => {
-        
+
       },
       complete: (res) => {
-        
+
       }
     })
   },

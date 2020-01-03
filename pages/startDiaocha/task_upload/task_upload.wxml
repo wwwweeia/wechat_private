@@ -149,8 +149,8 @@
 
 
 <!-- 录音 -->
-<!-- wx:if="{{isRecord}}" -->
-<view class="cu-bar solid-bottom">
+<!--  -->
+<view class="cu-bar solid-bottom" wx:if="{{isRecord}}">
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 录音
   </view>

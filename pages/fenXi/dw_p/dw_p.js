@@ -13,57 +13,64 @@ Page({
     active: null, // 当前展开的项的index值
     list: [],
     // 指标经纬度集合
-    markersList: [],
-    departmentId:''
+    markersList: []
   },
 
   onLoad: function (options) {
     var that = this;
-    var departmentId = options.id;
     var projectId = options.projectId;
     var requestUrl = app.globalData.requestUrl; //服务器路径
     that.setData({
-      departmentId:departmentId
+      requestUrl: requestUrl,
+      projectId: projectId,
     })
-    that.getData(projectId,departmentId,requestUrl);
+    that.getData(projectId, requestUrl);
   },
-  getData:function(projectId,departmentId,requestUrl){
+
+  getData: function (projectId, requestUrl) {
     var that = this;
     wx.request({
       // 必需
-      url: requestUrl+'/mobile/dataStatistics/getRankedTreeDataByDepartment',
+      url: requestUrl + '/mobile/dataStatistics/getScoreRankedDataByPoint',
       data: {
-        projectId:projectId,
-        departmentId:departmentId
+        projectId: projectId
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: (res) => {
-         if(res.data.retObj){
-          console.log("打印数据：",res.data.retObj)
+
+        if (res.data.retObj) {
+          console.log("打印数据：", res.data.retObj)
           that.setData({
-            list:res.data.retObj
+            list: res.data.retObj
           })
-        }else{
-            wx.showModal({
+        } else {
+          wx.showModal({
             title: '提示',
-            content: "获取数据失败",
+            content: "该类型下无数据",
             showCancel: false,
             confirmColor: "#0081ff",
-            success(res) {}
+              success(res) {
+               if (res.confirm) {
+              wx.navigateBack({
+                delta: 1
+              })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+           }
           })
         }
       },
       fail: (res) => {
-        
+
       },
       complete: (res) => {
-        
+
       }
     })
   },
-
 
 
   kindToggle: function (e) {
@@ -115,10 +122,12 @@ Page({
   // }
 
   go: function (e) {
-    let id = e.currentTarget.dataset.id;
+    var that = this;
+    var id = e.currentTarget.dataset.id;
+    var projectId = that.data.projectId;
     // console.log("id：",id)
     router.navigateTo({
-      url: "../zr_df_p_p/zr_df_p_p?id=" + id
+      url: "../dw_p_p/dw_p_p?id=" + id + "&projectId=" + projectId
     })
   }
 

@@ -52,8 +52,8 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        if (res.data.status == 'success') {
-          wx.hideLoading();
+        wx.hideLoading();
+        if (res.data.status ==="success") {
           var mapList = res.data.retObj;
           let map = [];
           for (let i = 0; i < mapList.length; i++) {
@@ -84,12 +84,14 @@ Page({
           })
           console.log("点位", this.data.list)
         } else {
-          wx.showToast({
-            title: '获取点位树失败',
-            icon: 'none',
-            duration: 1000,
-            mask: true
-          })
+          wx.showModal({
+              title: '提示',
+              content: "获取点位树失败",
+              showCancel:false,
+              confirmColor:"#0081ff",
+              success (res) {
+              }
+            })
         }
       },
       fail: (res) => {

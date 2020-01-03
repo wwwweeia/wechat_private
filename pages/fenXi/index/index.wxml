@@ -31,7 +31,7 @@
         <text class="text-grey">点位类型问题数量柱状图</text>
       </view>
     </view> -->
-    <view class="cu-item arrow">
+    <view class="cu-item arrow" bind:tap="goDw2">
       <view class="content">
         <text class="cuIcon-upstagefill text-cyan"></text>
         <text class="text-grey">点位类型得分排名</text>

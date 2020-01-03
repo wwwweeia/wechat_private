@@ -42,7 +42,10 @@
     "pages/fenXi/zr_wt_z/zr_wt_z",
     "pages/fenXi/zr_df_p/zr_df_p",
     "pages/fenXi/dw_z/dw_z",
-    "pages/fenXi/zr_df_p_p/zr_df_p_p"
+    "pages/fenXi/zr_df_p_p/zr_df_p_p",
+    "pages/fenXi/projectList/projectList",
+    "pages/fenXi/dw_p/dw_p",
+    "pages/fenXi/dw_p_p/dw_p_p"
   ],
   "window": {
     "backgroundTextStyle": "light",
