@@ -8,7 +8,7 @@
         <view class="nav-title">{{item.name}}</view>
         <view class="nav-name">Project</view>
       </navigator> -->
-      <view class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="{{index}}" bind:tap="go" data-id="{{item.id}}">
+      <view class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="index" bind:tap="go" data-id="{{item.id}}">
         <view class="nav-title">{{item.name}}</view>
         <view class="nav-name">Project</view>
       </view> 

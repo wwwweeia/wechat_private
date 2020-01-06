@@ -27,7 +27,7 @@
       <view class="th-2">审核结果</view>
       <view class="th-3">审核状态</view>
     </view>
-    <block wx:for="{{departmentList}}" wx:key="{{item}}">
+    <block wx:for="{{departmentList}}" wx:key="item">
       <view class="tr bg-g">
         <view class="td-1" selectable="true">
           <text>{{item.departmentName}}</text>
@@ -111,7 +111,7 @@
       <view class="kind-list_item-bd kind-list_item-bd_show">
         <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
         <view class="tui-cells tui-cells_show">
-          <block wx:for-items="{{taskList}}" wx:key="{{item.id}}">
+          <block wx:for-items="{{taskList}}" wx:key="index">
             <view class="tui-cell tui-cell_access" bindtap="goTask" data-id="{{item.id}}" data-content="{{item.content}}" data-index="{{index}}">
               <view class="tui-cell_bd text-smm">
                 <text class="text-blue">{{index+1}}、</text>{{item.content}}</view>

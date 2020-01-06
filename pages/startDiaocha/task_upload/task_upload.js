@@ -139,6 +139,12 @@ Page({
     }, {
       description: " "
     }], //视频对应描述 
+
+
+    imagAddressList:[],
+    videoAddressList:[],
+
+
     redioId: '', //当前选中的快捷提示id
     imgY: 0, //图片描述的标识
     voidY: 0, //视频描述的标识
@@ -288,19 +294,28 @@ Page({
     var length = images.length + videos.length;
     var imgDesc = []; //图片描述
     var videoDesc = []; //视频描述
+    var imageAddress = [];
+    var videoAddress=[];
 
     var mapImage = []; //图片下载
     for (var i = 0; i < images.length; i++) {
       mapImage.push(images[i].url)
       if (i===images.length-1) {
         imgDesc.push({
-          description: images[i].description+","
+          // description: images[i].description+","
+          description: images[i].description
         });
       }else{
         imgDesc.push({
           description: images[i].description
         });
       }
+      imageAddress.push({
+        address:images[i].address,
+        latitude:images[i].latitude,
+        longitude:images[i].longitude
+      })
+
       
     }
 
@@ -309,14 +324,18 @@ Page({
       mapVoid.push(videos[i].url)
       if (i===videos.length-1) {
           videoDesc.push({
-            description: videos[i].description+","
+            description: videos[i].description
           })
       }else{
         videoDesc.push({
           description: videos[i].description
         })
       }
-      
+      videoAddress.push({
+        address:videos[i].address,
+        latitude:videos[i].latitude,
+        longitude:videos[i].longitude
+      })
     }
 
     that.setData({
@@ -324,7 +343,9 @@ Page({
       imgDescList: imgDesc, //图片描述
       voidDescList: videoDesc, //视频描述
       imgY: imgDesc.length, //图片资源描述长度
-      voidY: videoDesc.length //视频资源描述长度
+      voidY: videoDesc.length, //视频资源描述长度
+      imagAddressList:imageAddress,
+      videoAddressList:videoAddress
     })
     console.log("图片描述", that.data.imgDescList);
     console.log("视频描述", that.data.voidDescList);
@@ -868,33 +889,47 @@ Page({
     // var obj = {
     //   'url': ''
     // };
+    var that = this;
+    var imagAddressList = that.data.imagAddressList;
+    // console.log("之前的定位：",that.data.address);
     wx.chooseImage({
       count: 9, //默认9
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], //从相册选择
 
       success: (res) => {
+        that.currentLocation();
+        var address = that.data.address;
+        var latitude = that.data.latitude;
+        var longitude =that.data.longitude;
+        // console.log("之后的定位：",address);
+
+        imagAddressList.push({
+          address:address,
+          latitude:latitude,
+          longitude:longitude
+        });
         var img = res.tempFilePaths; //数组
         // var img1 = JSON.stringify(img); //数组转json字符串
         // var img2 = img1.substring(2, img1.length - 2); //切割头和尾
         // obj.url = img2;
         // urlArray.push(obj)
-
-        if (this.data.imgList.length != 0) {
+        if (that.data.imgList.length != 0) {
           this.setData({
-            imgList: this.data.imgList.concat(img),
+            imgList: that.data.imgList.concat(img),
             modalName: '',
-            reportlength: this.data.reportlength + 1
+            reportlength: that.data.reportlength + 1,
+            imagAddressList:imagAddressList
           })
-          console.log("图片资源：", this.data.imgList)
         } else {
           this.setData({
             imgList: img,
             modalName: '',
-            reportlength: this.data.reportlength + 1
+            reportlength: that.data.reportlength + 1,
+            imagAddressList:imagAddressList
           })
         }
-        console.log("图片资源：", this.data.imgList)
+        console.log("imagAddressList资源：", that.data.imagAddressList)
       }
 
     });
@@ -902,6 +937,7 @@ Page({
   },
   chooseVideo() {
     let vm = this;
+    var videoAddressList = vm.data.videoAddressList;
     //因为上传视频返回的数据类型与图片不一样  需要建缩略图的url放到数组中
     var urlArray = [];
     var obj = {
@@ -913,6 +949,18 @@ Page({
       maxDuration: 30,
       camera: 'back',
       success: (res) => {
+
+        vm.currentLocation();
+        var address = vm.data.address;
+        var latitude = vm.data.latitude;
+        var longitude =vm.data.longitude;
+        // console.log("之后的定位：",address);
+        videoAddressList.push({
+          address:address,
+          latitude:latitude,
+          longitude:longitude
+        });
+
         var size = res.size;
         console.log("视频的大小：", size / 1024 / 1024 + "M")
         obj.url = res.tempFilePath
@@ -922,18 +970,20 @@ Page({
           vm.setData({
             videoList: vm.data.videoList.concat(urlArray),
             modalName: '',
-            reportlength: vm.data.reportlength + 1
+            reportlength: vm.data.reportlength + 1,
+            videoAddressList:videoAddressList
           })
-          console.log("视频资源：", this.data.videoList)
+         
         } else {
           vm.setData({
             videoList: urlArray,
             modalName: '',
-            reportlength: vm.data.reportlength + 1
+            reportlength: vm.data.reportlength + 1,
+            videoAddressList:videoAddressList
           })
           //  vm.data.videoSrcs.push(res.tempFilePath)
         }
-        console.log("视频资源：", this.data.videoList)
+        console.log("videoAddressList的资源", vm.data.videoAddressList)
       }
 
     })
@@ -976,21 +1026,25 @@ Page({
           if (type == "reportImg") {
             this.data.imgList.splice(e.currentTarget.dataset.index, 1);
             this.data.imgDescList.splice(e.currentTarget.dataset.index, 1);
+            this.data.imagAddressList.splice(e.currentTarget.dataset.index,1);
             this.setData({
               imgList: this.data.imgList,
               reportlength: this.data.reportlength - 1,
               imgDescList: this.data.imgDescList,
-              imgY: this.data.imgY - 1
+              imgY: this.data.imgY - 1,
+              imagAddressList:this.data.imagAddressList
             })
           }
           if (type == "reportVideo") {
             this.data.videoList.splice(e.currentTarget.dataset.index, 1);
             this.data.voidDescList.splice(e.currentTarget.dataset.index, 1);
+            this.data.videoAddressList.splice(e.currentTarget.dataset.index,1);
             this.setData({
               videoList: this.data.videoList,
               reportlength: this.data.reportlength - 1,
               voidDescList: this.data.voidDescList,
-              voidY: this.data.voidY - 1
+              voidY: this.data.voidY - 1,
+              videoAddressList:this.data.videoAddressList
             })
             console.log("删除之后的视频描述", this.data.voidDescList)
           }
@@ -1099,7 +1153,7 @@ Page({
     var fail = that.data.fail;
     var resourceList = that.data.resourceList;
     var imgDescList = that.data.imgDescList;
-
+    var imagAddressList = that.data.imagAddressList;
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
     var code = that.data.code;
@@ -1129,12 +1183,18 @@ Page({
 
             var desc = imgDescList[i].description;
             var desc1 = desc.substring(0,desc.length-1);
+            var address = imagAddressList[i].address;
+            var latitude = imagAddressList[i].latitude;
+            var longitude = imagAddressList[i].longitude;
             if (i == 0) {
               resourceList.push({
                 url: imageMap.url,
                 type: 0,
                 description: desc1,
-                ismodel: 1
+                ismodel: 1,
+                address:address,
+                latitude:latitude,
+                longitude:longitude
               })
 
             } else {
@@ -1142,7 +1202,10 @@ Page({
                 url: imageMap.url,
                 type: 0,
                 description: desc1,
-                ismodel: 0
+                ismodel: 0,
+                address:address,
+                latitude:latitude,
+                longitude:longitude
               })
 
             }
@@ -1192,7 +1255,7 @@ Page({
     var fail = that.data.fail;
     var resourceList = that.data.resourceList;
     var voidDescList = that.data.voidDescList;
-
+    var videoAddressList = that.data.videoAddressList;
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
     var code = that.data.code;
@@ -1219,19 +1282,28 @@ Page({
             // 操作成功
             var desc = voidDescList[i].description;
             var desc1 = desc.substring(0,desc.length-1);
-            console.log("这是第", i, "个视频描述：", desc)
+            // console.log("这是第", i, "个视频描述：", desc)
+             var address = videoAddressList[i].address;
+            var latitude = videoAddressList[i].latitude;
+            var longitude = videoAddressList[i].longitude;
             resourceList.push({
               url: voidMap.url,
               type: 2,
               description: desc1,
-              ismodel: 0
+              ismodel: 0,
+              address:address,
+              latitude:latitude,
+              longitude:longitude
             })
           } else {
             wx.showToast({
               title: '视频资源上传失败',
               icon: 'none',
               duration: 1000,
-              mask: true
+              mask: true,
+              address:address,
+              latitude:latitude,
+              longitude:longitude
             })
           }
         },
@@ -1384,15 +1456,15 @@ Page({
     };
     console.log("要上传的答案集合：", fieldAnswer)
     var firstQuestion = wx.getStorageSync("firstQuestion");
-    console.log("上传问题得firstQuestion", firstQuestion)
+    // console.log("上传问题得firstQuestion", firstQuestion)
     if (firstQuestion == 0) {
       var beginTime = util.getNowTime();
       wx.setStorageSync("firstQuestion", 1);
     } else {
       var beginTime = '';
     }
-    console.log("问题时间：", answerTime),
-      console.log("点位开始时间：", beginTime)
+    // console.log("问题时间：", answerTime),
+    //   console.log("点位开始时间：", beginTime)
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/fieldAnswer/saveFieldAnswer',

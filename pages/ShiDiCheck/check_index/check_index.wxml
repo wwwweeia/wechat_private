@@ -3,7 +3,7 @@
   <!--   <view class="cu-item {{null==TabCur?'text-blue cur':'text-grey'}} cu-btn round linebordersize   " bindtap="tabSelect">
       全部
     </view> -->
-  <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key bindtap="tabSelect" data-id="{{item.id}}">
+  <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key="index" bindtap="tabSelect" data-id="{{item.id}}">
     {{item.name}}
   </view>
 </scroll-view>

@@ -6,7 +6,7 @@
 
   <view class="page_bd page_bd_spacing">
     <view class="kind-list">
-      <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+      <block wx:for-items="{{list}}" wx:key="index">
         <view class="kind-list_item">
           <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
             <view class="cuIcon-titles text-blue"></view>
@@ -15,7 +15,7 @@
           </view>
           <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
             <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
-              <block wx:for-items="{{item.locationList}}" wx:for-item="page" wx:key="*item">
+              <block wx:for-items="{{item.locationList}}" wx:for-item="page" wx:key="item">
                 <navigator url="../fuCha_point_detail/fuCha_point_detail?id={{page.id}}&name={{page.name}}&pointTypeId={{item.id}}&firstQuestion={{page.submitStatus}}" class="tui-cell tui-cell_access">
                   <view class="tui-cell_bd text-smm">　{{page.name}}</view>
 

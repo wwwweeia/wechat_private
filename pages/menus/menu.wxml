@@ -43,7 +43,7 @@
       <text>绑定账号</text>
     </view>
   </view>
-  <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li">
+  <view wx:for="{{surveyList}}" wx:key="index" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li">
     <image id="login" src="{{item.url}}"></image>
     <view id="text">
       <text>{{item.name}}</text>
@@ -57,7 +57,7 @@
       <text>绑定账号</text>
     </view>
   </view>
-  <view wx:for="{{surveyList}}" wx:key="{{index}}" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li-2">
+  <view wx:for="{{surveyList}}" wx:key="index" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li-2">
     <image id="login" src="{{item.url}}"></image>
     <view id="text">
       <text>{{item.name}}</text>

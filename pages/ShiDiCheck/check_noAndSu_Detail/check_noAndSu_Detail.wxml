@@ -43,7 +43,7 @@
 
 <!-- 图片加描述 -->
 <view class="cu-card article no-card ">
-  <view class="cu-item shadow" wx:for="{{imgList_No}}" wx:key="{{index}}">
+  <view class="cu-item shadow" wx:for="{{imgList_No}}" wx:key="index">
 
     <view class="content">
       <image src='{{imgList_No[index]}}' mode='aspectFill' bindtap="ViewImageForreport_No" data-index='{{index}}' data-url="{{imgList_No[index]}}"></image>
@@ -58,7 +58,7 @@
 </view>
 <!-- 视频加描述 -->
 <view class="cu-card article no-card">
-  <view class="cu-item shadow" wx:for="{{videoList_No}}" wx:key="{{index}}">
+  <view class="cu-item shadow" wx:for="{{videoList_No}}" wx:key="index">
 
     <view class="content">
       <video class="video-user" bindtap="ViewVideoForreport" data-url="{{videoList_No[index].url}}" data-index="{{index}}" id='reportVideo{{index}}' src="{{videoList_No[index].url}}" poster="{{videoList_No[index].poster}}" bindfullscreenchange="start"></video>
@@ -138,11 +138,11 @@
   </view>
   <view class="cu-form-group">
     <view class="grid col-4 grid-square flex-sub">
-      <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+      <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
         <image src='{{imgList[index]}}' mode='aspectFill'></image>
 
       </view>
-      <view class="bg-img" wx:for="{{videoList}}" wx:key="{{index}}" bindtap="ViewVideoForreport" data-url="{{videoList[index].url}}" data-index="{{index}}">
+      <view class="bg-img" wx:for="{{videoList}}" wx:key="index" bindtap="ViewVideoForreport" data-url="{{videoList[index].url}}" data-index="{{index}}">
         <video id='reportVideo{{index}}' src="{{videoList[index].url}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
 
       </view>

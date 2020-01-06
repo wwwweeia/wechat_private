@@ -3,7 +3,7 @@
 
   <view class="page_bd page_bd_spacing">
     <view class="kind-list">
-      <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+      <block wx:for-items="{{list}}" wx:key="index">
         <view class="kind-list_item">
           <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" >
             <view class="cuIcon-titles text-blue"></view>

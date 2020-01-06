@@ -1,6 +1,6 @@
 <!-- 轮播图-->
 <swiper class='swiperClass' autoplay indicator-color="#a39f99" indicator-active-color="#f49641" interval="4000" duration="1000" previous-margin="80rpx" next-margin="80rpx" circular bindchange="bindchange" style='height: {{swiperHeight}}rpx'>
-  <block wx:for="{{swiperList}}" wx:key="{{index}}">
+  <block wx:for="{{swiperList}}" wx:key="index">
     <swiper-item>
       <image bindtap='toswiper' src="{{item.imageUrl}}" class="slide-image {{swiperIndex == index ? 'active' : 'quiet'}}" mode='aspectFill'></image>
     </swiper-item>
@@ -13,14 +13,14 @@
     <!--   <view class="cu-item {{null==TabCur?'text-blue cur':'text-grey'}} cu-btn round linebordersize   " bindtap="tabSelect">
       全部
     </view> -->
-    <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key bindtap="tabSelect" data-id="{{item.id}}">
+    <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key="index" bindtap="tabSelect" data-id="{{item.id}}">
       {{item.name}}
     </view>
   </scroll-view>
 
   <!-- 任务列表 -->
   <view class="cu-card article">
-    <navigator wx:if="{{TabCur==9}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_detail/dept_task_detail?id={{item.id}}&projectId={{item.projectId}}'>
+    <navigator wx:if="{{TabCur==9}}" wx:for="{{taskList}}" wx:key="index" class="cu-item shadow" url='../dept_task_detail/dept_task_detail?id={{item.id}}&projectId={{item.projectId}}'>
       <view class="content">
         <image src="{{item.url==''? '/images/null.png' : item.url}}" mode="aspectFill"></image>
         <view class="desc">
@@ -47,7 +47,7 @@
     </navigator>
   </view>
   <view class="cu-card article">
-    <navigator wx:if="{{TabCur==3 || TabCur==0}}" wx:for="{{taskList}}" wx:key class="cu-item shadow" url='../dept_task_Already/dept_task_Already?id={{item.id}}&projectId={{item.projectId}}'>
+    <navigator wx:if="{{TabCur==3 || TabCur==0}}" wx:for="{{taskList}}" wx:key="index" class="cu-item shadow" url='../dept_task_Already/dept_task_Already?id={{item.id}}&projectId={{item.projectId}}'>
       <view class="content">
         <image src="{{item.url==''? '/images/null.png' : item.url}}" mode="aspectFill"></image>
         <view class="desc">

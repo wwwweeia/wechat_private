@@ -75,7 +75,7 @@
 <view class="cu-card article no-card">
   <view class="cu-item shadow">
 
-    <view class="content" wx:for="{{imgList}}" wx:key="{{index}}">
+    <view class="content" wx:for="{{imgList}}" wx:key="index">
       <image src='{{imgList[index]}}' mode='aspectFill' bindtap="ViewImageForreport" data-index='{{index}}' data-url="{{imgList[index]}}"></image>
       <view class="cu-tag-user bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
         <text class="cuIcon-close"></text>
@@ -96,7 +96,7 @@
 <view class="cu-card article no-card">
   <view class="cu-item shadow">
 
-    <view class="content" wx:for="{{videoList}}" wx:key="{{index}}">
+    <view class="content" wx:for="{{videoList}}" wx:key="index">
       <video class="video-user" bindtap="ViewVideoForreport" data-url="{{videoList[index].url}}" data-index="{{index}}" id='reportVideo{{index}}' src="{{videoList[index].url}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
       <view class="cu-tag-user bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
         <text class="cuIcon-close"></text>
@@ -223,7 +223,7 @@
 </view>
 <view class="radioChange_user">
   <radio-group bindchange="radioChange" data-id="{{item.id}}">
-    <label class="radio" wx:for="{{items}}" wx:key>
+    <label class="radio" wx:for="{{items}}" wx:key="index">
       <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}" />{{item.content}}
 
     </label>

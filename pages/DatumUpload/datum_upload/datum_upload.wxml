@@ -12,7 +12,7 @@
     {{gfFileLength}}/4
   </view>
 </view>
-<view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="{{index}}">
+<view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{gfFileList[index].path}}'>
       <text class="text-blue">{{gfFileList[index].name}}</text>
@@ -44,7 +44,7 @@
     {{smReportLength}}/4
   </view>
 </view>
-<view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="{{index}}">
+<view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{smReportList[index].path}}'>
       <text class="text-blue">{{smReportList[index].name}}</text>
@@ -79,7 +79,7 @@
 
 <view class="cu-form-group">
   <view class="grid col-4 grid-square flex-sub">
-    <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="openDocument" data-url="{{imgList[index]}}">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="openDocument" data-url="{{imgList[index]}}">
       <image src='{{imgList[index]}}' mode='aspectFill'></image>
       <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
         <text class="cuIcon-close"></text>
@@ -105,7 +105,7 @@
     {{tjChartLength}}/4
   </view>
 </view>
-<view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="{{index}}">
+<view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{tjChartList[index].path}}'>
       <text class="text-blue">{{tjChartList[index].name}}</text>

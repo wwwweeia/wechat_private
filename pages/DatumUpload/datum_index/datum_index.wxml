@@ -84,7 +84,7 @@
       <view class="kind-list_item-bd kind-list_item-bd_show">
         <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
         <view class="tui-cells tui-cells_show">
-          <block wx:for-items="{{taskList}}" wx:key="{{item.id}}">
+          <block wx:for-items="{{taskList}}" wx:key="index">
             <view class="tui-cell tui-cell_access" bindtap="goTask" data-id="{{item.id}}" data-content="{{item.content}}" data-index="{{index}}">
               <view class="tui-cell_bd text-smm">
                 <text class="text-blue">{{index+1}}、</text>{{item.content}}</view>

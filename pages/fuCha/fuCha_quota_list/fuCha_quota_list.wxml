@@ -61,7 +61,7 @@
       <view class="th">检查内容</view>
       <view class="th-2">操作</view>
     </view>
-    <block wx:for="{{listData}}" wx:key="{{item}}">
+    <block wx:for="{{listData}}" wx:key="item">
       <!-- <view class="tr bg-g" wx:if="{{item.finished==0}}" > -->
       <view class="tr bg-g" wx:if="{{index%2==0}}">
         <view class="td-1" selectable="true">　{{item.content}}
@@ -161,7 +161,7 @@
       <view class="kind-list_item-bd kind-list_item-bd_show">
         <!-- <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}"> -->
         <view class="tui-cells tui-cells_show">
-          <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+          <block wx:for-items="{{list}}" wx:key="index">
             <view data-index="{{index}}" class="tui-cell tui-cell_access" bindtap="hideModal" data-type="0" data-target="viewModal" data-quotaId="{{item.id}}" data-content="{{item.content}}" data-variable="{{variable}}">
               <view class="tui-cell_bd text-smm">{{item.content}}</view>
               <view wx:if="{{userIndex==index}}" class="cuIcon-creativefill  text-yellow"></view>
