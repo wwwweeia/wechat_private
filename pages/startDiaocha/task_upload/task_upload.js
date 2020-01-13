@@ -82,7 +82,14 @@ Page({
     checkedid: '',
     content:'',//问题描述
     isHeGe:0,//是否选中合格，0-合格，1-不合格
-    isDaBiao:0//下载资源 选项按钮是否达标  0-达标 1-不达标
+    isDaBiao:0,//下载资源 选项按钮是否达标  0-达标 1-不达标
+    modalHiddenInput1: true, //控制input输入弹框的变量 
+    modalHiddenInput2: true, //控制input输入弹框的变量 
+
+    imageInputId:'',
+    imageInputValue:'',
+    videoInputId:'',
+    videoInputValue:''
 
   },
 
@@ -241,18 +248,13 @@ Page({
     var videoAddress=[];
 
     var mapImage = []; //图片下载
+    console.log("imahahah ",images)
     for (var i = 0; i < images.length; i++) {
       mapImage.push(images[i].url)
       if (images[i].description!='') {
-         imgDesc.push({
-          // description: images[i].description+","
-          description: images[i].description+","
-        });
+         imgDesc.push(images[i].description+",");
        }else{
-        imgDesc.push({
-          // description: images[i].description+","
-          description: images[i].description
-        });
+        imgDesc.push(images[i].description);
        }
       imageAddress.push({
         address:images[i].address,
@@ -268,13 +270,9 @@ Page({
       mapVoid.push(videos[i].url)
 
       if (videos[i].description!='') {
-          videoDesc.push({
-            description: videos[i].description+","
-          })
+          videoDesc.push(videos[i].description+",")
         }else{
-          videoDesc.push({
-            description: videos[i].description
-          })
+          videoDesc.push(videos[i].description)
         }
       videoAddress.push({
         address:videos[i].address,
@@ -749,32 +747,94 @@ Page({
    /**
    ***********************************图片描述框**************************************
    */
-  // imageInput:function(e){
-  //   var that = this;
-  //   var value = e.detail.value;
-  //   var id = e.target.dataset.index;
-  //   var imgDescList = that.data.imgDescList;
-  //   console.log("图片的描述：",imgDescList)
+   //弹出框
+  startInput1: function(e) {
+    var that = this;
+     var id = e.target.dataset.index;
+    that.setData({
+      imageInputId:id,
+      modalHiddenInput1: false
+    })
+   
+  },
+  startInput2: function(e) {
+    var that = this;
+     var id = e.target.dataset.index;
+    that.setData({
+      videoInputId:id,
+      modalHiddenInput2: false
+    })
+   
+  },
+  text1Input(e) {
+    this.data.imageInputValue = e.detail.value;
+  },
+   text2Input(e) {
+    this.data.videoInputValue = e.detail.value;
+  },
+  //确定
+   sub1: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput1: true
+    })
+    var id = that.data.imageInputId;
+    var value = that.data.imageInputValue;
+     var imgDescList = that.data.imgDescList;
+    console.log("id:",id,"图片的描述：",imgDescList)
 
-  //     var redioId = '[' + id + ']'
-  //     // var test = 'imgDescList[' + redioId + '].desc'
-  //     var test = 'imgDescList[' + id + '].description'
-  //     var imgY = that.data.imgY;
-  //     if (this.data.imgY === id) {
-  //       this.setData({
-  //         imgY: imgY + 1,
-  //         [test]: value + ','
-  //       })
+      var redioId = '[' + id + ']'
+      // var test = 'imgDescList[' + redioId + '].desc'
+      var test = 'imgDescList[' + id + ']'
+      if(typeof(imgDescList[id])==="undefined"){
+         this.setData({
+          [test]: value+','
+        })
+      }else {
+        this.setData({
+          [test]: that.data.imgDescList[id].concat(value+',')
+        })
+      }
+  },
+   //确定
+   sub2: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput2: true
+    })
+    var id = that.data.videoInputId;
+    var value = that.data.videoInputValue;
+    var voidDescList  = that.data.voidDescList;
 
-  //     } else {
-  //       this.setData({
-  //         [test]: that.data.imgDescList[id].description.concat(value + ',')
-  //       })
-  //     }
+      var redioId = '[' + id + ']'
+      // var test = 'imgDescList[' + redioId + '].desc'
+      var test = 'voidDescList[' + id + ']'
+      if(typeof(voidDescList[id])==="undefined"){
+         this.setData({
+          [test]: value+','
+        })
+      }else {
+        this.setData({
+          [test]: that.data.voidDescList[id].concat(value+',')
+        })
+      }
+  },
+    //取消
+  cancel1: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput1: true
+    })
+  },
+      //取消
+  cancel2: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput2: true
+    })
+  },
 
 
-
-  // },
   /**
    ***********************************模态框**************************************
    */
@@ -797,37 +857,37 @@ Page({
 
     var that = this;
     var descType = that.data.descType;
+    var imgDescList = that.data.imgDescList;
     if (descType === 'Img') {
       var id = that.data.redioId;
       console.log("问题描述选择id：", id)
       var redioId = '[' + id + ']'
       // var test = 'imgDescList[' + redioId + '].desc'
-      var test = 'imgDescList[' + id + '].description'
+      var test = 'imgDescList[' + id + ']'
       var imgY = that.data.imgY;
-      if (this.data.imgY === id) {
-        this.setData({
+      if (that.data.imgY === id) {
+            that.setData({
           modalName: null,
           idModelShow: '1',
           imgY: imgY + 1,
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: this.data.tipsList[e.currentTarget.dataset.value] + ','
+          [test]: that.data.tipsList[e.currentTarget.dataset.value] + ','
         })
-
       } else {
-        this.setData({
+        that.setData({
           modalName: null,
           idModelShow: '1',
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: that.data.imgDescList[id].description.concat(this.data.tipsList[e.currentTarget.dataset.value] + ',')
+          [test]: that.data.imgDescList[id].concat(that.data.tipsList[e.currentTarget.dataset.value] + ',')
         })
       }
       // console.log(this.data.desc)
-      // console.log("这是图片描述", this.data.imgDescList)
+      console.log("这是图片描述", that.data.imgDescList)
     } else {
       var id = that.data.redioId;
       var redioId = '[' + id + ']'
       // var test = 'imgDescList[' + redioId + '].desc'
-      var test = 'voidDescList[' + id + '].description'
+      var test = 'voidDescList[' + id + ']'
       var voidY = that.data.voidY;
       if (this.data.voidY === id) {
         this.setData({
@@ -843,11 +903,11 @@ Page({
           modalName: null,
           idModelShow: '1',
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: that.data.voidDescList[id].description.concat(this.data.tipsList[e.currentTarget.dataset.value] + ',')
+          [test]: that.data.voidDescList[id].concat(this.data.tipsList[e.currentTarget.dataset.value] + ',')
         })
       }
       // console.log(this.data.desc)
-      // console.log("这是视频描述", this.data.voidDescList)
+      console.log("这是视频描述", this.data.voidDescList)
     }
 
 
@@ -1225,7 +1285,7 @@ Page({
             resolve(res.data)
             // console.log("找到问题了：",i,"000:",imgDescList)
             if(imgDescList.length > i){
-              var desc = imgDescList[i].description;
+              var desc = imgDescList[i];
               var desc1 = desc.substring(0,desc.length-1);
             }else{
               var desc1 ='';
@@ -1335,7 +1395,7 @@ Page({
             success++;
             // 操作成功
             if(voidDescList.length > j){
-              var desc = voidDescList[j].description;
+              var desc = voidDescList[j];
               var desc1 = desc.substring(0,desc.length-1);
             }else{
               var desc1 ='';
