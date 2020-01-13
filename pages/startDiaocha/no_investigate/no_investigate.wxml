@@ -57,27 +57,21 @@
       </view>
     </view>
 
-    <view class="solids" bindtap="showModal2" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
+    <view class="grid col-4 grid-square flex-sub">
+    <view class="solids" bindtap="ChooseImage" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
       <text class="cuIcon-cameraadd"></text>
     </view>
+   <!--  <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-cameraadd"></text>
+    </view> -->
+     <view class="solids" bindtap="chooseVideo" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-video"></text>
+    </view>
+  </view>
   </view>
 </view>
 
-<!-- 上传照片/视频弹出层 -->
-<view class="cu-modal {{modalName=='Modal'?'show':''}}">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red"></text>
-      </view>
-    </view>
-    <view class="padding flex flex-direction">
-      <button class="cu-btn bg-green lg" bindtap='ChooseImage'>上传照片 </button>
-      <button class="cu-btn bg-blue margin-tb-sm lg" bindtap='chooseVideo'>上传视频</button>
-    </view>
-    <!-- </view> -->
-  </view>
-</view>
+
 
 <!-- 描述 -->
 <view class="cu-bar solid-bottom">

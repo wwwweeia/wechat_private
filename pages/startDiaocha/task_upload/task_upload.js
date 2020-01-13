@@ -200,11 +200,13 @@ Page({
 
           }
           if (res.data.retObj.resourceMap != null) {
-
             var images = res.data.retObj.resourceMap.images;
             var videos = res.data.retObj.resourceMap.videos;
             var audios = res.data.retObj.resourceMap.audios;
             console.log("资源列表：", res.data.retObj.resourceMap)
+            if (typeof(images)==="undefined" || typeof(videos)==="undefined" || typeof(audios)==="undefined") {
+              return;
+            }
             that.downlodaResource(images, videos, audios);
           }
           // console.log("选中的id:", that.data.checkedid)
@@ -744,6 +746,35 @@ Page({
       })
     }
   },
+   /**
+   ***********************************图片描述框**************************************
+   */
+  // imageInput:function(e){
+  //   var that = this;
+  //   var value = e.detail.value;
+  //   var id = e.target.dataset.index;
+  //   var imgDescList = that.data.imgDescList;
+  //   console.log("图片的描述：",imgDescList)
+
+  //     var redioId = '[' + id + ']'
+  //     // var test = 'imgDescList[' + redioId + '].desc'
+  //     var test = 'imgDescList[' + id + '].description'
+  //     var imgY = that.data.imgY;
+  //     if (this.data.imgY === id) {
+  //       this.setData({
+  //         imgY: imgY + 1,
+  //         [test]: value + ','
+  //       })
+
+  //     } else {
+  //       this.setData({
+  //         [test]: that.data.imgDescList[id].description.concat(value + ',')
+  //       })
+  //     }
+
+
+
+  // },
   /**
    ***********************************模态框**************************************
    */
@@ -1056,11 +1087,34 @@ Page({
       }
       if (imgDescList.length!=0) {
         var imgDescListLength = imgDescList.length;
+        for (var i = 0; i < imgDescList.length; i++) {
+          if (imgDescList[i].description=='') {
+              wx.showToast({
+              title: '不达标必须填写资源描述或删除达标图片',
+              icon: 'none',
+              duration: 2000,
+              mask: true
+            })
+             return;
+          }
+        }
       }else{
         var imgDescListLength = 0;
+
       }
       if(voidDescList.length!=0){
         var voidDescListLength = voidDescList.length;
+          for (var j = 0; j < voidDescList.length; j++) {
+          if (voidDescList[j].description=='') {
+              wx.showToast({
+              title: '不达标必须填写资源描述或删除达标图片',
+              icon: 'none',
+              duration: 2000,
+              mask: true
+            })
+             return;
+          }
+        }
       }else{
         var voidDescListLength = 0;
       }
@@ -1077,9 +1131,6 @@ Page({
             })
              return;
       }
-
-
-    
     }
 
 

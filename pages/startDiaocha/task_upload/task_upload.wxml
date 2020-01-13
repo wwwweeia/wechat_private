@@ -92,7 +92,7 @@
       <view class="desc">
         <!-- <input class="text-content" value="{{imgDescList[index].description}}"></input> -->
           <view class="weui-cell input-user ">
-            <input class="text-content-user" type="text" value="{{imgDescList[index].description}}"/>
+            <input class="text-content-user" type="text" value="{{imgDescList[index].description}}" data-index="{{index}}" bindinput='imageInput'/>
           </view>
         <view>
           <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
