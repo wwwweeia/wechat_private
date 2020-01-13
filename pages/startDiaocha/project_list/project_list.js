@@ -113,7 +113,7 @@ Page({
         if (res.data.httpStatusCode===200) {
           var message =  res.data.message.substring(0,3);
           // console.log("来了",message)
-          if (message==="002"|| message==="004" || message==="006") {
+          if (message==="001"|| message==="002"|| message==="004" || message==="006") {
             wx.setStorageSync("projectId", projectId);
             wx.setStorageSync("isGrade", isGrade);
             wx.navigateTo({

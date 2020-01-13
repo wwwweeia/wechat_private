@@ -218,7 +218,7 @@ border-block: 1rpx solid #1cbbb4;*/
 border: 1px solid green;
 border-right-style: none;
 border-left-style: none;
-
+border-top-style: none;
 }
 .text-content-user{
   font-size: 35rpx;
@@ -226,4 +226,8 @@ border-left-style: none;
 height: 2.8em;
 overflow: hidden;
 
+}
+.text-uer{
+  font-size: 30rpx;
+  font-weight: bold;
 }

@@ -29,7 +29,7 @@ Page({
     isRecord: '',
     // 是否切换 1-问题分类查 0-指标查
     qiehuan: 1,
-    userIndex: '', //用户操作的行
+    userIndex: 0 //用户操作的行
   },
 
   onLoad: function(e) {
@@ -56,8 +56,8 @@ Page({
         if (res.data.status == 'success') {
           var quotaList = res.data.retObj;
           var pointTypeId = that.data.pointTypeId
-          console.log("指标分类userid：",userIndex)
-          if(userIndex===0 || userIndex===''){
+          // console.log("指标分类userid：",userIndex)
+          if(userIndex===0){
               let arr = [];
               let ayy = [];
               for (let i = 0; i < quotaList.length; i++) {
@@ -88,7 +88,7 @@ Page({
               // 数组转字符得到第一个指标的id
               var testxx = testx.join();
               var testyy = testy.join();
-              console.log("testxx:",testxx,"testyy:",testyy)
+              // console.log("testxx:",testxx,"testyy:",testyy)
               that.setData({
                 list: res.data.retObj,
                 quotaName: testyy
@@ -189,6 +189,7 @@ Page({
   goToUpload: function(e) {
     var that = this;
     let isRecord = e.currentTarget.dataset.isrecord;
+    let content = e.currentTarget.dataset.content;
     let questionId = e.currentTarget.dataset.id;
     let code = e.currentTarget.dataset.code;
     let grade = e.currentTarget.dataset.grade; //最大分
@@ -209,7 +210,7 @@ Page({
     // };
     //跳转上传页面
     router.navigateTo({
-      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
+      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade+ '&content=' + content
     })
     // wx.navigateTo({
     //   // url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
@@ -295,7 +296,7 @@ Page({
       that.setData({
         variable: 1,
         qiehuan: 0,
-        userIndex: ''
+        userIndex: 0
       })
       console.log("指标类型查")
       this.getQuotaList(pointTypeId, locationId, projectId);
@@ -303,7 +304,7 @@ Page({
       that.setData({
         variable: 0,
         qiehuan: 1,
-        userIndex: ''
+        userIndex: 0
       })
       console.log("问题分类查")
       this.getproblemList(pointTypeId, projectId, locationId);
@@ -327,15 +328,16 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log('指标列表', res.data.retObj)
+       console.log('指标列表数据', res.data.retObj)
         if (res.data.status == 'success') {
-          var quotaList = res.data.retObj;
           var pointTypeId = that.data.pointTypeId
           // that.setData({
           //   list: res.data.retObj,
           //   quotaName: ayytest
           // })
-          if (userIndex === 0 || userIndex === '') {
+          console.log("userIndex",userIndex)
+          if (userIndex === 0) {
+            var quotaList = res.data.retObj;
             let arr = [];
             let ayy = [];
             for (let i = 0; i < quotaList.length; i++) {
@@ -354,6 +356,7 @@ Page({
             // 加载第一个指标下的问题
             that.getProblemByfenlei(pointTypeId, arrtest, projectId, locationId);
           } else {
+          var quotaList = res.data.retObj;
             let user = [];
             let usery = [];
             for (let j = 0; j < quotaList.length; j++) {

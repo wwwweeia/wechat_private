@@ -38,7 +38,16 @@
   <input class="weui-input" value="{{address}}" />
 </view>
 
+<!-- 问题描述 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>问题描述
+  </view>
+</view>
 
+<view class="cu-form-group  bg-white">
+  <text class="weui-input text-lg"> {{content}}</text>
+</view>
 <!-- 拍摄照片/视频 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
@@ -62,7 +71,7 @@
         <view class="cu-item" wx:for="{{tipsList}}" wx:key="index">
           <label class="flex justify-between align-center flex-sub" bindtap="hideModal2" data-value="{{index}}">
             <view class="flex-sub">{{item}}</view>
-            <radio class="round"></radio>
+            <!-- <radio class="round"></radio> -->
           </label>
         </view>
       </view>
@@ -149,8 +158,8 @@
 
 
 <!-- 录音 -->
-<!--  -->
-<view class="cu-bar solid-bottom" wx:if="{{isRecord}}">
+<!--  wx:if="{{isRecord}}"-->
+<view class="cu-bar solid-bottom" >
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 录音
   </view>

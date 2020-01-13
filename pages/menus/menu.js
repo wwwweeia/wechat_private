@@ -19,7 +19,14 @@ Page({
     longitude: '',
     latitude: '',
   },
-
+   onShareAppMessage: function (res) {
+      return {
+        title: '创城专业版小程序！',
+        path: '/pages/index/index',
+        success: function () { },
+        fail: function () { }
+      }
+    },
   /**
    * 生命周期函数--监听页面加载
    */
