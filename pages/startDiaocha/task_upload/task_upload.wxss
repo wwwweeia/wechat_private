@@ -231,3 +231,6 @@ overflow: hidden;
   font-size: 30rpx;
   font-weight: bold;
 }
+.text-uer-input{
+  font-size: 35rpx;
+}

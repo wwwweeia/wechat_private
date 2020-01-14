@@ -142,12 +142,12 @@
 
 <modal hidden="{{modalHiddenInput1}}" bindconfirm="sub1" bindcancel="cancel1">
   <view class="cu-form-group">
-    <textarea bindinput="text1Input"  placeholder="请输入对资源的描述"></textarea>
+    <textarea bindinput="text1Input" style="font-size:35rpx;color: black;"  value="{{imgDescList[imageInputId]}}" placeholder="请输入对资源的描述"></textarea>
   </view>
 </modal>
 <modal hidden="{{modalHiddenInput2}}" bindconfirm="sub2" bindcancel="cancel2">
   <view class="cu-form-group">
-    <textarea bindinput="text2Input"  placeholder="请输入对资源的描述"></textarea>
+    <textarea bindinput="text2Input" style="font-size:35rpx;color: black;" value="{{voidDescList[videoInputId]}}"  placeholder="请输入对资源的描述"></textarea>
   </view>
 </modal>
 
