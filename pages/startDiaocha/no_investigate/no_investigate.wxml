@@ -35,7 +35,7 @@
 </view>
 <view class="cu-bar bg-white">
   <view class="action">
-    上传图片或视频
+    上传图片
   </view>
   <view class="action">
     {{reportlength}}/1
@@ -64,9 +64,9 @@
    <!--  <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
       <text class="cuIcon-cameraadd"></text>
     </view> -->
-     <view class="solids" bindtap="chooseVideo" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
+<!--      <view class="solids" bindtap="chooseVideo" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
       <text class="cuIcon-video"></text>
-    </view>
+    </view> -->
   </view>
   </view>
 </view>

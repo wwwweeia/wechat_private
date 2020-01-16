@@ -92,7 +92,7 @@
       <view class="desc">
         <!-- <input class="text-content" value="{{imgDescList[index].description}}"></input> -->
           <view class="weui-cell input-user ">
-            <input class="text-content-user" type="text" value="{{imgDescList[index]}}" data-index="{{index}}" bindinput='imageInput'/>
+            <input class="text-content-user" type="text" disabled="true"  value="{{imgDescList[index]}}" data-index="{{index}}" bindinput='imageInput'/>
           </view>
         <view>
           <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
@@ -112,7 +112,7 @@
         <text class="cuIcon-close"></text>
       </view>
       <view class="desc">
-        <input class="text-content-user input-user" value="{{voidDescList[index]}}"></input>
+        <input class="text-content-user input-user" disabled="true"  value="{{voidDescList[index]}}"></input>
         <view>
           <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Vido" data-index="{{index}}">快捷输入</view>
              <view class="cu-tag bg-green light  round" bindtap="startInput2" data-index="{{index}}">手动输入</view>
@@ -148,6 +148,11 @@
 <modal hidden="{{modalHiddenInput2}}" bindconfirm="sub2" bindcancel="cancel2">
   <view class="cu-form-group">
     <textarea bindinput="text2Input" style="font-size:35rpx;color: black;" value="{{voidDescList[videoInputId]}}"  placeholder="请输入对资源的描述"></textarea>
+  </view>
+</modal>
+<modal hidden="{{modalHiddenInput3}}" bindconfirm="sub3" bindcancel="cancel3">
+  <view class="cu-form-group">
+    <textarea bindinput="text3Input" style="font-size:35rpx;color: black;" value="{{audioDescList[audioInputId]}}"  placeholder="请输入对资源的描述"></textarea>
   </view>
 </modal>
 
@@ -188,29 +193,47 @@
     <image class="image-audio" src="../../../images/audio.gif" mode='aspectFill'></image>
   </view>
 </modal>
-
 <view class="cu-chat bg-white" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
   <view class="cu-item">
+  <view class="content-user" wx:if="{{!item.bl}}">
     <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
       <view class="action text-bold text-blue">
         第{{index+1}}个录音
       </view>
       <!-- 静态图 -->
-      <view class="content shadow">
+      <view class="content shadow style=padding:0 15rpx">
         <image class="image-audio-user" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
       </view>
-
     </view>
+
+       <view class="desc-user">
+        <input class="text-content-user input-user" disabled="true" value="{{audioDescList[index]}}"></input>
+        <view class="style=padding:0 15rpx">
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        </view>
+      </view>
+
+</view>
+  <view class="content-user" wx:if="{{item.bl}}" >
     <view wx:if="{{item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
       <view class="action text-bold text-blue">
         第{{index+1}}个录音
       </view>
       <!-- 动图 -->
-      <view class="content shadow">
+      <view class="content shadow style=padding:0 15rpx">
         <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
      
       </view>
     </view>
+        <view class="desc-user">
+        <input class="text-content-user input-user" disabled="true"  value="{{audioDescList[index]}}"></input>
+        <view class="style=padding:0 15rpx">
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        </view>
+      </view>
+</view>
     <view class="action-user" bindtap='delAudio' data-id="{{index}}">
       <text class="cuIcon-close text-red"></text>
     </view>
@@ -218,8 +241,6 @@
   </view>
 
 </view>
-
-
 
 <!-- 描述
 <!-- <view class="cu-bar solid-bottom">
