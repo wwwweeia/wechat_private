@@ -142,17 +142,17 @@
 
 <modal hidden="{{modalHiddenInput1}}" bindconfirm="sub1" bindcancel="cancel1">
   <view class="cu-form-group">
-    <textarea bindinput="text1Input" style="font-size:35rpx;color: black;"  value="{{imgDescList[imageInputId]}}" placeholder="请输入对资源的描述"></textarea>
+    <textarea bindinput="text1Input" style="font-size:35rpx;color: black;"  value="{{imgDescList[imageInputId]}}" placeholder="请输入对图片资源的描述"></textarea>
   </view>
 </modal>
 <modal hidden="{{modalHiddenInput2}}" bindconfirm="sub2" bindcancel="cancel2">
   <view class="cu-form-group">
-    <textarea bindinput="text2Input" style="font-size:35rpx;color: black;" value="{{voidDescList[videoInputId]}}"  placeholder="请输入对资源的描述"></textarea>
+    <textarea bindinput="text2Input" style="font-size:35rpx;color: black;" value="{{voidDescList[videoInputId]}}"  placeholder="请输入对视频资源的描述"></textarea>
   </view>
 </modal>
 <modal hidden="{{modalHiddenInput3}}" bindconfirm="sub3" bindcancel="cancel3">
   <view class="cu-form-group">
-    <textarea bindinput="text3Input" style="font-size:35rpx;color: black;" value="{{audioDescList[audioInputId]}}"  placeholder="请输入对资源的描述"></textarea>
+    <textarea bindinput="text3Input" style="font-size:35rpx;color: black;" value="{{audioDescList[audioInputId]}}"  placeholder="请输入对音频资源的描述"></textarea>
   </view>
 </modal>
 

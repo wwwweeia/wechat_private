@@ -9,8 +9,8 @@
       <block wx:for-items="{{list}}" wx:key="index">
         <view class="kind-list_item">
           <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}} " bindtap="kindToggle">
-            <view class="cuIcon-titles text-blue"></view>
-            <view class="tui-flex_item　 text-sm {{item.locationList==null? 'text-blue' : ''}} ">{{item.name}}</view>
+            <view class="cuIcon-titles {{item.locationList==null? 'text-grey' : 'text-blue'}}"></view>
+            <view class="tui-flex_item　 text-sm {{item.locationList==null? 'text-grey' : ''}} ">{{item.name}}</view>
             <view class="cuIcon-unfold"></view>
           </view>
           <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">

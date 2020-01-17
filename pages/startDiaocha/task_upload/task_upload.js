@@ -63,6 +63,7 @@ Page({
 
     imagAddressList: [],
     videoAddressList: [],
+    audioAddressList:[],
 
     redioId: '', //当前选中的快捷提示id
     imgY: 0, //图片描述的标识
@@ -245,6 +246,7 @@ Page({
     var audioDesc = [];//录音描述
     var imageAddress = [];
     var videoAddress = [];
+    var audioAddress = [];
 
     var mapImage = []; //图片下载
     console.log("imahahah ", images)
@@ -285,6 +287,11 @@ Page({
       }else{
         audioDesc.push(audios[i].description)
       }
+       audioAddress.push({
+        address: audios[i].address,
+        latitude: audios[i].latitude,
+        longitude: audios[i].longitude
+      })
     }
 
     that.setData({
@@ -296,7 +303,8 @@ Page({
       voidY: videoDesc.length, //视频资源描述长度、
       audioY:audioDesc.length,//音频资源描述长度
       imagAddressList: imageAddress,
-      videoAddressList: videoAddress
+      videoAddressList: videoAddress,
+      audioAddressList:audioAddress
     })
     // console.log("图片描述", that.data.imgDescList);
     // console.log("视频描述", that.data.voidDescList);
@@ -498,8 +506,9 @@ Page({
 
   stopRecord: function() {
     var that = this;
-    var audioSrc = this.data.audioSrc;
+    var audioSrc = that.data.audioSrc;
     var remainTime = that.data.remainTime;
+    var audioAddressList = that.data.audioAddressList;
     that.setData({
       idModelShow: 1
     })
@@ -512,9 +521,16 @@ Page({
         })
         that.tip("录音已取消")
       } else {
-
-        if (that.data.audioSrc.length != 0) {
-          audioSrc.push({
+        that.currentLocation();
+        var address = that.data.address;
+        var latitude = that.data.latitude;
+        var longitude = that.data.longitude;
+        audioAddressList.push({
+          address:address,
+          latitude:latitude,
+          longitude:longitude
+        }) 
+         audioSrc.push({
             bl: false,
             src: res.tempFilePath,
             time: remainTime
@@ -522,20 +538,10 @@ Page({
           that.setData({
             modalHidden: true,
             audioSrc: audioSrc,
-            isShow: 0
+            isShow: 0,
+            audioAddressList:audioAddressList
           })
-        } else {
-          audioSrc.push({
-            bl: false,
-            src: res.tempFilePath,
-            time: remainTime
-          })
-          that.setData({
-            modalHidden: true,
-            audioSrc: audioSrc,
-            isShow: 0
-          })
-        }
+       
         that.tip("录音完成")
         console.log("这是录音列表：", that.data.audioSrc);
       }
@@ -554,7 +560,7 @@ Page({
     var index = e.currentTarget.dataset.id;
 
     if (audioSrc == '') {
-      this.tip("请先录音！")
+      that.tip("请先录音！")
       return;
     }
     audioSrc.forEach((v, i, array) => {
@@ -567,7 +573,7 @@ Page({
       audioSrc: audioSrc
     })
     innerAudioContext.autoplay = true
-    innerAudioContext.src = this.data.audioSrc[index].src,
+    innerAudioContext.src = that.data.audioSrc[index].src,
       innerAudioContext.onPlay(() => {
         // console.log('开始播放')
       })
@@ -591,14 +597,14 @@ Page({
     var audioSrc = that.data.audioSrc;
     if (audioSrc == '') {
       // do something
-      this.setData({
+      that.setData({
         modalHidden: true,
         audioSrc: '',
         idModelShow: 1,
         fuzhi: 1
       })
     } else {
-      this.setData({
+      that.setData({
         modalHidden: true,
         idModelShow: 1,
         fuzhi: 1
@@ -620,10 +626,12 @@ Page({
           // console.log("删除之前的音频集合：",this.data.audioSrc,"长度：",this.data.audioSrc.length)
           that.data.audioSrc.splice(index, 1);
           that.data.audioDescList.splice(index,1);
+          that.data.audioAddressList.splice(index,1);
           that.setData({
             audioSrc: that.data.audioSrc,
             audioDescList:that.data.audioDescList,
-            audioY:that.data.audioY-1
+            audioY:that.data.audioY-1,
+            audioAddressList:that.data.audioAddressList
           })
           // console.log("删除之后的音频集合：",this.data.audioSrc,"长度：",this.data.audioSrc.length)
         }
@@ -635,7 +643,8 @@ Page({
    ***********************************倒计时**************************************
    */
   updateTimer: function() {
-    let log = this.data.log
+    var that = this;
+    let log = that.data.log
     let now = Date.now()
     let remainingTime = Math.round((now - log.endTime) / 1000)
     let M = util.formatTime(Math.floor(remainingTime / (60)) % 60, 'MM')
@@ -644,17 +653,17 @@ Page({
       wx.setKeepScreenOn({
         keepScreenOn: false
       })
-      this.stopTimer()
+      that.stopTimer()
       recorderManager.stop();
-      this.data.isRecord = false;
-      this.setData({
+      that.data.isRecord = false;
+      that.setData({
         buttonTxt: '开始录音'
       });
       return
     } else {
       let remainTimeText = M + ":" + S;
       let remainTime = S;
-      this.setData({
+      that.setData({
         remainTimeText: remainTimeText,
         remainTime: remainTime
       })
@@ -1023,14 +1032,14 @@ Page({
         // obj.url = img2;
         // urlArray.push(obj)
         if (that.data.imgList.length != 0) {
-          this.setData({
+          that.setData({
             imgList: that.data.imgList.concat(img),
             modalName: '',
             reportlength: that.data.reportlength + 1,
             imagAddressList: imagAddressList
           })
         } else {
-          this.setData({
+          that.setData({
             imgList: img,
             modalName: '',
             reportlength: that.data.reportlength + 1,
@@ -1120,6 +1129,7 @@ Page({
 
   },
   DelImg(e) {
+    var that = this;
     // 'reportImg' 举报图片  'reportVideo' 举报视频 'addsImg'地址图片 'addsVideo' 地址视频
     var type = e.currentTarget.dataset.type;
     // console.log("删除的id", e.currentTarget.dataset.index, "现有的图片集合d", this.data.imgList);
@@ -1131,27 +1141,27 @@ Page({
       success: res => {
         if (res.confirm) {
           if (type == "reportImg") {
-            this.data.imgList.splice(e.currentTarget.dataset.index, 1);
-            this.data.imgDescList.splice(e.currentTarget.dataset.index, 1);
-            this.data.imagAddressList.splice(e.currentTarget.dataset.index, 1);
-            this.setData({
-              imgList: this.data.imgList,
-              reportlength: this.data.reportlength - 1,
-              imgDescList: this.data.imgDescList,
-              imgY: this.data.imgY - 1,
-              imagAddressList: this.data.imagAddressList
+            that.data.imgList.splice(e.currentTarget.dataset.index, 1);
+            that.data.imgDescList.splice(e.currentTarget.dataset.index, 1);
+            that.data.imagAddressList.splice(e.currentTarget.dataset.index, 1);
+            that.setData({
+              imgList: that.data.imgList,
+              reportlength: that.data.reportlength - 1,
+              imgDescList: that.data.imgDescList,
+              imgY: that.data.imgY - 1,
+              imagAddressList: that.data.imagAddressList
             })
           }
           if (type == "reportVideo") {
-            this.data.videoList.splice(e.currentTarget.dataset.index, 1);
-            this.data.voidDescList.splice(e.currentTarget.dataset.index, 1);
-            this.data.videoAddressList.splice(e.currentTarget.dataset.index, 1);
-            this.setData({
-              videoList: this.data.videoList,
-              reportlength: this.data.reportlength - 1,
-              voidDescList: this.data.voidDescList,
-              voidY: this.data.voidY - 1,
-              videoAddressList: this.data.videoAddressList
+            that.data.videoList.splice(e.currentTarget.dataset.index, 1);
+            that.data.voidDescList.splice(e.currentTarget.dataset.index, 1);
+            that.data.videoAddressList.splice(e.currentTarget.dataset.index, 1);
+            that.setData({
+              videoList: that.data.videoList,
+              reportlength: that.data.reportlength - 1,
+              voidDescList: that.data.voidDescList,
+              voidY: that.data.voidY - 1,
+              videoAddressList: that.data.videoAddressList
             })
             // console.log("删除之后的视频描述", this.data.voidDescList)
           }
@@ -1560,7 +1570,7 @@ Page({
     var fail = that.data.fail;
     var resourceList = that.data.resourceList;
     var audioDescList = that.data.audioDescList;
-
+    var audioAddressList = that.data.audioAddressList;
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
     var code = that.data.code;
@@ -1592,11 +1602,23 @@ Page({
             }else{
               var desc1='';
             }
+             if (audioAddressList.length > k) {
+              var address = audioAddressList[k].address;
+              var latitude = audioAddressList[k].latitude;
+              var longitude = audioAddressList[k].longitude;
+            } else {
+              var address = that.data.address;
+              var latitude = that.data.latitude;
+              var longitude = that.data.longitude;
+            }
             resourceList.push({
               url: audioMap.url,
               description: desc1,
               type: 1,
-              ismodel: 0
+              ismodel: 0,
+              address:address,
+              latitude:latitude,
+              longitude:longitude
             })
           } else {
             wx.showToast({
