@@ -1,0 +1,66 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/menus/menu",
+    "pages/login/login",
+    "pages/startDiaocha/project_list/project_list",
+    "pages/startDiaocha/point_type/point_type",
+    "pages/startDiaocha/ceshi/ceshi",
+    "pages/startDiaocha/point_detail/point_detail",
+    "pages/startDiaocha/quota_list/quota_list",
+    "pages/startDiaocha/no_refuse/no_refuse",
+    "pages/startDiaocha/no_investigate/no_investigate",
+    "pages/startDiaocha/task_upload/task_upload",
+    "pages/startDiaocha/map/map",
+    "pages/surveyDept/dept_index/dept_index",
+    "pages/surveyDept/dept_swiper/dept_swiper",
+    "pages/surveyDept/dept_task_detail/dept_task_detail",
+    "pages/startDiaocha/question_tips/question_tips",
+    "pages/surveyDept/dept_project/dept_project",
+    "pages/surveyDept/dept_task_Already/dept_task_Already",
+    "pages/ShiDiCheck/check_project/check_project",
+    "pages/ShiDiCheck/check_index/check_index",
+    "pages/ShiDiCheck/check_check_detail/check_check_detail",
+    "pages/ShiDiCheck/check_noAndSu_Detail/check_noAndSu_Detail",
+    "pages/DatumUpload/upload_project/upload_project",
+    "pages/DatumUpload/datum_index/datum_index",
+    "pages/DatumUpload/datum_upload/datum_upload",
+    "pages/DatumCheck/datum_check_project/datum_check_project",
+    "pages/DatumCheck/datum_check_index/datum_check_index",
+    "pages/DatumCheck/datum_check2_see/datum_check2_see",
+    "pages/DatumUpload/datum_check_see/datum_check_see",
+    "pages/fuCha/projectList/projectList",
+    "pages/fuCha/fuCha_point_type/fuCha_point_type",
+    "pages/fuCha/fuCha_map/fuCha_map",
+    "pages/fuCha/fuCha_point_detail/fuCha_point_detail",
+    "pages/fuCha/fuCha_quota_list/fuCha_quota_list",
+    "pages/fuCha/fuCha_tips/fuCha_tips",
+    "pages/fuCha/fuCha_upload/fuCha_upload",
+    "pages/paiMing/index/index",
+    "pages/fenXi/index/index",
+    "pages/fenXi/zr_df_z/zr_df_z",
+    "pages/fenXi/zr_wt_z/zr_wt_z",
+    "pages/fenXi/zr_df_p/zr_df_p",
+    "pages/fenXi/dw_z/dw_z",
+    "pages/fenXi/zr_df_p_p/zr_df_p_p",
+    "pages/fenXi/projectList/projectList",
+    "pages/fenXi/dw_p/dw_p",
+    "pages/fenXi/dw_p_p/dw_p_p"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 50
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  }
+}

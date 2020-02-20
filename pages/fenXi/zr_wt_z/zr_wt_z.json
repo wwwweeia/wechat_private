@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "问题数量",
+  "usingComponents": {
+    "ec-canvas": "../../../ec-canvas/ec-canvas"
+  }
+}

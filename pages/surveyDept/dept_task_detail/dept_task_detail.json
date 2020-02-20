@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "待整改",
+  "usingComponents": {
+    "tui-divider": "../../../components/divider/divider"
+  }
+}

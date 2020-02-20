@@ -1,0 +1,21 @@
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="form-user">
+    <view class="cu-form-group margin-top">
+      <view class="title">
+        <text class="cuIcon-mobile text-blue "></text>
+      </view>
+      <input class="tui-input" name="name" placeholder="请输入调查员账号" maxlength="50" type="text"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">
+        <text class="cuIcon-unlock text-blue "></text>
+      </view>
+      <input password class="tui-input" name="pwd" placeholder="请输入密码" maxlength="50" type="number" />
+    </view>
+  </view>
+  <view class="tui-btn-box">
+    <button class="btn-primary" hover-class="btn-hover" formType="submit" type="primary">提交</button>
+    <button class="btn-primary btn-gray" hover-class="btn-gray-hover" formType="reset">重置</button>
+  </view>
+
+</form>

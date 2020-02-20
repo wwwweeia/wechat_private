@@ -1,0 +1,21 @@
+
+<view class="container">
+  <map id="maps" latitude="{{lat}}" longitude="{{lng}}" markers="{{covers}}" bindmarkertap="marker" scale="11"></map>
+  <cover-view class="footer-box">
+    <cover-view class="result-box">
+      <cover-view class="info list-item">
+        <cover-view class="badge"></cover-view>
+        <cover-view class="ellipsis text-blue"  bindtap="goToPoint_detail" data-id="{{showId}} ">{{showTitle}}</cover-view>
+      </cover-view>
+       <cover-view class="info list-item">
+        <cover-view class="badge orange"></cover-view>
+        <cover-view class="ellipsis text-blue" bindtap="go" data-id="{{showId}} ">{{showDistance}}　{{showAddress}}</cover-view>
+      </cover-view>
+     <!--  <cover-view class="info list-item">
+        <cover-view class="badge red"></cover-view>
+        <cover-view class="ellipsis text-blue" bindtap="go" data-id="{{showId}} ">{{showDistance}}</cover-view>
+      </cover-view> -->
+    </cover-view>
+  </cover-view>
+
+</view>

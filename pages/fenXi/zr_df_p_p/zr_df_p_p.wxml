@@ -1,0 +1,36 @@
+
+<view class="page">
+
+  <view class="page_bd page_bd_spacing">
+    <view class="kind-list">
+      <block wx:for-items="{{list}}" wx:key="index" >
+        <view class="kind-list_item">
+          <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle" >
+            <view class="cuIcon-titles text-blue"></view>
+            <view class="tui-flex_item　 text-sm" >{{item.locationName}}</view>
+            <text class="text-blue" >{{item.score}}　</text>
+            <!-- <view class="cuIcon-unfold" ></view> -->
+          </view>
+         <!--  <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
+            <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
+              <block wx:for-items="{{item.locationList}}" wx:for-item="page" wx:key="*item">
+                <navigator url="../point_detail/point_detail" class="tui-cell tui-cell_access">
+                  <view class="tui-cell_bd text-smm">　指标总数</view>
+                  <text class="text-blue">{{page.zb}}　</text>
+                </navigator>
+                 <navigator url="../point_detail/point_detail" class="tui-cell tui-cell_access">
+                  <view class="tui-cell_bd text-smm">　合格指标数</view>
+                  <text class="text-blue">{{page.hg}}　</text>
+                </navigator>
+                 <navigator url="../point_detail/point_detail" class="tui-cell tui-cell_access">
+                  <view class="tui-cell_bd text-smm">　不合格指标树</view>
+                  <text class="text-blue">{{page.bhg}}　</text>
+                </navigator>
+              </block>
+            </view>
+          </view> -->
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

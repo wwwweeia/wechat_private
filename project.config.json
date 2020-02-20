@@ -1,0 +1,181 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": false,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.10.0",
+	"appid": "wx30a56175a6a091db",
+	"projectname": "public23233",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 14,
+			"list": [
+				{
+					"id": -1,
+					"name": "开始调查-点位详情",
+					"pathName": "pages/startDiaocha/point_detail/point_detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始调查-点位类型",
+					"pathName": "pages/startDiaocha/point_type/point_type",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始调查-指标",
+					"pathName": "pages/startDiaocha/quota_list/quota_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始调查-拒访",
+					"pathName": "pages/startDiaocha/no_refuse/no_refuse",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "开始调查-上报",
+					"pathName": "pages/startDiaocha/task_upload/task_upload",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始调查-无法调查",
+					"pathName": "pages/startDiaocha/no_investigate/no_investigate",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试页面",
+					"pathName": "pages/startDiaocha/ceshi/ceshi",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "登录",
+					"pathName": "pages/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试页面2",
+					"pathName": "pages/startDiaocha/ceshi2/ceshi2",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始整改---首页",
+					"pathName": "pages/surveyDept/dept_index/dept_index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开始整改--任务详情",
+					"pathName": "pages/surveyDept/dept_task_detail/dept_task_detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "开始整改--已整改",
+					"pathName": "pages/surveyDept/dept_task_ Already/dept_task_ Already",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "欢迎页",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "材料上报-上报页面",
+					"pathName": "pages/DatumUpload/datum_upload/datum_upload",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "材料上报--查看资源",
+					"pathName": "pages/DatumUpload/datum_check_see/datum_check_see",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "复查地图",
+					"pathName": "pages/fuCha/fuCha_map/fuCha_map",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "数据分析首页",
+					"pathName": "pages/fenXi/index/index",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

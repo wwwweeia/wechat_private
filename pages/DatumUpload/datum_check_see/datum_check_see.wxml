@@ -1,0 +1,95 @@
+<!-- 规范文件 -->
+<view class="cu-bar  solid-bottom" wx:if="{{gfFileList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>规范文件
+  </view>
+</view>
+
+<view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="index">
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{gfFileList[index].url}}'>
+      <text class="text-blue">{{gfFileList[index].name}}　　</text>
+      <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
+    </view>
+    <view wx:if="{{gfFileList[index].auditContent!=''}}" bind:tap="showAlert" data-content="{{gfFileList[index].auditContent}}">
+     <text class="cuIcon-question text-red"></text>
+    </view>
+  </view>
+</view>
+
+<!-- 说明报告 -->
+<view class="cu-bar  solid-bottom" wx:if="{{smReportList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>说明报告
+  </view>
+</view>
+
+<view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="index">
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{smReportList[index].url}}'>
+      <text class="text-blue">{{smReportList[index].name}}　　</text>
+    </view>
+    <view wx:if="{{smReportList[index].auditContent!=''}}" bind:tap="showAlert" data-content="{{smReportList[index].auditContent}}">
+     <text class="cuIcon-question text-red"></text>
+    </view>
+  </view>
+</view>
+
+<!-- 实景图片 -->
+<view class="cu-bar  solid-bottom" wx:if="{{imgList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>实景图片
+  </view>
+</view>
+<view class="cu-bar-user bg-white" wx:if="{{imgList.length!=0}}">
+</view>
+<view class="cu-form-group" wx:if="{{imgList.length!=0}}">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+      <image src='{{imgList[index]}}' mode='aspectFill'></image>
+
+    </view>
+
+  </view>
+</view>
+<!-- 统计表格 -->
+<view class="cu-bar  solid-bottom" wx:if="{{tjChartList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>统计表格
+  </view>
+</view>
+
+<view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="index">
+  <view class="cu-item">
+    <view bind:tap="openDocument" data-url='{{tjChartList[index].url}}'>
+      <text class="text-blue">{{tjChartList[index].name}}　　</text>
+    </view>
+     <view wx:if="{{tjChartList[index].auditContent!=''}}" bind:tap="showAlert" data-content="{{tjChartList[index].auditContent}}">
+        <text class="cuIcon-question text-red"></text>
+    </view>
+  </view>
+</view>
+
+
+ <!--提示框alert-->
+    <tui-alert show="{{visible}}" bind:click="hideAlert" bind:cancel="hideAlert" maskClosable="true" btnColor="#e54d42" color="#333" btnText="点击关闭">
+      <view class="tips2">
+        {{auditContent}}
+      </view>
+    </tui-alert>
+
+<!-- 审核意见 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>审核意见
+  </view>
+</view>
+<!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
+<view wx:if="{{commitContent==''}}" class="cu-form-group">
+  <text>无</text>
+</view>
+<view wx:else class="cu-form-group">
+  <text>　{{commitContent}}</text>
+</view>
+<view class="cu-bar-user">
+</view>

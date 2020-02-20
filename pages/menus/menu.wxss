@@ -1,0 +1,137 @@
+/** user**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  padding: 0rpx 0rpx 20rpx 0rpx;
+
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 110rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  margin-left: 4em;
+}
+
+.icon {
+    /*height: 150rpx;*/
+    width: 150rpx;
+    border-radius: 50%;
+    /*overflow: hidden;*/
+    margin-left: 22rpx;
+}
+/** 中间 **/
+#login{
+  height: 121rpx;
+  width: 120rpx;
+  margin-left: 50rpx;
+  /* border: 2rpx;
+  margin: 20px auto;
+  background-repeat: no-repeat;
+  background-position: -60rpx -630rpx */
+}
+#box{
+  display: inline-flex;
+  margin-top: 15%;
+}
+#text{
+  margin-left: 50rpx;
+  text-align: center;
+}
+.copyright {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 200rpx;
+    margin-top: 60rpx;
+}
+.nav-list-open-user {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0rpx 60rpx 0rpx 10rpx;
+  justify-content: space-between;
+}
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0rpx 60rpx 0rpx 10rpx;
+  /*justify-content: space-between;*/
+}
+.nav-list-2 {
+  /*display: flex;*/
+  /*flex-wrap: wrap;*/
+  padding: 0rpx 60rpx 0rpx 10rpx;
+  /*justify-content: space-between;*/
+}
+
+.nav-li {
+  /*padding: 30rpx;*/
+  /*border-radius: 12rpx;*/
+  /*width: 45%;*/
+  margin: 0 4% 40rpx;
+  /*margin: 0 2.5% 40rpx;*/
+/*  background-image: url(https://image.weilanwl.com/color2.0/cardBg.png);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;*/
+}
+.nav-li-2 {
+  margin: 0 6% 40rpx;
+}
+
+/*顶部*/
+.content-user{
+  display: flex;
+padding: 30rpx 20rpx 0 30rpx;
+
+}
+
+
+.flex {
+display: flex;
+
+}
+.open-user{
+  display: flex;
+}
+
+.box-user{
+  display: inline-flex;
+  margin-top: 6%;
+
+}
+.user-text{
+ font-size: 28rpx;
+  line-height: 60rpx;
+padding: 0rpx 30rpx 0rpx;
+}
+.div-user{
+  margin-top: 15rpx;
+margin-left: 15rpx;
+margin-right: 15rpx;
+
+}
+
+.userinfo-null {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar-null {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname-null {
+  color: #aaa;
+}

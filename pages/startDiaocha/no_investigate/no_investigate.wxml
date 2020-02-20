@@ -1,0 +1,103 @@
+<!-- 地图 -->
+<!-- <view class="container padding bg-white " hover-stop-propagation="false" hover-class="none"> -->
+<!-- 地图控件 -->
+<!-- <map wx:if="{{hidden == false}}" id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location bindregionchange="regionchange">
+    <cover-image class="cover-image" src="../../../images/location.png" />
+  </map> -->
+<!-- 弹出层替换地图 -->
+<!--   <image wx:if="{{hidden == true}}" class="image_user" src="../../../images/replace.jpg" mode="scaleToFill"></image>
+
+</view> -->
+
+<!-- 地址定位 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>地址定位
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
+  </view>
+</view>
+
+<view class="cu-form-group  bg-white">
+  <input class="weui-input" value="{{address}}" />
+</view>
+
+
+
+
+
+<!-- 拍摄照片/视频 -->
+<view class="cu-bar  solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>拍摄
+  </view>
+</view>
+<view class="cu-bar bg-white">
+  <view class="action">
+    上传图片
+  </view>
+  <view class="action">
+    {{reportlength}}/1
+  </view>
+</view>
+
+<view class="cu-form-group">
+  <view class="grid col-4 grid-square flex-sub">
+    <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImageForreport" data-url="{{imgList[index]}}">
+      <image src='{{imgList[index]}}' mode='aspectFill'></image>
+      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportImg">
+        <text class="cuIcon-close"></text>
+      </view>
+    </view>
+    <view class="bg-img" wx:for="{{videoList}}" wx:key="index" bindtap="ViewVideoForreport" data-url="{{videoList[index]}}" data-index="{{index}}">
+      <video id='reportVideo{{index}}' src="{{videoList[index].src}}" poster="{{videoList[index].poster}}" bindfullscreenchange="start"></video>
+      <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" data-type="reportVideo">
+        <text class="cuIcon-close"></text>
+      </view>
+    </view>
+
+    <view class="grid col-4 grid-square flex-sub">
+    <view class="solids" bindtap="ChooseImage" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-cameraadd"></text>
+    </view>
+   <!--  <view class="solids" bindtap="showModal2" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-cameraadd"></text>
+    </view> -->
+<!--      <view class="solids" bindtap="chooseVideo" wx:if="{{reportlength<1}}" data-target="Modal" data-type="report">
+      <text class="cuIcon-video"></text>
+    </view> -->
+  </view>
+  </view>
+</view>
+
+
+
+<!-- 描述 -->
+<view class="cu-bar solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-blue "></text> 原因说明
+  </view>
+</view>
+
+
+<!-- 编辑框 -->
+<view class="cu-form-group">
+  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="{{modalName=='Modal' ?' ' : '请描述无法调查原因'}}"></textarea>
+</view>
+<!-- <view>
+  <view wx:if="{{tipsId == null || tipsId == ''}}" class="cu-form-group">
+    <textarea maxlength="-1" bindinput="textareaAInput" placeholder="{{idModelShow=='1' ? '请描述无法调查原因' : ' '}}"></textarea>
+  </view>
+  <view wx:else class="cu-form-group">
+    <text>{{tipsList[tipsId-1].name}}</text>
+  </view>
+</view> -->
+
+
+<!-- <view class="padding-xl_user">
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
+</view> -->
+<view class="padding-xl_user">
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
+</view>

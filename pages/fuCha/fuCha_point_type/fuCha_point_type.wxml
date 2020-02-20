@@ -1,0 +1,35 @@
+<view class="margin-tb-sm-user text-center">
+  <button class="cu-btn round lg1 bg-blue " bind:tap="goToMap">地图模式</button>
+</view>
+
+<view class="page">
+
+  <view class="page_bd page_bd_spacing">
+    <view class="kind-list">
+      <block wx:for-items="{{list}}" wx:key="index">
+        <view class="kind-list_item">
+          <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
+            <view class="cuIcon-titles text-blue"></view>
+            <view class="tui-flex_item　 text-sm">{{item.name}}</view>
+            <view class="cuIcon-unfold"></view>
+          </view>
+          <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
+            <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
+              <block wx:for-items="{{item.locationList}}" wx:for-item="page" wx:key="item">
+                <navigator url="../fuCha_point_detail/fuCha_point_detail?id={{page.id}}&name={{page.name}}&pointTypeId={{item.id}}&firstQuestion={{page.submitStatus}}" class="tui-cell tui-cell_access">
+                  <view class="tui-cell_bd text-smm">　{{page.name}}</view>
+
+                 <!--  <view wx:if="{{page.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
+                  <view wx:if="{{page.submitStatus==2}}">
+                    <view class="cu-tag bg-blue light  round" catchtap="submit" data-index="{{page.id}}">提交</view>
+                  </view> -->
+                  <view class="tui-cell_ft tui-cell_ft_in-access"></view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

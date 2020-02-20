@@ -1,0 +1,37 @@
+<!-- 
+<view class="cu-chat">
+  <view class="cu-item">
+    <view class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第1个录音
+      </view>
+      <view class="content shadow">
+        <image class="image-audio" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
+      </view>
+    </view>
+    <view class="action-user" bindtap='delAudio' data-id="{{index}}">
+      <text class="cuIcon-close text-red"></text>
+    </view>
+
+  </view>
+
+</view>
+<view class="cu-chat">
+  <view class="cu-item">
+    <view class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action text-bold text-blue">
+        第1个录音
+      </view>
+      <view class="content shadow">
+        <image class="image-audio" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
+      </view>
+    </view>
+    <view class="action-user" bindtap='delAudio' data-id="{{index}}">
+      <text class="cuIcon-close text-red"></text>
+    </view>
+
+  </view>
+
+</view> -->
+
+<web-view src="http://192.168.15.147:8080/app/test.html"></web-view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "指标",
+  "usingComponents": {
+  	 "tui-alert": "../../../components/alert/alert",
+    "tui-button": "../../../components/button/button"
+  }
+}

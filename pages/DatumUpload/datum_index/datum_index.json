@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "材料任务列表",
+  "usingComponents": {
+  	 "tui-alert": "../../../components/alert/alert",
+    "tui-button": "../../../components/button/button"
+  }
+}
