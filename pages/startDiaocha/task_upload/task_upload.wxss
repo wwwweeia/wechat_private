@@ -223,7 +223,7 @@ border-top-style: none;
 .text-content-user{
   font-size: 35rpx;
 /*color: #1cbbb4;*/
-height: 2.8em;
+height: 2.5em;
 overflow: hidden;
 
 }
@@ -243,4 +243,25 @@ overflow: hidden;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
+/*padding: 1rpx 1rpx 10rpx 140rpx;*/
+}
+.text-lg-user{
+  font-size: 32rpx;
+  text-align: justify;
+  line-height: 50rpx;
+}
+.action-user{
+  padding: 0 60rpx;
+  display: flex;
+  align-items: center;
+}
+.main{
+  /*display: flex  */
+  margin-right:20rpx;
+}
+.shadow-user{
+  padding:50rpx 20rpx 1rpx 20rpx;
+}
+.padding-user{
+  padding:20rpx 30rpx 20rpx 0rpx
 }

@@ -65,8 +65,10 @@
     <block wx:for="{{listData}}" wx:key="item">
       <!-- <view class="tr bg-g" wx:if="{{item.finished==0}}" > -->
       <view class="tr bg-g" wx:if="{{index%2==0}}">
-        <view class="td-1" selectable="true">　{{item.content}}
+        <view wx:if="{{item.url!=null}}" class="td-1" selectable="true">　{{item.content}}
           <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text>
+        </view>
+        <view wx:else class="td-1" selectable="true">　{{item.content}}
         </view>
 
 
@@ -77,11 +79,11 @@
       </view>
 
       <view class="tr bg-g2" wx:else>
-        <view class="td-1" selectable="true">　{{item.content}}
+        <view wx:if="{{item.url!=null}}" class="td-1" selectable="true">　{{item.content}}
           <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text>
-
         </view>
-
+        <view wx:else class="td-1" selectable="true">　{{item.content}}
+        </view>
 
         <view class="td-2" selectable="true" scroll-y="true">
           <text class="{{item.finished==0? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-content='{{item.content}}'

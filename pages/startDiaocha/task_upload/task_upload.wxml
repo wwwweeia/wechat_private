@@ -41,22 +41,22 @@
 <!-- 问题描述 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>问题描述
+    <text class="cuIcon-title text-blue"></text>检查标准
   </view>
 </view>
 
 <view class="cu-form-group  bg-white">
-  <text class="weui-input text-lg"> {{content}}</text>
+  <text class="weui-input text-lg-user"> {{content}}</text>
 </view>
 <!-- 拍摄照片/视频 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>拍摄
+    <text class="cuIcon-title text-blue"></text>拍摄录音
   </view>
 </view>
 <view class="cu-bar bg-white">
   <view class="action">
-    上传图片或视频
+    上传图片或视频以及录音
   </view>
   <view class="action">
     {{reportlength}}/20
@@ -123,7 +123,54 @@
 </view>
 
 
+<view class="cu-chat bg-white" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
+  <view class="cu-item">
+  <view class="content-user" wx:if="{{!item.bl}}">
+    <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action-user text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <!-- 静态图 -->
+      <view class="shadow-user">
+        <image class="image-audio-user" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
+      </view>
+    </view>
 
+       <view class="desc-user">
+        <input class="text-content-user input-user" disabled="true" value="{{audioDescList[index]}}"></input>
+        <view class="padding-user">
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        </view>
+      </view>
+
+</view>
+  <view class="content-user" wx:if="{{item.bl}}" >
+    <view wx:if="{{item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
+      <view class="action-user text-bold text-blue">
+        第{{index+1}}个录音
+      </view>
+      <!-- 动图 -->
+      <view class="shadow-user">
+        <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
+     
+      </view>
+    </view>
+        <view class="desc-user">
+        <input class="text-content-user input-user" disabled="true"  value="{{audioDescList[index]}}"></input>
+        <view class="padding-user">
+          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        </view>
+      </view>
+</view>
+    <view class="action-user" bindtap='delAudio' data-id="{{index}}">
+      <text class="cuIcon-close text-red"></text>
+    </view>
+
+  </view>
+
+</view>
 
 <view class="cu-form-group">
   <view class="grid col-4 grid-square flex-sub">
@@ -135,6 +182,10 @@
     </view> -->
      <view class="solids" bindtap="chooseVideo" wx:if="{{reportlength<20}}" data-target="Modal" data-type="report">
       <text class="cuIcon-video"></text>
+    </view>
+
+    <view class="solids" bindtap="startRecord" wx:if="{{reportlength<20}}" >
+      <text class="cuIcon-voice"></text>
     </view>
   </view>
 </view>
@@ -179,68 +230,21 @@
 
 <!-- 录音 -->
 <!--  wx:if="{{isRecord}}"-->
-<view class="cu-bar solid-bottom" >
+<!-- <view class="cu-bar solid-bottom" >
   <view class="action">
     <text class="cuIcon-title text-blue "></text> 录音
   </view>
   <view class="action">
     <button class="cu-btn bg-green shadow" bindtap="startRecord">点击录音</button>
   </view>
-</view>
+</view> -->
 
 <modal title="{{remainTimeText}}" hidden="{{modalHidden}}" bindconfirm="stopRecord" bindcancel="modalCandel">
   <view>
     <image class="image-audio" src="../../../images/audio.gif" mode='aspectFill'></image>
   </view>
 </modal>
-<view class="cu-chat bg-white" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
-  <view class="cu-item">
-  <view class="content-user" wx:if="{{!item.bl}}">
-    <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
-      <view class="action text-bold text-blue">
-        第{{index+1}}个录音
-      </view>
-      <!-- 静态图 -->
-      <view class="content shadow style=padding:0 15rpx">
-        <image class="image-audio-user" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
-      </view>
-    </view>
 
-       <view class="desc-user">
-        <input class="text-content-user input-user" disabled="true" value="{{audioDescList[index]}}"></input>
-        <view class="style=padding:0 15rpx">
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
-        </view>
-      </view>
-
-</view>
-  <view class="content-user" wx:if="{{item.bl}}" >
-    <view wx:if="{{item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
-      <view class="action text-bold text-blue">
-        第{{index+1}}个录音
-      </view>
-      <!-- 动图 -->
-      <view class="content shadow style=padding:0 15rpx">
-        <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
-     
-      </view>
-    </view>
-        <view class="desc-user">
-        <input class="text-content-user input-user" disabled="true"  value="{{audioDescList[index]}}"></input>
-        <view class="style=padding:0 15rpx">
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
-        </view>
-      </view>
-</view>
-    <view class="action-user" bindtap='delAudio' data-id="{{index}}">
-      <text class="cuIcon-close text-red"></text>
-    </view>
-
-  </view>
-
-</view>
 
 <!-- 描述
 <!-- <view class="cu-bar solid-bottom">
@@ -262,7 +266,7 @@
 <!-- 测评结果 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 测评结果
+    <text class="cuIcon-title text-blue "></text> 检查结果
   </view>
 
 </view>
