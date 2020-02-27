@@ -29,7 +29,8 @@ Page({
     isRecord: '',
     // 是否切换 1-问题分类查 0-指标查
     qiehuan: 1,
-    userIndex: 0 //用户操作的行
+    userIndex: 0, //用户操作的行
+    modalName:"viewModal",//默认抽屉打开
   },
 
   onLoad: function(e) {
@@ -246,7 +247,7 @@ Page({
     this.setData({
       visible: false
     })
-  },
+  }, 
   // 页面切换
   showModal(e) {
     // console.log("showModal:", e)

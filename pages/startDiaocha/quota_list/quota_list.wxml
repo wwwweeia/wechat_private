@@ -1,5 +1,5 @@
 <!-- 初始加载显示部分 -->
-<scroll-view scroll-y class="  DrawerPage {{modalName=='viewModal'?'show':''}}">
+<scroll-view scroll-y class="DrawerPage {{modalName=='viewModal'?'show':''}}">
 
   <!--   <view class="margin-tb-sm-user text-center" >
     <button class="cu-btn round lg1 bg-blue cuIcon-back_android " bindtap="showModal" data-target="viewModal">切换指标</button>
@@ -107,7 +107,7 @@
   <text class="cuIcon-roundrightfill "></text>
 </view>
 <!-- 隐藏部分 -->
-<scroll-view scroll-y class=" DrawerWindow {{modalName=='viewModal'?'show':''}}">
+<scroll-view scroll-y class="DrawerWindow {{modalName=='viewModal'?'show':''}}">
   <!-- 描述 -->
   <view class="cu-bar solid-bottom">
 

@@ -239,7 +239,7 @@
   </view>
 </view> -->
 
-<modal title="{{remainTimeText}}" hidden="{{modalHidden}}" bindconfirm="stopRecord" bindcancel="modalCandel">
+<modal title="{{remainTimeText}}" hidden="{{modalHidden}}" bindconfirm="stopRecord" bindcancel="modalCandel" confirmText="结束录音">
   <view>
     <image class="image-audio" src="../../../images/audio.gif" mode='aspectFill'></image>
   </view>

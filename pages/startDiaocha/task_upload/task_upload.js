@@ -1362,7 +1362,7 @@ Page({
           'code': code
         },
         success(res) {
-          // console.log("后台返回的视频数据：", res)
+          console.log("后台返回的图片数据：", res)
           var imageMap = JSON.parse(res.data);
 
           if (imageMap.url != null && imageMap.url != '') {
@@ -1562,8 +1562,8 @@ Page({
     // console.log('录音的描述', audioDescList )
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        // url: requestUrl + '/wechat/api/fieldResource/upload',
-        url: 'http://192.168.5.105:8088/wechat/api/fieldResource/upload',
+        url: requestUrl + '/wechat/api/fieldResource/upload',
+        // url: 'http://192.168.5.105:8088/wechat/api/fieldResource/upload',
         filePath: filePath,
         name: 'audioSrc' + terminalUserId,
         formData: {
