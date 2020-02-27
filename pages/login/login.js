@@ -65,7 +65,7 @@ Page({
         },
         success: (res) => {
           if (res.data.status == 'success') {
-            console.log("后台传输的数据：", res.data.retObj)
+            // console.log("后台传输的数据：", res.data.retObj)
             var list = res.data.retObj.qxMenus;
             var terminalUserName = res.data.retObj.terminalUserName;
             var departmentName = res.data.retObj.departmentName

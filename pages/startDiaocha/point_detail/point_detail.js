@@ -29,7 +29,7 @@ Page({
     var pointId = options.id;
     var pointTypeId = options.pointTypeId;
     var firstQuestion = options.firstQuestion; //是否为第一个问题，0是，1、2不是
-    console.log("传递是否为第一个问题", firstQuestion);
+    // console.log("传递是否为第一个问题", firstQuestion);
     wx.setStorageSync("firstQuestion", firstQuestion);
     var name = options.name;
 

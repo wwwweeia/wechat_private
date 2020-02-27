@@ -263,6 +263,22 @@
   <textarea value="{{idModelShow=='1' ? desc : ' '}}" maxlength="-1" bindinput="textareaAInput" placeholder="{{idModelShow=='1' ? '请输入举报内容' : ' '}}"></textarea>
 </view> -->
 
+
+<!-- 记录问题处数 -->
+
+<view wx:if="{{isAmount==0}}" class="cu-form-group margin-top">
+  <text class="cuIcon-title text-blue text-user"></text>
+  <view class="title-user">问题处数</view>
+  <input placeholder="请输入数字"  value='{{amountValue}}' type="number" bindinput='textAmountScore'></input>
+</view>
+<!-- 打分 -->
+
+<view wx:if="{{isGrade}}" class="cu-form-group margin-top">
+  <text class="cuIcon-title text-blue text-user"></text>
+  <view class="title">评分</view>
+  <input placeholder="最高可扣{{maxScore}}分,达标默认不扣分" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
+</view>
+
 <!-- 测评结果 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
@@ -280,13 +296,9 @@
 
 </view>
 
-<!-- 打分 -->
 
-<view wx:if="{{isGrade}}" class="cu-form-group margin-top">
-  <text class="cuIcon-title text-blue text-user"></text>
-  <view class="title">评分</view>
-  <input placeholder="最高可扣{{maxScore}}分,达标默认不扣分" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
-</view>
+
+
 
 <view class="padding-xl_user">
   <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>

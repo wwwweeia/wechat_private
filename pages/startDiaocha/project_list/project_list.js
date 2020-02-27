@@ -36,7 +36,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("项目数据", res.data.retObj)
+        // console.log("项目数据", res.data.retObj)
         var arr = [];
         if (res.data.status == 'success') {
           var projectList = res.data.retObj;
@@ -64,7 +64,7 @@ Page({
           that.setData({
             elements: arr
           })
-          console.log("修改后的项目数据", arr)
+          // console.log("修改后的项目数据", arr)
         } else {
           wx.showToast({
             title: '获取项目列表失败',

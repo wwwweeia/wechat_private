@@ -25,7 +25,7 @@ Page({
     var projectId = wx.getStorageSync('projectId');
     var isGrade = wx.getStorageSync('isGrade'); //是否打分
     var requestUrl = app.globalData.requestUrl; //服务器路径
-    console.log("是否打分：", isGrade)
+    // console.log("是否打分：", isGrade)
     that.setData({
       requestUrl: requestUrl,
       isGrade: isGrade,
@@ -82,7 +82,7 @@ Page({
             list: res.data.retObj,
             markersList: mapLists
           })
-          console.log("点位", this.data.list)
+          // console.log("点位", this.data.list)
         } else {
           wx.showModal({
               title: '提示',
@@ -155,7 +155,7 @@ Page({
   goToMap: function() {
     var that = this;
     var projectId = that.data.projectId;
-    console.log("地图资源：", that.data.markersList)
+    // console.log("地图资源：", that.data.markersList)
     wx.navigateTo({
       url: "../map/map",
       success: function(res) {
@@ -203,7 +203,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("提交按钮：", res.data)
+        // console.log("提交按钮：", res.data)
 
         that.getLocationList(surveyorId, projectId);
 

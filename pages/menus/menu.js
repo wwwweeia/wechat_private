@@ -42,7 +42,7 @@ Page({
         departmentName: data.departmentName,
         terminalUserName: data.terminalUserName
       })
-      console.log("绑定菜单", that.data.surveyList)
+      // console.log("绑定菜单", that.data.surveyList)
     })
     // app.js页面传递过来的菜单列表
     eventChannel.on('appPage', function(data) {
@@ -52,7 +52,7 @@ Page({
         departmentName: data.departmentName,
         terminalUserName: data.terminalUserName
       })
-      console.log("绑定菜单", that.data.surveyList)
+      // console.log("绑定菜单", that.data.surveyList)
     })
     qqmapsdk = new QQMapWX({
       key: this.data.key

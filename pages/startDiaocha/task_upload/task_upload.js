@@ -17,7 +17,7 @@ Page({
     longitude: 116.397452,
     latitude: 39.909042,
     // key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
-    key: 'U3IBZ-6PPCF-2Z2JN-NSOUM-ML2FH-4CFL2',//腾讯地图后台配置
+    key: 'U3IBZ-6PPCF-2Z2JN-NSOUM-ML2FH-4CFL2', //腾讯地图后台配置
     tipsId: null,
     idModelShow: '1',
     //录音变量
@@ -57,18 +57,18 @@ Page({
 
     desc: [], //举报描述
     descType: '', //描述的类型--图片--视频
-    imgDescList: ['','','','','','','','','','','','','','','','','','','',''], //图片对应描述
-    voidDescList: ['','','','','','','','','','','','','','','','','','','',''], //视频对应描述 
-    audioDescList:['','','','','','','','','','','','','','','','','','','',''],//录音对应描述
+    imgDescList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], //图片对应描述
+    voidDescList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], //视频对应描述 
+    audioDescList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], //录音对应描述
 
     imagAddressList: [],
     videoAddressList: [],
-    audioAddressList:[],
+    audioAddressList: [],
 
     redioId: '', //当前选中的快捷提示id
     imgY: 0, //图片描述的标识
     voidY: 0, //视频描述的标识
-    audioY:0,
+    audioY: 0,
     isGrade: '', //是否打分，0不是-1是
     isRecord: '', //是否录音，0不需要 1需要
     i: 0,
@@ -89,12 +89,16 @@ Page({
     modalHiddenInput2: true, //控制input输入弹框的变量 
     modalHiddenInput3: true, //控制input输入弹框的变量 
 
-    imageInputId: '',//图片资源描述 所对应id
-    imageInputValue: '',//图片资源描述 id所对应输入值
-    videoInputId: '',//视频资源描述 所对应id
-    videoInputValue: '',//视频资源描述 id所对应输入值
-    audioInputId: '',//音频资源描述 所对应id
-    audioInputValue: '',//音频资源描述 id所对应输入值
+    imageInputId: '', //图片资源描述 所对应id
+    imageInputValue: '', //图片资源描述 id所对应输入值
+    videoInputId: '', //视频资源描述 所对应id
+    videoInputValue: '', //视频资源描述 id所对应输入值
+    audioInputId: '', //音频资源描述 所对应id
+    audioInputValue: '', //音频资源描述 id所对应输入值
+
+
+    isAmount:'',//是否需要记录问题处数，0不需要，1需要
+    amountValue:'',//屏幕输入的处数
 
   },
 
@@ -113,6 +117,8 @@ Page({
     var pointTypeId = options.pointTypeId;
     var code = options.code;
     var grade = options.grade;
+    var isAmount = options.isAmount;
+    console.log("是否需要记录问题处数，0不需要，1需要",options)
     var requestUrl = app.globalData.requestUrl; //请求路径
     this.setData({
       requestUrl: requestUrl,
@@ -125,7 +131,8 @@ Page({
       pointId: pointId,
       pointName: pointName,
       pointTypeId: pointTypeId,
-      content: content
+      content: content,
+      isAmount:isAmount
     })
     // console.log("哈哈哈：",content)
     if (isGrade == 0) {
@@ -162,7 +169,8 @@ Page({
     var requestUrl = that.data.requestUrl; //请求路径
     wx.request({
       // 必需
-      url: requestUrl + '/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
+      // url: requestUrl + '/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
+      url: 'http://192.168.5.105:8088/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
       data: {
         questionId: questionId,
         projectId: projectId,
@@ -210,7 +218,7 @@ Page({
             var images = res.data.retObj.resourceMap.images;
             var videos = res.data.retObj.resourceMap.videos;
             var audios = res.data.retObj.resourceMap.audios;
-            console.log("资源列表：", res.data.retObj.resourceMap)
+            // console.log("资源列表：", res.data.retObj.resourceMap)
             if (typeof(images) === "undefined" || typeof(videos) === "undefined" || typeof(audios) === "undefined") {
               return;
             }
@@ -223,8 +231,7 @@ Page({
       fail: (res) => {
 
       },
-      complete: (res) => {
-      }
+      complete: (res) => {}
     })
   },
 
@@ -243,13 +250,12 @@ Page({
     var length = images.length + videos.length + audios.length;
     var imgDesc = []; //图片描述
     var videoDesc = []; //视频描述
-    var audioDesc = [];//录音描述
+    var audioDesc = []; //录音描述
     var imageAddress = [];
     var videoAddress = [];
     var audioAddress = [];
 
     var mapImage = []; //图片下载
-    console.log("imahahah ", images)
     for (var i = 0; i < images.length; i++) {
       mapImage.push(images[i].url)
       if (images[i].description != '') {
@@ -279,15 +285,15 @@ Page({
       })
     }
 
-     var mapAudio = []; //音频下载
+    var mapAudio = []; //音频下载
     for (var i = 0; i < audios.length; i++) {
       mapAudio.push(audios[i].url)
-      if(audios[i].description != ''){
+      if (audios[i].description != '') {
         audioDesc.push(audios[i].description + ",")
-      }else{
+      } else {
         audioDesc.push(audios[i].description)
       }
-       audioAddress.push({
+      audioAddress.push({
         address: audios[i].address,
         latitude: audios[i].latitude,
         longitude: audios[i].longitude
@@ -298,13 +304,13 @@ Page({
       reportlength: length, //资源总长度
       imgDescList: imgDesc, //图片描述
       voidDescList: videoDesc, //视频描述
-      audioDescList:audioDesc,//音频描述
+      audioDescList: audioDesc, //音频描述
       imgY: imgDesc.length, //图片资源描述长度
       voidY: videoDesc.length, //视频资源描述长度、
-      audioY:audioDesc.length,//音频资源描述长度
+      audioY: audioDesc.length, //音频资源描述长度
       imagAddressList: imageAddress,
       videoAddressList: videoAddress,
-      audioAddressList:audioAddress
+      audioAddressList: audioAddress
     })
     // console.log("图片描述", that.data.imgDescList);
     // console.log("视频描述", that.data.voidDescList);
@@ -526,25 +532,25 @@ Page({
         var latitude = that.data.latitude;
         var longitude = that.data.longitude;
         audioAddressList.push({
-          address:address,
-          latitude:latitude,
-          longitude:longitude
-        }) 
-         audioSrc.push({
-            bl: false,
-            src: res.tempFilePath,
-            time: remainTime
-          })
-          that.setData({
-            modalHidden: true,
-            audioSrc: audioSrc,
-            isShow: 0,
-            audioAddressList:audioAddressList,
-            reportlength: that.data.reportlength + 1
-          })
-       
+          address: address,
+          latitude: latitude,
+          longitude: longitude
+        })
+        audioSrc.push({
+          bl: false,
+          src: res.tempFilePath,
+          time: remainTime
+        })
+        that.setData({
+          modalHidden: true,
+          audioSrc: audioSrc,
+          isShow: 0,
+          audioAddressList: audioAddressList,
+          reportlength: that.data.reportlength + 1
+        })
+
         that.tip("录音完成")
-        console.log("这是录音列表：", that.data.audioSrc);
+        // console.log("这是录音列表：", that.data.audioSrc);
       }
       // console.log("录音文件：",that.data.audioSrc,"长度：",that.data.audioSrc.length)
     })
@@ -625,14 +631,14 @@ Page({
         if (res.confirm) {
           // console.log("删除之前的音频集合：",this.data.audioSrc,"长度：",this.data.audioSrc.length)
           that.data.audioSrc.splice(index, 1);
-          that.data.audioDescList.splice(index,1);
-          that.data.audioAddressList.splice(index,1);
+          that.data.audioDescList.splice(index, 1);
+          that.data.audioAddressList.splice(index, 1);
           that.setData({
             audioSrc: that.data.audioSrc,
-            audioDescList:that.data.audioDescList,
+            audioDescList: that.data.audioDescList,
             reportlength: that.data.reportlength - 1,
-            audioY:that.data.audioY-1,
-            audioAddressList:that.data.audioAddressList
+            audioY: that.data.audioY - 1,
+            audioAddressList: that.data.audioAddressList
           })
           // console.log("删除之后的音频集合：",this.data.audioSrc,"长度：",this.data.audioSrc.length)
         }
@@ -709,7 +715,6 @@ Page({
     var that = this;
     var Nowdata = util.getNowTime();
     var dabiaoOption = that.data.dabiaoOption;
-    console.log("选项", e)
     if (e.detail.value == dabiaoOption) {
       that.setData({
         optionId: e.detail.value,
@@ -755,6 +760,30 @@ Page({
       })
     }
   },
+
+    /**
+   ***********************************记录处数**************************************
+   */
+  textAmountScore: function(e) {
+    var that = this;
+    var AmountValue = e.detail.value;
+    that.setData({
+      amountValue: AmountValue
+    })
+    var s = AmountValue.substring(0, 1); //截取第一个数字不能为0
+    // 输入范围不对清空
+    if (AmountValue < 0 || isNaN((AmountValue / 10)) || s == 0 || AmountValue.length>6) {
+      wx.showToast({
+        title: '请重新输入',
+        icon: 'loading',
+        duration: 1000,
+        mask: true
+      })
+      that.setData({
+        amountValue: ''
+      })
+    }
+  },
   /**
    ***********************************图片描述框**************************************
    */
@@ -777,7 +806,7 @@ Page({
     })
 
   },
-    startInput3: function(e) {
+  startInput3: function(e) {
     var that = this;
     var id = e.target.dataset.index;
     that.setData({
@@ -825,7 +854,7 @@ Page({
       [test]: value
     })
   },
-    //确定
+  //确定
   sub3: function() {
     var that = this;
     that.setData({
@@ -854,7 +883,7 @@ Page({
       modalHiddenInput2: true
     })
   },
-//取消
+  //取消
   cancel3: function() {
     var that = this;
     that.setData({
@@ -923,7 +952,7 @@ Page({
         })
       }
       // console.log("这是图片描述", that.data.imgDescList)
-    } else if(descType ==='Vido') {
+    } else if (descType === 'Vido') {
       var id = that.data.redioId;
       var redioId = '[' + id + ']'
       // var test = 'imgDescList[' + redioId + '].desc'
@@ -956,7 +985,7 @@ Page({
         })
       }
       // console.log("这是视频描述", that.data.voidDescList)
-    }else{
+    } else {
       var id = that.data.redioId;
       var redioId = '[' + id + ']'
       // var test = 'imgDescList[' + redioId + '].desc'
@@ -1046,7 +1075,7 @@ Page({
             imagAddressList: imagAddressList
           })
         }
-        console.log("imgList资源：", that.data.imgList)
+        // console.log("imgList资源：", that.data.imgList)
       }
 
     });
@@ -1079,7 +1108,7 @@ Page({
         });
 
         var size = res.size;
-        console.log("视频的大小：", size / 1024 / 1024 + "M")
+        // console.log("视频的大小：", size / 1024 / 1024 + "M")
         obj.url = res.tempFilePath
         obj.poster = res.thumbTempFilePath
         urlArray.push(obj)
@@ -1190,29 +1219,45 @@ Page({
     var optionId = that.data.optionId;
 
     var isDaBiao = that.data.isDaBiao;
+    var isAmount = that.data.isAmount;
+    var amountValue = that.data.amountValue;
     if (isDaBiao != 0) {
       that.setData({
         isHeGe: 1
       })
     }
     var isHeGe = that.data.isHeGe;
-    if ((reportImg.length + reportVideo.length) < 1) {
+    if (audioSrc.length === 0) {
+      if ((reportImg.length + reportVideo.length) < 1) {
+        wx.showToast({
+          title: '请拍摄举报图片/视频',
+          icon: 'none',
+          duration: 1000,
+          mask: true
+        })
+        return
+      }
+    }
+
+    if (optionId == null || optionId == '') {
       wx.showToast({
-        title: '请拍摄举报图片/视频',
+        title: '检查结果不能为空',
         icon: 'none',
         duration: 1000,
         mask: true
       })
       return
     }
-    if (optionId == null || optionId == '') {
-      wx.showToast({
-        title: '测评结果不能为空',
+    if(isAmount==1){
+      if (amountValue==null || amountValue == '') {
+        wx.showToast({
+        title: '问题处数不能为空',
         icon: 'none',
         duration: 1000,
         mask: true
       })
       return
+      }
     }
     //不合格必须有资源描述
     if (isHeGe === 1) {
@@ -1232,9 +1277,9 @@ Page({
         var audioSrcLength = 0;
       }
       if (imgDescList.length != 0) {
-        var imgDescListLength=0;
+        var imgDescListLength = 0;
         for (var i = 0; i < imgDescList.length; i++) {
-          if (imgDescList[i] != ''){
+          if (imgDescList[i] != '') {
             imgDescListLength++;
           }
         }
@@ -1345,7 +1390,7 @@ Page({
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
     var code = that.data.code;
-    console.log("看看路径：",filePath)
+    // console.log("看看路径：",filePath)
     //上传举报图片
     //
     return new Promise((resolve, reject) => {
@@ -1362,7 +1407,7 @@ Page({
           'code': code
         },
         success(res) {
-          console.log("后台返回的图片数据：", res)
+          // console.log("后台返回的图片数据：", res)
           var imageMap = JSON.parse(res.data);
 
           if (imageMap.url != null && imageMap.url != '') {
@@ -1427,9 +1472,9 @@ Page({
           i++;
           if (i >= reportImg.length) { //当图片传完时，停止调用  
             that.data.resourceList = resourceList;
-            console.log("图片返回数据：", that.data.resourceList)
-            console.log('---上传举报图片执行完毕---');
-            console.log('成功：' + success + " 失败：" + fail);
+            // console.log("图片返回数据：", that.data.resourceList)
+            // console.log('---上传举报图片执行完毕---');
+            // console.log('成功：' + success + " 失败：" + fail);
           } else { //若图片还没有传完，则继续调用函数
             that.data.i = i;
             that.data.success = success;
@@ -1525,9 +1570,9 @@ Page({
           j++;
           if (j >= reportVideo.length) { //当视频传完时，停止调用     
             that.data.resourceList = resourceList;
-            console.log("视频返回数据：", that.data.resourceList)
-            console.log('----上传视频执行完毕----');
-            console.log('成功：' + success + " 失败：" + fail);
+            // console.log("视频返回数据：", that.data.resourceList)
+            // console.log('----上传视频执行完毕----');
+            // console.log('成功：' + success + " 失败：" + fail);
 
           } else { //若视频还没有传完，则继续调用函数
             that.data.j = j;
@@ -1558,7 +1603,7 @@ Page({
     var pointId = that.data.pointId;
     var code = that.data.code;
 
-    console.log("录音上传路径：",filePath)
+    // console.log("录音上传路径：",filePath)
     // console.log('录音的描述', audioDescList )
     return new Promise((resolve, reject) => {
       wx.uploadFile({
@@ -1575,19 +1620,19 @@ Page({
         },
         success(res) {
           var audioMap = JSON.parse(res.data);
-          console.log("audioMa的值：",audioMap)
+          // console.log("audioMa的值：",audioMap)
           if (audioMap.url != null && audioMap.url != '') {
             resolve(res.data)
             // 操作成功
             success++;
 
-            if(audioDescList.length>k){
+            if (audioDescList.length > k) {
               var desc = audioDescList[k];
-              var desc1 = desc.substring(0,desc.length -1);
-            }else{
-              var desc1='';
+              var desc1 = desc.substring(0, desc.length - 1);
+            } else {
+              var desc1 = '';
             }
-             if (audioAddressList.length > k) {
+            if (audioAddressList.length > k) {
               var address = audioAddressList[k].address;
               var latitude = audioAddressList[k].latitude;
               var longitude = audioAddressList[k].longitude;
@@ -1601,9 +1646,9 @@ Page({
               description: desc1,
               type: 1,
               ismodel: 0,
-              address:address,
-              latitude:latitude,
-              longitude:longitude
+              address: address,
+              latitude: latitude,
+              longitude: longitude
             })
           } else {
             wx.showToast({
@@ -1621,8 +1666,8 @@ Page({
         complete: () => {
           k++;
           if (k >= audioSrc.length) { //当音频传完时，停止调用     
-            console.log('----上传音频执行完毕----');
-            console.log('成功：' + success + " 失败：" + fail);
+            // console.log('----上传音频执行完毕----');
+            // console.log('成功：' + success + " 失败：" + fail);
           } else { //若音频还没有传完，则继续调用函数
             that.data.k = k;
             that.data.success = success;
@@ -1641,7 +1686,7 @@ Page({
     var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
     var resourceList = that.data.resourceList;
-    console.log("要上传的资源集合：", resourceList)
+    // console.log("要上传的资源集合：", resourceList)
     //选项id
     var optionId = that.data.optionId;
     // 调查员id
@@ -1659,6 +1704,8 @@ Page({
     var projectId = that.data.projectId;
     //地址
     var address = that.data.address;
+    //问题处数
+    var amountValue = that.data.amountValue;
     if (address === "正在获取地址...") {
       var address = '';
     }
@@ -1684,9 +1731,10 @@ Page({
       projectId: projectId,
       address: address,
       deduction: deduction,
-      answerTime: answerTime
+      answerTime: answerTime,
+      amount:amountValue
     };
-    console.log("要上传的答案集合：", fieldAnswer)
+    // console.log("要上传的答案集合：", fieldAnswer)
     var firstQuestion = wx.getStorageSync("firstQuestion");
     // console.log("上传问题得firstQuestion", firstQuestion)
     if (firstQuestion == 0) {
@@ -1699,8 +1747,8 @@ Page({
     //   console.log("点位开始时间：", beginTime)
     wx.request({
       // 必需
-      url: requestUrl + '/wechat/api/fieldAnswer/saveFieldAnswer',
-      // url: 'http://192.168.5.105:8088/wechat/api/fieldAnswer/saveFieldAnswer',
+      // url: requestUrl + '/wechat/api/fieldAnswer/saveFieldAnswer',
+      url: 'http://192.168.5.105:8088/wechat/api/fieldAnswer/saveFieldAnswer',
       method: 'POST',
       data: {
         beginTime: beginTime,

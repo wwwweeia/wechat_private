@@ -125,7 +125,8 @@ Page({
     var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
-      url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
+      // url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
+       url: 'http://192.168.5.105:8088/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
       data: {
         quotaId: quotaId,
         pointId: pointTypeId,
@@ -160,7 +161,8 @@ Page({
                 projectId: quotaList[i].projectId,
                 quotaId: quotaList[i].quotaId,
                 status: quotaList[i].status,
-                finished: quotaList[i].finished
+                finished: quotaList[i].finished,
+                isAmount: quotaList[i].isAmount
               })
             }
           }
@@ -190,6 +192,7 @@ Page({
   goToUpload: function(e) {
     var that = this;
     let isRecord = e.currentTarget.dataset.isrecord;
+    let isAmount = e.currentTarget.dataset.isamount;
     let content = e.currentTarget.dataset.content;
     let questionId = e.currentTarget.dataset.id;
     let code = e.currentTarget.dataset.code;
@@ -199,7 +202,7 @@ Page({
     let pointName = that.data.pointName;
     let quotaId = e.currentTarget.dataset.quotaid;
     wx.setStorageSync('isRecord', isRecord);
-    console.log("看看这个quotaId:", quotaId)
+    console.log("isAmountisAmount:", isAmount)
     // var list= {
     //   questionId:questionId,
     //   pointId:pointId,
@@ -211,7 +214,7 @@ Page({
     // };
     //跳转上传页面
     router.navigateTo({
-      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade+ '&content=' + content
+      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId  + "&isAmount="+ isAmount + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade+ '&content=' + content
     })
     // wx.navigateTo({
     //   // url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
@@ -299,7 +302,7 @@ Page({
         qiehuan: 0,
         userIndex: 0
       })
-      console.log("指标类型查")
+      // console.log("指标类型查")
       this.getQuotaList(pointTypeId, locationId, projectId);
     } else {
       that.setData({
@@ -307,7 +310,7 @@ Page({
         qiehuan: 1,
         userIndex: 0
       })
-      console.log("问题分类查")
+      // console.log("问题分类查")
       this.getproblemList(pointTypeId, projectId, locationId);
     }
   },
@@ -329,14 +332,14 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-       console.log('指标列表数据', res.data.retObj)
+       // console.log('指标列表数据', res.data.retObj)
         if (res.data.status == 'success') {
           var pointTypeId = that.data.pointTypeId
           // that.setData({
           //   list: res.data.retObj,
           //   quotaName: ayytest
           // })
-          console.log("userIndex",userIndex)
+          // console.log("userIndex",userIndex)
           if (userIndex === 0) {
             var quotaList = res.data.retObj;
             let arr = [];
@@ -398,7 +401,8 @@ Page({
     var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
-      url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
+      // url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
+      url: 'http://192.168.5.105:8088/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
       data: {
         pointId: pointTypeId,
         questionClassifyId: questionClassifyId,
@@ -431,10 +435,12 @@ Page({
                 projectId: quotaList[i].projectId,
                 quotaId: quotaList[i].quotaId,
                 status: quotaList[i].status,
-                finished: quotaList[i].finished
+                finished: quotaList[i].finished,
+                isAmount: quotaList[i].isAmount
               })
             }
           }
+          console.log("啥意思啊：",ayy)
           that.setData({
             listData: ayy,
             tips: arr
@@ -489,7 +495,7 @@ Page({
     this.changeParentData();
   },
   onShow: function() {
-    console.log("进来了吗", this.data.variable)
+    // console.log("进来了吗", this.data.variable)
     var that = this;
     var variable = that.data.variable;
     var projectId = wx.getStorageSync('projectId');
