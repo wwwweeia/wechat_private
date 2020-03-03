@@ -27,38 +27,41 @@
 <!-- 地址定位 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>地址定位
+    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text>
+    <text style="font-size:{{fontSize}}rpx">地址定位</text>
   </view>
   <view class="action">
-    <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
+    <button class="cu-btn bg-green shadow" style="font-size:{{fontSize28}}rpx" catchtap="currentLocation">刷新</button>
   </view>
 </view>
 
 <view class="cu-form-group  bg-white">
-  <input class="weui-input" value="{{address}}" />
+  <input class="weui-input" value="{{address}}" style="font-size:{{fontSize30}}rpx" />
 </view>
 
 <!-- 问题描述 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>检查标准
+    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text>
+    <text style="font-size:{{fontSize}}rpx">检查标准</text>
   </view>
 </view>
 
 <view class="cu-form-group  bg-white">
-  <text class="weui-input text-lg-user"> {{content}}</text>
+  <text class="weui-input text-lg-user" style="font-size:{{fontSize30}}rpx"> {{content}}</text>
 </view>
 <!-- 拍摄照片/视频 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>拍摄录音
+    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text>
+    <text style="font-size:{{fontSize}}rpx">拍摄录音</text>
   </view>
 </view>
 <view class="cu-bar bg-white">
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     上传图片或视频以及录音
   </view>
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     {{reportlength}}/20
   </view>
 </view>
@@ -70,7 +73,7 @@
       <view class="cu-list menu text-left">
         <view class="cu-item" wx:for="{{tipsList}}" wx:key="index">
           <label class="flex justify-between align-center flex-sub" bindtap="hideModal2" data-value="{{index}}">
-            <view class="flex-sub">{{item}}</view>
+            <view class="flex-sub" style="font-size:{{fontSize28}}rpx">{{item}}</view>
             <!-- <radio class="round"></radio> -->
           </label>
         </view>
@@ -95,8 +98,8 @@
             <input class="text-content-user" type="text" disabled="true"  value="{{imgDescList[index]}}" data-index="{{index}}" bindinput='imageInput'/>
           </view>
         <view>
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
-          <view class="cu-tag bg-green light  round" bindtap="startInput1" data-index="{{index}}">手动输入</view>
+          <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
+          <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="startInput1" data-index="{{index}}">手动输入</view>
         </view>
       </view>
     </view>
@@ -114,8 +117,8 @@
       <view class="desc">
         <input class="text-content-user input-user" disabled="true"  value="{{voidDescList[index]}}"></input>
         <view>
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Vido" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" bindtap="startInput2" data-index="{{index}}">手动输入</view>
+          <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="showModal" data-target="RadioModal" data-type="Vido" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="startInput2" data-index="{{index}}">手动输入</view>
         </view>
       </view>
     </view>
@@ -138,9 +141,9 @@
 
        <view class="desc-user">
         <input class="text-content-user input-user" disabled="true" value="{{audioDescList[index]}}"></input>
-        <view class="padding-user">
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        <view >
+          <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="startInput3" data-index="{{index}}">手动输入</view>
         </view>
       </view>
 
@@ -158,9 +161,9 @@
     </view>
         <view class="desc-user">
         <input class="text-content-user input-user" disabled="true"  value="{{audioDescList[index]}}"></input>
-        <view class="padding-user">
-          <view class="cu-tag bg-green light  round" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        <view >
+          <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="startInput3" data-index="{{index}}">手动输入</view>
         </view>
       </view>
 </view>
@@ -193,17 +196,17 @@
 
 <modal hidden="{{modalHiddenInput1}}" bindconfirm="sub1" bindcancel="cancel1">
   <view class="cu-form-group">
-    <textarea bindinput="text1Input" style="font-size:35rpx;color: black;"  value="{{imgDescList[imageInputId]}}" placeholder="请输入对图片资源的描述"></textarea>
+    <textarea bindinput="text1Input" style="font-size:{{fontSize}}rpx;color: black;"  value="{{imgDescList[imageInputId]}}" placeholder="请输入对图片资源的描述"></textarea>
   </view>
 </modal>
 <modal hidden="{{modalHiddenInput2}}" bindconfirm="sub2" bindcancel="cancel2">
   <view class="cu-form-group">
-    <textarea bindinput="text2Input" style="font-size:35rpx;color: black;" value="{{voidDescList[videoInputId]}}"  placeholder="请输入对视频资源的描述"></textarea>
+    <textarea bindinput="text2Input" style="font-size:{{fontSize}}rpx;color: black;" value="{{voidDescList[videoInputId]}}"  placeholder="请输入对视频资源的描述"></textarea>
   </view>
 </modal>
 <modal hidden="{{modalHiddenInput3}}" bindconfirm="sub3" bindcancel="cancel3">
   <view class="cu-form-group">
-    <textarea bindinput="text3Input" style="font-size:35rpx;color: black;" value="{{audioDescList[audioInputId]}}"  placeholder="请输入对音频资源的描述"></textarea>
+    <textarea bindinput="text3Input" style="font-size:{{fontSize}}rpx;color: black;" value="{{audioDescList[audioInputId]}}"  placeholder="请输入对音频资源的描述"></textarea>
   </view>
 </modal>
 
@@ -268,28 +271,29 @@
 
 <view wx:if="{{isAmount==0}}" class="cu-form-group margin-top">
   <text class="cuIcon-title text-blue text-user"></text>
-  <view class="title-user">问题处数</view>
-  <input placeholder="请输入数字"  value='{{amountValue}}' type="number" bindinput='textAmountScore'></input>
+  <view class="title-user" style="font-size:{{fontSize}}rpx">问题处数</view>
+  <input placeholder="请输入数字"  style="font-size:{{fontSize28}}rpx" value='{{amountValue}}' type="number" bindinput='textAmountScore'></input>
 </view>
 <!-- 打分 -->
 
 <view wx:if="{{isGrade}}" class="cu-form-group margin-top">
   <text class="cuIcon-title text-blue text-user"></text>
-  <view class="title">评分</view>
-  <input placeholder="最高可扣{{maxScore}}分,达标默认不扣分" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
+  <view class="title" style="font-size:{{fontSize}}rpx">评分</view>
+  <input placeholder="最高可扣{{maxScore}}分,达标默认不扣分" style="font-size:{{fontSize28}}rpx" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
 </view>
 
 <!-- 测评结果 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 检查结果
+    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text> 
+    <text style="font-size:{{fontSize}}rpx">检查结果</text>
   </view>
 
 </view>
 <view class="radioChange_user">
   <radio-group bindchange="radioChange" data-id="{{item.id}}">
     <label class="radio" wx:for="{{items}}" wx:key="index">
-      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}" />{{item.content}}
+      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}"/>{{item.content}}
 
     </label>
   </radio-group>
@@ -301,7 +305,7 @@
 
 
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
+  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit' style="font-size:{{fontSize28}}rpx">提交</button>
 </view>
 <!-- <view class="padding-xl_user">
   <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='goToQuota_list'>提交</button>

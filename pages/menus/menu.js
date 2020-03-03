@@ -18,6 +18,8 @@ Page({
     address: '',
     longitude: '',
     latitude: '',
+    fontSize:'',
+    menufontSize:'30'
   },
    onShareAppMessage: function (res) {
       return {
@@ -30,8 +32,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(option) {
+  onShow: function(option) {
     var that = this;
+    var fontSize = wx.getStorageSync('fontSize');
+    that.setData({
+      fontSize:fontSize
+    })
+    console.log("fontSize是:",that.data.fontSize)
     const eventChannel = this.getOpenerEventChannel()
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     // login页面传递过来的菜单列表
@@ -189,6 +196,11 @@ Page({
       case "数据分析":
        router.navigateTo({
          url: "../fenXi/projectList/projectList"
+        })
+        break;
+        case "设置":
+       router.navigateTo({
+         url: "../setting/setting"
         })
         break;
       default:

@@ -12,7 +12,9 @@ Page({
     active: null, // 当前展开的项的index值
     list: [],
     // 指标经纬度集合
-    markersList: []
+    markersList: [],
+    fontSize:'',
+    fontSize30:''
   },
 
   onLoad: function(options) {
@@ -25,12 +27,15 @@ Page({
     var projectId = wx.getStorageSync('projectId');
     var isGrade = wx.getStorageSync('isGrade'); //是否打分
     var requestUrl = app.globalData.requestUrl; //服务器路径
+    var fontSize = wx.getStorageSync('fontSize');
     // console.log("是否打分：", isGrade)
     that.setData({
       requestUrl: requestUrl,
       isGrade: isGrade,
       projectId: projectId,
-      surveyorId: terminalUserId
+      surveyorId: terminalUserId,
+      fontSize:fontSize,
+      fontSize30:fontSize-2
     })
     that.getLocationList(terminalUserId, projectId);
   },

@@ -15,7 +15,11 @@ Page({
     list: {},
     projectId: '',
     // 是否打分
-    isGrade: ''
+    isGrade: '',
+    fontSize:'',
+    fontSize30:'',
+    fontSize28:'',
+    fontSize35:''
   },
 
   /**
@@ -31,6 +35,7 @@ Page({
     var firstQuestion = options.firstQuestion; //是否为第一个问题，0是，1、2不是
     // console.log("传递是否为第一个问题", firstQuestion);
     wx.setStorageSync("firstQuestion", firstQuestion);
+    var fontSize = wx.getStorageSync('fontSize');
     var name = options.name;
 
     that.setData({
@@ -39,7 +44,11 @@ Page({
       projectId: projectId,
       pointName: name,
       pointId: pointId,
-      pointTypeId: pointTypeId
+      pointTypeId: pointTypeId,
+      fontSize:fontSize,
+      fontSize30:fontSize-2,
+      fontSize28:fontSize-4,
+      fontSize35:fontSize+3
     })
     that.getPointDetail(pointId);
 

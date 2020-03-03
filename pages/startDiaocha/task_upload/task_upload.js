@@ -99,7 +99,9 @@ Page({
 
     isAmount:'',//是否需要记录问题处数，0不需要，1需要
     amountValue:'',//屏幕输入的处数
-
+    fontSize:'',
+    fontSize28:'',
+    fontSize30:''
   },
 
   onLoad: function(options) {
@@ -108,6 +110,7 @@ Page({
     var isRecord = wx.getStorageSync('isRecord');
     // console.log("录音：",isRecord)
     var projectId = wx.getStorageSync('projectId');
+    var fontSize = wx.getStorageSync('fontSize');
     var terminalUserId = app.terminalUserId;
     var questionId = options.questionId;
     var content = options.content;
@@ -120,7 +123,7 @@ Page({
     var isAmount = options.isAmount;
     console.log("是否需要记录问题处数，0不需要，1需要",options)
     var requestUrl = app.globalData.requestUrl; //请求路径
-    this.setData({
+    that.setData({
       requestUrl: requestUrl,
       projectId: projectId,
       terminalUserId: terminalUserId,
@@ -132,32 +135,35 @@ Page({
       pointName: pointName,
       pointTypeId: pointTypeId,
       content: content,
-      isAmount:isAmount
+      isAmount:isAmount,
+      fontSize:fontSize,
+      fontSize28:fontSize-4,
+      fontSize30:fontSize-2
     })
     // console.log("哈哈哈：",content)
     if (isGrade == 0) {
-      this.setData({
+      that.setData({
         isGrade: false
       })
     } else {
-      this.setData({
+      that.setData({
         isGrade: true
       })
     }
     if (isRecord == 0) {
-      this.setData({
+      that.setData({
         isRecord: false
       })
     } else {
-      this.setData({
+      that.setData({
         isRecord: true
       })
     }
     qqmapsdk = new QQMapWX({
-      key: this.data.key
+      key: that.data.key
     });
-    this.currentLocation();
-    this.getQuestionDetail(this.data.questionId);
+    that.currentLocation();
+    that.getQuestionDetail(that.data.questionId);
   },
   /**
    ***********************************问题描述和问题选项**************************************
@@ -169,8 +175,8 @@ Page({
     var requestUrl = that.data.requestUrl; //请求路径
     wx.request({
       // 必需
-      // url: requestUrl + '/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
-      url: 'http://192.168.5.105:8088/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
+      url: requestUrl + '/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
+      // url: 'http://192.168.5.105:8088/wechat/api/fieldAnswer/getAnswerResourceDetailByQuestionId',
       data: {
         questionId: questionId,
         projectId: projectId,
@@ -1747,8 +1753,8 @@ Page({
     //   console.log("点位开始时间：", beginTime)
     wx.request({
       // 必需
-      // url: requestUrl + '/wechat/api/fieldAnswer/saveFieldAnswer',
-      url: 'http://192.168.5.105:8088/wechat/api/fieldAnswer/saveFieldAnswer',
+      url: requestUrl + '/wechat/api/fieldAnswer/saveFieldAnswer',
+      // url: 'http://192.168.5.105:8088/wechat/api/fieldAnswer/saveFieldAnswer',
       method: 'POST',
       data: {
         beginTime: beginTime,

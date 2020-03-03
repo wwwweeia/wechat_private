@@ -380,12 +380,12 @@ button::after {
   color: #fafbfc !important;
   background: linear-gradient(-90deg, #cad8fb, #c9d3fb);
 }
-.text-sm {
+/*.text-sm {
   font-size: 33rpx;
 }
 .text-smm {
   font-size: 30rpx;
-}
+}*/
 
 .hidden {
   height: 0; 
@@ -438,16 +438,16 @@ button::after {
 }
 /*字体*/
 .h1{
-  font-size: 38rpx;
+  /*font-size: 38rpx;*/
   font-weight:bold;
   margin:0 auto;
 }
 .h2{  
-  font-size: 34rpx;
+  /*font-size: 34rpx;*/
  font-weight:400;
 }
 .h3{
-  font-size: 28rpx;
+  /*font-size: 28rpx;*/
   line-height: 60rpx;
 text-align: justify;
 padding: 10rpx 30rpx 10rpx;
@@ -459,9 +459,6 @@ padding: 10rpx 30rpx 10rpx;
 .tips2{
   text-align:center;
 }
-
-
-
 
 
 .table {
@@ -553,7 +550,7 @@ background-color: var(--white);
 .margin-tb-sm-user{
   margin-top: 20rpx;
   margin-bottom: 20rpx;
-  margin-left: 510rpx;
+  margin-left: 500rpx;
 }
 
 

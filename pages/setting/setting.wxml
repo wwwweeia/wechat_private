@@ -1,0 +1,53 @@
+<view class="container-user">
+
+<view class="cu-bar bg-white solid-bottom" >
+  <view class="action" style="font-size:{{fontSize}}rpx">
+    <text class="cuIcon-title text-blue" ></text>文字大小
+  </view>
+</view>
+
+<view class="bg-white padding-lr">
+  <view class="solids-bottom padding-xs flex align-center">
+    <view class="padding" style="font-size:{{fontSize}}rpx" >01</view>
+    <view class="flex-sub text-center">
+      <view class="padding" style="font-size:{{fontSize}}rpx">文明创城专业版小程序</view>
+    </view>
+  </view>
+  </view>
+
+  <view class="tui-number-box" style="font-size:{{fontSize}}rpx">
+    <view class="tui-title">调整程序文本大小</view>
+    <tui-numberbox min="34" max="42" step="2" value="{{fontSize}}" bind:change="change"></tui-numberbox>
+  </view>
+
+
+<!--  <view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="action">
+    <text class="cuIcon-title text-blue"></text>程序背景色
+  </view>
+</view>
+<view class="grid col-5 padding-sm">
+  <view class="padding-sm" wx:for="{{list}}" wx:key wx:if="{{item.name!='white'}}">
+    <view class="text-{{item.name}} text-center">
+      {{item.title}}
+    </view>
+  </view>
+</view> -->
+
+
+<view class="cu-bar margin-top bg-white">
+  <view class="action" style="font-size:{{fontSize}}rpx">
+    <text class="cuIcon-title text-blue"></text>程序背景色
+  </view>
+<!--   <view class="action">
+    <text class="text-df margin-right-sm">阴影</text>
+    <switch class="sm" bindchange="SetShadow"></switch>
+  </view> -->
+</view>
+<view class="grid col-5 padding-sm">
+  <view class="margin-tb-sm text-center" wx:for="{{ColorList}}" wx:key="index">
+    <button class="cu-btn round bg-{{item.name}} {{shadow?'shadow':''}}" style="font-size:{{fontSize}}rpx">{{item.title}}</button>
+  </view>
+</view>
+
+</view>

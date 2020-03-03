@@ -31,6 +31,47 @@ Page({
     qiehuan: 1,
     userIndex: 0, //用户操作的行
     modalName:"viewModal",//默认抽屉打开
+    fontSize:'',
+    fontSize28:'',
+    fontSize34:'',
+    fontSize30:'',
+    fontSize38:'',
+  },
+    onShow: function() {
+    // console.log("进来了吗", this.data.variable)
+    var that = this;
+    var variable = that.data.variable;
+    var projectId = wx.getStorageSync('projectId');
+    var pointTypeId = wx.getStorageSync("pointTypeId");
+    var pointName = wx.getStorageSync("pointName");
+    var pointId = wx.getStorageSync("pointId");
+    var fontSize = wx.getStorageSync('fontSize');
+    var requestUrl = app.globalData.requestUrl; //服务器路径
+    that.setData({
+      requestUrl: requestUrl,
+      pointName: pointName,
+      pointTypeId: pointTypeId,
+      projectId: projectId,
+      pointId: pointId,
+      fontSize:fontSize,
+      fontSize28:fontSize-4,
+      fontSize30:fontSize-2,
+      fontSize34:fontSize+2,
+      fontSize38:fontSize+6
+    })
+
+    //that.getQuotaList(pointTypeId, locationId, projectId);
+    if(variable===0){
+      that.getproblemList(pointTypeId, projectId, pointId);
+    }else{
+      that.getQuotaList(pointTypeId,pointId,projectId);
+    }
+   
+    // this.onLoad({
+    //   pointTypeId: pointTypeId,
+    //   pointName: pointName,
+    //   pointId: pointId
+    // });
   },
 
   onLoad: function(e) {
@@ -125,8 +166,8 @@ Page({
     var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
-      // url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
-       url: 'http://192.168.5.105:8088/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
+      url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
+      //  url: 'http://192.168.5.105:8088/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuotaId',
       data: {
         quotaId: quotaId,
         pointId: pointTypeId,
@@ -401,8 +442,8 @@ Page({
     var requestUrl = that.data.requestUrl; //服务器路径
     wx.request({
       // 必需
-      // url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
-      url: 'http://192.168.5.105:8088/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
+      url: requestUrl + '/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
+      // url: 'http://192.168.5.105:8088/wechat/api/fieldQuestion/getDetailQuestionListByPointIdAndQuestionClassifyId',
       data: {
         pointId: pointTypeId,
         questionClassifyId: questionClassifyId,
@@ -494,35 +535,6 @@ Page({
   onUnload: function() {
     this.changeParentData();
   },
-  onShow: function() {
-    // console.log("进来了吗", this.data.variable)
-    var that = this;
-    var variable = that.data.variable;
-    var projectId = wx.getStorageSync('projectId');
-    var pointTypeId = wx.getStorageSync("pointTypeId");
-    var pointName = wx.getStorageSync("pointName");
-    var pointId = wx.getStorageSync("pointId");
-    var requestUrl = app.globalData.requestUrl; //服务器路径
-    this.setData({
-      requestUrl: requestUrl,
-      pointName: pointName,
-      pointTypeId: pointTypeId,
-      projectId: projectId,
-      pointId: pointId
-    })
 
-    //that.getQuotaList(pointTypeId, locationId, projectId);
-    if(variable===0){
-      that.getproblemList(pointTypeId, projectId, pointId);
-    }else{
-      that.getQuotaList(pointTypeId,pointId,projectId);
-    }
-   
-    // this.onLoad({
-    //   pointTypeId: pointTypeId,
-    //   pointName: pointName,
-    //   pointId: pointId
-    // });
-  },
 
 })

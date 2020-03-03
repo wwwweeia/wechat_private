@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "设置",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+   "usingComponents": {
+    "tui-numberbox": "../../../components/numberbox/numberbox"
+  }
+}
