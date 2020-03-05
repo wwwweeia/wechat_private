@@ -3,7 +3,7 @@
 <view class="cu-bar bg-white1  solid-bottom  ">
   <view class="text-sm1 text-bold" style="font-size:{{fontSize35}}rpx">
     <!--  <text class="cuIcon-title text-blue "></text>{{pointName}} -->
-    <text class="cuIcon-favor text-blue "></text>{{pointName}}
+    <text class="cuIcon-favor text-{{bgColor}} "></text>{{pointName}}
   </view>
 
 </view>
@@ -38,7 +38,7 @@
 
 
 <view class="padding_user">
-    <button class="cu-btn block bg-blue margin-tb-sm lg " bind:tap="goToquota_list" style="font-size:{{fontSize}}rpx">测评</button>
+    <button class="cu-btn block bg-{{bgColor}} margin-tb-sm lg " bind:tap="goToquota_list" style="font-size:{{fontSize}}rpx">测评</button>
   </view>
 <view class="grid1 col-5 padding-sm  ">
 <view class="margin-tb-sm-left text-center">

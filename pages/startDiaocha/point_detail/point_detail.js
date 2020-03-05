@@ -19,7 +19,8 @@ Page({
     fontSize:'',
     fontSize30:'',
     fontSize28:'',
-    fontSize35:''
+    fontSize35:'',
+    bgColor:''
   },
 
   /**
@@ -36,6 +37,7 @@ Page({
     // console.log("传递是否为第一个问题", firstQuestion);
     wx.setStorageSync("firstQuestion", firstQuestion);
     var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     var name = options.name;
 
     that.setData({
@@ -48,7 +50,8 @@ Page({
       fontSize:fontSize,
       fontSize30:fontSize-2,
       fontSize28:fontSize-4,
-      fontSize35:fontSize+3
+      fontSize35:fontSize+3,
+      bgColor:bgColor
     })
     that.getPointDetail(pointId);
 

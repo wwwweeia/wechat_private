@@ -37,7 +37,7 @@
 </view>
 
 
+<view class="padding_user">
+    <button class="cu-btn block bg-blue margin-tb-sm lg " bind:tap="goToquota_list" style="font-size:{{fontSize}}rpx">测评</button>
+  </view>
 
-<view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bind:tap="goToquota_list">测评<text class="cuIcon-right"></text></button>
-</view>

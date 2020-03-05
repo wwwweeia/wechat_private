@@ -52,7 +52,16 @@ Page({
       success: (res) => {
         if (res.data.status == 'success') {
           wx.hideLoading();
+
           var mapList = res.data.retObj;
+            if (typeof(mapList) === "undefined" ) {
+              wx.showToast({
+                title: '该调查员没有分配点位',
+                icon: 'none',
+                duration: 3000,
+                mask: true
+              })
+            }else{
           let map = [];
           for (let i = 0; i < mapList.length; i++) {
             if (mapList[i].locationList != null) {
@@ -79,7 +88,8 @@ Page({
             list: res.data.retObj,
             markersList: mapLists
           })
-          console.log("点位", this.data.list)
+          // console.log("点位", this.data.list)
+        }
         } else {
           wx.showToast({
             title: '获取点位树失败',

@@ -101,7 +101,8 @@ Page({
     amountValue:'',//屏幕输入的处数
     fontSize:'',
     fontSize28:'',
-    fontSize30:''
+    fontSize30:'',
+    bgColor:'',
   },
 
   onLoad: function(options) {
@@ -111,6 +112,7 @@ Page({
     // console.log("录音：",isRecord)
     var projectId = wx.getStorageSync('projectId');
     var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     var terminalUserId = app.terminalUserId;
     var questionId = options.questionId;
     var content = options.content;
@@ -138,7 +140,8 @@ Page({
       isAmount:isAmount,
       fontSize:fontSize,
       fontSize28:fontSize-4,
-      fontSize30:fontSize-2
+      fontSize30:fontSize-2,
+      bgColor:bgColor
     })
     // console.log("哈哈哈：",content)
     if (isGrade == 0) {

@@ -36,6 +36,7 @@ Page({
     fontSize34:'',
     fontSize30:'',
     fontSize38:'',
+    bgColor:'',
   },
     onShow: function() {
     // console.log("进来了吗", this.data.variable)
@@ -46,6 +47,7 @@ Page({
     var pointName = wx.getStorageSync("pointName");
     var pointId = wx.getStorageSync("pointId");
     var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     var requestUrl = app.globalData.requestUrl; //服务器路径
     that.setData({
       requestUrl: requestUrl,
@@ -57,7 +59,8 @@ Page({
       fontSize28:fontSize-4,
       fontSize30:fontSize-2,
       fontSize34:fontSize+2,
-      fontSize38:fontSize+6
+      fontSize38:fontSize+6,
+      bgColor:bgColor
     })
 
     //that.getQuotaList(pointTypeId, locationId, projectId);
@@ -138,8 +141,6 @@ Page({
               // 加载第一个指标下的问题
               that.getQuotaDetail(testxx, pointTypeId);
           }
-
-          
         } else {
           wx.showToast({
             title: '获取指标列表失败',

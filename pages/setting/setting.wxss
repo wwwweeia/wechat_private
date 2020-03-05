@@ -30,3 +30,17 @@
   align-items: center;
   justify-content: space-between;
 }
+.cu-dialog-user {
+/*display: inline-block;*/
+vertical-align: middle;
+margin-left: auto;
+margin-right: auto;
+/*width: 680rpx;*/
+max-width: 100%;
+background-color: #f8f8f8;
+border-radius: 10rpx;
+overflow: hidden
+}
+.userPadding{
+  padding-right: 20rpx;
+}

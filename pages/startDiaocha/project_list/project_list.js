@@ -43,7 +43,15 @@ Page({
         var arr = [];
         if (res.data.status == 'success') {
           var projectList = res.data.retObj;
-          for (var i = 0; i < projectList.length; i++) {
+          if (typeof(projectList) === "undefined" ) {
+              wx.showToast({
+                title: '该调查员没有绑定项目',
+                icon: 'none',
+                duration: 3000,
+                mask: true
+              })
+            }else{
+               for (var i = 0; i < projectList.length; i++) {
             var color = colorList[i];
             arr.push({
               color: color,
@@ -68,6 +76,8 @@ Page({
             elements: arr
           })
           // console.log("修改后的项目数据", arr)
+            }
+         
         } else {
           wx.showToast({
             title: '获取项目列表失败',

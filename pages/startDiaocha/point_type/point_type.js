@@ -14,7 +14,8 @@ Page({
     // 指标经纬度集合
     markersList: [],
     fontSize:'',
-    fontSize30:''
+    fontSize30:'',
+    bgColor:'',
   },
 
   onLoad: function(options) {
@@ -28,6 +29,7 @@ Page({
     var isGrade = wx.getStorageSync('isGrade'); //是否打分
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     // console.log("是否打分：", isGrade)
     that.setData({
       requestUrl: requestUrl,
@@ -35,7 +37,8 @@ Page({
       projectId: projectId,
       surveyorId: terminalUserId,
       fontSize:fontSize,
-      fontSize30:fontSize-2
+      fontSize30:fontSize-2,
+      bgColor:bgColor
     })
     that.getLocationList(terminalUserId, projectId);
   },
@@ -60,6 +63,15 @@ Page({
         wx.hideLoading();
         if (res.data.status ==="success") {
           var mapList = res.data.retObj;
+          // console.log("有没有点位：",mapList)
+           if (typeof(mapList) === "undefined" ) {
+              wx.showToast({
+                title: '该调查员没有分配点位',
+                icon: 'none',
+                duration: 3000,
+                mask: true
+              })
+            }else{
           let map = [];
           for (let i = 0; i < mapList.length; i++) {
             if (mapList[i].locationList != null) {
@@ -88,6 +100,7 @@ Page({
             markersList: mapLists
           })
           // console.log("点位", this.data.list)
+          }
         } else {
           wx.showModal({
               title: '提示',

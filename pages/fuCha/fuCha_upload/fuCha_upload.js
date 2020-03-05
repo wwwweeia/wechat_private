@@ -56,88 +56,9 @@ Page({
 
     desc: [], //举报描述
     descType: '', //描述的类型--图片--视频
-    imgDescList: [{
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }], //图片对应描述
-    voidDescList: [{
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }, {
-      description: " "
-    }], //视频对应描述 
+    imgDescList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], //图片对应描述
+    voidDescList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], //视频对应描述 
+    audioDescList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], //录音对应描述
     redioId: '', //当前选中的快捷提示id
     imgY: 0, //图片描述的标识
     voidY: 0, //视频描述的标识
@@ -151,15 +72,42 @@ Page({
 
     //单选框数据
     items: [],
-    checkedid: ''
+    checkedid: '',
+    content: '', //问题描述
+    isHeGe: 0, //是否选中合格，0-合格，1-不合格
+    isDaBiao: 0, //下载资源 选项按钮是否达标  0-达标 1-不达标
+    modalHiddenInput1: true, //控制input输入弹框的变量 
+    modalHiddenInput2: true, //控制input输入弹框的变量 
+    modalHiddenInput3: true, //控制input输入弹框的变量 
+
+    imageInputId: '', //图片资源描述 所对应id
+    imageInputValue: '', //图片资源描述 id所对应输入值
+    videoInputId: '', //视频资源描述 所对应id
+    videoInputValue: '', //视频资源描述 id所对应输入值
+    audioInputId: '', //音频资源描述 所对应id
+    audioInputValue: '', //音频资源描述 id所对应输入值
+    imagAddressList: [],
+    videoAddressList: [],
+    audioAddressList: [],
+    i: 0,
+    j: 0,
+    k: 0,
+    success: 0, //成功个数
+    fail: 0, //失败个数
+    imgY: 0, //图片描述的标识
+    voidY: 0, //视频描述的标识
+    audioY: 0,
+    recheckId: '', //复查id
+    isAmount: '', //是否需要记录问题处数，0不需要，1需要
+    amountValue: '', //屏幕输入的处数
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
     var isGrade = wx.getStorageSync('isGrade'); //是否打分
-    var isRecord = wx.getStorageSync('isRecord');//是否录音，0 不需要 1 需要
+    var isRecord = wx.getStorageSync('isRecord'); //是否录音，0 不需要 1 需要
     var projectId = wx.getStorageSync('projectId');
     var terminalUserId = app.terminalUserId;
-    console.log("上传页面*//","是否录音isGrade:",isGrade,"是否打分isRecord：",isRecord);
+    console.log("上传页面*//", "是否录音isGrade:", isGrade, "是否打分isRecord：", isRecord);
     var questionId = options.questionId;
     var quotaId = options.quotaId;
     var pointId = options.pointId;
@@ -167,64 +115,95 @@ Page({
     var pointTypeId = options.pointTypeId;
     var code = options.code;
     var grade = options.grade;
+    var recheckId = options.recheckId;
+    var content = options.content;
     var requestUrl = app.globalData.requestUrl; //请求路径
-    this.setData({
+    var isAmount = options.isAmount;
+    that.setData({
       requestUrl: requestUrl,
       projectId: projectId,
       terminalUserId: terminalUserId,
       code: code,
       maxScore: grade * 10,
       questionId: questionId,
+      content: content,
       quotaId: quotaId,
       pointId: pointId,
       pointName: pointName,
-      pointTypeId: pointTypeId
+      pointTypeId: pointTypeId,
+      recheckId: recheckId,
+      isAmount: isAmount
     })
 
     if (isGrade == 0) {
-      this.setData({
+      that.setData({
         isGrade: false
       })
     } else {
-      this.setData({
+      that.setData({
         isGrade: true
       })
     }
     if (isRecord == 0) {
-      this.setData({
+      that.setData({
         isRecord: false
       })
     } else {
-      this.setData({
+      that.setData({
         isRecord: true
       })
     }
     qqmapsdk = new QQMapWX({
-      key: this.data.key
+      key: that.data.key
     });
-    this.currentLocation();
-    this.getQuestionDetail(this.data.questionId);
+    that.currentLocation();
+    that.getQuestionDetail(that.data.questionId);
+  },
+  /**
+   ***********************************记录处数**************************************
+   */
+  textAmountScore: function(e) {
+    var that = this;
+    var AmountValue = e.detail.value;
+    that.setData({
+      amountValue: AmountValue
+    })
+    var s = AmountValue.substring(0, 1); //截取第一个数字不能为0
+    // 输入范围不对清空
+    if (AmountValue < 0 || isNaN((AmountValue / 10)) || s == 0 || AmountValue.length > 6) {
+      wx.showToast({
+        title: '请重新输入',
+        icon: 'loading',
+        duration: 1000,
+        mask: true
+      })
+      that.setData({
+        amountValue: ''
+      })
+    }
   },
   /**
    ***********************************问题描述和问题选项**************************************
    */
-  getQuestionDetail: function (questionId) {
+  getQuestionDetail: function(questionId) {
     var that = this;
     var pointId = that.data.pointId;
     var requestUrl = that.data.requestUrl; //请求路径
+    var recheckId = that.data.recheckId; //复查id
 
     wx.request({
       // 必需
       url: requestUrl + '/mobile/review/getReviewAnswerDetail',
       data: {
         questionId: questionId,
-        locationId: pointId
+        locationId: pointId,
+        recheckId: recheckId
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("获取答案资源：",res.data.retObj)
+        console.log("获取答案资源：", res.data.retObj)
         if (res.data.status == 'success') {
 
           var anniuList = res.data.retObj.optionList;
@@ -274,7 +253,7 @@ Page({
       })
     }
   },
-  getAddress: function (lng, lat) {
+  getAddress: function(lng, lat) {
     //根据经纬度获取地址信息
     qqmapsdk.reverseGeocoder({
       location: {
@@ -315,7 +294,7 @@ Page({
    ***********************************录音**************************************
    */
   //提示
-  tip: function (msg) {
+  tip: function(msg) {
     wx.showModal({
       title: '提示',
       content: msg,
@@ -324,7 +303,7 @@ Page({
   },
 
   // 开始录音
-  startRecord: function () {
+  startRecord: function() {
     var that = this;
     that.setData({
       modalHidden: false,
@@ -349,12 +328,13 @@ Page({
     that.startTimer();
   },
 
- // 停止录音
+  // 停止录音
 
   stopRecord: function() {
     var that = this;
     var audioSrc = this.data.audioSrc;
     var remainTime = that.data.remainTime;
+    var audioAddressList = that.data.audioAddressList;
     that.setData({
       idModelShow: 1
     })
@@ -368,30 +348,26 @@ Page({
         })
         that.tip("录音已取消")
       } else {
-
-        if (this.data.audioSrc.length != 0) {
-          audioSrc.push({
-            bl: false,
-            src: res.tempFilePath,
-            time: remainTime
-          })
-          that.setData({
-            modalHidden: true,
-            audioSrc: audioSrc,
-            isShow: 0
-          })
-        } else {
-          audioSrc.push({
-            bl: false,
-            src: res.tempFilePath,
-            time: remainTime
-          })
-          that.setData({
-            modalHidden: true,
-            audioSrc: audioSrc,
-            isShow: 0
-          })
-        }
+        that.currentLocation();
+        var address = that.data.address;
+        var latitude = that.data.latitude;
+        var longitude = that.data.longitude;
+        audioAddressList.push({
+          address: address,
+          latitude: latitude,
+          longitude: longitude
+        })
+        audioSrc.push({
+          bl: false,
+          src: res.tempFilePath,
+          time: remainTime
+        })
+        that.setData({
+          modalHidden: true,
+          audioSrc: audioSrc,
+          audioAddressList: audioAddressList,
+          isShow: 0
+        })
 
         that.tip("录音完成")
         console.log("这是录音列表：", that.data.audioSrc);
@@ -402,7 +378,7 @@ Page({
     that.stopTimer();
   },
 
-/**
+  /**
    * 播放录音
    */
 
@@ -447,14 +423,14 @@ Page({
   /**
    * 点击取消
    */
-  modalCandel: function () {
+  modalCandel: function() {
     var that = this;
     var audioSrc = that.data.audioSrc;
     if (audioSrc == '') {
       // do something
       this.setData({
         modalHidden: true,
-        audioSrc: '',
+        audioSrc: [],
         idModelShow: 1,
         fuzhi: 1
       })
@@ -469,7 +445,7 @@ Page({
     that.stopTimer();
   },
   //删除音频
-  delAudio: function (e) {
+  delAudio: function(e) {
     var that = this;
     var index = e.currentTarget.dataset.id;
     wx.showModal({
@@ -480,8 +456,14 @@ Page({
         if (res.confirm) {
           // console.log("删除之前的音频集合：",this.data.audioSrc,"长度：",this.data.audioSrc.length)
           that.data.audioSrc.splice(index, 1);
+          that.data.audioDescList.splice(index, 1);
+          that.data.audioAddressList.splice(index, 1);
           that.setData({
-            audioSrc: this.data.audioSrc
+            audioSrc: this.data.audioSrc,
+            audioDescList: that.data.audioDescList,
+            reportlength: that.data.reportlength - 1,
+            audioY: that.data.audioY - 1,
+            audioAddressList: that.data.audioAddressList
           })
           // console.log("删除之后的音频集合：",this.data.audioSrc,"长度：",this.data.audioSrc.length)
         }
@@ -494,7 +476,7 @@ Page({
   /**
    ***********************************倒计时**************************************
    */
-  updateTimer: function () {
+  updateTimer: function() {
     let log = this.data.log
     let now = Date.now()
     let remainingTime = Math.round((now - log.endTime) / 1000)
@@ -518,18 +500,18 @@ Page({
       })
     }
   },
-  stopTimer: function () {
+  stopTimer: function() {
     this.timer && clearInterval(this.timer)
     this.setData({
       isRuning: false,
       remainTimeText: '00:00',
     })
   },
-  startTimer: function (e) {
+  startTimer: function(e) {
     let isRuning = this.data.isRuning
     let startTime = Date.now()
     if (!isRuning) {
-      this.timer = setInterval((function () {
+      this.timer = setInterval((function() {
         this.updateTimer()
       }).bind(this), 1000)
     } else {
@@ -544,7 +526,7 @@ Page({
     }
     this.saveLog(this.data.log)
   },
-  saveLog: function (log) {
+  saveLog: function(log) {
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(log)
     wx.setStorageSync('logs', logs)
@@ -553,7 +535,7 @@ Page({
    ***********************************测评结果单选框**************************************
    */
 
-  radioChange: function (e) {
+  radioChange: function(e) {
     var that = this;
     var Nowdata = util.getNowTime();
     var dabiaoOption = that.data.dabiaoOption;
@@ -564,14 +546,17 @@ Page({
         optionId: e.detail.value,
         judge: true,
         ScoreValue: '',
-        Nowdata: Nowdata
+        Nowdata: Nowdata,
+        isDaBiao: 0,
+        isHeGe: 0
       })
       // console.log("选项id",that.data.optionId)
     } else {
       that.setData({
         optionId: e.detail.value,
         judge: false,
-        Nowdata: Nowdata
+        Nowdata: Nowdata,
+        isHeGe: 1
       })
       // console.log("选项id",that.data.optionId)
     }
@@ -580,7 +565,7 @@ Page({
   /**
    ***********************************评分**************************************
    */
-  textScore: function (e) {
+  textScore: function(e) {
     var that = this;
     var ScoreValue = e.detail.value;
     //成功=赋值
@@ -601,6 +586,113 @@ Page({
       })
     }
   },
+  /**
+   ***********************************图片描述框**************************************
+   */
+  //弹出框
+  startInput1: function(e) {
+    var that = this;
+    var id = e.target.dataset.index;
+    that.setData({
+      imageInputId: id,
+      modalHiddenInput1: false
+    })
+
+  },
+  startInput2: function(e) {
+    var that = this;
+    var id = e.target.dataset.index;
+    that.setData({
+      videoInputId: id,
+      modalHiddenInput2: false
+    })
+
+  },
+  startInput3: function(e) {
+    var that = this;
+    var id = e.target.dataset.index;
+    that.setData({
+      audioInputId: id,
+      modalHiddenInput3: false
+    })
+
+  },
+  text1Input(e) {
+    this.data.imageInputValue = e.detail.value;
+  },
+  text2Input(e) {
+    this.data.videoInputValue = e.detail.value;
+  },
+  text3Input(e) {
+    this.data.audioInputValue = e.detail.value;
+  },
+  //确定
+  sub1: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput1: true
+    })
+    var id = that.data.imageInputId;
+    var value = that.data.imageInputValue;
+    var imgDescList = that.data.imgDescList;
+
+    var test = 'imgDescList[' + id + ']';
+    that.setData({
+      [test]: value
+    })
+  },
+  //确定
+  sub2: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput2: true
+    })
+    var id = that.data.videoInputId;
+    var value = that.data.videoInputValue;
+    var voidDescList = that.data.voidDescList;
+
+    var test = 'voidDescList[' + id + ']';
+    that.setData({
+      [test]: value
+    })
+  },
+  //确定
+  sub3: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput3: true
+    })
+    var id = that.data.audioInputId;
+    var value = that.data.audioInputValue;
+    var audioDescList = that.data.audioDescList;
+
+    var test = 'audioDescList[' + id + ']';
+    that.setData({
+      [test]: value
+    })
+  },
+  //取消
+  cancel1: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput1: true
+    })
+  },
+  //取消
+  cancel2: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput2: true
+    })
+  },
+  //取消
+  cancel3: function() {
+    var that = this;
+    that.setData({
+      modalHiddenInput3: true
+    })
+  },
+
   /**
    ***********************************模态框**************************************
    */
@@ -623,57 +715,111 @@ Page({
 
     var that = this;
     var descType = that.data.descType;
+    var imgDescList = that.data.imgDescList;
+    var voidDescList = that.data.voidDescList;
+    var audioDescList = that.data.audioDescList;
     if (descType === 'Img') {
       var id = that.data.redioId;
-      console.log("问题描述选择id：", id)
       var redioId = '[' + id + ']'
       // var test = 'imgDescList[' + redioId + '].desc'
-      var test = 'imgDescList[' + id + '].description'
+      var test = 'imgDescList[' + id + ']'
       var imgY = that.data.imgY;
-      if (this.data.imgY === id) {
-        this.setData({
-          modalName: null,
-          idModelShow: '1',
-          imgY: imgY + 1,
-          // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: this.data.tipsList[e.currentTarget.dataset.value] + ','
-        })
+      // console.log("问题描述选择id：", id,'imgY::',imgY)
+      if (that.data.imgY === id) {
+        // console.log("有没有值：",imgDescList[id])
 
+        if (typeof(imgDescList[id]) === "undefined") {
+          that.setData({
+            modalName: null,
+            idModelShow: '1',
+            imgY: imgY + 1,
+            // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+            [test]: that.data.tipsList[e.currentTarget.dataset.value] + ','
+          })
+        } else {
+          that.setData({
+            modalName: null,
+            idModelShow: '1',
+            imgY: imgY + 1,
+            // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+            [test]: that.data.imgDescList[id].concat(that.data.tipsList[e.currentTarget.dataset.value] + ',')
+          })
+        }
       } else {
-        this.setData({
+        that.setData({
           modalName: null,
           idModelShow: '1',
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: that.data.imgDescList[id].description.concat(this.data.tipsList[e.currentTarget.dataset.value] + ',')
+          [test]: that.data.imgDescList[id].concat(that.data.tipsList[e.currentTarget.dataset.value] + ',')
         })
       }
-      // console.log(this.data.desc)
-      console.log("这是图片描述", this.data.imgDescList)
+      // console.log("这是图片描述", that.data.imgDescList)
+    } else if (descType === 'Vido') {
+      var id = that.data.redioId;
+      var redioId = '[' + id + ']'
+      // var test = 'imgDescList[' + redioId + '].desc'
+      var test = 'voidDescList[' + id + ']'
+      var voidY = that.data.voidY;
+      if (that.data.voidY === id) {
+        if (typeof(voidDescList[id]) === "undefined") {
+          that.setData({
+            modalName: null,
+            idModelShow: '1',
+            voidY: voidY + 1,
+            // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+            [test]: that.data.tipsList[e.currentTarget.dataset.value] + ','
+          })
+        } else {
+          that.setData({
+            modalName: null,
+            idModelShow: '1',
+            voidY: voidY + 1,
+            // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+            [test]: that.data.voidDescList[id].concat(that.data.tipsList[e.currentTarget.dataset.value] + ',')
+          })
+        }
+      } else {
+        that.setData({
+          modalName: null,
+          idModelShow: '1',
+          // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+          [test]: that.data.voidDescList[id].concat(that.data.tipsList[e.currentTarget.dataset.value] + ',')
+        })
+      }
+      // console.log("这是视频描述", that.data.voidDescList)
     } else {
       var id = that.data.redioId;
       var redioId = '[' + id + ']'
       // var test = 'imgDescList[' + redioId + '].desc'
-      var test = 'voidDescList[' + id + '].description'
-      var voidY = that.data.voidY;
-      if (this.data.voidY === id) {
-        this.setData({
-          modalName: null,
-          idModelShow: '1',
-          voidY: voidY + 1,
-          // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: this.data.tipsList[e.currentTarget.dataset.value] + ','
-        })
-
+      var test = 'audioDescList[' + id + ']'
+      var audioY = that.data.audioY;
+      if (that.data.audioY === id) {
+        if (typeof(audioDescList[id]) === "undefined") {
+          that.setData({
+            modalName: null,
+            idModelShow: '1',
+            audioY: audioY + 1,
+            // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+            [test]: that.data.tipsList[e.currentTarget.dataset.value] + ','
+          })
+        } else {
+          that.setData({
+            modalName: null,
+            idModelShow: '1',
+            audioY: audioY + 1,
+            // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
+            [test]: that.data.audioDescList[id].concat(that.data.tipsList[e.currentTarget.dataset.value] + ',')
+          })
+        }
       } else {
-        this.setData({
+        that.setData({
           modalName: null,
           idModelShow: '1',
           // desc: that.data.desc.concat(this.data.tipsList[e.currentTarget.dataset.value - 1].name + ','),
-          [test]: that.data.voidDescList[id].description.concat(this.data.tipsList[e.currentTarget.dataset.value] + ',')
+          [test]: that.data.audioDescList[id].concat(that.data.tipsList[e.currentTarget.dataset.value] + ',')
         })
       }
-      // console.log(this.data.desc)
-      console.log("这是视频描述", this.data.voidDescList)
+      // console.log("这是视频描述", that.data.voidDescList)
     }
 
 
@@ -691,33 +837,48 @@ Page({
     // var obj = {
     //   'url': ''
     // };
+    var that = this;
+    var imagAddressList = that.data.imagAddressList;
     wx.chooseImage({
       count: 1, //默认9
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], //从相册选择
 
       success: (res) => {
+        that.currentLocation();
+        var address = that.data.address;
+        var latitude = that.data.latitude;
+        var longitude = that.data.longitude;
+        // console.log("之后的定位：",address);
+
+        imagAddressList.push({
+          address: address,
+          latitude: latitude,
+          longitude: longitude
+        });
         var img = res.tempFilePaths; //数组
         // var img1 = JSON.stringify(img); //数组转json字符串
         // var img2 = img1.substring(2, img1.length - 2); //切割头和尾
         // obj.url = img2;
         // urlArray.push(obj)
 
-        if (this.data.imgList.length != 0) {
-          this.setData({
-            imgList: this.data.imgList.concat(img),
+        if (that.data.imgList.length != 0) {
+          that.setData({
+            imgList: that.data.imgList.concat(img),
             modalName: '',
-            reportlength: this.data.reportlength + 1
+            reportlength: that.data.reportlength + 1,
+            imagAddressList: imagAddressList
           })
-          console.log("图片资源：", this.data.imgList)
+          console.log("图片资源：", that.data.imgList)
         } else {
-          this.setData({
+          that.setData({
             imgList: img,
             modalName: '',
-            reportlength: this.data.reportlength + 1
+            reportlength: that.data.reportlength + 1,
+            imagAddressList: imagAddressList
           })
         }
-        console.log("图片资源：", this.data.imgList)
+        console.log("图片资源：", that.data.imgList)
       }
 
     });
@@ -725,6 +886,7 @@ Page({
   },
   chooseVideo() {
     let vm = this;
+    var videoAddressList = vm.data.videoAddressList;
     //因为上传视频返回的数据类型与图片不一样  需要建缩略图的url放到数组中
     var urlArray = [];
     var obj = {
@@ -736,6 +898,17 @@ Page({
       maxDuration: 30,
       camera: 'back',
       success: (res) => {
+        vm.currentLocation();
+        var address = vm.data.address;
+        var latitude = vm.data.latitude;
+        var longitude = vm.data.longitude;
+        // console.log("之后的定位：",address);
+        videoAddressList.push({
+          address: address,
+          latitude: latitude,
+          longitude: longitude
+        });
+
         var size = res.size;
         console.log("视频的大小：", size / 1024 / 1024 + "M")
         obj.url = res.tempFilePath
@@ -745,14 +918,16 @@ Page({
           vm.setData({
             videoList: vm.data.videoList.concat(urlArray),
             modalName: '',
-            reportlength: vm.data.reportlength + 1
+            reportlength: vm.data.reportlength + 1,
+            videoAddressList: videoAddressList
           })
           console.log("视频资源：", this.data.videoList)
         } else {
           vm.setData({
             videoList: urlArray,
             modalName: '',
-            reportlength: vm.data.reportlength + 1
+            reportlength: vm.data.reportlength + 1,
+            videoAddressList: videoAddressList
           })
           //  vm.data.videoSrcs.push(res.tempFilePath)
         }
@@ -785,10 +960,11 @@ Page({
 
   },
   DelImg(e) {
+    var that = this;
     // 'reportImg' 举报图片  'reportVideo' 举报视频 'addsImg'地址图片 'addsVideo' 地址视频
     var type = e.currentTarget.dataset.type;
     console.log("删除的id", e.currentTarget.dataset.index);
-    console.log("现有的图片集合d", this.data.imgList);
+    console.log("现有的图片集合d", that.data.imgList);
     wx.showModal({
       // title: '召唤师',
       content: '确定要删除这条图片/视频吗？',
@@ -797,25 +973,29 @@ Page({
       success: res => {
         if (res.confirm) {
           if (type == "reportImg") {
-            this.data.imgList.splice(e.currentTarget.dataset.index, 1);
-            this.data.imgDescList.splice(e.currentTarget.dataset.index, 1);
-            this.setData({
-              imgList: this.data.imgList,
-              reportlength: this.data.reportlength - 1,
-              imgDescList: this.data.imgDescList,
-              imgY: this.data.imgY - 1
+            that.data.imgList.splice(e.currentTarget.dataset.index, 1);
+            that.data.imgDescList.splice(e.currentTarget.dataset.index, 1);
+            that.data.imagAddressList.splice(e.currentTarget.dataset.index, 1);
+            that.setData({
+              imgList: that.data.imgList,
+              reportlength: that.data.reportlength - 1,
+              imgDescList: that.data.imgDescList,
+              imgY: that.data.imgY - 1,
+              imagAddressList: that.data.imagAddressList
             })
           }
           if (type == "reportVideo") {
-            this.data.videoList.splice(e.currentTarget.dataset.index, 1);
-            this.data.voidDescList.splice(e.currentTarget.dataset.index, 1);
-            this.setData({
-              videoList: this.data.videoList,
-              reportlength: this.data.reportlength - 1,
-              voidDescList: this.data.voidDescList,
-              voidY: this.data.voidY - 1
+            that.data.videoList.splice(e.currentTarget.dataset.index, 1);
+            that.data.voidDescList.splice(e.currentTarget.dataset.index, 1);
+            that.data.videoAddressList.splice(e.currentTarget.dataset.index, 1);
+            that.setData({
+              videoList: that.data.videoList,
+              reportlength: that.data.reportlength - 1,
+              voidDescList: that.data.voidDescList,
+              voidY: that.data.voidY - 1,
+              videoAddressList: that.data.videoAddressList
             })
-            console.log("删除之后的视频描述", this.data.voidDescList)
+            console.log("删除之后的视频描述", that.data.voidDescList)
           }
         }
       }
@@ -827,7 +1007,7 @@ Page({
 
 
   //提交按钮
-  submit: async function () {
+  submit: async function() {
     var that = this;
 
     //举报图片集合
@@ -836,10 +1016,20 @@ Page({
     var reportVideo = that.data.videoList;
     //录音
     var audioSrc = that.data.audioSrc;
-
+    var imgDescList = that.data.imgDescList;
+    var voidDescList = that.data.voidDescList;
+    var audioDescList = that.data.audioDescList;
     //选项id
     var optionId = that.data.optionId;
-
+    var isAmount = that.data.isAmount;
+    var amountValue = that.data.amountValue;
+    var isDaBiao = that.data.isDaBiao;
+    var isHeGe = that.data.isHeGe;
+    if (isDaBiao != 0) {
+      that.setData({
+        isHeGe: 1
+      })
+    }
     if ((reportImg.length + reportVideo.length) < 1) {
       wx.showToast({
         title: '请拍摄举报图片/视频',
@@ -858,7 +1048,82 @@ Page({
       })
       return
     }
+    if (isAmount == 1) {
+      if (amountValue == null || amountValue == '') {
+        wx.showToast({
+          title: '问题处数不能为空',
+          icon: 'none',
+          duration: 1000,
+          mask: true
+        })
+        return
+      }
+    }
+    //不合格必须有资源描述
+    if (isHeGe === 1) {
+      if (reportImg.length != 0) {
+        var reportImgLength = reportImg.length;
+      } else {
+        var reportImgLength = 0;
+      }
+      if (reportVideo.length != 0) {
+        var reportVideoLength = reportVideo.length;
+      } else {
+        var reportVideoLength = 0;
+      }
+      if (audioSrc.length != 0) {
+        var audioSrcLength = audioSrc.length;
+      } else {
+        var audioSrcLength = 0;
+      }
+      if (imgDescList.length != 0) {
+        var imgDescListLength = 0;
+        for (var i = 0; i < imgDescList.length; i++) {
+          if (imgDescList[i] != '') {
+            imgDescListLength++;
+          }
+        }
+      } else {
+        var imgDescListLength = 0;
+      }
 
+      if (audioDescList.length != 0) {
+        var audioDescListLength = 0;
+        for (var k = 0; k < audioDescList.length; k++) {
+          if (audioDescList[k] != '') {
+            audioDescListLength++;
+          }
+        }
+      } else {
+        var audioDescListLength = 0;
+      }
+
+      if (voidDescList.length != 0) {
+        var voidDescListLength = 0;
+        for (var j = 0; j < voidDescList.length; j++) {
+          if (voidDescList[j] != '') {
+            voidDescListLength++;
+          }
+        }
+      } else {
+        var voidDescListLength = 0;
+      }
+      var length = reportImgLength + reportVideoLength + audioSrcLength;
+      var descLength = imgDescListLength + voidDescListLength + audioDescListLength;
+      // console.log("imgDescList:",imgDescList)
+      // console.log("图片描述：", imgDescListLength, "视频描述：", voidDescListLength)
+      // console.log("length:", length, "descLength:", descLength)
+      if (length != descLength) {
+        wx.showToast({
+          title: '不达标必须填写资源描述',
+          icon: 'none',
+          duration: 1000,
+          mask: true
+        })
+        return;
+      }
+
+    }
 
     wx.showLoading({
       title: '上传中',
@@ -866,14 +1131,14 @@ Page({
     })
     for (var index = 0; index < reportImg.length; index++) {
       //举报图片
-      await that.uploadImage(reportImg[index],index).then((res) => {
+      await that.uploadImage(reportImg[index], index).then((res) => {
         // console.log("图片上传完了resourceList:",that.data.resourceList.length);
 
       })
     }
     for (var index = 0; index < reportVideo.length; index++) {
       //举报视频
-      await that.uploadVideo(reportVideo[index].url,index).then((res) => {
+      await that.uploadVideo(reportVideo[index].url, index).then((res) => {
         // console.log("视频上传完了resourceList:",that.data.resourceList.length);
       });
     }
@@ -916,16 +1181,19 @@ Page({
   },
 
   //举报图片集合
-  uploadImage: function (filePath,i) {
+  uploadImage: function(filePath, i) {
     var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
     //举报图片集合
     var reportImg = that.data.imgList;
 
     var terminalUserId = that.data.terminalUserId;
-
+    var i = that.data.i;
+    var success = that.data.success;
+    var fail = that.data.fail;
     var resourceList = that.data.resourceList;
     var imgDescList = that.data.imgDescList;
+    var imagAddressList = that.data.imagAddressList;
 
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
@@ -942,7 +1210,7 @@ Page({
         filePath: filePath,
         name: 'reportImg' + terminalUserId,
         formData: {
-          'key': 'reportImg'+ terminalUserId,
+          'key': 'reportImg' + terminalUserId,
           'type': 0,
           'projectId': projectId,
           'locationId': pointId,
@@ -956,31 +1224,46 @@ Page({
             // 操作成功
             resolve(res.data)
 
-            var desc = imgDescList[i].description;
+            if (imgDescList.length > i) {
+              var desc = imgDescList[i];
+              var desc1 = desc.substring(0, desc.length - 1);
+            } else {
+              var desc1 = '';
+            }
+            if (imagAddressList.length > i) {
+              var address = imagAddressList[i].address;
+              var latitude = imagAddressList[i].latitude;
+              var longitude = imagAddressList[i].longitude;
+            } else {
+              var address = that.data.address;
+              var latitude = that.data.latitude;
+              var longitude = that.data.longitude;
+            }
 
             if (i == 0) {
               resourceList.push({
                 url: imageMap.url,
                 type: 0,
-                description: desc,
+                description: desc1,
                 ismodel: 1,
-                latitude:latitude,
-                longitude:longitude,
-                address:address
+                latitude: latitude,
+                longitude: longitude,
+                address: address
               })
 
             } else {
               resourceList.push({
                 url: imageMap.url,
                 type: 0,
-                description: desc,
+                description: desc1,
                 ismodel: 0,
-                latitude:latitude,
-              longitude:longitude,
-              address:address
+                latitude: latitude,
+                longitude: longitude,
+                address: address
               })
 
             }
+            success++;
           } else {
             wx.showToast({
               title: '图片资源上传失败',
@@ -992,11 +1275,23 @@ Page({
 
         },
         //请求失败
-        fail: function (err) {
-   
+        fail: function(err) {
+          fail++;
         },
         complete: () => {
-        
+          i++;
+          if (i >= reportImg.length) { //当图片传完时，停止调用  
+            that.data.resourceList = resourceList;
+            // console.log("图片返回数据：", that.data.resourceList)
+            // console.log('---上传举报图片执行完毕---');
+            // console.log('成功：' + success + " 失败：" + fail);
+          } else { //若图片还没有传完，则继续调用函数
+            that.data.i = i;
+            that.data.success = success;
+            that.data.fail = fail;
+            // that.uploadImage();
+          }
+
         }
 
       })
@@ -1004,16 +1299,18 @@ Page({
 
   },
   //举报视频集合
-  uploadVideo: function (filePath,i) {
+  uploadVideo: function(filePath, i) {
     var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
     //举报视频集合
     var reportVideo = that.data.videoList;
     var terminalUserId = that.data.terminalUserId;
-
+    var j = that.data.j;
+    var success = that.data.success;
+    var fail = that.data.fail;
     var resourceList = that.data.resourceList;
     var voidDescList = that.data.voidDescList;
-
+    var videoAddressList = that.data.videoAddressList;
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
     var code = that.data.code;
@@ -1026,7 +1323,7 @@ Page({
       wx.uploadFile({
         url: requestUrl + '/mobile/review/upload',
         filePath: filePath,
-        name: 'reportVideo'+ terminalUserId,
+        name: 'reportVideo' + terminalUserId,
         formData: {
           'key': 'reportVideo' + terminalUserId,
           'type': '2',
@@ -1040,17 +1337,32 @@ Page({
           console.log("后台返回的视频数json：", voidMap)
           if (voidMap.url != null && voidMap.url != '') {
             resolve(res.data)
-          
+            success++;
             // 操作成功
-            var desc = voidDescList[i].description;
+            if (voidDescList.length > j) {
+              var desc = voidDescList[j];
+              var desc1 = desc.substring(0, desc.length - 1);
+            } else {
+              var desc1 = '';
+            }
+            // console.log("这是第", i, "个视频描述：", desc)
+            if (videoAddressList.length > j) {
+              var address = videoAddressList[j].address;
+              var latitude = videoAddressList[j].latitude;
+              var longitude = videoAddressList[j].longitude;
+            } else {
+              var address = that.data.address;
+              var latitude = that.data.latitude;
+              var longitude = that.data.longitude;
+            }
             resourceList.push({
               url: voidMap.url,
               type: 2,
-              description: desc,
+              description: desc1,
               ismodel: 0,
-              latitude:latitude,
-              longitude:longitude,
-              address:address
+              latitude: latitude,
+              longitude: longitude,
+              address: address
             })
           } else {
             wx.showToast({
@@ -1062,11 +1374,23 @@ Page({
           }
         },
         //请求失败
-        fail: function (err) {
-
+        fail: function(err) {
+          fail++;
         },
         complete: () => {
-      
+          j++;
+          if (j >= reportVideo.length) { //当视频传完时，停止调用     
+            that.data.resourceList = resourceList;
+            // console.log("视频返回数据：", that.data.resourceList)
+            // console.log('----上传视频执行完毕----');
+            // console.log('成功：' + success + " 失败：" + fail);
+
+          } else { //若视频还没有传完，则继续调用函数
+            that.data.j = j;
+            that.data.success = success;
+            that.data.fail = fail;
+            // that.uploadVideo();
+          }
         }
 
       })
@@ -1075,15 +1399,18 @@ Page({
   },
 
   //录音
-  uploadAudioSrc: function (filePath) {
+  uploadAudioSrc: function(filePath) {
     var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
-  
+
     var audioSrc = that.data.audioSrc;
     var terminalUserId = that.data.terminalUserId;
-
+    var k = that.data.k;
+    var success = that.data.success;
+    var fail = that.data.fail;
     var resourceList = that.data.resourceList;
-
+    var audioDescList = that.data.audioDescList;
+    var audioAddressList = that.data.audioAddressList;
     var projectId = that.data.projectId;
     var pointId = that.data.pointId;
     var code = that.data.code;
@@ -1110,15 +1437,31 @@ Page({
           if (audioMap.url != null && audioMap.url != '') {
             resolve(res.data)
             // 操作成功
+            success++;
 
+            if (audioDescList.length > k) {
+              var desc = audioDescList[k];
+              var desc1 = desc.substring(0, desc.length - 1);
+            } else {
+              var desc1 = '';
+            }
+            if (audioAddressList.length > k) {
+              var address = audioAddressList[k].address;
+              var latitude = audioAddressList[k].latitude;
+              var longitude = audioAddressList[k].longitude;
+            } else {
+              var address = that.data.address;
+              var latitude = that.data.latitude;
+              var longitude = that.data.longitude;
+            }
             resourceList.push({
               url: audioMap.url,
               type: 1,
-              description: "",
+              description: desc1,
               ismodel: 0,
-              latitude:latitude,
-              longitude:longitude,
-              address:address
+              latitude: latitude,
+              longitude: longitude,
+              address: address
             })
           } else {
             wx.showToast({
@@ -1130,11 +1473,19 @@ Page({
           }
         },
         //请求失败
-        fail: function (err) {
-
+        fail: function(err) {
+          fail++;
         },
         complete: () => {
-       
+          k++;
+          if (k >= audioSrc.length) { //当音频传完时，停止调用     
+            // console.log('----上传音频执行完毕----');
+            // console.log('成功：' + success + " 失败：" + fail);
+          } else { //若音频还没有传完，则继续调用函数
+            that.data.k = k;
+            that.data.success = success;
+            that.data.fail = fail;
+          }
         }
 
       })
@@ -1144,7 +1495,7 @@ Page({
 
 
   // 资源全部上传成功，上传答案
-  uploadAnswerTrue: function () {
+  uploadAnswerTrue: function() {
     var that = this;
     var requestUrl = that.data.requestUrl; //请求路径
     var resourceList = that.data.resourceList;
@@ -1172,6 +1523,9 @@ Page({
     var pointName = that.data.pointName;
     //点位类型id
     var pointTypeId = that.data.pointTypeId;
+    var recheckId = that.data.recheckId;
+    //问题处数
+    var amountValue = that.data.amountValue;
     //点击选项的当前时间
     var answerTime = that.data.Nowdata;
     if (answerTime == '') {
@@ -1187,7 +1541,8 @@ Page({
       quotaId: quotaId,
       projectId: projectId,
       address: address,
-      deduction: deduction
+      deduction: deduction,
+      amount: amountValue
       // answerTime: answerTime
     };
     console.log("要上传的答案集合：", fieldAnswer)
@@ -1204,11 +1559,13 @@ Page({
     wx.request({
       // 必需
       url: requestUrl + '/mobile/review/saveReviewAnswerAndResource',
-      // url: 'http://192.168.15.71:8083/wechat/api/fieldAnswer/saveFieldAnswer',
+      // url: 'http://192.168.5.105:8088/mobile/review/saveReviewAnswerAndResource',
       method: 'POST',
       data: {
         reviewAnswerStr: JSON.stringify(fieldAnswer),
-        reviewResourceStr: JSON.stringify(resourceList)
+        reviewResourceStr: JSON.stringify(resourceList),
+        recheckId:recheckId,
+        terminalUserId:surveyorId
       },
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -1249,7 +1606,7 @@ Page({
     })
   },
 
-  changeParentData: function () {
+  changeParentData: function() {
     var pointName = this.data.pointName;
     var pointId = this.data.pointId;
     var pointTypeId = this.data.pointTypeId;

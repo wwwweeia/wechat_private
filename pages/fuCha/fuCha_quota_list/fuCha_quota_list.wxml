@@ -70,7 +70,7 @@
 
 
         <view class="td-2" selectable="true" scroll-y="true">
-          <text class="th-text text-red cuIcon-infofill" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}'
+          <text class="th-text text-red cuIcon-infofill" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-recheckid='{{item.recheckId}}' data-isamount="{{item.isAmount}}"  data-content='{{item.content}}'
             data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
         </view>
       </view>
@@ -83,7 +83,7 @@
 
 
         <view class="td-2" selectable="true" scroll-y="true">
-          <text class="th-text text-red cuIcon-infofill}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}'
+          <text class="th-text text-red cuIcon-infofill}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-recheckid='{{item.recheckId}}' data-isamount="{{item.isAmount}}"  data-content='{{item.content}}'
             data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
         </view>
       </view>
@@ -105,11 +105,11 @@
       <!-- <view class="tr bg-g" wx:if="{{item.finished==0}}" > -->
       <view class="tr bg-g">
         <view class="td-1" selectable="true">
-          无
+         <text class="th-text"> 无</text>
         </view>
 
         <view class="td-2" selectable="true" scroll-y="true">
-          <text>无</text>
+          <text class="th-text"> 无</text>
         </view>
       </view>
     </block>

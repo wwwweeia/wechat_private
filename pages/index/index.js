@@ -71,6 +71,7 @@ onShareAppMessage: function (res) {
                 // 跳转菜单页
 
                 var list = res.data.retObj.qxMenus;
+                console.log("看看菜单",list)
                 var terminalUserName = res.data.retObj.terminalUserName;
                 var departmentName = res.data.retObj.departmentName
 

@@ -7,12 +7,19 @@ const app = getApp()
 Page({
   data: {
     requestUrl: '', //服务器路径
+    fontSize:'',
+    bgColor:'',
   },
   onLoad: function(options) {
+    var that = this;
     // console.log(md5('123456'))
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     var requestUrl = app.globalData.requestUrl;
-    this.setData({
-      requestUrl: requestUrl
+    that.setData({
+      requestUrl: requestUrl,
+      fontSize:fontSize,
+      bgColor:bgColor
     })
   },
   formSubmit: function(e) {

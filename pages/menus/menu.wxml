@@ -18,7 +18,7 @@
           <!-- <text style="font-size: 38rpx;">{{terminalUserName}}</text> -->
            <text style="font-size:{{fontSize}}rpx">{{terminalUserName}}</text>
           <view>
-            <text class="cu-tag bg-blue light round" style="font-size:{{fontSize}}rpx">{{departmentName}}</text>
+            <text class="cu-tag bg-{{bgColor}} light round" style="font-size:{{fontSize}}rpx">{{departmentName}}</text>
           </view>
           <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
         </view>
@@ -35,7 +35,7 @@
   </view>
 </view>
 
-
+<!-- /4/5 -->
 
 <view wx:if="{{surveyList.length%2!=0 || surveyList.length==4}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
   <view bindtap="junmp" data-type="绑定账号" class="nav-li">
@@ -57,7 +57,8 @@
     </view>
   </view>
 </view>
-<view wx:else id="box" class="nav-list">
+<!-- 2 -->
+<view wx:else id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
   <view bindtap="junmp" data-type="绑定账号" class="nav-li">
     <image id="login" src="../../images/denglu.png"></image>
     <view id="text">

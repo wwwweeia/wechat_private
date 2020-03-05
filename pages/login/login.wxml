@@ -2,20 +2,20 @@
   <view class="form-user">
     <view class="cu-form-group margin-top">
       <view class="title">
-        <text class="cuIcon-mobile text-blue "></text>
+        <text class="cuIcon-mobile text-{{bgColor}} "></text>
       </view>
-      <input class="tui-input" name="name" placeholder="请输入调查员账号" maxlength="50" type="text"></input>
+      <input class="tui-input" name="name" placeholder="请输入调查员账号" maxlength="50" type="text" style="font-size:{{fontSize}}rpx"></input>
     </view>
     <view class="cu-form-group">
       <view class="title">
-        <text class="cuIcon-unlock text-blue "></text>
+        <text class="cuIcon-unlock text-{{bgColor}} "></text>
       </view>
-      <input password class="tui-input" name="pwd" placeholder="请输入密码" maxlength="50" type="number" />
+      <input password class="tui-input" name="pwd" placeholder="请输入密码" maxlength="50" type="number" style="font-size:{{fontSize}}rpx" />
     </view>
   </view>
   <view class="tui-btn-box">
-    <button class="btn-primary" hover-class="btn-hover" formType="submit" type="primary">提交</button>
-    <button class="btn-primary btn-gray" hover-class="btn-gray-hover" formType="reset">重置</button>
+    <button class="btn-primary bg-{{bgColor}}" hover-class="btn-hover" formType="submit" type="primary" style="font-size:{{fontSize}}rpx">提交</button>
+    <button class="btn-primary btn-gray" hover-class="btn-gray-hover" formType="reset" style="font-size:{{fontSize}}rpx">重置</button>
   </view>
 
 </form>

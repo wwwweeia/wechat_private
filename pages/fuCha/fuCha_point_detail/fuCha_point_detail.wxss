@@ -104,11 +104,11 @@ text-align: left;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 200rpx;
+  /*margin-top: 200rpx;*/
 }
 .lg1 {
-padding: 0 40rpx;
-font-size: 34rpx;
+padding: 0 70rpx;
+font-size: 32rpx;
 height: 80rpx;
 
 }
@@ -143,15 +143,14 @@ background-color: var(--white);
 .margin-tb-sm-right{
   margin-top: 20rpx;
 margin-bottom: 20rpx;
-margin-right: 25rpx;
+margin-right: 40rpx;
 
 }
 .margin-tb-sm-left{
   margin-top: 20rpx;
-margin-bottom: 20rpx;
-margin-left: 25rpx;
-
+margin-bottom:60rpx;
+margin-left: 40rpx;
 }
-.padding-xl_user {
-  padding: 200rpx 150rpx;
+.padding_user{
+  padding: 150rpx 120rpx 0;
 }

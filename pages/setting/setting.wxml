@@ -2,7 +2,7 @@
 
 <view class="cu-bar bg-white solid-bottom" >
   <view class="action" style="font-size:{{fontSize}}rpx">
-    <text class="cuIcon-title text-blue" ></text>文字大小
+    <text class="cuIcon-title text-{{bgColor}}" ></text>文字大小
   </view>
 </view>
 
@@ -37,17 +37,27 @@
 
 <view class="cu-bar margin-top bg-white">
   <view class="action" style="font-size:{{fontSize}}rpx">
-    <text class="cuIcon-title text-blue"></text>程序背景色
+    <text class="cuIcon-title text-{{bgColor}}"></text>程序背景色
   </view>
-<!--   <view class="action">
-    <text class="text-df margin-right-sm">阴影</text>
-    <switch class="sm" bindchange="SetShadow"></switch>
-  </view> -->
-</view>
-<view class="grid col-5 padding-sm">
-  <view class="margin-tb-sm text-center" wx:for="{{ColorList}}" wx:key="index">
-    <button class="cu-btn round bg-{{item.name}} {{shadow?'shadow':''}}" style="font-size:{{fontSize}}rpx">{{item.title}}</button>
+  <view class="action">
+   <text class="cuIcon-titles text-{{bgColor}} userPadding"  style="font-size:{{fontSize}}rpx"></text>
+    <text class="cuIcon-unfold text-{{bgColor}} userPadding"  style="font-size:{{fontSize}}rpx"></text>
+  <text class="cuIcon-favor text-{{bgColor}} userPadding"  style="font-size:{{fontSize}}rpx"></text>
+   <button class="cu-btn bg-{{bgColor}} shadow" style="font-size:{{fontSize}}rpx">示例</button>
   </view>
 </view>
+
+<view class="cu-modal-user bottom-modal show" >
+  <view class="cu-dialog-user" catchtap>
+    <view class="grid col-3 padding-sm">
+      <view wx:for="{{ColorList}}" class="padding-xs" wx:key="index">
+        <button style="font-size:{{fontSize}}rpx" class="cu-btn orange lg block bg-{{item.name}}" bindtap="ChooseCheckbox" data-value="{{item.value}}">{{item.title}}
+          <view class="cu-tag sm round {{item.checked?'bg-white text-orange':'bg-orange'}}" wx:if="{{item.hot}}">HOT</view>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>
+
 
 </view>
