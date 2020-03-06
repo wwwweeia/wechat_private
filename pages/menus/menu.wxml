@@ -37,7 +37,7 @@
 
 <!-- /4/5 -->
 
-<view wx:if="{{surveyList.length%2!=0 || surveyList.length==4}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
+<view wx:if="{{surveyList.length==4 || surveyList.length==5}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
   <view bindtap="junmp" data-type="绑定账号" class="nav-li">
     <image id="login" src="../../images/denglu.png"></image>
     <view id="text">
@@ -58,7 +58,7 @@
   </view>
 </view>
 <!-- 2 -->
-<view wx:else id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
+<view wx:elif="{{surveyList.length==2}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
   <view bindtap="junmp" data-type="绑定账号" class="nav-li">
     <image id="login" src="../../images/denglu.png"></image>
     <view id="text">
@@ -75,6 +75,15 @@
     <image id="login" src="../../images/sd-shenhe.png"></image>
     <view id="text">
       <text>设置</text>
+    </view>
+  </view>
+</view>
+<!-- null -->
+<view wx:elif="{{surveyList==null}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
+  <view bindtap="junmp" data-type="绑定账号" class="nav-li">
+    <image id="login" src="../../images/denglu.png"></image>
+    <view id="text">
+      <text>绑定账号</text>
     </view>
   </view>
 </view>

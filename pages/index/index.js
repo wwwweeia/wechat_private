@@ -57,7 +57,7 @@ onShareAppMessage: function (res) {
             },
             success(res) {
               if (res.data.status == 'success') {
-                // console.log("获取的用户信息：", res.data.retObj)
+                console.log("获取的用户信息：", res.data.retObj)
 
                 app.openid = res.data.retObj.openId;
                 // console.log("这是初始化appid：", app.openid)
@@ -69,12 +69,16 @@ onShareAppMessage: function (res) {
                 // console.log("调查员Id", app.terminalUserId)
                 // console.log("菜单", res.data.retObj.qxMenus)
                 // 跳转菜单页
-
+                if(res.data.retObj.fontSize!=null && res.data.retObj.bgColor!==null){
+                  console.log("拉取配置")
+                   wx.setStorageSync('fontSize', res.data.retObj.fontSize);
+                  wx.setStorageSync('bgColor',res.data.retObj.bgColor)
+                }
                 var list = res.data.retObj.qxMenus;
-                console.log("看看菜单",list)
+                
                 var terminalUserName = res.data.retObj.terminalUserName;
                 var departmentName = res.data.retObj.departmentName
-
+                console.log("看看菜单",terminalUserName)
                 that.loadModal(); //加载动画
                 setTimeout(function() {
 

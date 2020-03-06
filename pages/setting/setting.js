@@ -1,3 +1,4 @@
+const app = getApp();
 Page({
   data: {
     fontSize: '',
@@ -84,14 +85,19 @@ Page({
         checked: false
       }
     ],
-  
+    requestUrl:'',
+    openid:''//微信用户
   },
   onLoad: function (options) {
+    var openid = app.openid;
+    var requestUrl = app.globalData.requestUrl; //服务器路径
   	var fontSize = wx.getStorageSync('fontSize');
     var bgColor = wx.getStorageSync('bgColor')
   	this.setData({
   		fontSize:fontSize,
-      bgColor:bgColor
+      bgColor:bgColor,
+      requestUrl:requestUrl,
+      openid:openid
   	})
     this.Checkbox(bgColor);
    },
@@ -113,10 +119,13 @@ Page({
 
 //改变字体大小
   change: function (e) {
-    this.setData({
+    var that = this;
+     var bgColor = that.data.bgColor;
+    that.setData({
       fontSize: e.detail.value
     })
-    wx.setStorageSync('fontSize', this.data.fontSize)
+    wx.setStorageSync('fontSize', that.data.fontSize)
+    that.saveSetting(e.detail.value,bgColor);
   },
   //点击颜色框 使所有元素都为false
   ChooseCheckbox(e) {
@@ -135,6 +144,7 @@ Page({
   //点击颜色框 使选中的元素为true
   ChooseCheckboxSub(values) {
       var that = this;
+       var fontSize = that.data.fontSize;
     var items = that.data.ColorList;
     for (var i = 0, lenI = items.length; i < lenI; ++i) {
       if (items[i].value == values) {
@@ -149,5 +159,48 @@ Page({
       ColorList: items,
       bgColor:bgColor
     })
+    that.saveSetting(fontSize,bgColor);
+  },
+  saveSetting:function(fontSize,bgColor){
+   
+    var that = this;
+    var requestUrl = that.data.requestUrl;
+   var openid = that.data.openid;  
+   wx.request({
+     // 必需
+     url: requestUrl+'/wehcat/api/memberMange/saveUserSetting',
+     data: {
+       'openid':openid,
+       'fontSize':fontSize,
+       'bgColor':bgColor
+     },
+     header: {
+       'Content-Type': 'application/json'
+     },
+     success: (res) => {
+      if(res.data.status == 'success'){
+        wx.showToast({
+            title: '调整完成',
+            icon: 'success',
+            duration: 1000,
+            mask: true
+          })
+      }else{
+         wx.showToast({
+            title: '尝试失败请重试！',
+            icon: 'loading',
+            duration: 1000,
+            mask: true
+          })
+      }
+
+     },
+     fail: (res) => {
+       
+     },
+     complete: (res) => {
+       
+     }
+   })
   }
 })
