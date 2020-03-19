@@ -215,7 +215,7 @@ page {
 .input-user{
 /*border-top: 1rpx solid #1cbbb4;
 border-block: 1rpx solid #1cbbb4;*/
-border: 1px solid green;
+border: 1px solid grey;
 border-right-style: none;
 border-left-style: none;
 border-top-style: none;
@@ -272,4 +272,8 @@ justify-content: space-between;
   position: relative;
   height: 60rpx;
   line-height: 70rpx;
+}
+.light-user{
+  /*color: var(--green);*/
+  background-color: var(--greyLight);
 }

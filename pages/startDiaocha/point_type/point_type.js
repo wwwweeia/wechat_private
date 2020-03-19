@@ -24,31 +24,31 @@ Page({
 
   onShow:function(){
     var that = this;
-    var terminalUserId = app.terminalUserId;
-    var projectId = wx.getStorageSync('projectId');
-    var isGrade = wx.getStorageSync('isGrade'); //是否打分
-    var requestUrl = app.globalData.requestUrl; //服务器路径
-    var fontSize = wx.getStorageSync('fontSize');
-    var bgColor = wx.getStorageSync('bgColor');
-    // console.log("是否打分：", isGrade)
-    that.setData({
-      requestUrl: requestUrl,
-      isGrade: isGrade,
-      projectId: projectId,
-      surveyorId: terminalUserId,
-      fontSize:fontSize,
-      fontSize30:fontSize-2,
-      bgColor:bgColor
+    const eventChannel = that.getOpenerEventChannel()
+    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
+    // projectList页面传递过来的参数
+    eventChannel.on('projectList', function(data) {
+      that.setData({
+        isGrade: data.isGrade,
+        projectId: data.projectId,
+        surveyorId:data.terminalUserId,
+        requestUrl:data.requestUrl,
+        bgColor:data.bgColor,
+        fontSize:data.fontSize,
+        fontSize30:parseInt(data.fontSize)-2
+      })
+      // console.log("pointDetail传递参数", data)
+      that.getLocationList(data.terminalUserId, data.projectId,data.requestUrl);
     })
-    that.getLocationList(terminalUserId, projectId);
   },
-  getLocationList: function(terminalUserId, projectId) {
+  getLocationList: function(terminalUserId, projectId,requestUrl) {
     var that = this;
     wx.showLoading({
       title: '数据加载中',
       mask: true
     })
-    var requestUrl = that.data.requestUrl; //服务器路径
+    // var requestUrl = that.data.requestUrl; //服务器路径
+    console.log("requestUrl:",requestUrl);
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/fieldLocation/getFieldPointLocationList',
@@ -60,6 +60,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
+        console.log("出来：",res)
         wx.hideLoading();
         if (res.data.status ==="success") {
           var mapList = res.data.retObj;
@@ -68,7 +69,7 @@ Page({
               wx.showToast({
                 title: '该调查员没有分配点位',
                 icon: 'none',
-                duration: 3000,
+                duration: 2000,
                 mask: true
               })
             }else{
@@ -154,21 +155,6 @@ Page({
     }
 
   },
-  // show(e) {
-  //     let index = e.currentTarget.dataset.index;
-  //     let active = this.data.active;
-
-  //     this.setData({
-  //       [`selected[${index}]`]: !this.data.selected[`${index}`],
-  //       active: index
-  //     });
-
-  //     // 如果点击的不是当前展开的项，则关闭当前展开的项
-  //     // 这里就实现了点击一项，隐藏另一项
-  //     if (active !== null && active !== index) {
-  //       this.setData({ [`selected[${active}]`]: false });
-  //     }
-  // }
 
   goToMap: function() {
     var that = this;
@@ -221,35 +207,22 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        // console.log("提交按钮：", res.data)
-
         that.getLocationList(surveyorId, projectId);
-
-
       },
       fail: (res) => {
-
       },
       complete: (res) => {
-
       }
     })
   },
-
-
-
-
   changeData: function() {
-
     var options = {
       projectId: this.data.projectId,
       isGrade: this.data.isGrade
     }
-
     this.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 
   },
-
   changeParentData: function() {
     var pages = getCurrentPages(); //当前页面栈
     if (pages.length > 1) {
@@ -260,7 +233,6 @@ Page({
       beforePage.changeData(); //触发父页面中的方法
     }
   },
-
   onUnload: function() {
     this.changeParentData();
   }

@@ -31,6 +31,7 @@ Page({
     qiehuan: 1,
     userIndex: 0, //用户操作的行
     modalName:"viewModal",//默认抽屉打开
+    isGrade:'',//是否打分
     fontSize:'',
     fontSize28:'',
     fontSize34:'',
@@ -39,42 +40,39 @@ Page({
     bgColor:'',
   },
     onShow: function() {
-    // console.log("进来了吗", this.data.variable)
     var that = this;
     var variable = that.data.variable;
-    var projectId = wx.getStorageSync('projectId');
-    var pointTypeId = wx.getStorageSync("pointTypeId");
-    var pointName = wx.getStorageSync("pointName");
-    var pointId = wx.getStorageSync("pointId");
-    var fontSize = wx.getStorageSync('fontSize');
-    var bgColor = wx.getStorageSync('bgColor');
-    var requestUrl = app.globalData.requestUrl; //服务器路径
-    that.setData({
-      requestUrl: requestUrl,
-      pointName: pointName,
-      pointTypeId: pointTypeId,
-      projectId: projectId,
-      pointId: pointId,
-      fontSize:fontSize,
-      fontSize28:fontSize-4,
-      fontSize30:fontSize-2,
-      fontSize34:fontSize+2,
-      fontSize38:fontSize+6,
-      bgColor:bgColor
+    const eventChannel = that.getOpenerEventChannel()
+    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
+    // pointDetail页面传递过来的参数
+    eventChannel.on('pointDetail', function(data) {
+      that.setData({
+        pointName: data.pointName,
+        pointTypeId: data.pointTypeId,
+        pointId: data.pointId,
+        projectId:data.projectId,
+        requestUrl:data.requestUrl,
+        isGrade:data.isGrade,
+        bgColor:data.bgColor,
+        fontSize:data.fontSize,
+        fontSize28:parseInt(data.fontSize)-4,
+        fontSize30:parseInt(data.fontSize)-2,
+        fontSize34:parseInt(data.fontSize)+2,
+        fontSize38:parseInt(data.fontSize)+6,
+      })
+      // console.log("pointDetail传递参数", data)
+      if(variable===0){
+        that.getproblemList(data.pointTypeId,data.projectId, data.pointId);
+      }else{
+        that.getQuotaList(data.pointTypeId,data.pointId,data.projectId);
+      }
     })
-
-    //that.getQuotaList(pointTypeId, locationId, projectId);
-    if(variable===0){
-      that.getproblemList(pointTypeId, projectId, pointId);
-    }else{
-      that.getQuotaList(pointTypeId,pointId,projectId);
-    }
+     if(variable===0){
+        that.getproblemList(that.data.pointTypeId,that.data.projectId, that.data.pointId);
+      }else{
+        that.getQuotaList(that.data.pointTypeId,that.data.pointId,that.data.projectId);
+      }
    
-    // this.onLoad({
-    //   pointTypeId: pointTypeId,
-    //   pointName: pointName,
-    //   pointId: pointId
-    // });
   },
 
   onLoad: function(e) {
@@ -233,39 +231,50 @@ Page({
   // 跳转上传页面
   goToUpload: function(e) {
     var that = this;
-    let isRecord = e.currentTarget.dataset.isrecord;
-    let isAmount = e.currentTarget.dataset.isamount;
-    let content = e.currentTarget.dataset.content;
-    let questionId = e.currentTarget.dataset.id;
-    let code = e.currentTarget.dataset.code;
-    let grade = e.currentTarget.dataset.grade; //最大分
-    let pointId = that.data.pointId;
-    let pointTypeId = that.data.pointTypeId;
-    let pointName = that.data.pointName;
-    let quotaId = e.currentTarget.dataset.quotaid;
-    wx.setStorageSync('isRecord', isRecord);
-    console.log("isAmountisAmount:", isAmount)
-    // var list= {
-    //   questionId:questionId,
-    //   pointId:pointId,
-    //   quotaId:quotaId,
-    //   pointName:pointName,
-    //   pointTypeId:pointTypeId,
-    //   code:code,
-    //   grade:grade
-    // };
+    var terminalUserId = app.terminalUserId;
+    var bgColorUi = wx.getStorageSync('bgColorUi');
+    var isGrade = that.data.isGrade;
+    // var isRecord = e.currentTarget.dataset.isrecord;//是否需要录音，现在都需要。
+    var isAmount = e.currentTarget.dataset.isamount;
+    var content = e.currentTarget.dataset.content;
+    var questionId = e.currentTarget.dataset.id;
+    var code = e.currentTarget.dataset.code;
+    var grade = e.currentTarget.dataset.grade; //最大分
+    var pointId = that.data.pointId;
+    var pointTypeId = that.data.pointTypeId;
+    var pointName = that.data.pointName;
+    var quotaId = e.currentTarget.dataset.quotaid;
+    var projectId = that.data.projectId;
+    var fontSize = that.data.fontSize;
+    var bgColor = that.data.bgColor;
+    var requestUrl = that.data.requestUrl; 
+
     //跳转上传页面
     router.navigateTo({
-      url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId  + "&isAmount="+ isAmount + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade+ '&content=' + content
+      url: "../task_upload/task_upload",
+       success: function(res) {
+                // 通过eventChannel向被打开页面传送数据
+                res.eventChannel.emit('quotaList', {
+                  terminalUserId: terminalUserId,
+                  isGrade: isGrade,
+                  isAmount: isAmount,
+                  content:content,
+                  questionId:questionId,
+                  code:code,
+                  grade:grade,
+                  pointId:pointId,
+                  pointTypeId: pointTypeId,
+                  pointName:pointName,
+                  quotaId:quotaId,
+                  projectId:projectId,
+                  fontSize:fontSize,
+                  bgColor:bgColor,
+                  bgColorUi:bgColorUi,
+                  requestUrl:requestUrl
+                })
+              }
     })
-    // wx.navigateTo({
-    //   // url: "../task_upload/task_upload?questionId=" + questionId + "&pointId=" + pointId + "&quotaId=" + quotaId + '&pointName=' + pointName + '&pointTypeId=' + pointTypeId + '&code=' + code + '&grade=' + grade
-    //   url:'../task_upload/task_upload',
-    //   success: function(res) {
-    //  // 通过eventChannel向被打开页面传送数据
-    //    res.eventChannel.emit('quota_list_Page', { data: list })
-    //  }
-    // })
+  
   },
 
 
@@ -277,10 +286,6 @@ Page({
       router.navigateTo({
         url: "../question_tips/question_tips?url=" + url
       })
-      // wx.navigateTo({
-      //   url: "../question_tips/question_tips?url=" + url
-      // })
-
     } else { //url为空
       this.setData({
         visible: true
@@ -482,7 +487,7 @@ Page({
               })
             }
           }
-          console.log("啥意思啊：",ayy)
+          // console.log("啥意思啊：",ayy)
           that.setData({
             listData: ayy,
             tips: arr
@@ -516,9 +521,16 @@ Page({
   },
 
   changeParentData: function() {
-    var pointName = this.data.pointName;
-    var pointId = this.data.pointId;
-    var pointTypeId = this.data.pointTypeId;
+    var that = this;
+    var pointName = that.data.pointName;
+    var pointId = that.data.pointId;
+    var pointTypeId = that.data.pointTypeId;
+    var requestUrl = that.data.requestUrl;
+    var isGrade = that.data.isGrade;
+    var projectId = that.data.projectId;
+    var fontSize = that.data.fontSize;
+    var bgColor = that.data.bgColor;
+
     var firstQuestion = wx.getStorageSync("firstQuestion");
     var pages = getCurrentPages(); //当前页面栈
     if (pages.length > 1) {
@@ -527,7 +539,12 @@ Page({
         pointId: pointId,
         pointName: pointName,
         pointTypeId: pointTypeId,
-        firstQuestion: firstQuestion
+        firstQuestion: firstQuestion,
+        requestUrl:requestUrl,
+        isGrade:isGrade,
+        projectId:projectId,
+        fontSize:fontSize,
+        bgColor:bgColor
       })
       beforePage.changeData(); //触发父页面中的方法
     }

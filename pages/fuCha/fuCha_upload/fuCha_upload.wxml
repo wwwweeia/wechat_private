@@ -98,8 +98,8 @@
             <input class="text-content-user" type="text" disabled="true"  value="{{imgDescList[index]}}" data-index="{{index}}" bindinput='imageInput'/>
           </view>
         <view>
-          <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
-          <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="startInput1" data-index="{{index}}">手动输入</view>
+          <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
+          <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="startInput1" data-index="{{index}}">手动输入</view>
         </view>
       </view>
     </view>
@@ -117,8 +117,8 @@
       <view class="desc">
         <input class="text-content-user input-user" disabled="true"  value="{{voidDescList[index]}}"></input>
         <view>
-          <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="showModal" data-target="RadioModal" data-type="Vido" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" style="font-size:{{fontSize28}}rpx" bindtap="startInput2" data-index="{{index}}">手动输入</view>
+          <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="showModal" data-target="RadioModal" data-type="Vido" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="startInput2" data-index="{{index}}">手动输入</view>
         </view>
       </view>
     </view>
@@ -126,53 +126,49 @@
 </view>
 
 
-<view class="cu-chat bg-white" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
-  <view class="cu-item">
-  <view class="content-user" wx:if="{{!item.bl}}">
-    <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
-      <view class="action-user text-bold text-blue">
-        第{{index+1}}个录音
-      </view>
-      <!-- 静态图 -->
-      <view class="shadow-user">
-        <image class="image-audio-user" src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
-      </view>
-    </view>
 
-       <view class="desc-user">
-        <input class="text-content-user input-user" disabled="true" value="{{audioDescList[index]}}"></input>
-        <view >
-          <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="startInput3" data-index="{{index}}">手动输入</view>
-        </view>
-      </view>
+<!-- 录音加描述 -->
+<view class="cu-card article no-card" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
+  <view class="cu-item shadow" wx:if="{{!item.bl}}">
 
-</view>
-  <view class="content-user" wx:if="{{item.bl}}" >
-    <view wx:if="{{item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
-      <view class="action-user text-bold text-blue">
-        第{{index+1}}个录音
+    <view class="content">
+       <!-- 静态图 -->
+      <view class="shadow-user video-user" bindtap='playRecord' data-id="{{index}}">
+        <image class="image-audio-user " src="../../../images/yuyin-ico.png" mode="scaleToFill"></image>
       </view>
-      <!-- 动图 -->
-      <view class="shadow-user">
-        <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
-     
+      <view class="cu-tag-user bg-red" bindtap='delAudio' data-id="{{index}}">
+        <text class="cuIcon-close"></text>
       </view>
-    </view>
-        <view class="desc-user">
+      <view class="desc">
         <input class="text-content-user input-user" disabled="true"  value="{{audioDescList[index]}}"></input>
-        <view >
-          <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
-             <view class="cu-tag bg-green light  round" style="font-size:28rpx" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        <view>
+          <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="startInput3" data-index="{{index}}">手动输入</view>
         </view>
       </view>
-</view>
-    <view class="action-user" bindtap='delAudio' data-id="{{index}}">
-      <text class="cuIcon-close text-red"></text>
     </view>
-
   </view>
 
+
+    <view class="cu-item shadow" wx:else>
+
+    <view class="content">
+       <!-- 动态图 -->
+      <view class="shadow-user video-user" bindtap='playRecord' data-id="{{index}}" >
+        <image class="image-audio-user" src="../../../images/yuyin-gif.gif" mode="scaleToFill"></image>
+      </view>
+      <view class="cu-tag-user bg-red" bindtap='delAudio' data-id="{{index}}" >
+        <text class="cuIcon-close"></text>
+      </view>
+      <view class="desc">
+        <input class="text-content-user input-user" disabled="true"  value="{{audioDescList[index]}}"></input>
+        <view>
+          <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="showModal" data-target="RadioModal" data-type="Audio" data-index="{{index}}">快捷输入</view>
+             <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="startInput3" data-index="{{index}}">手动输入</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
 
 <view class="cu-form-group">

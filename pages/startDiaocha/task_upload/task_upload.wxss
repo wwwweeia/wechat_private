@@ -215,7 +215,7 @@ page {
 .input-user{
 /*border-top: 1rpx solid #1cbbb4;
 border-block: 1rpx solid #1cbbb4;*/
-border: 1px solid green;
+border: 1px solid grey;
 border-right-style: none;
 border-left-style: none;
 border-top-style: none;
@@ -272,4 +272,26 @@ justify-content: space-between;
   position: relative;
   height: 60rpx;
   line-height: 70rpx;
+}
+.light-user{
+  /*color: var(--green);*/
+  background-color: var(--greyLight);
+}
+.text-content-user2{
+  font-size: 35rpx;
+height: 2em;
+overflow: hidden;
+}
+.cu-tag-user2 {
+  font-size: 24rpx;
+  vertical-align: middle;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  /*padding: 0rpx 14rpx;*/
+  height: 48rpx;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+  white-space: nowrap;
 }

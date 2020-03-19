@@ -1,7 +1,5 @@
-// pages/index/index.js
 const app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -21,11 +19,7 @@ onShareAppMessage: function (res) {
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-
     // this.userLogin();
-
-
   },
   /**
    * 生命周期函数--监听页面显示
@@ -46,7 +40,6 @@ onShareAppMessage: function (res) {
           wx.request({
             url: requestUrl + '/wehcat/api/memberMange/userLogin', //线上
             // url: 'http://221.216.95.200:8286/wehcat/api/memberMange/userLogin',//35
-            // url: 'http://192.168.15.147:8080/wehcat/api/memberMange/userLogin',
             method: "GET",
             header: {
               "Content-Type": "application/json"
@@ -58,27 +51,51 @@ onShareAppMessage: function (res) {
             success(res) {
               if (res.data.status == 'success') {
                 console.log("获取的用户信息：", res.data.retObj)
-
                 app.openid = res.data.retObj.openId;
                 // console.log("这是初始化appid：", app.openid)
-
-                app.existence = res.data.retObj.existence;
-                // console.log("是否有菜单",app.existence)
-                // 调查员id
+                // app.existence = res.data.retObj.existence;
+                // // console.log("是否有菜单",app.existence)
+                // // 调查员id
                 app.terminalUserId = res.data.retObj.terminalUserId;
                 // console.log("调查员Id", app.terminalUserId)
                 // console.log("菜单", res.data.retObj.qxMenus)
                 // 跳转菜单页
                 if(res.data.retObj.fontSize!=null && res.data.retObj.bgColor!==null){
-                  console.log("拉取配置")
-                   wx.setStorageSync('fontSize', res.data.retObj.fontSize);
+                  // console.log("拉取配置")
+                  wx.setStorageSync('fontSize', res.data.retObj.fontSize);
                   wx.setStorageSync('bgColor',res.data.retObj.bgColor)
+                  // console.log("卡哪款：",res.data.retObj.bgColor)
+                  switch(res.data.retObj.bgColor){
+                    case "blue":
+                      wx.setStorageSync('bgColorUi','#0081ff');
+                      break;
+                    case "orange":
+                      wx.setStorageSync('bgColorUi','#f37b1d');
+                      break;
+                    case "yellow":
+                      wx.setStorageSync('bgColorUi','#fbbd08');
+                      break;
+                    case "olive":
+                      wx.setStorageSync('bgColorUi','#8dc63f');
+                      break;
+                    case "green":
+                      wx.setStorageSync('bgColorUi','#39b54a');
+                      break;
+                    case "purple":
+                      wx.setStorageSync('bgColorUi','#6739b6');
+                      break;
+                    case "mauve":
+                      wx.setStorageSync('bgColorUi','#9c26b0');
+                      break;
+                    default:
+                      console.log("bgColorUi default");
+
+                  }
                 }
                 var list = res.data.retObj.qxMenus;
                 
                 var terminalUserName = res.data.retObj.terminalUserName;
                 var departmentName = res.data.retObj.departmentName
-                console.log("看看菜单",terminalUserName)
                 that.loadModal(); //加载动画
                 setTimeout(function() {
 

@@ -41,9 +41,7 @@ Page({
       fontSize:fontSize,
       bgColor:bgColor
     })
-    // console.log("fontSize是:",that.data.fontSize)
-    // console.log("bgColor是:",that.data.bgColor)
-    const eventChannel = this.getOpenerEventChannel()
+    const eventChannel = that.getOpenerEventChannel()
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     // login页面传递过来的菜单列表
     eventChannel.on('loginPage', function(data) {
@@ -53,9 +51,9 @@ Page({
         departmentName: data.departmentName,
         terminalUserName: data.terminalUserName
       })
-      console.log("loginPage绑定菜单", that.data.surveyList.length)
+      // console.log("loginPage绑定菜单", that.data.surveyList)
     })
-    // app.js页面传递过来的菜单列表
+    // index.js页面传递过来的菜单列表
     eventChannel.on('appPage', function(data) {
       // console.log("appPage传递过来的数据", data)
       that.setData({
@@ -63,13 +61,13 @@ Page({
         departmentName: data.departmentName,
         terminalUserName: data.terminalUserName
       })
-      console.log("appPage绑定菜单", that.data.surveyList)
+      // console.log("appPage绑定菜单", that.data.surveyList)
     })
     qqmapsdk = new QQMapWX({
-      key: this.data.key
+      key: that.data.key
     });
     //获取当前位置 测试阶段先关闭了
-    this.currentLocation();
+    that.currentLocation();
   },
   currentLocation() {
     //当前位置

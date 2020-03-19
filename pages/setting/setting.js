@@ -46,22 +46,6 @@ Page({
       },
       {
         value: 5,
-        title: '天青',
-        name: 'cyan',
-        color: '#1cbbb4',
-        hot: false,
-        checked: false
-      },
-      {
-        value: 6,
-        title: '嫣红',
-        name: 'red',
-        color: '#e54d42',
-        hot: false,
-        checked: false
-      },
-      {
-        value: 7,
         title: '姹紫',
         name: 'purple',
         color: '#6739b6',
@@ -69,18 +53,10 @@ Page({
         checked: false
       },
       {
-        value: 8,
+        value: 6,
         title: '木槿',
         name: 'mauve',
         color: '#9c26b0',
-        hot: false,
-        checked: false
-      },
-      {
-        value: 9,
-        title: '玄灰',
-        name: 'grey',
-        color: '#8799a3',
         hot: false,
         checked: false
       }
@@ -151,7 +127,9 @@ Page({
         items[i].checked = !items[i].checked;
         items[i].hot=!items[i].hot;
         var bgColor = items[i].name;
+        var bgColorUi = items[i].color;
         wx.setStorageSync('bgColor',bgColor)
+        wx.setStorageSync('bgColorUi',bgColorUi)
         break
       }
     }
@@ -187,7 +165,7 @@ Page({
           })
       }else{
          wx.showToast({
-            title: '尝试失败请重试！',
+            title: '更新失败！',
             icon: 'loading',
             duration: 1000,
             mask: true

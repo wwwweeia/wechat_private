@@ -7,6 +7,7 @@ Page({
     elements: [],
     terminalUserId:'',
     fontSize:'',
+    bgColorUi:''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -16,15 +17,18 @@ Page({
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;
     var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
+    var bgColorUi = wx.getStorageSync('bgColorUi');
     that.setData({
       requestUrl: requestUrl,
       terminalUserId:terminalUserId,
-       fontSize:fontSize
+       fontSize:fontSize,
+       bgColorUi:bgColorUi,
+       bgColor:bgColor
     })
     // console.log(terminalUserId)
     that.getProjectList(terminalUserId);
   },
-
   getProjectList: function(terminalUserId) {
     var that = this;
     var requestUrl = that.data.requestUrl; //服务器路径
@@ -47,7 +51,7 @@ Page({
               wx.showToast({
                 title: '该调查员没有绑定项目',
                 icon: 'none',
-                duration: 3000,
+                duration: 2000,
                 mask: true
               })
             }else{
@@ -101,16 +105,15 @@ Page({
     var projectId = e.currentTarget.dataset.id;
     var terminalUserId = that.data.terminalUserId; 
     var isGrade = e.currentTarget.dataset.isgrade;
-    console.log("项目id",projectId)
-
+    // console.log("项目id",projectId)
     that.validTime(projectId,terminalUserId,isGrade);
-
-    
   },
 
   validTime:function(projectId,terminalUserId,isGrade){
     var that = this;
     var requestUrl = that.data.requestUrl;
+    var bgColor = that.data.bgColor;
+    var fontSize = that.data.fontSize;
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/fieldProject/validTime',
@@ -127,10 +130,21 @@ Page({
           var message =  res.data.message.substring(0,3);
           // console.log("来了",message)
           if (message==="001"|| message==="002"|| message==="004" || message==="006") {
-            wx.setStorageSync("projectId", projectId);
-            wx.setStorageSync("isGrade", isGrade);
             wx.navigateTo({
-              url:"../point_type/point_type"
+              url:"../point_type/point_type",
+             success: function(res) {
+              console.log("进去了吗")
+                      // 通过eventChannel向被打开页面传送数据
+                      res.eventChannel.emit('projectList', {
+                        isGrade: isGrade,
+                        projectId: projectId,
+                        requestUrl: requestUrl,
+                        terminalUserId:terminalUserId,
+                        requestUrl:requestUrl,
+                        bgColor:bgColor,
+                        fontSize:fontSize
+                      })
+                    }
             })
 
           }else{

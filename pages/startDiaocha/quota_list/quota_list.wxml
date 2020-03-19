@@ -73,7 +73,7 @@
 
 
         <view class="td-2" selectable="true" scroll-y="true" style="font-size:{{fontSize28}}rpx">
-          <text class="{{item.finished==0 ? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-content='{{item.content}}'
+          <text class="{{item.finished==0 ? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true"  data-code='{{item.code}}' data-id='{{item.id}}' data-content='{{item.content}}'
             data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' data-isamount="{{item.isAmount}}" bind:tap="goToUpload" >测评</text>
         </view>
       </view>
@@ -86,7 +86,7 @@
         </view>
 
         <view class="td-2" selectable="true" scroll-y="true" style="font-size:{{fontSize28}}rpx">
-          <text class="{{item.finished==0? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-content='{{item.content}}'
+          <text class="{{item.finished==0? 'th-text text-red cuIcon-infofill': 'th-text text-blue cuIcon-roundcheckfill'}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-code='{{item.code}}' data-id='{{item.id}}' data-content='{{item.content}}'
             data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' data-isamount="{{item.isAmount}}" bind:tap="goToUpload">测评</text>
         </view>
       </view>

@@ -28,18 +28,16 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    var projectId = wx.getStorageSync('projectId');
-    var isGrade = wx.getStorageSync('isGrade')
-    var requestUrl = app.globalData.requestUrl; //服务器路径
+    var projectId = options.projectId;
+    var isGrade = options.isGrade;
+    var requestUrl = options.requestUrl; //服务器路径
     var pointId = options.id;
     var pointTypeId = options.pointTypeId;
     var firstQuestion = options.firstQuestion; //是否为第一个问题，0是，1、2不是
-    // console.log("传递是否为第一个问题", firstQuestion);
     wx.setStorageSync("firstQuestion", firstQuestion);
-    var fontSize = wx.getStorageSync('fontSize');
-    var bgColor = wx.getStorageSync('bgColor');
+    var fontSize = options.fontSize;
+    var bgColor = options.bgColor;
     var name = options.name;
-
     that.setData({
       requestUrl: requestUrl,
       isGrade: isGrade,
@@ -48,16 +46,14 @@ Page({
       pointId: pointId,
       pointTypeId: pointTypeId,
       fontSize:fontSize,
-      fontSize30:fontSize-2,
-      fontSize28:fontSize-4,
-      fontSize35:fontSize+3,
-      bgColor:bgColor
+      bgColor:bgColor,
+      fontSize35:parseInt(fontSize)+3,
+      fontSize30:parseInt(fontSize)-2,
+      fontSize28:parseInt(fontSize)-4
     })
     that.getPointDetail(pointId);
-
   },
-
-
+   
   getPointDetail: function(pointId) {
     var that = this;
     var requestUrl = that.data.requestUrl; //服务器路径
@@ -95,28 +91,32 @@ Page({
     })
   },
 
-  // //返回指标树页面
-  // goToReturn: function() {
-  //   var projectId = this.data.projectId;
-  //   var isGrade = this.data.isGrade;
-  //   wx.navigateTo({
-  //     url: "../point_type/point_type?projectId=" + projectId + "&isGrade=" + isGrade
-  //   })
-  // },
-  //测评页面goToquota_list
   goToquota_list: function() {
-    var pointTypeId = this.data.pointTypeId;
-    var pointName = this.data.pointName;
-    var pointId = this.data.pointId;
-    wx.setStorageSync("pointName", pointName);
-    wx.setStorageSync("pointTypeId", pointTypeId);
-    wx.setStorageSync("pointId", pointId);
+    var that = this;
+    var pointTypeId = that.data.pointTypeId;
+    var pointName = that.data.pointName;
+    var pointId = that.data.pointId;
+    var projectId = that.data.projectId;
+    var requestUrl = that.data.requestUrl;
+    var bgColor = that.data.bgColor;
+    var fontSize = that.data.fontSize;
+    var isGrade = that.data.isGrade;
     router.navigateTo({
-      url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
+      url: "../quota_list/quota_list",
+       success: function(res) {
+                // 通过eventChannel向被打开页面传送数据
+                res.eventChannel.emit('pointDetail', {
+                  pointName: pointName,
+                  pointTypeId: pointTypeId,
+                  pointId: pointId,
+                  projectId:projectId,
+                  requestUrl:requestUrl,
+                  bgColor:bgColor,
+                  fontSize:fontSize,
+                  isGrade:isGrade
+                })
+              }
     })
-    // wx.navigateTo({
-    //   url: "../quota_list/quota_list?pointName=" + pointName + "&pointTypeId=" + pointTypeId + '&pointId=' + pointId
-    // })
   },
 
   //无法调查页面goNo_investigate
@@ -145,15 +145,20 @@ Page({
   },
 
   changeData: function() {
-
+    var that = this;
     var options = {
-      id: this.data.pointId,
-      pointTypeId: this.data.pointTypeId,
-      name: this.data.pointName,
-      firstQuestion: this.data.firstQuestion
+      id: that.data.pointId,
+      pointTypeId: that.data.pointTypeId,
+      name: that.data.pointName,
+      firstQuestion: that.data.firstQuestion,
+      requestUrl:that.data.requestUrl,
+      isGrade:that.data.isGrade,
+      projectId:that.data.projectId,
+      fontSize:that.data.fontSize,
+      bgColor:that.data.bgColor
     }
 
-    this.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
+    that.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 
   },
 
