@@ -27,11 +27,11 @@
 <!-- 地址定位 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text>
+    <text class="cuIcon-title text-{{bgColor}}" style="font-size:{{fontSize}}rpx"></text>
     <text style="font-size:{{fontSize}}rpx">地址定位</text>
   </view>
   <view class="action">
-    <button class="cu-btn bg-green shadow" style="font-size:{{fontSize28}}rpx" catchtap="currentLocation">刷新</button>
+    <button class="cu-btn bg-{{bgColor}} shadow" style="font-size:{{fontSize28}}rpx" catchtap="currentLocation">刷新</button>
   </view>
 </view>
 
@@ -42,7 +42,7 @@
 <!-- 问题描述 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text>
+    <text class="cuIcon-title text-{{bgColor}}" style="font-size:{{fontSize}}rpx"></text>
     <text style="font-size:{{fontSize}}rpx">检查标准</text>
   </view>
 </view>
@@ -53,7 +53,7 @@
 <!-- 拍摄照片/视频 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text>
+    <text class="cuIcon-title text-{{bgColor}}" style="font-size:{{fontSize}}rpx"></text>
     <text style="font-size:{{fontSize}}rpx">拍摄录音</text>
   </view>
 </view>
@@ -265,15 +265,15 @@
 
 <!-- 记录问题处数 -->
 
-<view wx:if="{{isAmount==0}}" class="cu-form-group margin-top">
-  <text class="cuIcon-title text-blue text-user"></text>
+<view wx:if="{{isAmount==1}}" class="cu-form-group margin-top">
+  <text class="cuIcon-title text-{{bgColor}} text-user"></text>
   <view class="title-user" style="font-size:{{fontSize}}rpx">问题处数</view>
-  <input placeholder="请输入数字"  style="font-size:{{fontSize28}}rpx" value='{{amountValue}}' type="number" bindinput='textAmountScore'></input>
+  <input placeholder="请输入数字" disabled="{{disabled}}"  style="font-size:{{fontSize28}}rpx" value='{{amountValue}}' type="number" bindinput='textAmountScore'></input>
 </view>
 <!-- 打分 -->
 
 <view wx:if="{{isGrade}}" class="cu-form-group margin-top">
-  <text class="cuIcon-title text-blue text-user"></text>
+  <text class="cuIcon-title text-{{bgColor}} text-user"></text>
   <view class="title" style="font-size:{{fontSize}}rpx">评分</view>
   <input placeholder="最高可扣{{maxScore}}分,达标默认不扣分" style="font-size:{{fontSize28}}rpx" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
 </view>
@@ -281,7 +281,7 @@
 <!-- 测评结果 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue" style="font-size:{{fontSize}}rpx"></text> 
+    <text class="cuIcon-title text-{{bgColor}}" style="font-size:{{fontSize}}rpx"></text> 
     <text style="font-size:{{fontSize}}rpx">检查结果</text>
   </view>
 
@@ -289,7 +289,7 @@
 <view class="radioChange_user">
   <radio-group bindchange="radioChange" data-id="{{item.id}}">
     <label class="radio" wx:for="{{items}}" wx:key="index">
-      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}"/>{{item.content}}
+      <radio class="{{bgColor}} margin-left-sm" value="{{item.id}}" checked="{{item.id==checkedid? true : false}}"/>{{item.content}}
 
     </label>
   </radio-group>
@@ -297,7 +297,7 @@
 </view>
 
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit' style="font-size:{{fontSize28}}rpx">提交</button>
+  <button class="cu-btn  block bg-{{bgColor}} margin-tb-sm lg" bindtap='submit' style="font-size:{{fontSize28}}rpx">提交</button>
 </view>
 <!-- <view class="padding-xl_user">
   <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='goToQuota_list'>提交</button>

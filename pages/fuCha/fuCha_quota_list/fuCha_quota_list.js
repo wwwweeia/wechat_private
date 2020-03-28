@@ -32,6 +32,12 @@ Page({
     qiehuan: 1,
     userIndex:0,//用户操作的行
     modalName: "viewModal",//默认抽屉打开
+    fontSize: '',
+    fontSize28: '',
+    fontSize34: '',
+    fontSize30: '',
+    fontSize38: '',
+    bgColor: '',
   },
 
   onLoad: function(e) {
@@ -44,6 +50,8 @@ Page({
     var pointTypeId = wx.getStorageSync("pointTypeId");
     var pointName = wx.getStorageSync("pointName");
     var pointId = wx.getStorageSync("pointId");
+    var bgColor = wx.getStorageSync("bgColor");
+    var fontSize = wx.getStorageSync("fontSize"); 
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;//调查员id
     this.setData({
@@ -52,7 +60,13 @@ Page({
       pointTypeId: pointTypeId,
       projectId: projectId,
       pointId: pointId,
-      terminalUserId:terminalUserId
+      terminalUserId:terminalUserId,
+      bgColor: bgColor,
+      fontSize: fontSize,
+      fontSize28: parseInt(fontSize) - 4,
+      fontSize30: parseInt(fontSize) - 2,
+      fontSize34: parseInt(fontSize) + 2,
+      fontSize38: parseInt(fontSize) + 6,
     })
 
     that.getproblemList(terminalUserId, projectId, pointId);

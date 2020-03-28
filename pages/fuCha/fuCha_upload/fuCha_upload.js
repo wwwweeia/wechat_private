@@ -100,14 +100,21 @@ Page({
     recheckId: '', //复查id
     isAmount: '', //是否需要记录问题处数，0不需要，1需要
     amountValue: '', //屏幕输入的处数
+    disabled:false,
+    fontSize: '',
+    fontSize28: '',
+    fontSize30: '',
+    bgColor: '',
+    bgColorUi: ''
   },
   onLoad: function(options) {
     var that = this;
     var isGrade = wx.getStorageSync('isGrade'); //是否打分
-    var isRecord = wx.getStorageSync('isRecord'); //是否录音，0 不需要 1 需要
     var projectId = wx.getStorageSync('projectId');
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
+    var bgColorUi = wx.getStorageSync('bgColorUi');
     var terminalUserId = app.terminalUserId;
-    console.log("上传页面*//", "是否录音isGrade:", isGrade, "是否打分isRecord：", isRecord);
     var questionId = options.questionId;
     var quotaId = options.quotaId;
     var pointId = options.pointId;
@@ -132,7 +139,13 @@ Page({
       pointName: pointName,
       pointTypeId: pointTypeId,
       recheckId: recheckId,
-      isAmount: isAmount
+      isAmount: isAmount,
+      fontSize: fontSize,
+      bgColor: bgColor,
+      fontSize28: parseInt(fontSize) - 4,
+      fontSize30: parseInt(fontSize) - 2,
+      bgColorUi: bgColorUi,
+      requestUrl: requestUrl
     })
 
     if (isGrade == 0) {
@@ -144,15 +157,7 @@ Page({
         isGrade: true
       })
     }
-    if (isRecord == 0) {
-      that.setData({
-        isRecord: false
-      })
-    } else {
-      that.setData({
-        isRecord: true
-      })
-    }
+   
     qqmapsdk = new QQMapWX({
       key: that.data.key
     });
@@ -163,23 +168,39 @@ Page({
    ***********************************记录处数**************************************
    */
   textAmountScore: function(e) {
-    var that = this;
+     var that = this;
+    var isHeGe = that.data.isHeGe;
     var AmountValue = e.detail.value;
     that.setData({
       amountValue: AmountValue
     })
-    var s = AmountValue.substring(0, 1); //截取第一个数字不能为0
-    // 输入范围不对清空
-    if (AmountValue < 0 || isNaN((AmountValue / 10)) || s == 0 || AmountValue.length > 6) {
-      wx.showToast({
-        title: '请重新输入',
-        icon: 'loading',
-        duration: 1000,
-        mask: true
-      })
-      that.setData({
-        amountValue: ''
-      })
+    if(isHeGe==0){
+      // 输入范围不对清空
+      if (AmountValue < 0 || isNaN((AmountValue / 10)) || parseInt(AmountValue)>99) {
+        wx.showToast({
+          title: '请重新输入',
+          icon: 'loading',
+          duration: 1000,
+          mask: true
+        })
+        that.setData({
+          amountValue: ''
+        })
+      }
+    }else{
+       var s = AmountValue.substring(0, 1); //截取第一个数字不能为0
+      // 输入范围不对清空
+      if (AmountValue < 0 || isNaN((AmountValue / 10)) || s==0 || parseInt(AmountValue)>99) {
+        wx.showToast({
+          title: '请重新输入',
+          icon: 'loading',
+          duration: 1000,
+          mask: true
+        })
+        that.setData({
+          amountValue: ''
+        })
+      }
     }
   },
   /**
@@ -539,7 +560,7 @@ Page({
     var that = this;
     var Nowdata = util.getNowTime();
     var dabiaoOption = that.data.dabiaoOption;
-
+    var isAmount = that.data.isAmount;
     console.log("选项", e)
     if (e.detail.value == dabiaoOption) {
       that.setData({
@@ -548,7 +569,9 @@ Page({
         ScoreValue: '',
         Nowdata: Nowdata,
         isDaBiao: 0,
-        isHeGe: 0
+        isHeGe: 0,
+        amountValue: 0,
+        disabled:true
       })
       // console.log("选项id",that.data.optionId)
     } else {
@@ -559,6 +582,25 @@ Page({
         isHeGe: 1
       })
       // console.log("选项id",that.data.optionId)
+      if (isAmount==1) {
+          // console.log("选项id",that.data.optionId)
+      var AmountValue = that.data.amountValue.toString();
+      var s = AmountValue.substring(0, 1); //截取第一个数字不能为0
+      // 输入范围不对清空
+      if (s == 0) {
+        wx.showToast({
+          title: '请输入问题处数',
+          icon: 'loading',
+          duration: 1000,
+          mask: true
+        })
+        that.setData({
+          amountValue: '',
+          disabled:false
+        })
+      }
+      }
+
     }
 
   },
@@ -1049,7 +1091,9 @@ Page({
       return
     }
     if (isAmount == 1) {
-      if (amountValue == null || amountValue == '') {
+      console.log("看看",amountValue)
+      if (amountValue === null || amountValue === '') {
+        console.log("看看22",amountValue)
         wx.showToast({
           title: '问题处数不能为空',
           icon: 'none',
@@ -1604,6 +1648,7 @@ Page({
 
       }
     })
+    console.log("可以了")
   },
 
   changeParentData: function() {

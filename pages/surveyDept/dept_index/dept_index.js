@@ -34,7 +34,12 @@ Page({
     }, {
       id: 0,
       name: '整改合格'
-    }]
+    }],
+    fontSize:'',
+    bgColor:'',
+    fontSize28:'',
+    fontSize26:'',
+    fontSize30:''
 
 
 
@@ -43,18 +48,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    var that = this;
     var requestUrl = app.globalData.requestUrl; //请求路径
     var projectId = options.projectId;
     var terminalUserId = app.terminalUserId; //调查员id
-    this.setData({
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
+    that.setData({
       requestUrl: requestUrl,
       projectId: projectId,
-      terminalUserId: terminalUserId
+      terminalUserId: terminalUserId,
+      fontSize:fontSize,
+      bgColor:bgColor,
+      fontSize30:parseInt(fontSize),
+      fontSize26:parseInt(fontSize)-12,
+      fontSize28:parseInt(fontSize)-7
     })
     //加载轮播图
-    this.getSwiperList();
+    that.getSwiperList();
     //默认第一次加载任务列表
-    this.getTaskList(this.data.TabCur);
+    that.getTaskList(that.data.TabCur);
 
   },
 
@@ -143,6 +156,7 @@ Page({
         "result": TabCur
       },
       success(res) {
+        // console.log(res)
         var list = res.data.retObj.list;
         if (list != 0) {
           that.setData({
@@ -153,7 +167,7 @@ Page({
             maxPageNum: res.data.retObj.pageCount, //总页数
             isNull: ''
           })
-          console.log("看看这个任务列表：", that.data.taskList)
+          // console.log("看看这个任务列表：", that.data.taskList)
         } else {
           that.setData({
             isNull: 'true',

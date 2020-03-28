@@ -6,7 +6,6 @@ Page({
     requestUrl: '', //服务器路径
     projectId: '',
     surveyorId: '', //调查员id
-    isGrade: '',
     open: false,
     selected: [false, false, false], // 这里表示列表项是否展开,默认初始时此数组的元素全为fasle,表示都没展开
     active: null, // 当前展开的项的index值
@@ -79,7 +78,9 @@ Page({
 
     ],
     // 指标经纬度集合
-    markersList: []
+    markersList: [],
+    fontSize:'',
+    bgColor:''
   },
 
   onLoad: function (options) {
@@ -90,14 +91,17 @@ Page({
     var that = this;
     var terminalUserId = app.terminalUserId;
     var projectId = wx.getStorageSync('projectId');
-    var isGrade = wx.getStorageSync('isGrade'); //是否打分
+    var fontSize = wx.getStorageSync('fontSize');
+   var bgColor = wx.getStorageSync('bgColor');
     var requestUrl = app.globalData.requestUrl; //服务器路径
-    console.log("是否打分：", isGrade)
+    // console.log("是否打分：", isGrade)
     that.setData({
       requestUrl: requestUrl,
-      isGrade: isGrade,
       projectId: projectId,
-      surveyorId: terminalUserId
+      surveyorId: terminalUserId,
+      fontSize:fontSize,
+      bgColor:bgColor,
+      fontSize28:parseInt(fontSize)-4
     })
     // that.getLocationList(terminalUserId, projectId);
   },

@@ -146,6 +146,10 @@ Page({
     questionContent: '', //问题
     checkShow: false, //是否显示责任单位审核资源
     auditContent: '',
+    fontSize:'',
+    fontSize28:'',
+    fontSize35:'',
+    bgColor:''
   },
 
 
@@ -158,11 +162,17 @@ Page({
     var taskId = e.id;
     var projectId = e.projectId;
     var requestUrl = app.globalData.requestUrl; //请求路径
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     that.setData({
       requestUrl: requestUrl,
       taskId: taskId,
       projectId: projectId,
-      terminalUserId: terminalUserId
+      terminalUserId: terminalUserId,
+      fontSize:fontSize,
+      bgColor:bgColor,
+      fontSize35:parseInt(fontSize)+4,
+      fontSize28:parseInt(fontSize)-2
     })
     console.log("任务id：", this.data.taskId, ", 项目id：", this.data.projectId)
     //获取数据

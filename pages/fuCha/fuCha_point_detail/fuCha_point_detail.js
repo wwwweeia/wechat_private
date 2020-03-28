@@ -15,7 +15,12 @@ Page({
     list: {},
     projectId: '',
     // 是否打分
-    isGrade: ''
+    isGrade: '',
+    fontSize: '',
+    fontSize30: '',
+    fontSize28: '',
+    fontSize35: '',
+    bgColor: ''
   },
 
   /**
@@ -25,6 +30,8 @@ Page({
     var that = this;
     var projectId = wx.getStorageSync('projectId');
     var isGrade = wx.getStorageSync('isGrade')
+    var fontSize = wx.getStorageSync("fontSize");
+    var bgColor = wx.getStorageSync("bgColor");
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var pointId = options.id;
     var pointTypeId = options.pointTypeId;
@@ -39,7 +46,12 @@ Page({
       projectId: projectId,
       pointName: name,
       pointId: pointId,
-      pointTypeId: pointTypeId
+      pointTypeId: pointTypeId,
+      fontSize: fontSize,
+      bgColor: bgColor,
+      fontSize35: parseInt(fontSize) + 3,
+      fontSize30: parseInt(fontSize) - 2,
+      fontSize28: parseInt(fontSize) - 4
     })
     that.getPointDetail(pointId);
 

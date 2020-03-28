@@ -23,7 +23,7 @@ Page({
       requestUrl: requestUrl,
       terminalUserId:terminalUserId,
        fontSize:fontSize,
-       bgColorUi:bgColorUi,
+       bgColorUi:bgColorUi, 
        bgColor:bgColor
     })
     // console.log(terminalUserId)

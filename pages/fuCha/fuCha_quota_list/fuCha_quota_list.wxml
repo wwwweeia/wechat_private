@@ -13,18 +13,18 @@
 
   <block>
     <view class="cu-bar user1 bg-white1  solid-bottom ">
-      <view class="h1">
-        <text class="cuIcon-favor text-blue "></text>{{pointName}}
+      <view class="h1" style="font-size:{{fontSize38}}rpx">
+        <text class="cuIcon-favor text-{{bgColor}} "></text>{{pointName}}
       </view>
     </view>
     <view class="cu-bar user2 bg-white1  solid-bottom ">
-      <view class="h2">
-        <text class="cuIcon-titles text-blue "></text>{{quotaName}}
+      <view class="h2" style="font-size:{{fontSize34}}rpx">
+        <text class="cuIcon-titles text-{{bgColor}} "></text>{{quotaName}}
       </view>
     </view>
 
     <text wx:if="{{tips.length==0}}"></text>
-    <text wx:else class="cu-bar user2 bg-white1 h3">{{tips[0].content}}</text>
+    <text wx:else class="cu-bar user2 bg-white1 h3" style="font-size:{{fontSize28}}rpx">{{tips[0].content}}</text>
   </block>
 
   <!-- 操作表格 -->
@@ -53,36 +53,37 @@
   </view> 
  -->
   <view class="margin-tb-sm-user text-center">
-    <button class="cu-btn round lg1 bg-blue cuIcon-back_android " bindtap="showModal" data-target="viewModal">切换指标</button>
+    <button class="cu-btn round lg1 bg-{{bgColor}} cuIcon-back_android " bindtap="showModal" data-target="viewModal" style="font-size:{{fontSize28}}rpx">切换指标</button>
   </view>
 
   <view class="table" wx:if="{{listData.length!=0}}">
     <view class="tr bg-w">
-      <view class="th">检查内容</view>
-      <view class="th-2">操作</view>
+      <view class="th" style="font-size:{{fontSize28}}rpx">检查内容</view>
+      <view class="th-2" style="font-size:{{fontSize28}}rpx">操作</view>
     </view>
     <block wx:for="{{listData}}" wx:key="item">
       <!-- <view class="tr bg-g" wx:if="{{item.finished==0}}" > -->
       <view class="tr bg-g" wx:if="{{index%2==0}}">
-        <view class="td-1" selectable="true">　{{item.content}}
-          <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text>
+        <view wx:if="{{item.url!=null}}"  class="td-1" selectable="true">　{{item.content}}
+          <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill" style="font-size:{{fontSize28}}rpx"></text>
+        </view>
+        <view wx:else class="td-1" selectable="true" style="font-size:{{fontSize28}}rpx">　{{item.content}}
         </view>
 
-
-        <view class="td-2" selectable="true" scroll-y="true">
+        <view class="td-2" selectable="true" scroll-y="true" style="font-size:{{fontSize28}}rpx">
           <text class="th-text text-red cuIcon-infofill" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-recheckid='{{item.recheckId}}' data-isamount="{{item.isAmount}}"  data-content='{{item.content}}'
             data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
         </view>
       </view>
 
       <view class="tr bg-g2" wx:else>
-        <view class="td-1" selectable="true">　{{item.content}}
+        <view class="td-1" wx:if="{{item.url!=null}}" selectable="true">　{{item.content}}
           <text bindtap="showAlert" data-url="{{item.url}}" data-target="Modal" class="text-red cuIcon-questionfill"></text>
-
+        </view>
+ <view wx:else class="td-1" selectable="true" style="font-size:{{fontSize28}}rpx">　{{item.content}}
         </view>
 
-
-        <view class="td-2" selectable="true" scroll-y="true">
+        <view class="td-2" selectable="true" scroll-y="true" style="font-size:{{fontSize28}}rpx">
           <text class="th-text text-red cuIcon-infofill}}" style="overflow-y:auto;overflow-x:scroll" selectable="true" data-isRecord="{{item.isRecord}}" data-code='{{item.code}}' data-id='{{item.id}}' data-recheckid='{{item.recheckId}}' data-isamount="{{item.isAmount}}"  data-content='{{item.content}}'
             data-grade='{{item.grade}}' data-quotaid='{{item.quotaId}}' bind:tap="goToUpload">测评</text>
         </view>
@@ -98,17 +99,17 @@
 
  <view class="table" wx:else>
     <view class="tr bg-w">
-      <view class="th">检查内容</view>
-      <view class="th-2">操作</view>
+      <view class="th" style="font-size:{{fontSize28}}rpx">检查内容</view>
+      <view class="th-2" style="font-size:{{fontSize28}}rpx">操作</view>
     </view>
     <block>
       <!-- <view class="tr bg-g" wx:if="{{item.finished==0}}" > -->
       <view class="tr bg-g">
-        <view class="td-1" selectable="true">
+        <view class="td-1" selectable="true" style="font-size:{{fontSize28}}rpx">
          <text class="th-text"> 无</text>
         </view>
 
-        <view class="td-2" selectable="true" scroll-y="true">
+        <view class="td-2" selectable="true" scroll-y="true" style="font-size:{{fontSize28}}rpx">
           <text class="th-text"> 无</text>
         </view>
       </view>
@@ -144,7 +145,7 @@
   <view class="cu-bar solid-bottom">
 
     <view class="action">
-      <button class="cu-btn bg-blue shadow" bindtap="goToSwitch">切换</button>
+      <button class="cu-btn bg-{{bgColor}} shadow" bindtap="goToSwitch">切换</button>
     </view>
   </view>
 
@@ -152,9 +153,9 @@
   <block>
     <view class="kind-list_item">
       <view class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}">
-        <view class="cuIcon-unfold text-blue"></view>
+        <view class="cuIcon-unfold text-{{bgColor}}" style="font-size:{{fontSize28}}rpx"></view>
         <!-- 这里是点位 -->
-        <view class="tui-flex_item　 text-sm">　{{pointName}}</view>
+        <view class="tui-flex_item　 text-sm" style="font-size:{{fontSize34}}rpx">　{{pointName}}</view>
         <!-- <view class="cuIcon-unfold"></view> -->
       </view>
       <!-- <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}"> -->
@@ -163,7 +164,7 @@
         <view class="tui-cells tui-cells_show">
           <block wx:for-items="{{list}}" wx:key="index">
             <view data-index="{{index}}" class="tui-cell tui-cell_access" bindtap="hideModal" data-type="0" data-target="viewModal" data-quotaId="{{item.id}}" data-content="{{item.content}}" data-variable="{{variable}}">
-              <view class="tui-cell_bd text-smm">{{item.content}}</view>
+              <view class="tui-cell_bd" style="font-size:{{fontSize30}}rpx">{{item.content}}</view>
               <view wx:if="{{userIndex==index}}" class="cuIcon-creativefill  text-yellow"></view>
             <!--   <view wx:if="{{item.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
               <view wx:if="{{item.submitStatus==2}}" class="cuIcon-roundcheckfill  text-blue">

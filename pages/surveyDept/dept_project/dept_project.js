@@ -5,6 +5,8 @@ Page({
     requestUrl: '', //服务器路径
     colorList: ['green', 'blue', 'cyan', 'olive', 'orange', 'red', 'brown', 'pink', 'mauve', 'purple'],
     elements: [],
+    fontSize:'',
+    bgColorUi:''
   },
 
 
@@ -12,11 +14,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option) {
-    var requestUrl = app.globalData.requestUrl; //服务器路径
-    this.setData({
-      requestUrl: requestUrl
-    })
     var that = this;
+    var requestUrl = app.globalData.requestUrl; //服务器路径
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColorUi = wx.getStorageSync('bgColorUi');
+    that.setData({
+      requestUrl: requestUrl,
+     fontSize:fontSize,
+     bgColorUi:bgColorUi
+    })
     var terminalUserId = app.terminalUserId;
     // console.log(terminalUserId)
     that.getProjectList(terminalUserId);

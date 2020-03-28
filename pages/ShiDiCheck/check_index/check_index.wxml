@@ -3,7 +3,7 @@
   <!--   <view class="cu-item {{null==TabCur?'text-blue cur':'text-grey'}} cu-btn round linebordersize   " bindtap="tabSelect">
       全部
     </view> -->
-  <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key="index" bindtap="tabSelect" data-id="{{item.id}}">
+  <view class="cu-item {{item.id==TabCur?'text-blue cur':'text-grey'}} cu-btn  round linebordersize  " wx:for="{{problemType_user}}" wx:key="index" bindtap="tabSelect" data-id="{{item.id}}" style="font-size:{{fontSize}}rpx">
     {{item.name}}
   </view>
 </scroll-view>
@@ -20,16 +20,16 @@
 <view class='header1'>
   <view class='header'>
     <view class='header_con flex_between'>
-      <view class='left'>
+      <view class='left'  style="font-size:{{fontSize}}rpx">
         共计
-        <text class="text-red">{{pageCount==0?'0':pageCount}}</text>条任务
+        <text class="text-red">{{pageCount==0?'0':pageCount}}</text><text style="font-size:{{fontSize}}rpx">条任务</text>
       </view>
 
       <view class='right flex_end' wx:if='{{idNeed}}'>
-        <view wx:if="{{!management_good}}" class='flex_center' bindtap='management'>
+        <view wx:if="{{!management_good}}" class='flex_center' bindtap='management' style="font-size:{{fontSize}}rpx">
           批量管理
         </view>
-        <view wx:if="{{management_good}}" class='flex_center' bindtap='finish_management'>
+        <view wx:if="{{management_good}}" class='flex_center' bindtap='finish_management' style="font-size:{{fontSize}}rpx">
           完成
         </view>
       </view>
@@ -43,7 +43,7 @@
     <block wx:if="{{select_all}}">
       <view bindtap='select_none' class='flex_start'>
         <icon type="success" size="30" color="red" />
-        <view>
+        <view style="font-size:{{fontSize}}rpx">
           取消全选
         </view>
       </view>
@@ -52,7 +52,7 @@
       <view bindtap='select_all' class='flex_start'>
         <view class='select_none'>
         </view>
-        <view>
+        <view style="font-size:{{fontSize}}rpx">
           全选
         </view>
       </view>
@@ -68,7 +68,7 @@
     <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
 
       <view class="picker text-blue">
-        <text class="cuIcon-unfold text-blue "></text> {{index?picker[index]:'请选择对应操作'}}
+        <text class="cuIcon-unfold text-blue "></text> <text style="font-size:{{fontSize}}rpx">{{index?picker[index]:'请选择对应操作'}}</text>
       </view>
     </picker>
 
@@ -82,10 +82,10 @@
 
 <modal hidden="{{modalHidden}}" bindconfirm="sub" bindcancel="cancel">
   <view class="cu-form-group">
-    <input type="number" bindinput="text1Input" value="" placeholder="请输入字数"></input>
+    <input type="number" bindinput="text1Input" style="font-size:{{fontSize28}}rpx" value="" placeholder="请输入字数"></input>
   </view>
   <view class="cu-form-group">
-    <textarea bindinput="text2Input" value="" placeholder="请输入审批意见"></textarea>
+    <textarea bindinput="text2Input" value="" style="font-size:{{fontSize28}}rpx" placeholder="请输入审批意见"></textarea>
   </view>
 </modal>
 
@@ -104,16 +104,16 @@
 
       <image src="{{i.url==''? '/images/null.png' : i.url}}"></image>
       <view class='right' bind:tap="goDetailPage" data-id='{{i.id}}'>
-        <view class='name box'>
+        <view class='name box' style="font-size:{{fontSize35}}rpx">
           {{i.questionContent}}
         </view>
         <view class='list1 flex_between'>
           <view class='left'>
-            <view class='condition1 box'>
+            <view class='condition1 box' style="font-size:{{fontSize28}}rpx">
               {{i.address}}
             </view>
             <view class='condition2 '>
-              <view class='cu-tag bg-grey light sm round'>{{i.answerTime}}
+              <view class='cu-tag bg-grey light sm round' style="font-size:{{fontSize20}}rpx">{{i.answerTime}}
               </view>
               <!--    <block > 
                 2019-10-14
@@ -150,12 +150,12 @@
 
       <image src="{{i.url==''? '/images/null.png' : i.url}}"></image>
       <view class='right' data-id='{{i.id}}'>
-        <view class='name1 box'>
+        <view class='name1 box' style="font-size:{{fontSize35}}rpx">
           {{i.questionContent}}
         </view>
         <view class='list1 flex_between' bind:tap="getTaskId" data-taskid='{{i.id}}'>
           <view class='left'>
-            <view class='condition11 box'>
+            <view class='condition11 box' style="font-size:{{fontSize}}rpx">
               {{i.address}}
             </view>
             <view class='condition2 '>
@@ -163,7 +163,7 @@
             </view>wx:for="{{pickerDep}}" wx:key="index" -->
               <picker bindchange="PickerChangeDep" value="{{index}}" range="{{pickerDep}}">
 
-                <view class="picker text-blue">
+                <view class="picker text-{{bgColor}}" style="font-size:{{fontSize28}}rpx">
                   更改部门
                 </view>
               </picker>

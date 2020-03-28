@@ -16,18 +16,18 @@
 <view class="cu-bar  solid-bottom bg-white-user ">
   <view class="text-sm1 text-bold">
     <!--  <text class="cuIcon-title text-blue "></text>{{pointName}} -->
-    <text class="cuIcon-favor text-blue "></text>{{pointName}}
+    <text class="cuIcon-favor text-{{bgColor}} " style="font-size:{{fontSize}}rpx"></text><text style="font-size:{{fontSize35}}rpx">{{pointName}}</text>
   </view>
 
 </view>
 <view class="cu-form-group ">
-  <view class="title text-bold">点位:</view>
-  <text class="item-left">{{locationName}}</text>
-  <text class="cuIcon-location text-blue"></text>
+  <view class="title text-bold" style="font-size:{{fontSize}}rpx">点位:</view>
+  <text class="item-left" style="font-size:{{fontSize28}}rpx">{{locationName}}</text>
+  <text class="cuIcon-location text-{{bgColor}}"></text>
 </view>
 <view class="cu-form-group ">
-  <view class="title text-bold">问题:</view>
-  <text class="item-left h3">{{questionContent}}</text>
+  <view class="title text-bold" style="font-size:{{fontSize}}rpx">问题:</view>
+  <text class="item-left h3" style="font-size:{{fontSize28}}rpx">{{questionContent}}</text>
   <!-- <text class="cuIcon-question text-green"></text> -->
 </view>
 
@@ -36,7 +36,7 @@
 <!-- 举报图片/视频 -->
 <view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>不合格图片/视频
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">不合格图片/视频</text>
   </view>
 </view>
 
@@ -50,7 +50,7 @@
 
       <view class="desc">
 
-        <input class="text-content" disabled="true" value="{{imgDescList[index].description}}"></input>
+        <input class="text-content" disabled="true" style="font-size:{{fontSize28}}rpx" value="{{imgDescList[index].description}}"></input>
 
       </view>
     </view>
@@ -65,7 +65,7 @@
 
       <view class="desc">
 
-        <input class="text-content" disabled="true" value="{{voidDescList[index].description}}"></input>
+        <input class="text-content" disabled="true" style="font-size:{{fontSize28}}rpx" value="{{voidDescList[index].description}}"></input>
       </view>
     </view>
   </view>
@@ -75,7 +75,7 @@
 <!-- 录音 -->
 <view class="cu-bar bg-white-user  solid-bottom" wx:if="{{isShow_No==0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>录音
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">录音</text>
   </view>
 </view>
 
@@ -96,7 +96,7 @@
 <view class="cu-chat bg-white" wx:if="{{isShow_No==0}}" wx:for="{{audioSrc_No}}" wx:key="index">
   <view class="cu-item">
     <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord_No' data-id="{{index}}">
-      <view class="action text-bold text-blue">
+      <view class="action text-bold text-{{bgColor}}" style="font-size:{{fontSize28}}rpx">
         第{{index+1}}个录音
       </view>
       <!-- 静态图 -->
@@ -106,7 +106,7 @@
 
     </view>
     <view wx:if="{{item.bl}}" class="main" bindtap='playRecord_No' data-id="{{index}}">
-      <view class="action text-bold text-blue">
+      <view class="action text-bold text-{{bgColor}}" style="font-size:{{fontSize28}}rpx">
         第{{index+1}}个录音
       </view>
       <!-- 动图 -->
@@ -124,19 +124,19 @@
 <!-- 定位信息 -->
 <view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>定位信息
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize28}}rpx">定位信息</text>
   </view>
 </view>
 
 <view class="cu-bar bg-white text-center padding-neirong">
   <view class="action text-black " bindtap="go">
-    <text></text>{{address}}　
-    <text class="cuIcon-locationfill lg text-blue"></text>
+    <text style="font-size:{{fontSize28}}rpx">{{address}}　</text>
+    <text class="cuIcon-locationfill lg text-{{bgColor}}"></text>
   </view>
 </view>
 <!--  <tui-divider class="bg-white1" dividerColor="#5677fc" color="#5677fc">改变所有颜色</tui-divider> -->
 <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}">
-  <text class="text-grey h1">整改上传</text>
+  <text class="text-grey h1" style="font-size:{{fontSize}}rpx" >整改上传</text>
 </tui-divider>
 <!--    <view class="cu-bar user1 bg-white1  solid-bottom ">
       <view class="h1">
@@ -149,7 +149,7 @@
 
 <view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>整改图片/视频
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">整改图片/视频</text>
   </view>
 </view>
 
@@ -176,7 +176,7 @@
 <!-- wx:if="{{isRecord}}" -->
 <view class="cu-bar solid-bottom bg-white-user"  wx:if="{{isShow==0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 录音
+    <text class="cuIcon-title text-{{bgColor}} "></text> <text style="font-size:{{fontSize28}}rpx">录音</text>
   </view>
 
 </view>
@@ -204,7 +204,7 @@
 <view class="cu-chat bg-white" wx:if="{{isShow==0}}" wx:for="{{audioSrc}}" wx:key="index">
   <view class="cu-item">
     <view wx:if="{{!item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
-      <view class="action text-bold text-blue">
+      <view class="action text-bold text-{{bgColor}}" style="font-size:{{fontSize28}}rpx">
         第{{index+1}}个录音
       </view>
       <!-- 静态图 -->
@@ -214,7 +214,7 @@
 
     </view>
     <view wx:if="{{item.bl}}" class="main" bindtap='playRecord' data-id="{{index}}">
-      <view class="action text-bold text-blue">
+      <view class="action text-bold text-{{bgColor}}" style="font-size:{{fontSize28}}rpx">
         第{{index+1}}个录音
       </view>
       <!-- 动图 -->
@@ -231,14 +231,14 @@
 <!-- 整改说明 -->
 <view class="cu-bar  solid-bottom bg-white-user">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>整改说明
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">整改说明</text>
   </view>
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
-<view wx:if="{{commitContent==''}}" class="cu-form-group">
+<view wx:if="{{commitContent==''}}" class="cu-form-group" style="font-size:{{fontSize28}}rpx">
   <text>无</text>
 </view>
-<view wx:else class="cu-form-group">
+<view wx:else class="cu-form-group" style="font-size:{{fontSize28}}rpx">
   <text>　{{commitContent}}</text>
 </view>
 <view class="cu-bar-user">
@@ -246,33 +246,33 @@
 
 
 <tui-divider gradual="{{true}}" gradualColor="{{gradualColor}}">
-  <text class="text-blue h1">创文办审批意见</text>
+  <text class="text-{{bgColor}} h1" style="font-size:{{fontSize35}}rpx">创文办审批意见</text>
 </tui-divider>
 
 <!-- 编辑框 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>审批意见
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">审批意见</text>
   </view>
 </view>
 <view class="cu-form-group">
-  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="请输入审批意见"></textarea>
+  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" style="font-size:{{fontSize28}}rpx" placeholder="请输入审批意见"></textarea>
 </view>
 
 <!-- 测评结果 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 测评结果
+    <text class="cuIcon-title text-{{bgColor}} "></text> <text style="font-size:{{fontSize}}rpx">测评结果</text>
   </view>
 </view>
 <view class="radioChange_user">
   <radio-group bindchange="radioChange" data-id="{{item.id}}">
     <label class="radio" wx:for="{{radios}}" wx:key="index">
-      <radio class="blue margin-left-sm" value="{{item.id}}" checked="{{item.id==0? true : false}}" />{{item.content}}
+      <radio class="{{bgColor}} margin-left-sm" value="{{item.id}}" style="font-size:{{fontSize28}}rpx" checked="{{item.id==0? true : false}}" />{{item.content}}
     </label>
   </radio-group>
 </view>
 
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
+  <button class="cu-btn  block bg-{{bgColor}} margin-tb-sm lg" bindtap='submit' style="font-size:{{fontSize}}rpx" >提交</button>
 </view>

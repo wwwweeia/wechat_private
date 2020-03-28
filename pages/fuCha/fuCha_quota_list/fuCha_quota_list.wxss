@@ -500,7 +500,6 @@ padding: 10rpx 30rpx 10rpx;
 .td-2 {
     width:20%;
     justify-content: center;
-    border-right: 2px solid #ddd;
     text-align: left;
     height: 100%;
     max-width: 100%;
@@ -555,7 +554,7 @@ background-color: var(--white);
 .margin-tb-sm-user{
   margin-top: 20rpx;
   margin-bottom: 20rpx;
-  margin-left: 510rpx;
+  margin-left: 500rpx;
 }
 
 

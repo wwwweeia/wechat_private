@@ -5,6 +5,7 @@ Page({
     requestUrl: '', //服务器路径
     colorList: ['green', 'blue', 'cyan', 'olive', 'orange', 'red', 'brown', 'pink', 'mauve', 'purple'],
     elements: [],
+    terminalUserId:'',
   },
 
 
@@ -12,12 +13,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (option) {
-    var requestUrl = app.globalData.requestUrl; //服务器路径
-    this.setData({
-      requestUrl: requestUrl
-    })
     var that = this;
+    var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
+    var bgColorUi = wx.getStorageSync('bgColorUi');
+    that.setData({
+      requestUrl: requestUrl,
+      terminalUserId:terminalUserId,
+      fontSize:fontSize,
+      bgColorUi:bgColorUi, 
+      bgColor:bgColor
+    })
     // console.log(terminalUserId)
     that.getProjectList(terminalUserId);
   },
@@ -37,7 +45,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("项目数据", res.data.retObj)
+        // console.log("项目数据", res.data.retObj)
         var arr = [];
         if (res.data.status == 'success') {
           var projectList = res.data.retObj;
@@ -73,7 +81,7 @@ Page({
           that.setData({
             elements: arr
           })
-          console.log("修改后的项目数据", arr)
+          // console.log("修改后的项目数据", arr)
           }
         } else {
           wx.showToast({

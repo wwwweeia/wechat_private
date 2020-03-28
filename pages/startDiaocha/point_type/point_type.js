@@ -40,6 +40,7 @@ Page({
       // console.log("pointDetail传递参数", data)
       that.getLocationList(data.terminalUserId, data.projectId,data.requestUrl);
     })
+     that.getLocationList(that.data.surveyorId, that.data.projectId,that.data.requestUrl);
   },
   getLocationList: function(terminalUserId, projectId,requestUrl) {
     var that = this;
@@ -52,6 +53,8 @@ Page({
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/fieldLocation/getFieldPointLocationList',
+      // url: 'http://localhost:8088/wechat/api/fieldLocation/getFieldPointLocationList',
+      // url: 'http://192.168.5.105:8080/wechat/api/fieldLocation/getFieldPointLocationList',
       data: {
         terminalUserId: terminalUserId,
         projectId: projectId
@@ -180,9 +183,10 @@ Page({
       confirmColor:'#e54d42',
       success (res) {
         if (res.confirm) {
+          // console.log('用户点击缺认')
           that.submit(locationId);
         } else if (res.cancel) {
-          // console.log('用户点击取消')
+          console.log('用户点击取消')
         }
       }
     })
@@ -207,7 +211,8 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        that.getLocationList(surveyorId, projectId);
+        if (res.data.status == 'success') {}
+        that.getLocationList(surveyorId, projectId,requestUrl);
       },
       fail: (res) => {
       },

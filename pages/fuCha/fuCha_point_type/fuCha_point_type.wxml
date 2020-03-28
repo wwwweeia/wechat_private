@@ -1,5 +1,5 @@
 <view class="margin-tb-sm-user text-center">
-  <button class="cu-btn round lg1 bg-blue " bind:tap="goToMap">地图模式</button>
+  <button class="cu-btn round lg1 bg-{{bgColor}}" style="font-size:{{fontSize30}}rpx" bind:tap="goToMap">地图模式</button>
 </view>
 
 <view class="page">
@@ -9,15 +9,16 @@
       <block wx:for-items="{{list}}" wx:key="index">
         <view class="kind-list_item">
           <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
-            <view class="cuIcon-titles text-blue"></view>
-            <view class="tui-flex_item　 text-sm">{{item.name}}</view>
-            <view class="cuIcon-unfold"></view>
+          <view wx:if="{{item.locationList.length==0}}" class="cuIcon-titles text-grey"></view>
+          <view wx:else class="cuIcon-titles text-{{bgColor}}"></view>
+            <view class="tui-flex_item　{{item.locationList.length==0? 'text-grey' : ''}}" style="font-size:{{fontSize}}rpx">{{item.name}}</view>
+            <view class="cuIcon-unfold text-{{bgColor}}"></view>
           </view>
           <view class="kind-list_item-bd {{selected[index] ? 'kind-list_item-bd_show' : ''}}">
             <view class="tui-cells {{selected[index] ? 'tui-cells_show' : ''}}">
               <block wx:for-items="{{item.locationList}}" wx:for-item="page" wx:key="item">
                 <navigator url="../fuCha_point_detail/fuCha_point_detail?id={{page.id}}&name={{page.name}}&pointTypeId={{item.id}}&firstQuestion={{page.submitStatus}}" class="tui-cell tui-cell_access">
-                  <view class="tui-cell_bd text-smm">　{{page.name}}</view>
+                  <view class="tui-cell_bd" style="font-size:{{fontSize30}}rpx">　{{page.name}}</view>
 
                  <!--  <view wx:if="{{page.submitStatus==1}}" class="cuIcon-infofill  text-red"></view>
                   <view wx:if="{{page.submitStatus==2}}">

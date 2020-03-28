@@ -12,7 +12,10 @@ Page({
     active: null, // 当前展开的项的index值
     list: [],
     // 指标经纬度集合
-    markersList: []
+    markersList: [],
+    fontSize:'',
+    fontSize30:'',
+    bgColor:'',
   },
 
   onLoad: function (options) {
@@ -22,13 +25,17 @@ Page({
     var terminalUserId = app.terminalUserId;
     var projectId = wx.getStorageSync('projectId');
     var isGrade = wx.getStorageSync('isGrade'); //是否打分
+    var bgColor = wx.getStorageSync('bgColor');
+    var fontSize = wx.getStorageSync('fontSize');
     var requestUrl = app.globalData.requestUrl; //服务器路径
-    console.log("是否打分：", isGrade)
     that.setData({
       requestUrl: requestUrl,
       isGrade: isGrade,
       projectId: projectId,
-      surveyorId: terminalUserId
+      surveyorId: terminalUserId,
+      bgColor:bgColor,
+      fontSize:fontSize,
+      fontSize30:parseInt(fontSize)-2
     })
     that.getLocationList(terminalUserId, projectId);
   },
@@ -88,7 +95,6 @@ Page({
             list: res.data.retObj,
             markersList: mapLists
           })
-          // console.log("点位", this.data.list)
         }
         } else {
           wx.showToast({

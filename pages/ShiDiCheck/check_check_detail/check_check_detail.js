@@ -137,6 +137,10 @@ Page({
     }],
     desc: '', //审批意见
     redioId: 0, //选项id
+    fontSize:'',
+    fontSize28:'',
+    fontSize35:'',
+    bgColor:''
   },
 
 
@@ -149,13 +153,18 @@ Page({
     var taskId = e.taskId;
     var projectId = e.projectId;
     var requestUrl = app.globalData.requestUrl; //请求路径
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     that.setData({
       requestUrl: requestUrl,
       taskId: taskId,
       projectId: projectId,
-      terminalUserId: terminalUserId
+      terminalUserId: terminalUserId,
+      fontSize:fontSize,
+      bgColor:bgColor,
+      fontSize35:parseInt(fontSize)+4,
+      fontSize28:parseInt(fontSize)-2
     })
-    console.log("任务id：", this.data.taskId, ",项目id：", this.data.projectId)
     //获取数据
     that.detail();
 

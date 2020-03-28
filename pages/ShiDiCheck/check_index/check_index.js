@@ -57,22 +57,34 @@ Page({
     desc2: '', //审批意见
     depList: [], //部门列表
     taskIdByDep: '', //点击更改部门获取任务id
+    fontSize:'',
+    fontSize35:'',
+    fontSize28:'',
+    fontSize20:'',
+    bgColor:'',
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option) {
+    var that = this;
     var requestUrl = app.globalData.requestUrl; //请求路径
     var projectId = option.projectId; //项目id
+    var fontSize = wx.getStorageSync('fontSize');
+var bgColor = wx.getStorageSync('bgColor');
     var terminalUserId = app.terminalUserId; //调查员id
-    this.setData({
+    that.setData({
       projectId: projectId,
       requestUrl: requestUrl,
-      terminalUserId: terminalUserId
+      terminalUserId: terminalUserId,
+      fontSize:fontSize,
+      bgColor:bgColor,
+      fontSize35:parseInt(fontSize)+2,
+      fontSize28:parseInt(fontSize)-2,
+      fontSize20:parseInt(fontSize)-10
     })
-    console.log("审核项目id：", projectId)
-    this.getCheckFieldTaskList(3, 0);
-    this.getDepList();
+    that.getCheckFieldTaskList(3, 0);
+    that.getDepList();
   },
   //获取项目下部门
   getDepList: function() {

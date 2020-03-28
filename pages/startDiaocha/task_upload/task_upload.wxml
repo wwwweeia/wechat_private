@@ -269,12 +269,12 @@
 <view wx:if="{{isAmount==1}}" class="cu-form-group margin-top">
   <text class="cuIcon-title text-{{bgColor}} text-user"></text>
   <view class="title-user" style="font-size:{{fontSize}}rpx">问题处数</view>
-  <input placeholder="请输入数字"  style="font-size:{{fontSize28}}rpx" value='{{amountValue}}' type="number" bindinput='textAmountScore'></input>
+  <input placeholder="请输入数字"  disabled="{{disabled}}" style="font-size:{{fontSize28}}rpx" value='{{amountValue}}' type="number" bindinput='textAmountScore'></input>
 </view>
 <!-- 打分 -->
 
 <view wx:if="{{isGrade}}" class="cu-form-group margin-top">
-  <text class="cuIcon-title text-blue text-user"></text>
+  <text class="cuIcon-title text-{{bgColor}} text-user"></text>
   <view class="title" style="font-size:{{fontSize}}rpx">评分</view>
   <input placeholder="最高可扣{{maxScore}}分,达标默认不扣分" style="font-size:{{fontSize28}}rpx" disabled='{{judge}}' value='{{ScoreValue}}' type="number" bindinput='textScore'></input>
 </view>

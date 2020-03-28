@@ -95,6 +95,7 @@ Page({
     fontSize30:'',
     bgColor:'',
     bgColorUi:'',
+    disabled:false
   },
 
   onLoad: function(options) {
@@ -201,7 +202,7 @@ Page({
             var images = res.data.retObj.resourceMap.images;
             var videos = res.data.retObj.resourceMap.videos;
             var audios = res.data.retObj.resourceMap.audios;
-            // console.log("资源列表：", res.data.retObj.resourceMap)
+            console.log("资源列表：", images)
             if (typeof(images) === "undefined" || typeof(videos) === "undefined" || typeof(audios) === "undefined") {
               return;
             }
@@ -709,7 +710,8 @@ Page({
         Nowdata: Nowdata,
         isDaBiao: 0,
         isHeGe: 0,
-        amountValue: 0
+        amountValue: 0,
+        disabled:true
       })
       // console.log("选项id",that.data.optionId)
     } else {
@@ -732,7 +734,8 @@ Page({
           mask: true
         })
         that.setData({
-          amountValue: ''
+          amountValue: '',
+           disabled:false
         })
       }
       }
@@ -792,7 +795,7 @@ Page({
       // 输入范围不对清空
       if (AmountValue < 0 || isNaN((AmountValue / 10)) || s==0 || parseInt(AmountValue)>99) {
         wx.showToast({
-          title: '请重新输入',
+          title: '请输入问题处数',
           icon: 'loading',
           duration: 1000,
           mask: true
@@ -852,9 +855,8 @@ Page({
       modalHiddenInput1: true
     })
     var id = that.data.imageInputId;
-    var value = that.data.imageInputValue;
+    var value = that.data.imageInputValue+' ';
     var imgDescList = that.data.imgDescList;
-
     var test = 'imgDescList[' + id + ']';
     that.setData({
       [test]: value
@@ -867,7 +869,7 @@ Page({
       modalHiddenInput2: true
     })
     var id = that.data.videoInputId;
-    var value = that.data.videoInputValue;
+    var value = that.data.videoInputValue+' ';
     var voidDescList = that.data.voidDescList;
 
     var test = 'voidDescList[' + id + ']';
@@ -882,7 +884,7 @@ Page({
       modalHiddenInput3: true
     })
     var id = that.data.audioInputId;
-    var value = that.data.audioInputValue;
+    var value = that.data.audioInputValue+' ';
     var audioDescList = that.data.audioDescList;
 
     var test = 'audioDescList[' + id + ']';
@@ -1222,7 +1224,7 @@ Page({
       return
     }
     if(isAmount==1){
-      if (amountValue==null || amountValue == '') {
+      if (amountValue===null || amountValue === '') {
         wx.showToast({
         title: '问题处数不能为空',
         icon: 'none',
