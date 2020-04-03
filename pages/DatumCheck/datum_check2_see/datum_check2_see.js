@@ -23,7 +23,9 @@ Page({
     modalHidden: true, //控制弹框的变量 
     documentId:'',//文档id
     terminalUserId:'',
-    
+    fontSize:'',
+    fontSize30:'',
+    bgColor:'',
   },
 
   /**
@@ -35,6 +37,8 @@ Page({
     var projectId = options.projectId;
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     that.setData({
       taskId: taskId,
       requestUrl: requestUrl,
@@ -43,7 +47,10 @@ Page({
       gfFileList: [], //规范文件上传数据
       smReportList: [], //说明文件上传数据
       imgList: [], //图片上传数据
-      tjChartList: [] //统计表格上传数据
+      tjChartList: [], //统计表格上传数据
+      fontSize:fontSize,
+      fontSize30:parseInt(fontSize)+2,
+      bgColor:bgColor
     })
     that.getResourceList(taskId);
   },

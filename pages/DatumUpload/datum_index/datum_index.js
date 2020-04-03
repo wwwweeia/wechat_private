@@ -21,6 +21,10 @@ Page({
     last: true, //上一页隐藏
     next: false, //下一页显示
     userIndex:'',//用户操作的行
+    fontSize:'',
+    fontSize28:'',
+    fontSize30:'',
+    bgColor:'',
   },
 
   /**
@@ -34,11 +38,17 @@ Page({
     var projectId = wx.getStorageSync("projectId");
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     that.setData({
       projectId: projectId,
       requestUrl: requestUrl,
       terminalUserId: terminalUserId,
-      pageNum:1
+      pageNum:1,
+      fontSize:fontSize,
+      fontSize28:parseInt(fontSize)-2,
+      fontSize30:parseInt(fontSize)+2,
+      bgColor:bgColor
     })
     this.getDatumTaskList();
   },
@@ -64,7 +74,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("后端材料任务：", res)
+        // console.log("后端材料任务：", res)
         if (res.data.message === "success") {
            if (res.data.retObj.list.length>'0') {
           var taskList = res.data.retObj.list;

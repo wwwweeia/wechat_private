@@ -1,4 +1,3 @@
-
 import * as echarts from '../../../ec-canvas/echarts';
 
 let chart = null;
@@ -14,6 +13,7 @@ function initChart(canvas, width, height) {
       width: width,
       height: height
     });
+
   canvas.setChart(chart);
 
   var option = {

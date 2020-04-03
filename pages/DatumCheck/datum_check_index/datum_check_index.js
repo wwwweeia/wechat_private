@@ -22,6 +22,10 @@ Page({
     next: false, //下一页显示
     departmentList: [], //任务所属部门集合
     userIndex:'',//用户操作的行
+    fontSize:'',
+    fontSize28:'',
+    fontSize30:'',
+    bgColor:'',
   },
 
   /**
@@ -35,12 +39,18 @@ Page({
     var projectId = wx.getStorageSync("projectId");
     var requestUrl = app.globalData.requestUrl; //服务器路径
     var terminalUserId = app.terminalUserId;
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     that.setData({
       projectId: projectId,
       requestUrl: requestUrl,
-      terminalUserId: terminalUserId
+      terminalUserId: terminalUserId,
+      fontSize:fontSize,
+      fontSize28:parseInt(fontSize)-2,
+      fontSize30:parseInt(fontSize)+2,
+      bgColor:bgColor
     })
-    this.getDatumTaskList();
+    that.getDatumTaskList();
   },
 
   getDatumTaskList: function() {

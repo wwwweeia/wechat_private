@@ -1,18 +1,18 @@
 <view class="cu-form-group align-start">
-  <view class="title">单位备注</view>
-  <textarea maxlength="-1" bindinput="textareaBInput" value="{{departmentTask.commitContent==''?'　无':departmentTask.commitContent}}"></textarea>
+  <view class="title" style="font-size:{{fontSize30}}rpx">单位备注</view>
+  <textarea style="font-size:{{fontSize}}rpx" maxlength="-1" bindinput="textareaBInput" value="{{departmentTask.commitContent==''?'　无':departmentTask.commitContent}}"></textarea>
 </view>
 <!-- 规范文件 -->
 <view class="cu-bar  solid-bottom" wx:if="{{gfFileList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>规范文件
+    <text class="cuIcon-title text-{{bgColor}}"></text> <text style="font-size:{{fontSize}}rpx">规范文件</text>
   </view>
 </view>
 
 <view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{gfFileList[index].url}}'>
-      <text class="text-blue">{{gfFileList[index].name}}　　</text>
+      <text class="text-{{bgColor}}">{{gfFileList[index].name}}　　</text>
       <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
     </view>
     <text class="cuIcon-writefill text-red" bind:tap="getResourceById" data-index="{{index}}" data-id="{{gfFileList[index].id}}"></text>
@@ -21,10 +21,10 @@
 
     <radio-group bindchange="radioChange">
       <label class="radio">
-        <radio class="blue margin-left-sm" value="on{{gfFileList[index].id}}" />合格
+        <radio class="{{bgColor}} margin-left-sm" style="font-size:{{fontSize}}rpx" value="on{{gfFileList[index].id}}" />合格
       </label>
       <label class="radio">
-        <radio class="blue margin-left-sm" value="un{{gfFileList[index].id}}" />不合格
+        <radio class="{{bgColor}} margin-left-sm" style="font-size:{{fontSize}}rpx" value="un{{gfFileList[index].id}}" />不合格
       </label>
     </radio-group>
 
@@ -36,24 +36,24 @@
 <!-- 说明报告 -->
 <view class="cu-bar  solid-bottom" wx:if="{{smReportList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>说明报告
+    <text class="cuIcon-title text-{{bgColor}}"></text> <text style="font-size:{{fontSize}}rpx">说明报告</text>
   </view>
 </view>
 
 <view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{smReportList[index].url}}'>
-      <text class="text-blue">{{smReportList[index].name}}　　</text>
+      <text class="text-{{bgColor}}">{{smReportList[index].name}}　　</text>
     </view>
     <text bind:tap="getResourceById" data-index="{{index}}" data-id="{{smReportList[index].id}}" class="cuIcon-writefill text-red"></text>
   </view>
   <view class="radioChange_user">
     <radio-group bindchange="radioChange">
       <label class="radio">
-        <radio class="blue margin-left-sm" value="on{{smReportList[index].id}}" />合格
+        <radio class="{{bgColor}} margin-left-sm" style="font-size:{{fontSize}}rpx" value="on{{smReportList[index].id}}" />合格
       </label>
       <label class="radio">
-        <radio class="blue margin-left-sm" value="un{{smReportList[index].id}}" />不合格
+        <radio class="{{bgColor}} margin-left-sm" style="font-size:{{fontSize}}rpx" value="un{{smReportList[index].id}}" />不合格
       </label>
     </radio-group>
   </view>
@@ -63,7 +63,7 @@
 <!-- 实景图片 -->
 <view class="cu-bar  solid-bottom" wx:if="{{imgList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>实景图片
+    <text class="cuIcon-title text-{{bgColor}}"></text> <text style="font-size:{{fontSize}}rpx">实景图片</text>
   </view>
 </view>
 <view class="cu-bar-user bg-white" wx:if="{{imgList.length!=0}}">
@@ -80,14 +80,14 @@
 <!-- 统计表格 -->
 <view class="cu-bar  solid-bottom" wx:if="{{tjChartList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>统计表格
+    <text class="cuIcon-title text-{{bgColor}}"></text> <text style="font-size:{{fontSize}}rpx">统计表格</text>
   </view>
 </view>
 
 <view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{tjChartList[index].url}}'>
-      <text class="text-blue">{{tjChartList[index].name}}　　</text>
+      <text class="text-{{bgColor}}">{{tjChartList[index].name}}　　</text>
     </view>
     <text class="cuIcon-writefill text-red" bind:tap="getResourceById" data-index="{{index}}" data-id="{{tjChartList[index].id}}"></text>
   </view>
@@ -95,10 +95,10 @@
 
   <radio-group bindchange="radioChange">
     <label class="radio">
-      <radio class="blue margin-left-sm" value="on{{tjChartList[index].id}}" />合格
+      <radio class="{{bgColor}} margin-left-sm" style="font-size:{{fontSize}}rpx" value="on{{tjChartList[index].id}}" />合格
     </label>
     <label class="radio">
-      <radio class="blue margin-left-sm" value="un{{tjChartList[index].id}}" />不合格
+      <radio class="{{bgColor}} margin-left-sm" style="font-size:{{fontSize}}rpx" value="un{{tjChartList[index].id}}" />不合格
     </label>
   </radio-group>
 </view>
@@ -108,7 +108,7 @@
 
 <modal hidden="{{modalHidden}}" bindconfirm="sub" bindcancel="cancel">
   <view class="cu-form-group">
-    <textarea bindinput="textInput" class="text-blue" value="{{documentDesc}}" placeholder="针对单个文件审批意见"></textarea>
+    <textarea bindinput="textInput" class="text-{{bgColor}}" value="{{documentDesc}}" placeholder="针对单个文件审批意见"></textarea>
   </view>
 </modal>
 
@@ -117,7 +117,7 @@
 <!-- 审核意见 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 审核意见
+    <text class="cuIcon-title text-{{bgColor}} " style="font-size:{{fontSize30}}rpx"></text> 审核意见
   </view>
 
 </view>
@@ -125,16 +125,16 @@
 
 <!-- 编辑框 -->
 <view class="cu-form-group">
-  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="此处填写审核意见"></textarea>
+  <textarea value="{{desc}}" style="font-size:{{fontSize}}rpx" maxlength="-1" bindinput="textareaAInput" placeholder="此处填写审核意见"></textarea>
 </view>
 
 
 <view class="grid1 col-5 padding-sm  ">
   <view class="margin-tb-sm-left text-center">
-    <button class="cu-btn round lg1 bg-blue " data-status='3' bind:tap="go">合格</button>
+    <button class="cu-btn round lg1 bg-{{bgColor}} " style="font-size:{{fontSize}}rpx" data-status='3' bind:tap="go">合格</button>
   </view>
   <view class="margin-tb-sm-right text-center">
-    <button class="cu-btn round lg1 bg-red " data-status='4' bind:tap="go">不合格</button>
+    <button class="cu-btn round lg1 bg-red "  style="font-size:{{fontSize}}rpx" data-status='4' bind:tap="go">不合格</button>
   </view>
 
 

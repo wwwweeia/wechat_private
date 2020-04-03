@@ -1,14 +1,14 @@
 <!-- 规范文件 -->
 <view class="cu-bar  solid-bottom" wx:if="{{gfFileList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>规范文件
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">规范文件</text>
   </view>
 </view>
 
 <view class="cu-chat bg-white" wx:for="{{gfFileList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{gfFileList[index].url}}'>
-      <text class="text-blue">{{gfFileList[index].name}}　　</text>
+      <text class="text-{{bgColor}}">{{gfFileList[index].name}}　　</text>
       <!-- <text>{{gfFileList[index].size/1024/1024}}M</text> -->
     </view>
     <view wx:if="{{gfFileList[index].auditContent!=''}}" bind:tap="showAlert" data-content="{{gfFileList[index].auditContent}}">
@@ -20,14 +20,14 @@
 <!-- 说明报告 -->
 <view class="cu-bar  solid-bottom" wx:if="{{smReportList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>说明报告
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">统计表格</text>
   </view>
 </view>
 
 <view class="cu-chat bg-white" wx:for="{{smReportList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{smReportList[index].url}}'>
-      <text class="text-blue">{{smReportList[index].name}}　　</text>
+      <text class="text-{{bgColor}}">{{smReportList[index].name}}　　</text>
     </view>
     <view wx:if="{{smReportList[index].auditContent!=''}}" bind:tap="showAlert" data-content="{{smReportList[index].auditContent}}">
      <text class="cuIcon-question text-red"></text>
@@ -38,7 +38,7 @@
 <!-- 实景图片 -->
 <view class="cu-bar  solid-bottom" wx:if="{{imgList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>实景图片
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">统计表格</text>
   </view>
 </view>
 <view class="cu-bar-user bg-white" wx:if="{{imgList.length!=0}}">
@@ -55,14 +55,14 @@
 <!-- 统计表格 -->
 <view class="cu-bar  solid-bottom" wx:if="{{tjChartList.length!=0}}">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>统计表格
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">统计表格</text>
   </view>
 </view>
 
 <view class="cu-chat bg-white" wx:for="{{tjChartList}}" wx:key="index">
   <view class="cu-item">
     <view bind:tap="openDocument" data-url='{{tjChartList[index].url}}'>
-      <text class="text-blue">{{tjChartList[index].name}}　　</text>
+      <text class="text-{{bgColor}}">{{tjChartList[index].name}}　　</text>
     </view>
      <view wx:if="{{tjChartList[index].auditContent!=''}}" bind:tap="showAlert" data-content="{{tjChartList[index].auditContent}}">
         <text class="cuIcon-question text-red"></text>
@@ -81,15 +81,15 @@
 <!-- 审核意见 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>审核意见
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">审核意见</text>
   </view>
 </view>
 <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
-<view wx:if="{{commitContent==''}}" class="cu-form-group">
+<view wx:if="{{commitContent==''}}" class="cu-form-group" style="font-size:{{fontSize}}rpx">
   <text>无</text>
 </view>
-<view wx:else class="cu-form-group">
-  <text>　{{commitContent}}</text>
+<view wx:else class="cu-form-group" >
+  <text style="font-size:{{fontSize}}rpx">　{{commitContent}}</text>
 </view>
 <view class="cu-bar-user">
 </view>

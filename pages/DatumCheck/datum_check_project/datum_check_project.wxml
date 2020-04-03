@@ -13,8 +13,8 @@
         <view class="nav-title">{{item.name}}</view>
         <view class="nav-name">Project</view>
       </view> -->
-      <view class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key="index" bind:tap="go" data-id="{{item.id}}">
-        <view class="nav-title">{{item.name}}</view>
+      <view class="nav-li bg-{{item.color}}" style="border:1px solid {{bgColorUi}};" wx:for="{{elements}}" wx:key="index" bind:tap="go" data-id="{{item.id}}">
+        <view class="nav-title" style="font-size:{{fontSize}}rpx">{{item.name}}</view>
         <view class="nav-name">Project</view>
       </view>
     </view>

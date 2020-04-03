@@ -17,6 +17,8 @@ Page({
     tjChartList: [], //统计表格上传数据
     commitContent:'',//审核内容
     auditContent:'',//单个文件审批意见
+    fontSize:'',
+    bgColor:'',
   },
 
   /**
@@ -26,9 +28,13 @@ Page({
     var that = this;
     var taskId = options.id;
     var requestUrl = app.globalData.requestUrl; //服务器路径
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     that.setData({
       taskId: taskId,
-      requestUrl: requestUrl
+      requestUrl: requestUrl,
+      fontSize:fontSize,
+      bgColor:bgColor
     })
     that.getResourceList(taskId);
   },

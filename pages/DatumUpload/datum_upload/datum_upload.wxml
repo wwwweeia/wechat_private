@@ -1,14 +1,14 @@
 <!-- 规范文件 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>规范文件
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">规范文件</text>
   </view>
 </view>
 <view class="cu-bar bg-white">
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx" >
     上传规范文件
   </view>
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     {{gfFileLength}}/4
   </view>
 </view>
@@ -33,14 +33,14 @@
 <!-- 说明报告 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>说明报告
+   <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">说明报告</text>
   </view>
 </view>
 <view class="cu-bar bg-white">
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     上传说明报告文件
   </view>
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     {{smReportLength}}/4
   </view>
 </view>
@@ -65,14 +65,14 @@
 <!-- 实景图片 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>实景图片
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">实景图片</text>
   </view>
 </view>
 <view class="cu-bar bg-white">
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     上传实景图片
   </view>
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     {{imageLength}}/4
   </view>
 </view>
@@ -94,14 +94,14 @@
 <!-- 统计表格 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>统计表格
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">统计表格</text>
   </view>
 </view>
 <view class="cu-bar bg-white">
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     上传统计表格文件
   </view>
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     {{tjChartLength}}/4
   </view>
 </view>
@@ -127,7 +127,7 @@
 <!-- 备注 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 备注
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">备注</text>
   </view>
 
 </view>
@@ -135,9 +135,9 @@
 
 <!-- 编辑框 -->
 <view class="cu-form-group">
-  <textarea value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="此处填写备注"></textarea>
+  <textarea style="font-size:{{fontSize}}rpx" value="{{desc}}" maxlength="-1" bindinput="textareaAInput" placeholder="此处填写备注"></textarea>
 </view>
 
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap="submit">提交</button>
+  <button class="cu-btn  block bg-{{bgColor}} margin-tb-sm lg" style="font-size:{{fontSize}}rpx" bindtap="submit">提交</button>
 </view>

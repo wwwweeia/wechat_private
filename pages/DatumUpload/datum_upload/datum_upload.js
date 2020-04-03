@@ -26,6 +26,8 @@ Page({
 
     desc: "", //描述
     resourceList: [], //封装上传资源
+    fontSize:'',
+    bgColor:'',
   },
 
   /**
@@ -38,12 +40,16 @@ Page({
     var taskId = options.id;
     var terminalUserId = app.terminalUserId;
     var requestUrl = app.globalData.requestUrl; //服务器路径
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     that.setData({
       projectId: projectId,
       departmentId: departmentId,
       taskId: taskId,
       terminalUserId: terminalUserId,
-      requestUrl: requestUrl
+      requestUrl: requestUrl,
+      fontSize:fontSize,
+      bgColor:bgColor
     })
   },
   //图片预览
