@@ -17,7 +17,7 @@
 
   <view class="tui-number-box" style="font-size:{{fontSize}}rpx">
     <view class="tui-title">调整程序文本大小</view>
-    <tui-numberbox min="34" max="44" step="2" value="{{fontSize}}" bind:change="change"></tui-numberbox>
+    <tui-numberbox min="34" max="42" step="2" value="{{fontSize}}" bind:change="change"></tui-numberbox>
   </view>
 
 

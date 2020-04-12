@@ -198,6 +198,7 @@ Page({
       case "数据分析":
        router.navigateTo({
          url: "../fenXi/projectList/projectList"
+         // url: "../fenXi/index/index"
         })
         break;
         case "设置":

@@ -23,17 +23,21 @@ Page({
     //举报描述
     desc: '',
     // 是否打分
-    isGrade: ''
+    isGrade: '',
+    fontSize:'',
+    bgColor:'',
   },
 
   onLoad: function(options) {
-
+    var that = this;
     qqmapsdk = new QQMapWX({
       key: this.data.key
     });
-    var that = this;
+    
     // 获取调查员id
     var app = getApp();
+    var fontSize = wx.getStorageSync('fontSize');
+    var bgColor = wx.getStorageSync('bgColor');
     var terminalUserId = app.terminalUserId;
     //获取项目id
     var projectId = wx.getStorageSync('projectId');
@@ -47,7 +51,9 @@ Page({
       isGrade: isGrade,
       terminalUserId: terminalUserId,
       projectId: projectId,
-      locationId: locationId
+      locationId: locationId,
+      fontSize:fontSize,
+      bgColor:bgColor
     })
 
     that.currentLocation()

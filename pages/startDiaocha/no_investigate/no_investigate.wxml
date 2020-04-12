@@ -12,15 +12,15 @@
 <!-- 地址定位 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>地址定位
+     <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">地址定位</text>
   </view>
   <view class="action">
-    <button class="cu-btn bg-green shadow" catchtap="currentLocation">刷新</button>
+    <button class="cu-btn bg-{{bgColor}} shadow" catchtap="currentLocation" style="font-size:{{fontSize}}rpx">刷新</button>
   </view>
 </view>
 
 <view class="cu-form-group  bg-white">
-  <input class="weui-input" value="{{address}}" />
+  <input class="weui-input" style="font-size:{{fontSize}}rpx" value="{{address}}" />
 </view>
 
 
@@ -30,14 +30,14 @@
 <!-- 拍摄照片/视频 -->
 <view class="cu-bar  solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue"></text>拍摄
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">拍摄</text>
   </view>
 </view>
 <view class="cu-bar bg-white">
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     上传图片
   </view>
-  <view class="action">
+  <view class="action" style="font-size:{{fontSize}}rpx">
     {{reportlength}}/1
   </view>
 </view>
@@ -76,7 +76,7 @@
 <!-- 描述 -->
 <view class="cu-bar solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-blue "></text> 原因说明
+    <text class="cuIcon-title text-{{bgColor}}"></text><text style="font-size:{{fontSize}}rpx">原因说明</text>
   </view>
 </view>
 
@@ -99,5 +99,5 @@
   <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
 </view> -->
 <view class="padding-xl_user">
-  <button class="cu-btn  block bg-blue margin-tb-sm lg" bindtap='submit'>提交</button>
+  <button class="cu-btn  block bg-{{bgColor}} margin-tb-sm lg" bindtap='submit' style="font-size:{{fontSize}}rpx">提交</button>
 </view>
