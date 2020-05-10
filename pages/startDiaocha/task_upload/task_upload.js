@@ -918,12 +918,38 @@ Page({
    ***********************************模态框**************************************
    */
   showModal(e) {
-    this.setData({
-      idModelShow: '0',
-      modalName: e.currentTarget.dataset.target,
-      redioId: e.currentTarget.dataset.index,
-      descType: e.currentTarget.dataset.type
-    })
+    var that = this;
+    var tipsList = that.data.tipsList;
+    // var tipsList = [];
+     var target = e.currentTarget.dataset.target;
+     //判断是否为快捷输入
+    if (target==="RadioModal") {
+      //判断快捷输入是否有数据
+      console.log("JSON.stringify:",JSON.stringify(tipsList),"_____tip:",tipsList)
+      if (JSON.stringify(tipsList) != '[]' && tipsList.length>0) {
+        that.setData({
+          idModelShow: '0',
+          modalName: target,
+          redioId: e.currentTarget.dataset.index,
+          descType: e.currentTarget.dataset.type
+        })
+      }else{
+        wx.showToast({
+          title: '该问题下无快捷描述',
+          icon: 'none',
+          duration: 1500
+        })
+
+      }
+    }else{
+       that.setData({
+          idModelShow: '0',
+          modalName: target,
+          redioId: e.currentTarget.dataset.index,
+          descType: e.currentTarget.dataset.type
+        })
+    }
+   
 
   },
   hideModal(e) {

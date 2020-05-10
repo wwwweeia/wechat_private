@@ -98,7 +98,7 @@
           <view class="weui-cell input-user ">
             <input class="text-content-user" type="text" disabled="true"  value="{{imgDescList[index]}}" data-index="{{index}}" bindinput='imageInput'/>
           </view>
-        <view>
+        <view> 
           <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="showModal" data-target="RadioModal" data-type="Img" data-index="{{index}}">快捷输入</view>
           <view class="cu-tag bg-green light-user  round" style="font-size:{{fontSize28}}rpx;color:{{bgColorUi}}" bindtap="startInput1" data-index="{{index}}">手动输入</view>
         </view>

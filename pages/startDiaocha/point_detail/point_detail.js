@@ -179,5 +179,48 @@ Page({
   // onUnload: function() {
   //   this.changeParentData();
   // }
-
+  //调起用户手机拨打电话
+  goToCall:function(e){
+    var that = this;
+    var phone = e.currentTarget.dataset.phone;
+    if (typeof(phone)==="undefined" && phone.length < 6) {
+      wx.showToast({
+        title: '此号码不存在',
+        icon: 'none',
+        duration: 2000
+      })
+    }else{
+      if (phone.length>11) {
+        wx.makePhoneCall({
+          phoneNumber: phone.slice(0,11)
+        })
+      }else{
+        wx.makePhoneCall({
+          phoneNumber: phone
+        })
+      }
+    }
+    
+  },
+  //内置地图导航
+  goToMap:function(e){
+    var that = this;
+    var address = e.currentTarget.dataset.address;
+    var latitude = Number(e.currentTarget.dataset.latitude);
+    var longitude = Number(e.currentTarget.dataset.longitude);
+    if (typeof(address)!="undefined" && typeof(latitude)!="undefined" && typeof(longitude)!="undefined") {
+       wx.openLocation({
+         address,
+         latitude,
+         longitude,
+         scale: 18
+       })
+     }else{
+         wx.showToast({
+          title: '该地址位置不合法',
+          icon: 'none',
+          duration: 2000
+        })
+     }
+  }
 })

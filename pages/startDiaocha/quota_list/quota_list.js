@@ -367,6 +367,10 @@ Page({
     var that = this;
     var requestUrl = that.data.requestUrl; //服务器路径
     var userIndex = that.data.userIndex; //用户操作的行
+    //从task_upload页面返回当userIndex为0 时赋默认值0
+    if (typeof(userIndex)==='undefined') {
+      var userIndex=0;
+    }
     wx.request({
       // 必需
       url: requestUrl + '/wechat/api/fieldQuestionClassify/getFieldQuestionClassifyListByLocationId',
@@ -382,11 +386,6 @@ Page({
        // console.log('指标列表数据', res.data.retObj)
         if (res.data.status == 'success') {
           var pointTypeId = that.data.pointTypeId
-          // that.setData({
-          //   list: res.data.retObj,
-          //   quotaName: ayytest
-          // })
-          // console.log("userIndex",userIndex)
           if (userIndex === 0) {
             var quotaList = res.data.retObj;
             let arr = [];
