@@ -18,6 +18,6 @@ App({
     // requestUrl: 'https://wxp.diaochaonline.com'//35
      requestUrl: 'https://wmccpr.diaochaonline.com'//线上
     // requestUrl:'http://221.216.95.200:8286'//35
-    // requestUrl:'http://192.168.5.105:8088'//本地
+    // requestUrl:'http://192.168.3.3:8080'//本地
   }
 })
