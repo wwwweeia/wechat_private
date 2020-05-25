@@ -131,19 +131,20 @@ Page({
           // console.log("来了",message)
           if (message==="001"|| message==="002"|| message==="004" || message==="006") {
             wx.navigateTo({
-              url:"../point_type/point_type",
+              url:"../point_type/point_type?isGrade=" + isGrade + "&projectId=" + projectId +
+                "&requestUrl=" + requestUrl + "&terminalUserId=" + terminalUserId + "&bgColor=" + bgColor
+                + "&fontSize=" + fontSize,
              success: function(res) {
               console.log("进去了吗")
                       // 通过eventChannel向被打开页面传送数据
-                      res.eventChannel.emit('projectList', {
-                        isGrade: isGrade,
-                        projectId: projectId,
-                        requestUrl: requestUrl,
-                        terminalUserId:terminalUserId,
-                        requestUrl:requestUrl,
-                        bgColor:bgColor,
-                        fontSize:fontSize
-                      })
+                      // res.eventChannel.emit('projectList', {
+                      //   isGrade: isGrade,
+                      //   projectId: projectId,
+                      //   requestUrl: requestUrl,
+                      //   terminalUserId:terminalUserId,
+                      //   bgColor:bgColor,
+                      //   fontSize:fontSize
+                      // })
                     }
             })
 

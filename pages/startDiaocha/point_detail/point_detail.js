@@ -124,8 +124,9 @@ Page({
     var that = this;
     var locationId = that.data.pointId;
     var isGrade = that.data.isGrade;
+    var projectId = that.data.projectId;
     router.navigateTo({
-      url: "../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade
+      url: "../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade +"&projectId=" + projectId
     })
     // wx.navigateTo({
     //   url: "../no_investigate/no_investigate?locationId=" + locationId + "&isGrade=" + isGrade
@@ -136,8 +137,9 @@ Page({
     var that = this;
     var locationId = that.data.pointId;
     var isGrade = that.data.isGrade;
+    var projectId = that.data.projectId;
     router.navigateTo({
-      url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade
+      url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade + "&projectId=" + projectId
     })
     // wx.navigateTo({
     //   url: "../no_refuse/no_refuse?locationId=" + locationId + "&isGrade=" + isGrade
@@ -157,28 +159,34 @@ Page({
       fontSize:that.data.fontSize,
       bgColor:that.data.bgColor
     }
-
     that.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
-
   },
 
-  // changeParentData: function() {
-  //   var projectId = this.data.projectId;
-  //   var isGrade = this.data.isGrade;
-  //   var pages = getCurrentPages(); //当前页面栈
-  //   if (pages.length > 1) {
-  //     var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
-  //     beforePage.setData({ //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-  //       projectId: projectId,
-  //       isGrade: isGrade
-  //     })
-  //     beforePage.changeData(); //触发父页面中的方法
-  //   }
-  // },
+  changeParentData: function() {
+    var projectId = this.data.projectId;
+    var isGrade = this.data.isGrade;
+    var surveyorId = app.terminalUserId;
+    var requestUrl = this.data.requestUrl;
+    var bgColor = this.data.bgColor;
+    var fontSize = this.data.fontSize;
+    var pages = getCurrentPages(); //当前页面栈
+    if (pages.length > 1) {
+      var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
+      beforePage.setData({ //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+        projectId: projectId,
+        isGrade: isGrade,
+        surveyorId:surveyorId,
+        requestUrl:requestUrl,
+        bgColor:bgColor,
+        fontSize:fontSize
+      })
+      beforePage.changeData(); //触发父页面中的方法
+    }
+  },
 
-  // onUnload: function() {
-  //   this.changeParentData();
-  // }
+  onUnload: function() {
+    this.changeParentData();
+  },
   //调起用户手机拨打电话
   goToCall:function(e){
     var that = this;

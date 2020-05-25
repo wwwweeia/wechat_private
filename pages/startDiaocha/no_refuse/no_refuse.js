@@ -40,7 +40,7 @@ Page({
     var bgColor = wx.getStorageSync('bgColor');
     var terminalUserId = app.terminalUserId;
     //获取项目id
-    var projectId = wx.getStorageSync('projectId');
+    var projectId = options.projectId;
     //获取具体点位id
     var locationId = options.locationId;
     // 是否打分
@@ -316,6 +316,8 @@ Page({
     var address = that.data.address;
     //举报图片集合
     var reportImg = that.data.imgList;
+    var bgColor = that.data.bgColor;
+    var fontSize = that.data.fontSize;
     var i = 0;
     //上传举报图片
     wx.uploadFile({
@@ -336,7 +338,9 @@ Page({
       success(res) {
         wx.hideLoading();
         wx.redirectTo({
-          url: '../point_type/point_type?projectId=' + projectId　 + "&isGrade=" + isGrade
+          url: "../point_type/point_type?isGrade=" + isGrade + "&projectId=" + projectId +
+            "&requestUrl=" + requestUrl + "&terminalUserId=" + terminalUserId + "&bgColor=" + bgColor
+            + "&fontSize=" + fontSize,
         })
       },
       //请求失败
@@ -367,6 +371,8 @@ Page({
     var address = that.data.address;
     //举报视频集合
     var reportVideo = that.data.videoList;
+    var bgColor = that.data.bgColor;
+    var fontSize = that.data.fontSize;
     var i = 0;
     wx.uploadFile({
       url: requestUrl + '/wechat/api/fieldLocation/refuseAccess',
@@ -384,9 +390,10 @@ Page({
         'key': 'reportVideo' + i + terminalUserId
       },
       success(res) {
-        wx.hideLoading();
         wx.redirectTo({
-          url: '../point_type/point_type?projectId=' + projectId　 + "&isGrade=" + isGrade
+          url: "../point_type/point_type?isGrade=" + isGrade + "&projectId=" + projectId +
+            "&requestUrl=" + requestUrl + "&terminalUserId=" + terminalUserId + "&bgColor=" + bgColor
+            + "&fontSize=" + fontSize,
         })
       },
       //请求失败

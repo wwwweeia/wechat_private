@@ -18,30 +18,32 @@ Page({
     bgColor:'',
   },
 
-  onLoad: function(options) {
-  
-  },
-
-  onShow:function(){
+  onLoad: function(e) {
     var that = this;
-    const eventChannel = that.getOpenerEventChannel()
+    console.log(e)
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     // projectList页面传递过来的参数
-    eventChannel.on('projectList', function(data) {
-      that.setData({
-        isGrade: data.isGrade,
-        projectId: data.projectId,
-        surveyorId:data.terminalUserId,
-        requestUrl:data.requestUrl,
-        bgColor:data.bgColor,
-        fontSize:data.fontSize,
-        fontSize30:parseInt(data.fontSize)-2
-      })
-      // console.log("pointDetail传递参数", data)
-      that.getLocationList(data.terminalUserId, data.projectId,data.requestUrl);
+    var isGrade = e.isGrade;
+    var projectId = e.projectId;
+    var surveyorId = e.terminalUserId;
+    var requestUrl = e.requestUrl;
+    var bgColor = e.bgColor;
+    var fontSize = e.fontSize;
+    that.setData({
+      isGrade: isGrade,
+      projectId: projectId,
+      surveyorId: surveyorId,
+      requestUrl: requestUrl,
+      bgColor: bgColor,
+      fontSize: fontSize,
+      fontSize30: parseInt(fontSize) - 2
     })
-     that.getLocationList(that.data.surveyorId, that.data.projectId,that.data.requestUrl);
+    that.getLocationList(surveyorId, projectId, requestUrl);
   },
+
+  // onShow:function(e){
+  //   this.onLoad();
+  // },
   getLocationList: function(terminalUserId, projectId,requestUrl) {
     var that = this;
     wx.showLoading({
@@ -221,9 +223,14 @@ Page({
     })
   },
   changeData: function() {
+    console.log("接收id：", this.data.surveyorId)
     var options = {
       projectId: this.data.projectId,
-      isGrade: this.data.isGrade
+      isGrade: this.data.isGrade,
+      terminalUserId: this.data.surveyorId,
+      requestUrl: this.data.requestUrl,
+      bgColor: this.data.bgColor,
+      fontSize: this.data.fontSize
     }
     this.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 

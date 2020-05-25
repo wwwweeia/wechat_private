@@ -36,7 +36,8 @@ Page({
     // 获取调查员id
     var terminalUserId = app.terminalUserId;
     //获取项目id
-    var projectId = wx.getStorageSync('projectId');
+    var projectId = options.projectId;
+    console.log("无法调查id：",projectId)
      var fontSize = wx.getStorageSync('fontSize');
     var bgColor = wx.getStorageSync('bgColor');
     //获取具体点位id
@@ -313,6 +314,8 @@ Page({
     var address = that.data.address;
     //举报图片集合
     var reportImg = that.data.imgList;
+    var bgColor = that.data.bgColor;
+    var fontSize = that.data.fontSize;
     var i = 0;
     //上传举报图片
     wx.uploadFile({
@@ -331,10 +334,27 @@ Page({
         'key': 'reportImg' + i + terminalUserId,
       },
       success(res) {
+        console.log("传递id：",projectId)
         wx.hideLoading();
         wx.redirectTo({
-          url: '../point_type/point_type?projectId=' + projectId + "&isGrade=" + isGrade
+           url: "../point_type/point_type?isGrade=" + isGrade + "&projectId=" + projectId +
+            "&requestUrl=" + requestUrl + "&terminalUserId=" + terminalUserId + "&bgColor=" + bgColor
+            + "&fontSize=" + fontSize,
         })
+        // wx.navigateTo({
+        //   url: "../point_type/point_type",
+        //   success: function (res) {
+        //     // 通过eventChannel向被打开页面传送数据
+        //     res.eventChannel.emit('projectList', {
+        //       isGrade: isGrade,
+        //       projectId: projectId,
+        //       requestUrl: requestUrl,
+        //       terminalUserId: terminalUserId,
+        //       bgColor: bgColor,
+        //       fontSize: fontSize
+        //     })
+        //   }
+        // })
       },
       //请求失败
       fail: function(err) {},
@@ -363,6 +383,8 @@ Page({
     var address = that.data.address;
     //举报视频集合
     var reportVideo = that.data.videoList;
+    var bgColor = that.data.bgColor;
+    var fontSize = that.data.fontSize;
     var i = 0;
     wx.uploadFile({
       url: requestUrl + '/wechat/api/fieldLocation/setUnSurvey',
@@ -381,9 +403,11 @@ Page({
       },
       success(res) {
         wx.hideLoading();
-        wx.redirectTo({
-          url: '../point_type/point_type?projectId=' + projectId　 + "&isGrade=" + isGrade
-        })
+        // wx.redirectTo({
+        //   url: '../point_type/point_type?projectId=' + projectId　 + "&isGrade=" + isGrade
+        // })
+
+
       },
       //请求失败
       fail: function(err) {},
@@ -393,6 +417,29 @@ Page({
 
 
   },
+  changeData: function () {
+    console.log("接收id：", this.data.projectId)
+    var options = {
+      projectId: this.data.projectId,
+      isGrade: this.data.isGrade
+    }
+    this.onLoad(options); //最好是只写需要刷新的区域的代码，onload也可，效率低，有点low
 
+  },
+  changeParentData: function () {
+    var pages = getCurrentPages(); //当前页面栈
+    if (pages.length > 1) {
+      var beforePage = pages[pages.length - 2]; //获取上一个页面实例对象
+      console.log("当前页：",pages)
+      console.log("当前页beforePage：", beforePage)
+      // beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+      //   id: res.data.data
+      // })
+      beforePage.changeData(); //触发父页面中的方法
+    }
+  },
+  onUnload: function () {
+    this.changeParentData();
+  }
 
 })
