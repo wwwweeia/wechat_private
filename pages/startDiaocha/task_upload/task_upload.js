@@ -1065,7 +1065,7 @@ Page({
     wx.chooseImage({
       count: 9, //默认9
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], //从相册选择
+      sourceType: ['camera'], //album从相册选择 camera//相机
       success: (res) => {
         that.currentLocation();
         var address = that.data.address;
@@ -1105,7 +1105,7 @@ Page({
       'poster': ''
     };
     wx.chooseVideo({
-      sourceType: ['album', 'camera'],
+      sourceType: ['camera'],
       maxDuration: 30,
       camera: 'back',
       success: (res) => {
