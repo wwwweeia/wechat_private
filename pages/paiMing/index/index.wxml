@@ -6,8 +6,8 @@
       <block wx:for-items="{{list}}" wx:key="index">
         <view class="kind-list_item">
           <view data-index="{{index}}" class="tui-flex kind-list_item-hd {{selected[index] ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
-            <view class="cuIcon-titles text-{{bgColor}}"></view>
-            <view class="tui-flex_item　 text-sm" style="font-size:{{fontSize}}rpx">{{item.name}}</view>
+            <!-- <view class="cuIcon-titles text-{{bgColor}}"></view> -->
+            <view class="tui-flex_item　 text-sm" style="font-size:{{fontSize}}rpx"><text class="text-{{bgColor}}">{{index+1}}、</text>{{item.name}}</view>
             <text class="text-{{bgColor}}}" style="font-size:{{fontSize}}rpx">{{item.fs}}　</text>
             <view class="cuIcon-unfold"></view>
           </view>

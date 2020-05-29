@@ -46,7 +46,9 @@
     "pages/fenXi/projectList/projectList",
     "pages/fenXi/dw_p/dw_p",
     "pages/fenXi/dw_p_p/dw_p_p",
-    "pages/setting/setting"
+    "pages/setting/setting",
+    "pages/realTime/projectList/projectList",
+    "pages/realTime/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

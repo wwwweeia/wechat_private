@@ -163,11 +163,14 @@ Page({
         })
         break;
       case "实时监控":
-        wx.showToast({
-          title: '待开发',
-          icon: 'loading',
-          duration: 1000,
-          mask: true
+        // wx.showToast({
+        //   title: '待开发',
+        //   icon: 'loading',
+        //   duration: 1000,
+        //   mask: true
+        // })
+        router.navigateTo({
+          url: "../realTime/projectList/projectList"
         })
         break;
       case "统计排名":
