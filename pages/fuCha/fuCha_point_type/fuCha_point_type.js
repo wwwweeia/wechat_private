@@ -95,6 +95,7 @@ Page({
             list: res.data.retObj,
             markersList: mapLists
           })
+          wx.setStorageSync('markersList', mapLists);
         }
         } else {
           wx.showToast({
@@ -166,16 +167,12 @@ Page({
   goToMap: function () {
     var that = this;
     var projectId = that.data.projectId;
-    console.log("地图资源：", that.data.markersList)
+    var isGrade = that.data.isGrade;
+    var requestUrl = that.data.requestUrl;
+    var fontSize = that.data.fontSize;
+    var bgColor = that.data.bgColor;
     wx.navigateTo({
-      url: "../fuCha_map/fuCha_map",
-       // url: "../../startDiaocha/ceshi/ceshi",
-      success: function (res) {
-        // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('pointTypePage', {
-          data: that.data.markersList
-        })
-      }
+      url: "../fuCha_map/fuCha_map?projectId=" + projectId + "&isGrade=" + isGrade + "&requestUrl=" + requestUrl + "&fontSize=" + fontSize + "&bgColor=" + bgColor,
     })
   },
   submit: function (e) {

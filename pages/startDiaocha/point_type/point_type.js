@@ -105,6 +105,7 @@ Page({
             list: res.data.retObj,
             markersList: mapLists
           })
+             wx.setStorageSync('markersList', mapLists);
           // console.log("点位", this.data.list)
           }
         } else {
@@ -164,15 +165,13 @@ Page({
   goToMap: function() {
     var that = this;
     var projectId = that.data.projectId;
+    var isGrade = that.data.isGrade;
+    var requestUrl = that.data.requestUrl;
+    var fontSize = that.data.fontSize;
+    var bgColor = that.data.bgColor;
     // console.log("地图资源：", that.data.markersList)
     wx.navigateTo({
-      url: "../map/map",
-      success: function(res) {
-        // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('pointTypePage', {
-          data: that.data.markersList
-        })
-      }
+      url: "../map/map?projectId=" + projectId + "&isGrade=" + isGrade + "&requestUrl=" + requestUrl + "&fontSize=" + fontSize + "&bgColor=" + bgColor ,
     })
   },
 

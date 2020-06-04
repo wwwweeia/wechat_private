@@ -1,5 +1,7 @@
-// const amap = require('../../../libs/amap-wx.js');
-const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
+// var amap = require('../../../libs/amap-wx.js');
+var QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
+//同步js 
+import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime.js';
 let qqmapsdk;
 
 Page({
@@ -10,31 +12,42 @@ Page({
     // key: "6799b5f6f88d3d9fb52ac244855a8759",
     // key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
     key: 'U3IBZ-6PPCF-2Z2JN-NSOUM-ML2FH-4CFL2',
-    lat: 22.63137,
-    lng: 114.010857,
+    lat: 39.915744,//地图默认经纬度中心，目前没用上，目前是当前是用户当前位置作为地图中心，在getAddress()函数定义。
+    lng: 116.465212,
     covers: [],
     address: [],
     scrollH: 256,
 
-    showTitle: '',
-    showAddress: '',
-    showDistance: '',
+    showTitle: '地图可缩放',//点位名称
+    showAddress: '',//点位地址
+    showDistance: '请点击点位标识查看定位详细信息',//当前位置距离点位的距离
     showId: '',
     pointId: '',
     hidden: true,
 
-    markersList: []
+    markersList: [],
+    projectId:'', 
+     isGrade:'', 
+     requestUrl:'',
+     fontSize:'',
+     bgColor:''
   },
 
-  onLoad: function(options) {
-    const that = this;
-    const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on('pointTypePage', function(data) {
-      that.setData({
-        markersList: data.data
-      })
+  onLoad: async function(options) {
+    var that = this;
+    var markersList = wx.getStorageSync('markersList');
+    var projectId = options.projectId;
+    var isGrade = options.isGrade;
+    var requestUrl = options.requestUrl;
+    var fontSize = options.fontSize;
+    var bgColor = options.bgColor;
+    that.setData({
+      projectId: projectId,
+      isGrade: isGrade,
+      requestUrl: requestUrl,
+      fontSize: fontSize,
+      bgColor: bgColor
     })
-
     wx.getSystemInfo({
       success: function(res) {
         // 计算主体部分高度,单位为px
@@ -52,15 +65,28 @@ Page({
     qqmapsdk = new QQMapWX({
       key: this.data.key
     });
-    this.currentLocation();
+    that.currentLocation();
+    if (markersList.length != 0) {
+      that.getList(markersList)
+    }else{
+      wx.showToast({
+        title: '该点位列表无经纬度',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      that.setData({
+        showTitle: '该点位列表无经纬度'
+      })
+      return;
+    }
 
-    // this.getLocation();
-    this.getList();
+   
   },
 
   currentLocation() {
     //当前位置
-    const that = this;
+    var that = this;
     wx.getLocation({
       type: 'gcj02',
       success(res) {
@@ -81,9 +107,7 @@ Page({
         longitude: lng
       },
       success: (res) => {
-
         // console.log(res)
-
         this.setData({
           lng: res.result.location.lng,
           lat: res.result.location.lat
@@ -95,7 +119,7 @@ Page({
     })
   },
   // getLocation() {
-  //   const that = this
+  //   var that = this
   //   this.data.amapPlugin.getRegeo({
   //     success: (data) => {
   //       console.log("这是：",data)
@@ -111,17 +135,16 @@ Page({
   // },
 
   marker: function(e) {
-    const that = this;
-
-    const index = Number(e.markerId);
-    const item = this.data.address[index];
-    // console.log(item)
-    const showTitle = item.title;
-    const showAddress = item.address;
-    // const pointId  = item.pointId;
-    const showId = item.id;
-    const log = item.longitude;
-    const lat = item.latitude;
+    var that = this;
+    var index = Number(e.markerId);
+    var item = this.data.address[index];
+    // console.log("item:",item)
+    var showTitle = item.title;
+    var showAddress = item.address;
+    // var pointId  = item.pointId;
+    var showId = item.id;
+    var log = item.longitude;
+    var lat = item.latitude;
     // 调用接口
     qqmapsdk.calculateDistance({
       to: [{
@@ -183,25 +206,11 @@ Page({
     })
   },
 
-  go(event) {
-    const index = Number(event.currentTarget.dataset.id);
-    const item = this.data.address[index];
-    // console.log(item)
-    const latitude = Number(item.latitude)
-    const longitude = Number(item.longitude)
-    // console.log(latitude)
-    wx.openLocation({
-      name: item.title,
-      address: item.address,
-      latitude,
-      longitude,
-      scale: 18
-    })
-  },
-  getList() {
-    const that = this;
-    var list = that.data.markersList;
-
+ 
+  getList(list) {
+    var that = this;
+    // var list = that.data.markersList;
+    console.log("当前位置，", list)
     let arr = [];
     let addr = [];
     for (let i = 0; i < list.length; i++) {
@@ -226,20 +235,58 @@ Page({
       address: addr,
       covers: arr
     })
-
-    wx.hideLoading()
+    console.log("address:",addr)
+    // wx.hideLoading()
+  },
+  go(event) {
+    var index = Number(event.currentTarget.dataset.id);
+    var item = this.data.address[index];
+    if (item.title === "请点击点位标识查看定位详细信息") {
+      wx.showToast({
+        title: '请点击地图点位标识',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      return;
+    }
+    // console.log(item)
+    var latitude = Number(item.latitude)
+    var longitude = Number(item.longitude)
+    // console.log(latitude)
+    wx.openLocation({
+      name: item.title,
+      address: item.address,
+      latitude,
+      longitude,
+      scale: 18
+    })
   },
   goToPoint_detail: function(event) {
     var that = this;
-    const index = Number(event.currentTarget.dataset.id);
-    const item = this.data.address[index];
-    const id = item.pointId;
-    const name = item.title;
-    const pointTypeId = item.pointTypeId;
-    const firstQuestion = item.submitStatus;
+    var projectId = that.data.projectId;
+    var isGrade = that.data.isGrade;
+    var requestUrl = that.data.requestUrl;
+    var fontSize = that.data.fontSize;
+    var bgColor = that.data.bgColor;
+    var index = Number(event.currentTarget.dataset.id);
+    var item = this.data.address[index];
+    if (item.title === "地图可缩放") {
+      wx.showToast({
+        title: '请点击地图点位标识',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      return;
+    }
+    var id = item.pointId;
+    var name = item.title;
+    var pointTypeId = item.pointTypeId;
+    var firstQuestion = item.submitStatus;
     // var id = that.data.pointId;
     wx.navigateTo({
-      url: "../point_detail/point_detail?id=" + id + "&name=" + name +"&pointTypeId=" +pointTypeId +"&firstQuestion=" +firstQuestion
+      url: "../point_detail/point_detail?id=" + id + "&name=" + name + "&pointTypeId=" + pointTypeId + "&firstQuestion=" + firstQuestion + "&projectId=" + projectId + "&isGrade=" + isGrade + "&requestUrl=" + requestUrl + "&fontSize=" + fontSize + "&bgColor=" + bgColor
     })
   }
 })

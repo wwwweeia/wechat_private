@@ -29,6 +29,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     var projectId = wx.getStorageSync('projectId');
+  
     var isGrade = wx.getStorageSync('isGrade')
     var fontSize = wx.getStorageSync("fontSize");
     var bgColor = wx.getStorageSync("bgColor");
