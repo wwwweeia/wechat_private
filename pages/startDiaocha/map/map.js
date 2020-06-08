@@ -1,7 +1,6 @@
 // var amap = require('../../../libs/amap-wx.js');
 var QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
-//同步js 
-import regeneratorRuntime from '../../../libs/regenerator-runtime/runtime.js';
+
 let qqmapsdk;
 
 Page({
@@ -33,7 +32,7 @@ Page({
      bgColor:''
   },
 
-  onLoad: async function(options) {
+  onLoad: function(options) {
     var that = this;
     var markersList = wx.getStorageSync('markersList');
     var projectId = options.projectId;

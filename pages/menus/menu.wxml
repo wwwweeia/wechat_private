@@ -20,72 +20,43 @@
           <view>
             <text class="cu-tag bg-{{bgColor}} light round" style="font-size:{{fontSize}}rpx">{{departmentName}}</text>
           </view>
+
           <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
         </view>
       </view>
       <view wx:else class="box-user nav-list-open-user">
         <view class="user-text">
-          <text style="font-size: 38rpx;">请绑定调查员账号</text>
+          <text style="font-size: 38rpx;">右侧按钮绑定账号</text>
           <!-- <view class="cu-tag bg-blue light  round" >文明办</view> -->
         </view>
       </view>
-
+        <text class="cuIcon-right icon_user" bind:tap="goToPage"></text>
     </view>
 
   </view>
 </view>
 
-<!-- /4/5 -->
-
+<!-- /4/5页面展示的图标数量不一样是分开处理css -->
+<!-- 账号为责任单位和文明办时-->
 <view wx:if="{{surveyList.length==4 || surveyList.length==5}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
-  <view bindtap="junmp" data-type="绑定账号" class="nav-li">
-    <image id="login" src="../../images/denglu.png"></image>
-    <view id="text">
-      <text>绑定账号</text>
-    </view>
-  </view>
   <view wx:for="{{surveyList}}" wx:key="index" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li">
     <image id="login" src="{{item.url}}"></image>
     <view id="text">
       <text>{{item.name}}</text>
     </view>
   </view>
-  <view bindtap="junmp" data-type="设置" class="nav-li">
-    <image id="login" src="../../images/sd-shenhe.png"></image>
-    <view id="text">
-      <text>设置</text>
-    </view>
-  </view>
+
 </view>
-<!-- 2 -->
-<view wx:elif="{{surveyList.length==2}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
-  <view bindtap="junmp" data-type="绑定账号" class="nav-li">
-    <image id="login" src="../../images/denglu.png"></image>
-    <view id="text">
-      <text>绑定账号</text>
-    </view>
-  </view>
+<!-- 账号为调查员时-->
+<view wx:elif="{{surveyList.length==2}}" class="nav-list box_user" style="font-size:{{menufontSize}}rpx">
+
   <view wx:for="{{surveyList}}" wx:key="index" bindtap="junmp" data-type="{{surveyList[index].name}}" class="nav-li">
     <image id="login" src="{{item.url}}"></image>
     <view id="text">
       <text>{{item.name}}</text>
     </view>
   </view>
-  <view bindtap="junmp" data-type="设置" class="nav-li">
-    <image id="login" src="../../images/sd-shenhe.png"></image>
-    <view id="text">
-      <text>设置</text>
-    </view>
-  </view>
-</view>
-<!-- null -->
-<view wx:elif="{{surveyList==null}}" id="box" class="nav-list" style="font-size:{{menufontSize}}rpx">
-  <view bindtap="junmp" data-type="绑定账号" class="nav-li">
-    <image id="login" src="../../images/denglu.png"></image>
-    <view id="text">
-      <text>绑定账号</text>
-    </view>
-  </view>
+
 </view>
 <view class="copyright">
   <text class="text-grey text-xs">© 北京美兰德信息咨询有限公司 技术支持</text>

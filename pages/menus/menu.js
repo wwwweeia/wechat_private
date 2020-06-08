@@ -138,6 +138,12 @@ Page({
       })
     }
   },
+  //点击调查员名字后面的icon
+  goToPage:function(){
+      router.navigateTo({
+          url: "../functionPage/functionPage"
+      })
+  },
   //点击菜单触发函数
   junmp: function(even) {
     var that = this;
@@ -147,11 +153,11 @@ Page({
     var menuName = that.data.menuName;
     // console.log(menuName)
     switch (menuName) {
-      case "绑定账号":
-        router.navigateTo({
-          url: "../login/login"
-        })
-        break;
+      // case "绑定账号":
+      //   router.navigateTo({
+      //     url: "../login/login"
+      //   })
+      //   break;
       case "开始调查":
         router.navigateTo({
           url: "../startDiaocha/project_list/project_list"
@@ -201,11 +207,11 @@ Page({
          // url: "../fenXi/index/index"
         })
         break;
-        case "设置":
-       router.navigateTo({
-         url: "../setting/setting"
-        })
-        break;
+       //  case "设置":
+       // router.navigateTo({
+       //   url: "../setting/setting"
+       //  })
+       //  break;
       default:
         console.log("default");
     }

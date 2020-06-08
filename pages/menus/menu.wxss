@@ -40,6 +40,9 @@
   display: inline-flex;
   margin-top: 15%;
 }
+.box_user{
+  margin-top: 15%;
+}
 #text{
   margin-left: 50rpx;
   text-align: center;
@@ -134,4 +137,10 @@ margin-right: 15rpx;
 
 .userinfo-nickname-null {
   color: #aaa;
+}
+/* 调查员名字后面的icon*/
+.icon_user{
+  margin-top: 10%;
+  margin-left: 15%;
+  font-size: 20px;
 }
