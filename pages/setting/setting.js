@@ -1,3 +1,4 @@
+//设置页面
 const app = getApp();
 Page({
   data: {

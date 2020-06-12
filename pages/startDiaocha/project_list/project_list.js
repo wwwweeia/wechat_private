@@ -1,4 +1,4 @@
-//page/project_list/project_list.js
+//项目列表
 const app = getApp();
 Page({
   data: {

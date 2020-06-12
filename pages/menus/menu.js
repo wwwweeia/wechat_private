@@ -1,4 +1,4 @@
-// pages/menus/menu.js
+// 菜单页面
 const QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js');
 // 引入跳转js
 import router from '../../utils/router.js';
@@ -213,7 +213,7 @@ Page({
        //  })
        //  break;
       default:
-        console.log("default");
+        // console.log("default");
     }
   }
 

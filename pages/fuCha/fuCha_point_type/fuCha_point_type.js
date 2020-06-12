@@ -1,4 +1,4 @@
-// const util = require('../../utils/util.js')
+//点位类型页面
 const app = getApp();
 Page({
 
@@ -193,7 +193,7 @@ Page({
         'Content-Type': 'application/json'
       },
       success: (res) => {
-        console.log("提交按钮：", res.data)
+        // console.log("提交按钮：", res.data)
 
         that.getLocationList(surveyorId, projectId);
 

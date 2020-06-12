@@ -1,4 +1,4 @@
-// pages/login/login.js
+// 登录页面
 const form = require("../../components/utils/formValidation.js")
 // const md5 = require('../../libs/md5.js');
 import md5 from '../../libs/md5.js';

@@ -1,4 +1,4 @@
-//index.js
+//四级、五级指标页面
 var app = getApp();
 // 引入跳转js
 import router from '../../../utils/router.js';

@@ -1,4 +1,5 @@
-// pages/startDiaocha/question_tips/question_tips.js
+
+// 问题提示页面
 Page({
 
   /**

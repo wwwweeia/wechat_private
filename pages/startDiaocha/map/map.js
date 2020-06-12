@@ -1,4 +1,4 @@
-// var amap = require('../../../libs/amap-wx.js');
+// 地图模式页面
 var QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 
 let qqmapsdk;
@@ -10,7 +10,7 @@ Page({
     amapPlugin: null,
     // key: "6799b5f6f88d3d9fb52ac244855a8759",
     // key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
-    key: 'U3IBZ-6PPCF-2Z2JN-NSOUM-ML2FH-4CFL2',
+    key: 'ZI6BZ-MS2WF-ODSJP-NHDBT-TPBNH-KLB4G',
     lat: 39.915744,//地图默认经纬度中心，目前没用上，目前是当前是用户当前位置作为地图中心，在getAddress()函数定义。
     lng: 116.465212,
     covers: [],

@@ -1,4 +1,4 @@
-// var amap = require('../../../libs/amap-wx.js');
+// 地图页面
 var QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 let qqmapsdk;
 
@@ -9,7 +9,7 @@ Page({
     amapPlugin: null,
     // key: "6799b5f6f88d3d9fb52ac244855a8759",
     // key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
-    key: 'U3IBZ-6PPCF-2Z2JN-NSOUM-ML2FH-4CFL2',
+    key: 'ZI6BZ-MS2WF-ODSJP-NHDBT-TPBNH-KLB4G',
     lat: 22.63137,
     lng: 114.010857,
     covers: [],
@@ -112,7 +112,7 @@ Page({
   // },
 
   marker: function (e) {
-    console.log("点击了", e)
+    // console.log("点击了", e)
     var that = this;
 
     var index = Number(e.markerId);

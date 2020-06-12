@@ -1,4 +1,4 @@
-// pages/Professional/detail/point_detail.js
+// 点位详情页面
 // 引入跳转js
 import router from '../../../utils/router.js';
 var app = getApp();

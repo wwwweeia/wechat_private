@@ -1,3 +1,4 @@
+//资源上传页面
 //腾讯地图js
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 //倒计时js
@@ -17,7 +18,7 @@ Page({
     longitude: 116.397452,
     latitude: 39.909042,
     // key: 'W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP',
-    key: 'U3IBZ-6PPCF-2Z2JN-NSOUM-ML2FH-4CFL2', //腾讯地图后台配置
+    key: 'ZI6BZ-MS2WF-ODSJP-NHDBT-TPBNH-KLB4G', //腾讯地图后台配置
     tipsId: null,
     idModelShow: '1',
     //录音变量

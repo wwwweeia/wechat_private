@@ -1,3 +1,4 @@
+//无法调查页面
 const QQMapWX = require('../../../libs/qqmap-wx-jssdk.min.js');
 let qqmapsdk;
 //获取应用实例

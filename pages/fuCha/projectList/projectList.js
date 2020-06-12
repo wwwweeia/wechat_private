@@ -1,3 +1,4 @@
+//项目列表页面
 const app = getApp();
 Page({
 
@@ -104,7 +105,7 @@ Page({
     go:function(e){
     var projectId = e.currentTarget.dataset.id;
     var isGrade = e.currentTarget.dataset.isgrade;
-    console.log("项目id",projectId)
+    // console.log("项目id",projectId)
     wx.setStorageSync("projectId", projectId);
     wx.setStorageSync("isGrade", isGrade);
     wx.navigateTo({

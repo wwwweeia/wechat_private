@@ -1,3 +1,4 @@
+//首页 加载页
 const app = getApp();
 Page({
   /**
@@ -50,7 +51,7 @@ onShareAppMessage: function (res) {
             },
             success(res) {
               if (res.data.status == 'success') {
-                console.log("获取的用户信息：", res.data.retObj)
+                // console.log("获取的用户信息：", res.data.retObj)
                 app.openid = res.data.retObj.openId;
                 // console.log("这是初始化appid：", app.openid)
                 // app.existence = res.data.retObj.existence;
@@ -88,7 +89,7 @@ onShareAppMessage: function (res) {
                       wx.setStorageSync('bgColorUi','#9c26b0');
                       break;
                     default:
-                      console.log("bgColorUi default");
+                      // console.log("bgColorUi default");
 
                   }
                 }
@@ -119,13 +120,13 @@ onShareAppMessage: function (res) {
                   duration: 1000,
                   mask: true
                 })
-                console.log('error')
+                // console.log('error')
               }
             }
           })
         } else {
 
-          console.log('登录失败！' + res.errMsg)
+          // console.log('登录失败！' + res.errMsg)
         }
       }
     })

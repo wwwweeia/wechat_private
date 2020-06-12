@@ -1,4 +1,4 @@
-// const util = require('../../utils/util.js')
+// 点位类型页面
 const app = getApp();
 Page({
 

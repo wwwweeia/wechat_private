@@ -1,4 +1,4 @@
-// 引入跳转js
+// 引入跳转js 配置页面
 import router from '../../utils/router.js';
 Page({
   data: {
@@ -28,7 +28,7 @@ Page({
     })
   },
   goToPage:function(e){
-    console.log(e.currentTarget.dataset.index)
+    // console.log(e.currentTarget.dataset.index)
     var index = e.currentTarget.dataset.index;
      // console.log(menuName)
     switch (index) {
@@ -43,7 +43,7 @@ Page({
         })
         break;
       default:
-        console.log("default");
+        // console.log("default");
     }
   }
 })
